@@ -1,9 +1,14 @@
+// Expo
 import { Tabs } from 'expo-router';
-import React from 'react';
 
+// React
+import React from 'react';
+import { useColorScheme } from 'react-native';
+
+// Backend
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { styles } from '@/constants/stylers';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -12,24 +17,20 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+        headerShown: false, 
+      }}> 
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          tabBarStyle: styles.invisible,
+          tabBarButton: () => null,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="registerScreen"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
+          tabBarStyle: styles.invisible,
+          tabBarButton: () => null,
         }}
       />
     </Tabs>
