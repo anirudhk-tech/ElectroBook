@@ -11,7 +11,7 @@ import { ThemeContext } from "@/constants/context";
 import { router } from 'expo-router';
 
 // Components
-import { Logo } from '../../components/logo';
+import { ElectroLogo } from '../../components/logo';
 
 
 export default function startingScreen () {
@@ -30,7 +30,7 @@ export default function startingScreen () {
     
     return (
         <View style={[styles.startingScreenMainView, {backgroundColor: secondaryColor}]}>
-            <Logo styles={styles.startingScreenLogo}/>
+            <ElectroLogo styles={styles.startingScreenLogo}/>
         </View>
     );
 };

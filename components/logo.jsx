@@ -1,7 +1,7 @@
 import { Image } from 'react-native';
 
-export const Logo = (props) => {
+export const ElectroLogo = (props) => {
     return (
         <Image style={props.styles} source={require('../assets/images/logo_EB.png')}/>
-    )
+    );
 };

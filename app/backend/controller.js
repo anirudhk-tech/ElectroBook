@@ -154,9 +154,14 @@ export const fetch_book = async (bookName) => {
     return bookData;
 };
 
-export const getColors = async () => {
-    const colors = await AsyncStore.getColors();
-    return colors
-};
+export const get_library_name = async () => {
+    const libraryName = await AsyncStore.getItemFor("library");
+    return libraryName
+}
+
+export const set_library_name = async (libName) => {
+    await AsyncStore.storeData("library", libName)
+    return "Completed"
+}
 
 // Make Reading TEST LATER

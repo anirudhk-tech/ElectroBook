@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 
 // React
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import 'react-native-reanimated';
 
 // Backed
@@ -18,7 +18,7 @@ export default function RootLayout() {
 
   const changeColors = (primary: any, secondary: any) => {
     setPrimaryColor(primary);
-    setSecondaryColor(secondary)
+    setSecondaryColor(secondary);
   };
 
   const [loaded] = useFonts({
