@@ -1,3 +1,5 @@
+// React
+import { View } from "react-native";
 
 
 

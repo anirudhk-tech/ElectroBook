@@ -3,12 +3,13 @@ import { Stack, router } from 'expo-router';
 
 // React
 import { View } from 'react-native';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
+import * as AsyncSote from '../backend/asyncStore'
 
 // Backend
 import { styles } from '../../constants/stylers';
 import { ThemeContext } from '../../constants/context';
-import { set_library_name } from '../backend/controller';
+import { set_library_name, get_library_name } from '../backend/controller';
 
 // Components
 import { ElectroLogo } from '../../components/logo';
@@ -19,12 +20,18 @@ export default function registerScreen () {
     const context = useContext(ThemeContext);
     const [primaryColor, secondaryColor] = [context.primaryColor, context.secondaryColor];
 
-    const changeLibName = (libName) => {
+    const changeLibName = async (libName) => {
         set_library_name(libName);
     };
 
-    const handlePress = useCallback(() => {
-        router.push('./settingsScreen');
+
+    const handlePress = useCallback(async () => {
+        const name = await get_library_name();
+
+        if (name != undefined) {
+            router.push('./settingsScreen');
+        };
+
     }, []);
     
 

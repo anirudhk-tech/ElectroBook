@@ -10,8 +10,8 @@ export const ElectroPromptInput = (props) => {
             <Text style={props.textStyles}>{props.prompt}</Text>
             <TextInput 
                 style={props.inputStyles} 
-                placeholder={props.placeholder ? props.placeholder : null}
-                onBlur={value == "" ? {} : props.onSubmit(value)}
+                placeholder={props.placeholder ? props.placeholder : ""}
+                onBlur={value.trim() == "" ? () => {} : () => props.onSubmit(value)}
                 onChangeText={(e) => setValue(e)}
             />
         </View>
