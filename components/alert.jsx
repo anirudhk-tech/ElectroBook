@@ -14,7 +14,7 @@ export const ElectroAlert = (props) => {
 
     if (props.message) { 
         return(
-            <View style={[styles.alertView, {backgroundColor: secondaryColor, justifyContent: 'flex-start', display: props.display, borderColor: primaryColor}]}>
+            <View style={[styles.alertView, {backgroundColor: secondaryColor, justifyContent: 'flex-start', display: props.display == undefined ? 'flex' : props.display, borderColor: primaryColor}]}>
                 <View style={styles.alertTitleImageView}>
                     <Text style={[styles.alertTitleText, {color: primaryColor}]}>{props.title ? props.title : null}</Text>
                     <Image style={styles.alertElectroZap} source={require("../assets/images/electroZap.png")}/>
@@ -25,7 +25,7 @@ export const ElectroAlert = (props) => {
                             <Text style={[styles.alertMessageText, {color: primaryColor}]} key={props.message.indexOf(msg)}>{msg}</Text>
                         )})
                 }
-                <View style={styles.alertButtonView}>
+                <View style={[styles.alertButtonView]}>
                     <ElectroButton
                         text={props.negativeButton}
                         touchableStyles={[styles.alertScreenTouchable, {borderColor: primaryColor}]}
@@ -43,8 +43,16 @@ export const ElectroAlert = (props) => {
         );
     } else {
         return(
-            <View style={[styles.alertView, {backgroundColor: secondaryColor, justifyContent: 'center', display: props.display, borderColor: primaryColor}]}>
-                <Text style={[styles.alertTitleTextNoMessage, {color: primaryColor}]}>{props.title ? props.title : null}</Text>                
+            <View style={[styles.alertView, {backgroundColor: secondaryColor, justifyContent: 'center', display: props.display == undefined ? 'flex' : props.display, borderColor: primaryColor}]}>
+                <Text style={[styles.alertTitleTextNoMessage, {color: primaryColor}]}>{props.title ? props.title : null}</Text>
+                <View style={styles.alertScreenSingleButtonView}> 
+                    <ElectroButton
+                        text={props.positiveButton}
+                        touchableStyles={[styles.alertScreenTouchable, {borderColor: primaryColor}]}
+                        textStyles={[styles.buttonText, {color: primaryColor}]}
+                        action={props.positivePress}
+                    />
+                </View>             
             </View>
         );
     };

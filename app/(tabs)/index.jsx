@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
-import { check_user } from "../backend/controller";
+import { check_user, delete_user } from "../backend/controller";
 import { ThemeContext } from "@/constants/context";
 
 // Expo
@@ -19,8 +19,12 @@ export default function startingScreen () {
     const [checkRegister, setCheckRegister] = useState([]);
     const secondaryColor = colorContext.secondaryColor;
 
+    const startingSetUp = async () => {
+        await delete_user() 
+        check_user().then(data => {setCheckRegister(data)});
+    };
 
-    check_user().then(data => {setCheckRegister(data)});
+    startingSetUp()
 
     if (checkRegister == true) {
         setTimeout(() => router.push('../(tabs)/libraryScreen'), 5000);

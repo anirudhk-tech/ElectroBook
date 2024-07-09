@@ -23,6 +23,10 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    fullScreen: {
+        flex: 1,
+    },
+
     // Components - Alert
     alertView: {
         borderRadius: 10,
@@ -32,7 +36,9 @@ export const styles = StyleSheet.create({
         height: '60%',
         gap: 20,
         marginTop: '25%',
-        flex: 1
+        flex: 1,
+        alignSelf: 'center',
+        paddingHorizontal: 5,
     },
 
     alertTitleImageView: {
@@ -44,7 +50,6 @@ export const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         alignSelf: 'flex-start',
-        marginLeft: '5%',
         flex: 1,
         width: '80%'
     },
@@ -54,13 +59,15 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         width: '100%',
         textAlign: 'center',
+        flex: 1,
+        marginTop: '10%'
     },
 
     alertMessageText: {
         fontSize: 20,
         textAlign: 'center',
         alignSelf: 'center',
-        flex: 1
+        maxHeight: 1000
     },
 
     alertElectroZap: {
@@ -85,6 +92,46 @@ export const styles = StyleSheet.create({
         flex: 1,
         height: '30%',
         justifyContent: 'center',
+    },
+
+    alertScreenSingleButtonView: {
+        flex: 0.2,
+        width: '70%',
+        justifyContent: 'flex-end',
+        alignSelf: 'center',
+        paddingBottom: 20,
+    },
+
+    // Components - ElectroPdf
+    electroPdfMainView: {
+        width: '100%',
+        height: '100%',
+    },
+
+    electroPdf: {
+        flex: 1,
+        width: '100%'
+    },
+
+    // Components - Notes Side Bar
+    notesSideBarMainViewMultiTap: {
+        position: 'absolute',
+        marginLeft: '20%',
+        width: '80%',
+        height: '100%'
+    },
+
+    notesSideBarView: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'flex-start',
+        paddingHorizontal: 30,
+        paddingTop: 20,
+    },
+
+    notesSideBarTitleText: {
+        fontSize: 25,
+        fontWeight: 'bold',
     },
 
 
@@ -179,6 +226,18 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         flex: 1,
+    },
+
+    // Reading Test Screen
+    readingScreenAlertView: {
+        width: '100%',
+        height: '100%',
+    },
+
+    readingScreenMainView: {
+        width: '100%',
+        height: '100%',
+        flexDirection: 'row',
     }
 
 })

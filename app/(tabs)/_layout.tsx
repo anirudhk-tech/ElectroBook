@@ -8,7 +8,7 @@ import React, { useContext, useState } from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { ThemeContext } from '@/constants/context';
 import { styles } from '@/constants/stylers';
-import { check_user } from '../backend/controller';
+import { get_data } from '../backend/controller';
 
 
 export default function TabLayout() {
@@ -17,10 +17,12 @@ export default function TabLayout() {
   const primaryColor = context.primaryColor;
   const secondaryColor = context.secondaryColor;
 
-  check_user().then(data => {
-    if (data == false) {
+  get_data("settings completed").then(data => {
+    if (data) {
+      setFirstTime(false)
+    } else {
       setFirstTime(true)
-    } 
+    }
   });
 
   return (
@@ -70,6 +72,7 @@ export default function TabLayout() {
         name="readingTestScreen"
         options={{
           title: "Reading Test",
+          tabBarStyle: styles.invisible,
           tabBarButton: () => null
         }}
       />

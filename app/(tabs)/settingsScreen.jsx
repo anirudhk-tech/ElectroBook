@@ -8,14 +8,15 @@ import { Stack, router } from 'expo-router';
 // Backend
 import { styles } from '../../constants/stylers';
 import { ThemeContext } from '../../constants/context';
+import { store_data, get_data } from '../backend/controller';
 
 // Components
 import { ElectroButton } from '../../components/button';
 import { ElectroAlert } from '../../components/alert';
 
 export default function settingsScreen () {
-    const colorContext = useContext(ThemeContext)
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor]
+    const colorContext = useContext(ThemeContext);
+    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
     const [displayAlert, setDisplayAlert] = useState('none');
 
     const handleReadingTestPress = useCallback(() => {
@@ -23,12 +24,16 @@ export default function settingsScreen () {
     }, []);
 
     const handleOkayPress = useCallback(() => {
-        console.log("Okay!")
-    }, [])
+        router.push('./readingTestScreen');
+        setDisplayAlert('none');
+        store_data("settings completed", "true");
+    }, []);
 
     const handleSkipPress = useCallback(() => {
-        router.push('./libraryScreen')
-    }, [])
+        router.push('./libraryScreen');
+        setDisplayAlert('none');
+        store_data("settings completed", "true")
+    }, []);
 
     return (
         <View style={[styles.settingsScreenMainView, {backgroundColor: secondaryColor}]}>
@@ -39,7 +44,7 @@ export default function settingsScreen () {
                     headerTitle: "Configure",
                     headerShown: true
                 }}/>
-                <View style={styles.settingsScreenButtonContainer}>
+                <View style={[styles.settingsScreenButtonContainer]}>
                     <ElectroButton 
                         text="Pick Primary Color"
                         touchableStyles={[styles.settingsScreenTouchable, {borderColor: primaryColor}]}

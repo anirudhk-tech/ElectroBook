@@ -12,7 +12,7 @@ export const create_user = async (libraryName) => {
 
 export const check_user = async () => {
     const check = await AsyncStore.getItemFor("uuid");
-    if (check) {
+    if (check != undefined) {
         return true
     } else {
         return false
@@ -81,7 +81,6 @@ export const delete_trope = async (trope) => {
 };
 
 export const delete_user = async () => {
-    await SQL.delete_user();
     await FS.delete_user();
     await AsyncStore.deleteAll();
 };
@@ -155,13 +154,21 @@ export const fetch_book = async (bookName) => {
 };
 
 export const get_library_name = async () => {
-    const libraryName = await AsyncStore.getItemFor("library");
+    const libraryName = await AsyncStore.getItemFor("libraryName");
     return libraryName
 }
 
-export const set_library_name = async (libName) => {
-    await AsyncStore.storeData("library", libName)
-    return "Completed"
+export const get_uuid = async () => {
+    const uuid = await AsyncStore.getItemFor("uuid")
+    return uuid
 }
 
+export const store_data = async (key, data) => {
+    await AsyncStore.storeData(key, data)
+};
+
+export const get_data = async (key) => {
+    const data = await AsyncStore.getItemFor(key)
+    return data
+}
 // Make Reading TEST LATER

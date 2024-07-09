@@ -21,7 +21,7 @@ export default function libraryScreen () {
             setLibName(asyncLibName);
         };
 
-        fetchLibName()
+        fetchLibName();
     });
 
     return (

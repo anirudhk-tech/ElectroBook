@@ -4,12 +4,11 @@ import { Stack, router } from 'expo-router';
 // React
 import { View } from 'react-native';
 import { useCallback, useContext, useState } from 'react';
-import * as AsyncSote from '../backend/asyncStore'
 
 // Backend
 import { styles } from '../../constants/stylers';
 import { ThemeContext } from '../../constants/context';
-import { set_library_name, get_library_name } from '../backend/controller';
+import { create_user, check_user, delete_user } from '../backend/controller';
 
 // Components
 import { ElectroLogo } from '../../components/logo';
@@ -21,17 +20,20 @@ export default function registerScreen () {
     const [primaryColor, secondaryColor] = [context.primaryColor, context.secondaryColor];
 
     const changeLibName = async (libName) => {
-        set_library_name(libName);
+        const created = await check_user()
+        if (created == false) {
+            await create_user(libName);
+        } else {
+            await delete_user();
+            await create_user(libName);
+        }
     };
 
-
     const handlePress = useCallback(async () => {
-        const name = await get_library_name();
-
-        if (name != undefined) {
+        const created = await check_user();
+        if (created == true) {
             router.push('./settingsScreen');
         };
-
     }, []);
     
 

@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 const allPath = `${FileSystem.documentDirectory}All`;
 const imagePath = `${FileSystem.documentDirectory}Images`;
 
-export const create_user = async () => {
+export const create_user = async () => {    
     await FileSystem.makeDirectoryAsync(allPath, {intermediates: false});
     await FileSystem.makeDirectoryAsync(imagePath, {intermediates: false});
     await FileSystem.makeDirectoryAsync(`${allPath}/Completed`, {intermediates: false});
@@ -95,6 +95,7 @@ export const delete_lib = async (lib, newLib) => {
 
 export const delete_user = async () => {
     await FileSystem.deleteAsync(allPath);
+    await FileSystem.deleteAsync(imagePath);
 }; 
 
     
