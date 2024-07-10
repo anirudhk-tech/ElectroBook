@@ -147,6 +147,110 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
     },
 
+    // Components - Drop Down
+        // Drop Down - Drop Down Bar
+        dropDownBarMainView: {
+            alignItems: 'center',
+            paddingHorizontal: '5%',
+            flexDirection: 'row',
+            gap: 10,
+        },
+
+        dropDownBarSelectedCircle: {
+            borderRadius: 1000,
+            borderWidth: 2,
+            height: '10%',
+            flex: 0.1,
+        },
+
+        dropDownBarView: {
+            height: '50%',
+            borderRadius: 10,
+            borderWidth: 2,
+            flex: 9,
+            flexDirection: 'row',
+        }, 
+
+        dropDownBarColorCode: {
+            height: '100%',
+            flex: 0.8,
+            borderTopRightRadius: 10,
+            borderBottomRightRadius: 10,
+            borderTopLeftRadius: 4,
+            borderBottomLeftRadius: 4,
+            borderWidth: 2,
+        },
+
+        dropDownBarText: {
+            flex: 9,
+            fontSize: 20,
+            fontWeight: 'bold',
+            textAlignVertical: 'center',
+            textAlign: 'center',
+        },
+
+        // Drop Down
+        dropDownMainView: {
+            flex: 1,
+            borderWidth: 2,
+            borderRadius: 10,
+            marginLeft: '5%',
+            width: '90%',
+        },
+
+        // Drop Down Multi Icons
+        dropDownMultiIconsMainView: {
+            flexDirection: 'row',
+            alignSelf: 'flex-end',
+            gap: 20
+        },
+
+        // Drop Down Menu Bar
+        dropDownMenuBarColorCode: {
+            height: '100%',
+            flex: 0.8,
+            borderTopLeftRadius: 10,
+            borderBottomLeftRadius: 10,
+            borderTopRightRadius: 4,
+            borderBottomRightRadius: 4,
+            borderWidth: 2,
+        },
+
+        dropDownMenuBarDeleteTouchable: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1,
+            borderTopRightRadius: 10,
+            borderBottomRightRadius: 10,
+            borderTopLeftRadius: 4,
+            borderBottomLeftRadius: 4,
+            borderWidth: 2,
+        },
+    
+    // Components - Menu Tab
+    menuTabTouchable: {
+        borderRadius: 10, 
+        borderWidth: 2,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    menuTabText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+
+    // DropDown Screen
+    dropDownScreenMainView: {
+        height: '100%'
+    },
+
+    dropDownScreenFlatList: {
+        justifyContent: 'flex-start',
+    },
 
     // Starting Screen
     startingScreenMainView: {
@@ -239,6 +343,10 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         flex: 1,
+    },
+
+    libraryMenuIcon: {
+        marginRight: '5%',
     },
 
     // Reading Test Screen
@@ -347,6 +455,17 @@ export const styles = StyleSheet.create({
 
     uploadScreenGeneralView: {
         flex: 1,
-    }
+    },
+
+    // Menu Screen
+    menuScreenMainView: {
+        flex: 1,
+        paddingVertical: 50,
+        alignItems: 'center',
+    },
+
+    menuScreenTabView: {
+        gap: 50,
+    },
 
 })

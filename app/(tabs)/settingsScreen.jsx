@@ -42,8 +42,7 @@ export default function settingsScreen () {
                     headerStyle: {backgroundColor: primaryColor},
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
                     headerTitle: "Configure",
-                    headerShown: true
-                }}/>
+                    headerShown: true}}/>
                 <View style={[styles.settingsScreenButtonContainer]}>
                     <ElectroButton 
                         text="Pick Primary Color"

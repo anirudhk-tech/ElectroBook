@@ -8,12 +8,19 @@ import { View } from 'react-native';
 import { useContext, useState, useEffect } from 'react';
 
 // Expo
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
+
+// Components
+import { ElectroIcon } from '../../components/icon'; 
 
 export default function libraryScreen () {
     const context = useContext(ThemeContext);
     const [libName, setLibName] = useState("");
     const [primaryColor, secondaryColor] = [context.primaryColor, context.secondaryColor]
+
+    const handleMenuPress = () => {
+        router.push('./menuScreen');
+    };
 
     useEffect(() => {
         const fetchLibName = async () => {
@@ -30,8 +37,13 @@ export default function libraryScreen () {
                     headerStyle: {backgroundColor: primaryColor},
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
                     headerTitle: libName,
-                    headerShown: true
-                }}/>
+                    headerRight: (() => <ElectroIcon 
+                                            name="albums-outline" 
+                                            size={30} 
+                                            style={styles.libraryMenuIcon}
+                                            color={secondaryColor} 
+                                            handlePress={handleMenuPress}/>),
+                    headerShown: true}}/>
         </View>
     );
 };

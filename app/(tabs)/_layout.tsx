@@ -95,6 +95,14 @@ export default function TabLayout() {
           tabBarButton: () => null
         }}
       />
+      <Tabs.Screen
+        name="menuScreen"
+        options={{
+          title: "Index",
+          tabBarStyle: styles.invisible,
+          tabBarButton: () => null
+        }}
+      />
     </Tabs>
   );
 }

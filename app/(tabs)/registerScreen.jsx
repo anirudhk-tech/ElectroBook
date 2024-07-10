@@ -43,8 +43,7 @@ export default function registerScreen () {
                 headerStyle: {backgroundColor: primaryColor},
                 headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
                 headerTitle: "Open Library",
-                headerShown: true,
-            }}/>
+                headerShown: true}}/>
             <ElectroLogo styles={styles.registerScreenLogo}/>
             <ElectroPromptInput 
                 viewStyles={styles.registerScreenInputView} 

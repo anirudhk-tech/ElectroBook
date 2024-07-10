@@ -170,5 +170,38 @@ export const store_data = async (key, data) => {
 export const get_data = async (key) => {
     const data = await AsyncStore.getItemFor(key)
     return data
-}
+};
+
+export const storeAuthor = async (author) => {
+    await AsyncStore.storeData("author", author);
+};
+
+export const storeLibrary = async (library) => {
+    await AsyncStore.storeData("library", library);
+};
+
+export const storeTitle = async (title) => {
+    await AsyncStore.storeData("title", title);
+};
+
+export const storeGenres = async (genres) => {
+    await AsyncStore.storeData("genres", genres);
+};
+
+export const storeTropes = async (tropes) => {
+    await AsyncStore.storeData("tropes", tropes);
+};
+
+export const storeSeries = async (series) => {
+    await AsyncStore.storeData("series", series);
+};
+
+export const storeNotes = async(notes) => {
+    await AsyncStore.storeData("notes", notes);
+};
+
+export const storeColor = async(color) => {
+    await AsyncStore.storeData("color", color);
+};
+
 // Make Reading TEST LATER

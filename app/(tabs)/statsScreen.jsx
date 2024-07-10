@@ -23,8 +23,7 @@ export default function statsScreen () {
                     headerStyle: {backgroundColor: primaryColor},
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
                     headerTitle: "Stats",
-                    headerShown: true
-                }}/>
+                    headerShown: true}}/>
             <View style={styles.statsScreenSubView}>
                 <View style={styles.statsScreenTitleContainer}>
                     <Text style={[styles.statsScreenTitle, {color: primaryColor}]}>Completed</Text>
