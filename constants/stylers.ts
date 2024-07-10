@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         position: 'absolute',
         width: '70%',
-        height: '60%',
         gap: 20,
         marginTop: '25%',
         flex: 1,
@@ -95,14 +94,14 @@ export const styles = StyleSheet.create({
     },
 
     alertScreenSingleButtonView: {
-        flex: 0.2,
+        flex: 0.8,
         width: '70%',
         justifyContent: 'flex-end',
         alignSelf: 'center',
         paddingBottom: 20,
     },
 
-    // Components - ElectroPdf
+    // Components - Pdf
     electroPdfMainView: {
         width: '100%',
         height: '100%',
@@ -110,7 +109,7 @@ export const styles = StyleSheet.create({
 
     electroPdf: {
         flex: 1,
-        width: '100%'
+        width: '100%',
     },
 
     // Components - Notes Side Bar
@@ -132,6 +131,20 @@ export const styles = StyleSheet.create({
     notesSideBarTitleText: {
         fontSize: 25,
         fontWeight: 'bold',
+    },
+
+    // Components - Progress Bar
+    progressBarMainView: {
+        height: '100%',
+        width: '80%',
+        borderRadius: 20,
+        borderWidth: 2,
+        alignItems: 'flex-start',
+    },
+
+    progressBarView: {
+        height: '100%',
+        borderRadius: 20,
     },
 
 
@@ -238,6 +251,102 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         flexDirection: 'row',
+    },
+
+    // Stats Screen
+    statsScreenMainView: {
+        flex: 1,
+    },
+
+    statsScreenSubView: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        paddingLeft: '5%',
+        marginTop: '10%'
+    },
+
+    statsScreenTitle: {
+        fontSize: 30,
+        minWidth: '10%',
+    },
+
+    statsScreenText: {
+        fontSize: 40,
+        flex: 1,
+        marginTop: '-10%',
+        marginLeft: '5%',
+        fontWeight: 'bold',
+        textAlignVertical: 'top',
+    },
+
+    statsScreenTitleContainer: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+        marginBottom: '10%',
+        gap: 20
+    },
+
+    statsScreenDivider: {
+        height: 1,
+        borderWidth: 1,
+        minWidth: '100%',
+    },
+
+    statsScreenProgressBarView: {
+        flex: 0.4,
+        width: '90%',
+        marginLeft: '5%',
+        justifyContent: 'flex-end',
+    },
+
+    // Upload Screen
+    uploadScreenMainView: {
+        flexGrow: 1,
+    },
+
+    uploadScreenSubView: {
+        flex: 1,
+    },
+
+    uploadScreenAdvancedTouchable: {
+        flex: 1,
+    },
+
+    uploadScreenAdvancedDividerView: {
+        flexDirection: 'row',
+        flex: 0.2,
+        alignItems: 'center'
+    },
+
+    uploadScreenTitle: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        flex: 1,
+        textAlignVertical: 'center',
+        paddingLeft: '5%',
+    },
+
+    uploadScreenAdvancedDivider: {
+        height: 1,
+        borderWidth: 1,
+        flex: 1
+    },
+
+    uploadScreenAdvancedText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        flex: 2,
+        textAlign: 'center',
+    },
+
+    uploadScreenAdvancedView: {
+        flex: 19,
+    },
+
+    uploadScreenGeneralView: {
+        flex: 1,
     }
 
 })

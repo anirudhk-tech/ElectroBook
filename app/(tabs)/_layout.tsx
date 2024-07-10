@@ -59,6 +59,25 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="uploadFileScreen"
+        options={{
+          title: "Upload",
+          tabBarIcon: ({focused}) => (
+            <TabBarIcon name={'add'} color={focused ? secondaryColor : primaryColor}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="statsScreen"
+        options={{
+          title: "Stats",
+          tabBarStyle: styles.tabBarStyle,
+          tabBarIcon: ({focused}) => (
+            <TabBarIcon name={'stats-chart-outline'} color={focused ? secondaryColor : primaryColor}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="settingsScreen"
         options={{
           title: "Settings",

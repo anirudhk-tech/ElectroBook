@@ -21,7 +21,6 @@ export default function readingTestScreen () {
     const [notesVisible, setNotesVisible] = useState(false); 
     const [finishAlertVisible, setFinishAlertVisible] = useState('none');
     const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
     const secondaryColor = colorContext.secondaryColor;
 
     const handleCancelPress = useCallback(() => {
@@ -33,8 +32,8 @@ export default function readingTestScreen () {
     }, []);
 
     const handleSingleTap = useCallback(() => {
+        setNotesVisible(false);
         setFinishAlertVisible('flex');
-        console.log(finishAlertVisible)
     }, []);
 
     const handleDoubleTap = () => {
@@ -43,6 +42,7 @@ export default function readingTestScreen () {
 
     const handleEndPress = useCallback(() => {
         router.push('./libraryScreen');
+        setFinishAlertVisible('none');
     }, []);
 
     if (testBegin == true) {
@@ -71,7 +71,7 @@ export default function readingTestScreen () {
             <View style={[styles.readingScreenAlertView, {backgroundColor: secondaryColor}]}>     
                 <ElectroAlert
                     title="Reading Test"
-                    message={['The reading test will begin when you tap "Okay"', 'Simply triple tap the screen when you are finished reading.', 'Make sure to read at a comfortable pace!']}
+                    message={['The reading test will begin when you tap "Okay"', 'Simply tap the screen when you are finished reading.', 'Make sure to read at a comfortable pace!']}
                     negativeButton="Cancel"
                     positiveButton="Okay"
                     negativePress={handleCancelPress}

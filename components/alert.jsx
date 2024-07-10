@@ -14,7 +14,7 @@ export const ElectroAlert = (props) => {
 
     if (props.message) { 
         return(
-            <View style={[styles.alertView, {backgroundColor: secondaryColor, justifyContent: 'flex-start', display: props.display == undefined ? 'flex' : props.display, borderColor: primaryColor}]}>
+            <View style={[styles.alertView, {height: '60%', backgroundColor: secondaryColor, justifyContent: 'flex-start', display: props.display == undefined ? 'flex' : props.display, borderColor: primaryColor}]}>
                 <View style={styles.alertTitleImageView}>
                     <Text style={[styles.alertTitleText, {color: primaryColor}]}>{props.title ? props.title : null}</Text>
                     <Image style={styles.alertElectroZap} source={require("../assets/images/electroZap.png")}/>
@@ -43,7 +43,7 @@ export const ElectroAlert = (props) => {
         );
     } else {
         return(
-            <View style={[styles.alertView, {backgroundColor: secondaryColor, justifyContent: 'center', display: props.display == undefined ? 'flex' : props.display, borderColor: primaryColor}]}>
+            <View style={[styles.alertView, {height: '30%', backgroundColor: secondaryColor, justifyContent: 'center', display: props.display == undefined ? 'flex' : props.display, borderColor: primaryColor}]}>
                 <Text style={[styles.alertTitleTextNoMessage, {color: primaryColor}]}>{props.title ? props.title : null}</Text>
                 <View style={styles.alertScreenSingleButtonView}> 
                     <ElectroButton
