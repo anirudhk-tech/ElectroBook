@@ -8,7 +8,7 @@ import { Stack, router } from 'expo-router';
 // Backend
 import { styles } from '../../constants/stylers';
 import { ThemeContext } from '../../constants/context';
-import { store_data, get_data } from '../backend/controller';
+import { store_data } from '../backend/controller';
 
 // Components
 import { ElectroButton } from '../../components/button';
@@ -18,6 +18,14 @@ export default function settingsScreen () {
     const colorContext = useContext(ThemeContext);
     const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
     const [displayAlert, setDisplayAlert] = useState('none');
+
+    const handlePrimaryColorPress = useCallback(() => {
+        router.push('../colorPickerScreen/settingsPrimary');
+    }, []);
+
+    const handleSecondaryColorPress = useCallback(() => {
+        router.push(`../colorPickerScreen/settingsSecondary`)
+    }, []);
 
     const handleReadingTestPress = useCallback(() => {
         setDisplayAlert(undefined)
@@ -47,13 +55,15 @@ export default function settingsScreen () {
                     <ElectroButton 
                         text="Pick Primary Color"
                         touchableStyles={[styles.settingsScreenTouchable, {borderColor: primaryColor}]}
-                        textStyles={[styles.buttonText, {color: primaryColor}]}/>
+                        textStyles={[styles.buttonText, {color: primaryColor}]}
+                        action={handlePrimaryColorPress}/>
                 </View>
                 <View style={styles.settingsScreenButtonContainer}>
                     <ElectroButton 
                         text="Pick Secondary Color"
                         touchableStyles={[styles.settingsScreenTouchable, {borderColor: primaryColor}]}
-                        textStyles={[styles.buttonText, {color: primaryColor}]}/>
+                        textStyles={[styles.buttonText, {color: primaryColor}]}
+                        action={handleSecondaryColorPress}/>
                 </View>
                 <View style={styles.settingsScreenButtonContainer}>
                     <ElectroButton 
@@ -72,5 +82,5 @@ export default function settingsScreen () {
                 negativePress={handleSkipPress}
                 positivePress={handleOkayPress}/>
         </View>
-    )
+    );
 };

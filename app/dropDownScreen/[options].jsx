@@ -15,7 +15,7 @@ import { styles } from "../../constants/stylers";
 export default function dropDownScreen () {
     const { options } = useLocalSearchParams();
     const windowHeight = Dimensions.get('window').height;
-
+    
     const colorContext = useContext(ThemeContext);
     const [multi, setMulti] = useState(false);
     const [value, setValue] = useState([]);

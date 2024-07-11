@@ -243,6 +243,68 @@ export const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
 
+    // Components - Notes Bar
+    notesBarTouchable: {
+        flex: 1/2,
+        flexDirection: 'row',
+        width: '90%',
+        alignSelf: 'center',
+        borderRadius: 10,
+        borderWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
+
+    notesBarText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        width: '28%',
+        height: '100%',
+        textAlignVertical: 'center',
+        textAlign: 'center',
+    },
+
+    notesIcon: {
+        height: '80%',
+        width: '100%',
+    },
+
+    // Components - Prompt DropDown
+    promptDropDownTextIconView: {
+        flexDirection: 'row',
+        marginLeft: '5%',
+    },
+
+    // Components - Color Code Bar
+    colorCodeBarSubView: {
+        flex: 0.3,
+    },
+
+    colorCodeBarTextCircleView: {
+        flexDirection: 'row',
+        marginLeft: '5%',
+        gap: 5
+    },
+
+    colorCodeBarCircleView: {
+        borderRadius: 1000,
+        borderWidth: 2,
+        flex: 1,
+    },
+
+    // Components - Title Input
+    titleInputInput: {
+        borderRadius: 10,
+        borderWidth: 2,
+        width: '90%',
+        flex: 1,
+        textAlign: 'left',
+        marginLeft: '5%',
+        paddingHorizontal: '5%',
+        fontSize: 20,
+    },
+
+
     // DropDown Screen
     dropDownScreenMainView: {
         height: '100%'
@@ -250,6 +312,11 @@ export const styles = StyleSheet.create({
 
     dropDownScreenFlatList: {
         justifyContent: 'flex-start',
+    },
+
+    // Notes Screen
+    notesScreenMainView: {
+        flex: 1
     },
 
     // Starting Screen
@@ -411,7 +478,7 @@ export const styles = StyleSheet.create({
 
     // Upload Screen
     uploadScreenMainView: {
-        flexGrow: 1,
+        paddingVertical: 20,
     },
 
     uploadScreenSubView: {
@@ -424,8 +491,8 @@ export const styles = StyleSheet.create({
 
     uploadScreenAdvancedDividerView: {
         flexDirection: 'row',
-        flex: 0.2,
-        alignItems: 'center'
+        flex: 1,
+        alignItems: 'center',
     },
 
     uploadScreenTitle: {
@@ -447,14 +514,28 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         flex: 2,
         textAlign: 'center',
+        textAlignVertical: 'bottom',
     },
 
     uploadScreenAdvancedView: {
         flex: 19,
+        gap: 40,
     },
 
     uploadScreenGeneralView: {
         flex: 1,
+        gap: 40,
+    },
+
+    uploadScreenTitleInput: {
+        flex: 1,
+        borderWidth: 2,
+        borderRadius: 10,
+        marginLeft: '5%',
+        width: '90%',
+        paddingHorizontal: '5%',
+        fontSize: 30,
+        fontWeight: 'bold',
     },
 
     // Menu Screen
@@ -467,5 +548,26 @@ export const styles = StyleSheet.create({
     menuScreenTabView: {
         gap: 50,
     },
+
+    // Color Picker Screen
+    colorPickerScreenMainView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '10%'
+    },
+
+    colorPicker: {
+        height: '60%',
+        width: '90%',
+    },
+
+    colorPickerTouchable: {
+        aspectRatio: 2,
+        width: '50%',
+        borderRadius: 50,
+        borderWidth: 2,
+        justifyContent: 'center',
+    }
 
 })

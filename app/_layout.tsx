@@ -16,8 +16,11 @@ export default function RootLayout() {
   const [primaryColor, setPrimaryColor] = useState("#24C2F4");
   const [secondaryColor, setSecondaryColor] = useState("black");
 
-  const changeColors = (primary: any, secondary: any) => {
+  const changePrimaryColor = (primary: any) => {
     setPrimaryColor(primary);
+  };
+
+  const changeSecondaryColor = (secondary: any) => {
     setSecondaryColor(secondary);
   };
 
@@ -36,7 +39,7 @@ export default function RootLayout() {
   }
 
   return (
-      <ThemeContext.Provider value={{"primaryColor": primaryColor, "secondaryColor": secondaryColor, "changeColors": changeColors}}>
+      <ThemeContext.Provider value={{"primaryColor": primaryColor, "secondaryColor": secondaryColor, "changePrimary": changePrimaryColor, "changeSecondary": changeSecondaryColor}}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
         <Stack.Screen name="+not-found"/>
