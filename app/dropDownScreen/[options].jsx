@@ -3,50 +3,51 @@ import { useLocalSearchParams, Stack, router } from "expo-router";
 
 // React
 import { FlatList, View, Dimensions } from 'react-native';
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useState, useCallback, useEffect, memo } from "react";
 
 // Components
 import { ElectroDropBar } from "../../components/DropDown/dropDownBar";
 import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
+
+// Hooks
+import { useData } from '../../hooks/useData';
+import { useHeader } from '../../hooks/useHeader';
+import { useDropDownType } from '../../hooks/useDropDownType';
+import { useFileFunctions } from "../../hooks/useFileFunctions";
+import { useColor } from "../../hooks/useTheme";
+
 // Backend
-import { ThemeContext } from "../../constants/context";
 import { styles } from "../../constants/stylers";
 
 export default function dropDownScreen () {
     const { options } = useLocalSearchParams();
     const windowHeight = Dimensions.get('window').height;
     
-    const colorContext = useContext(ThemeContext);
-    const [multi, setMulti] = useState(false);
-    const [value, setValue] = useState([]);
+    const [primaryColor, secondaryColor] = useColor()
+    const data = useData(options);
+    const headerTitle = useHeader(options);
+    const multiType = useDropDownType(options);
+    const [value, setValue, removeValue, clearValue] = useFileFunctions(options);
 
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
-    const dataWithHeading = options.split(',');
-    const dataWithoutHeading = dataWithHeading.filter(x => x != dataWithHeading[0]);
-    const data = dataWithoutHeading.filter(x => x != dataWithHeading[1]);
-    const flatListBars = []
+    const flatListBars = [];
 
     const handleCheckPress = useCallback(() => {
         router.navigate("../../(tabs)/uploadFileScreen");
-
-        // Implement Async Store where you set values
     }, []);
 
     const handleCancelPress = useCallback(() => {
-        setValue([]);
-
-        // Implement Async Store where you clear all values that are selected but don't exit out of dropdown
+        clearValue()
     }, []);
 
     const handleBarPress = (option) => {
-        if (multi == false) {
+        if (multiType == false) {
             setValue(option);
             router.navigate("../../(tabs)/uploadFileScreen");
         } else {
             if (value.includes(option)) {
-                setValue(value.filter(x => x != option));
+                removeValue(option);
             } else {
-                setValue([option, ...value]);
+                setValue(option);
             }}};
 
     const multiOptions = useCallback(() => {
@@ -57,16 +58,14 @@ export default function dropDownScreen () {
             ]}/>
         )}, []);
 
-
-    useEffect(() => {
-        if (dataWithHeading[1] == 'multiTrue') {
-            setMulti(true);
-        };
-    }, []);
-
     for (let x = 0; x < data.length; x++) {
         flatListBars.push({
-            "item": <ElectroDropBar option={data[x]} multi={multi} handlePress={handleBarPress}/>, 
+            "item": <ElectroDropBar 
+                        option={data[x]}
+                        optionType={options} 
+                        multi={multiType}
+                        handlePress={handleBarPress}
+                       />, 
             "key": x
         })};
 
@@ -75,9 +74,9 @@ export default function dropDownScreen () {
             <Stack.Screen options={{
                     headerStyle: {backgroundColor: primaryColor},
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                    headerTitle: dataWithHeading[0],
+                    headerTitle: headerTitle,
                     headerTitleAlign: 'center',
-                    headerRight: (multi == true ? multiOptions : () => <></>),
+                    headerRight: (multiType == true ? multiOptions : () => <></>),
                     headerShown: true}}/>
             <FlatList
                 contentContainerStyle={[styles.dropDownScreenFlatList, {height: windowHeight}]}
@@ -86,5 +85,5 @@ export default function dropDownScreen () {
                 keyExtractor={(item) => item.key}
             />
         </View>
-    )
-}
+    );
+};

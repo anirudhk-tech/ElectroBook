@@ -1,16 +1,15 @@
 // React
 import { View, Text, Image } from 'react-native';
-import { useCallback, useContext } from 'react';
 
 // Backend
 import { styles } from '../constants/stylers';
-import { ThemeContext } from '../constants/context';
 import { ElectroButton } from './button';
 
-export const ElectroAlert = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
+// Hooks
+import { useColor } from '../hooks/useTheme';
 
+export const ElectroAlert = (props) => {
+    const [primaryColor, secondaryColor] = useColor();
 
     if (props.message) { 
         return(

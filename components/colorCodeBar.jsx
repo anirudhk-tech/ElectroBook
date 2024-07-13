@@ -1,18 +1,17 @@
 // React
 import { View, Text, TouchableOpacity } from "react-native";
-import { useState, useContext } from "react";
 
 // Backend
 import { styles } from "../constants/stylers";
-import { ThemeContext } from "../constants/context";
 
 // Components
 import { ElectroIcon } from "./icon";
 
-export const ElectroColorCodeBar = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+// Hooks
+import { useColor } from "../hooks/useTheme";
 
+export const ElectroColorCodeBar = (props) => {
+    const [primaryColor] = useColor();
 
     return (
         <TouchableOpacity style={styles.colorCodeBarSubView} onPress={() => props.handlePress()}>

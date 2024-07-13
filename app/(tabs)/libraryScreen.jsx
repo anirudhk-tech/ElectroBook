@@ -13,10 +13,12 @@ import { Stack, router } from 'expo-router';
 // Components
 import { ElectroIcon } from '../../components/icon'; 
 
+// Hooks
+import { useColor } from '../../hooks/useTheme'; 
+
 export default function libraryScreen () {
-    const context = useContext(ThemeContext);
     const [libName, setLibName] = useState("");
-    const [primaryColor, secondaryColor] = [context.primaryColor, context.secondaryColor]
+    const [primaryColor, secondaryColor] = useColor();
 
     const handleMenuPress = () => {
         router.push('./menuScreen');
@@ -47,3 +49,4 @@ export default function libraryScreen () {
         </View>
     );
 };
+

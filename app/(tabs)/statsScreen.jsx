@@ -1,21 +1,21 @@
 // React
 import { View, Text } from 'react-native';
-import { useContext } from 'react';
 
 // Expo
 import { Stack } from 'expo-router';
 
 // Backend
 import { styles } from '../../constants/stylers';
-import { ThemeContext } from '../../constants/context';
 
 // Components
 import { ElectroBar } from '../../components/progressBar';
 
+// Hooks
+import { useColor } from '../../hooks/useTheme';
+
 
 export default function statsScreen () {
-    const colorContext = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
+    const [primaryColor, secondaryColor] = useColor();
 
     return (
         <View style={[styles.statsScreenMainView, {backgroundColor: secondaryColor}]}>

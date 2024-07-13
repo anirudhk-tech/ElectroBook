@@ -1,17 +1,18 @@
 // React
 import { View, TextInput, Text} from 'react-native';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 // Backend
 import { styles } from '../constants/stylers';
-import { ThemeContext } from '../constants/context';
 
 // Components
 import { ElectroIcon } from './icon';
 
+// Hooks
+import { useColor } from '../hooks/useTheme';
+
 export const ElectroTitleInput = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor] = useColor()
 
     const [value, setValue] = useState("");
 
@@ -22,6 +23,7 @@ export const ElectroTitleInput = (props) => {
                     name={props.icon}
                     size={props.iconSize}
                     color={primaryColor}
+                    handlePress={() => {}}
                 />
                 <Text style={[styles.uploadScreenTitle, {color: primaryColor}]}>{props.prompt}</Text>
             </View>
@@ -30,6 +32,7 @@ export const ElectroTitleInput = (props) => {
                 placeholder={props.placeholder ? props.placeholder : ""}
                 placeholderTextColor={primaryColor}
                 onBlur={value.trim() == "" ? () => {} : () => props.onSubmit(value.trim())}
+                
                 onChangeText={(e) => setValue(e)}
             />
         </View>

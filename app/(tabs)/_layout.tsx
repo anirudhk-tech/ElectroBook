@@ -2,7 +2,7 @@
 import { Tabs } from 'expo-router';
 
 // React
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, memo } from 'react';
 
 // Backend
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
@@ -11,7 +11,7 @@ import { styles } from '@/constants/stylers';
 import { get_data } from '../backend/controller';
 
 
-export default function TabLayout() {
+const TabLayout = memo(function TabLayout() {
   const context: any = useContext(ThemeContext);
   const [firstTime, setFirstTime] = useState(true);
   const primaryColor = context.primaryColor;
@@ -104,5 +104,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
-  );
-}
+  )});
+
+export default TabLayout;

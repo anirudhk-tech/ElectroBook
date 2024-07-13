@@ -1,6 +1,6 @@
 // React
 import { View, ScrollView, Dimensions } from 'react-native';
-import { useContext, useCallback } from 'react';
+import { useContext, useCallback, memo } from 'react';
 
 // Backend
 import { ThemeContext } from '../../constants/context';
@@ -13,9 +13,11 @@ import { Stack, router } from 'expo-router';
 import { ElectroIcon } from '../../components/icon';
 import { ElectroMenuTab } from '../../components/menuTab';
 
+// Hooks
+import { useColor } from '../../hooks/useTheme';
+
 export default function menuScreen () {
-    const colorContext = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
+    const [primaryColor, secondaryColor] = useColor();
     const windowHeight = Dimensions.get("window").height;
 
     const handleLibraryPress = useCallback(() => {

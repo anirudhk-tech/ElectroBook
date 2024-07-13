@@ -10,10 +10,20 @@ import { useContext } from "react";
 import { ElectroDrop } from "./DropDown/dropDown";
 import { ElectroIcon } from "./icon";
 
+// Expo
+import { router } from "expo-router";
+
+// Hooks
+import { useHeader } from "../hooks/useHeader";
+import { useColor } from "../hooks/useTheme";
 
 export const ElectroPromptDropdown = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor] = useColor();
+    const prompt = useHeader(props.options);
+
+    const handlePress = () => {
+        router.navigate(`../../dropDownScreen/${props.options}`)
+    };
 
     return (
         <View style={styles.uploadScreenSubView}>
@@ -22,9 +32,9 @@ export const ElectroPromptDropdown = (props) => {
                     name={props.icon}
                     size={40}
                     color={primaryColor}
-                    handlePress={() => {}}
+                    handlePress={handlePress}
                 />
-                <Text style={[styles.uploadScreenTitle, {color: primaryColor}]}>{props.options[0]}</Text>
+                <Text style={[styles.uploadScreenTitle, {color: primaryColor}]}>{prompt}</Text>
             </View>
             <ElectroDrop options={props.options}/>
         </View>

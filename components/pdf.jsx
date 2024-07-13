@@ -4,35 +4,18 @@ import MultiTap from "react-native-multitap";
 
 // React
 import { View } from "react-native";
-import { useContext, useState} from "react";
 
 // Backend
 import { styles } from "../constants/stylers";
-import { ThemeContext } from "../constants/context";
 
 
 export const ElectroPdf = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const secondaryColor = colorContext.secondaryColor;
-    const colors = ['black', secondaryColor, 'white'];
-
-    const [bgColor, setBgColor] = useState('white');
-
-    const changeBgColor = () => {
-        let colorPosition = colors.indexOf(bgColor);
-        if (colorPosition == 2) {
-            colorPosition = 0;
-        } else {
-            colorPosition += 1;
-        };
-        setBgColor(colors[colorPosition])
-    };
 
     return (
         <MultiTap
             onSingleTap={() => {props.singleTap()}}
             onDoubleTap={() => {props.doubleTap()}}
-            onTripleTap={() => {changeBgColor()}}
+            onTripleTap={() => {props.tripleTap()}}
             delay={650}
             style={styles.fullScreen}>
             <View style={styles.electroPdfMainView}>
@@ -43,7 +26,7 @@ export const ElectroPdf = (props) => {
                     scale={1.0}
                     maxScale={10.0}
                     source={props.readingTest ? require('../assets/ElectroPdf.pdf') : {uri: props.source}}
-                    style={[styles.electroPdf, {backgroundColor: bgColor}]}/>
+                    style={[styles.electroPdf, {backgroundColor: props.bgColor}]}/>
                 
             </View>
         </MultiTap>

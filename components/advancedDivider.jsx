@@ -1,14 +1,14 @@
 // React
 import { TouchableOpacity, View, Text } from "react-native";
-import { useContext } from "react";
 
 // Backend
 import { styles } from "../constants/stylers";
-import { ThemeContext } from "../constants/context";
+
+// Hooks
+import { useColor } from "../hooks/useTheme";
 
 export const ElectroAdvancedDivider = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor] = useColor()
 
     return (
         <TouchableOpacity style={styles.uploadScreenAdvancedTouchable} onPress={() => props.handlePress()}>

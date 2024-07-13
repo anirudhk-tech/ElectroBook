@@ -4,10 +4,12 @@ import ColorPicker, { Panel1, Preview, OpacitySlider, HueSlider } from 'reanimat
 // Backend
 import { styles } from '../../constants/stylers';
 import { ThemeContext } from '../../constants/context';
+import { store_data } from '../backend/controller';
+
 
 // React
 import { View } from 'react-native';
-import { useContext, useState } from 'react';
+import { useContext, useState, memo } from 'react';
 
 // Expo
 import { Stack, useLocalSearchParams, router } from 'expo-router';
@@ -17,21 +19,25 @@ import { ElectroButton } from '../../components/button';
 
 
 
-export default function colorPicker () {
+const colorPicker = memo(function colorPicker () {
     const context = useContext(ThemeContext);
     const [primaryColor, secondaryColor] = [context.primaryColor, context.secondaryColor];
 
     const [hex, setHex] = useState("");
     const { backRoute } = useLocalSearchParams();
     
-    // Implement where inital color is already selected color - Get from SQL
+    // Implement where inital color is already selected color - Get from Async Store
+    // Fix moving back to library screen by implementing Async Store check if color was changed
 
     const onCompleteColor = ({hex}) => {
         setHex(hex);
-    };
+        if (backRoute.includes("uploadFile")) {
+            store_data("color", hex);
+        }};
 
     const handlePress = () => {
         if (backRoute.includes("Primary")) {
+            router.navigate('../(tabs)/settingsScreen');
             context.changePrimary(hex);
 
         } else if (backRoute.includes("Secondary")) {
@@ -66,4 +72,6 @@ export default function colorPicker () {
                     />
         </View>
     );
-};
+});
+
+export default colorPicker;

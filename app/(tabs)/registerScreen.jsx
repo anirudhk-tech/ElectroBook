@@ -3,7 +3,7 @@ import { Stack, router } from 'expo-router';
 
 // React
 import { View } from 'react-native';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, memo } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
@@ -15,9 +15,12 @@ import { ElectroLogo } from '../../components/logo';
 import { ElectroPromptInput } from '../../components/promptInput';
 import { ElectroButton } from '../../components/button';
 
+// Hooks
+import { useColor } from '../../hooks/useTheme';
+
 export default function registerScreen () {
-    const context = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [context.primaryColor, context.secondaryColor];
+    
+    const [primaryColor, secondaryColor] = useColor();
 
     const changeLibName = async (libName) => {
         const created = await check_user()

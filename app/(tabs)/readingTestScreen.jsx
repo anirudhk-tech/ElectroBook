@@ -1,6 +1,6 @@
 // React
 import { View } from "react-native";
-import { useState, useContext, useCallback } from 'react';
+import { useState, useContext, useCallback, memo } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
@@ -14,14 +14,16 @@ import { NotesSideBar } from "../../components/notesSideBar";
 // Expo
 import { router } from "expo-router";
 
-
+// Hooks
+import { useColor } from "../../hooks/useTheme";
 
 export default function readingTestScreen () {
     const [testBegin, setTestBegin] = useState(false);
     const [notesVisible, setNotesVisible] = useState(false); 
     const [finishAlertVisible, setFinishAlertVisible] = useState('none');
-    const colorContext = useContext(ThemeContext);
-    const secondaryColor = colorContext.secondaryColor;
+    const [bgColor, setBgColor] = useState("white");
+    const {secondaryColor} = useColor();
+    const colors = ['black', secondaryColor, 'white'];
 
     const handleCancelPress = useCallback(() => {
         router.push("./libraryScreen")
@@ -40,6 +42,18 @@ export default function readingTestScreen () {
         setNotesVisible(!notesVisible);
     };
 
+    const handleTripleTap = () => {
+        let newColorPos = colors.indexOf(bgColor)+1;
+        if (newColorPos == 3) {
+            newColorPos = 0;
+        };
+        const newColor = colors[newColorPos]
+        if (newColor == bgColor) {
+            setBgColor("white");
+        } else {
+            setBgColor(newColor);
+        }};
+
     const handleEndPress = useCallback(() => {
         router.push('./libraryScreen');
         setFinishAlertVisible('none');
@@ -51,10 +65,13 @@ export default function readingTestScreen () {
                 <View style={styles.readingScreenMainView}>
                     <ElectroPdf 
                         readingTest={true} 
+                        tripleTap={handleTripleTap}
                         doubleTap={handleDoubleTap}
-                        singleTap={handleSingleTap}/>
+                        singleTap={handleSingleTap}
+                        bgColor={bgColor}/>
                     <NotesSideBar 
                         visible={notesVisible}
+                        tripleTap={handleTripleTap}
                         doubleTap={handleDoubleTap}
                         singleTap={handleSingleTap}/>
                 </View>
@@ -78,6 +95,5 @@ export default function readingTestScreen () {
                     positivePress={handleOkayPress}
                 /> 
             </View> 
-        );
-    };
+        )};
 };

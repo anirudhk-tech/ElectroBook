@@ -148,11 +148,27 @@ export const styles = StyleSheet.create({
     },
 
     // Components - Drop Down
-        // Drop Down - Drop Down Bar
+        // Drop Down - Drop Down Bar and Drop Down Bar Add
+        dropDownAddBarTouchable: {
+            borderWidth: 2, 
+            borderRadius: 15,
+            width: '90%',
+            marginLeft: '5%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            textAlignVertical: 'center',
+            fontSize: 30,
+            fontWeight: 'bold',
+            paddingHorizontal: 10,
+            marginTop: '5%',
+        },
+
         dropDownBarMainView: {
             alignItems: 'center',
             paddingHorizontal: '5%',
             flexDirection: 'row',
+            justifyContent: 'center',
             gap: 10,
         },
 
@@ -196,6 +212,10 @@ export const styles = StyleSheet.create({
             borderRadius: 10,
             marginLeft: '5%',
             width: '90%',
+            alignItems: 'center',
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            gap: 10
         },
 
         // Drop Down Multi Icons
@@ -304,6 +324,17 @@ export const styles = StyleSheet.create({
         fontSize: 20,
     },
 
+    // Components - Selected Badge
+    selectedBadgeText: {
+        minWidth: '20%',
+        maxWidth: '50%',
+        height: '50%',
+        borderRadius: 5,
+        fontWeight: 'bold',
+        fontSize: 20,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
 
     // DropDown Screen
     dropDownScreenMainView: {

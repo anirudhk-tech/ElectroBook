@@ -12,9 +12,11 @@ import { styles } from '../constants/stylers';
 // Components
 import { ElectroIcon } from '../components/icon';
 
+// Hooks 
+import { useColor } from '../hooks/useTheme';
+
 export const ElectroNotesBar = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor] = useColor();
 
     const handleNotesPress = useCallback(() => {props.handlePress()}, []);
 

@@ -1,15 +1,15 @@
 // React
 import { View } from 'react-native';
-import { useContext } from 'react';
 
 // Backend
-import { ThemeContext } from '../constants/context';
 import { styles } from '../constants/stylers';
+
+// Hooks
+import { useColor } from '../hooks/useTheme';
 
 
 export const ElectroBar = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor] = useColor();
     const barPercentage = props.bookRatio * 100;
 
     return (

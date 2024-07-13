@@ -1,10 +1,9 @@
 // React
-import { View, Image } from "react-native";
-import { useContext, useState } from 'react';
+import { View } from "react-native";
+import { useContext, useState, useMemo } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
-import { check_user, delete_user } from "../backend/controller";
 import { ThemeContext } from "@/constants/context";
 
 // Expo
@@ -19,18 +18,18 @@ export default function startingScreen () {
     const [checkRegister, setCheckRegister] = useState([]);
     const secondaryColor = colorContext.secondaryColor;
 
-    const startingSetUp = async () => {
-        await delete_user() 
-        check_user().then(data => {setCheckRegister(data)});
-    };
+    // const startingSetUp = async () => {
+    //     await delete_user() 
+    //     check_user().then(data => {setCheckRegister(data)});
+    // };
 
-    startingSetUp()
+    // startingSetUp()
 
-    if (checkRegister == true) {
+    //if (checkRegister == true) {
         setTimeout(() => router.push('../(tabs)/libraryScreen'), 5000);
-    } else { 
-        setTimeout(() => router.push('../(tabs)/registerScreen'), 5000);
-    }
+    //} //else { 
+        //setTimeout(() => router.push('../(tabs)/registerScreen'), 5000);
+    //}
     
     return (
         <View style={[styles.startingScreenMainView, {backgroundColor: secondaryColor}]}>
@@ -38,3 +37,4 @@ export default function startingScreen () {
         </View>
     );
 };
+

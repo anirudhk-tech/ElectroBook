@@ -1,14 +1,14 @@
 // Backend
-import { ThemeContext } from "../constants/context";
 import { styles } from "../constants/stylers";
 
 // React
-import { useContext, useCallback } from "react";
 import { TouchableOpacity, Text, Dimensions } from "react-native";
 
+// Hooks
+import { useColor } from "../hooks/useTheme";
+
 export const ElectroMenuTab = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor] = useColor();
     const windowWidth = Dimensions.get("window").width;
 
     return (

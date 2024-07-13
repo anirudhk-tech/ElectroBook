@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 
 // React
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 
 // Backed
@@ -15,6 +15,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [primaryColor, setPrimaryColor] = useState("#24C2F4");
   const [secondaryColor, setSecondaryColor] = useState("black");
+
 
   const changePrimaryColor = (primary: any) => {
     setPrimaryColor(primary);
@@ -46,4 +47,4 @@ export default function RootLayout() {
       </Stack>
       </ThemeContext.Provider>
   );
-}
+};

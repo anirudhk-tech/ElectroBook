@@ -1,18 +1,18 @@
 // React
 import { View } from "react-native"
-import { useContext } from "react";
 
 // Expo
 import { Stack } from 'expo-router';
 
 // Backend
-import { ThemeContext } from "../../constants/context";
 import { styles } from "../../constants/stylers";
+
+// Hooks
+import { useColor } from "../../hooks/useTheme";
 
 
 export default function notesDropDown () {
-    const colorContext = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
+    const [primaryColor, secondaryColor] = useColor();
 
     return (
         <View style={[styles. notesScreenMainView, {backgroundColor: secondaryColor}]}>

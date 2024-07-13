@@ -1,22 +1,24 @@
 // React
 import { View } from 'react-native';
-import { useContext, useCallback, useState } from 'react';
+import { useContext, useCallback, useState, memo } from 'react';
 
 // Expo
 import { Stack, router } from 'expo-router';
 
 // Backend
 import { styles } from '../../constants/stylers';
-import { ThemeContext } from '../../constants/context';
 import { store_data } from '../backend/controller';
 
 // Components
 import { ElectroButton } from '../../components/button';
 import { ElectroAlert } from '../../components/alert';
 
+// Hooks
+import { useColor } from '../../hooks/useTheme';
+
 export default function settingsScreen () {
-    const colorContext = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
+    
+    const [primaryColor, secondaryColor] = useColor();
     const [displayAlert, setDisplayAlert] = useState('none');
 
     const handlePrimaryColorPress = useCallback(() => {

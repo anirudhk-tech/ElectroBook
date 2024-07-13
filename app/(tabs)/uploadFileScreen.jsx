@@ -1,10 +1,14 @@
 // React
-import { View, Text, ScrollView, Dimensions } from 'react-native';
-import { useCallback, useContext, useState } from 'react';
+import { View, ScrollView, Dimensions } from 'react-native';
+import { useCallback, useContext, useState, memo } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
 import { ThemeContext } from '../../constants/context';
+
+// Hooks
+import { useFileFunctions } from '../../hooks/useFileFunctions';
+import { useColor } from '../../hooks/useTheme';
 
 // Expo
 import { Stack, router } from 'expo-router';
@@ -18,18 +22,18 @@ import { ElectroColorCodeBar } from '../../components/colorCodeBar';
 
 
 export default function uploadFileScreen () {
-    const colorContext = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
+    const [primaryColor, secondaryColor] = useColor();
     const windowHeight = Dimensions.get("window").height;
+
     const [advancedVisible, setAdvancedVisible] = useState('none');
+    const { setTitle } = useFileFunctions("title");
 
     const handleAdvancedPress = () => {
         if (advancedVisible == 'flex') {
             setAdvancedVisible('none');
         } else {
             setAdvancedVisible('flex');
-        };
-    };
+        }};
 
     const handleNotesPress = useCallback(() => {
         router.push('../notesScreen/notesDropDown')
@@ -40,8 +44,7 @@ export default function uploadFileScreen () {
     }, []);
 
     const handleSubmit = (value) => {
-        // Implement setting of title
-        console.log(value);
+        setTitle(value);
     };
 
     // Implement SQL where you get data about libs, genres, tropes, etc
@@ -60,14 +63,14 @@ export default function uploadFileScreen () {
                     iconSize={40}
                     placeholder="File name if blank..."
                     onSubmit={handleSubmit}/>
-                <ElectroPromptDropdown icon="library-outline" options={["Library", "multiFalse", "Action", "Romance"]}/>
-                <ElectroPromptDropdown icon="person" options={["Author", "multiFalse", "Sara", "Anirudh"]}/>
+                <ElectroPromptDropdown icon="library-outline" options={"library"}/>
+                <ElectroPromptDropdown icon="person" options={"author"}/>
             </View>
             <ElectroAdvancedDivider handlePress={handleAdvancedPress}/>
             <View style={[styles.uploadScreenAdvancedView, {display: advancedVisible}]}>
-                <ElectroPromptDropdown icon="bonfire" options={["Genres", "multiTrue", "Action", "Romance"]}/>
-                <ElectroPromptDropdown icon="boat" options={["Tropes", "multiTrue", "Action", "Romance"]}/>
-                <ElectroPromptDropdown icon="layers-outline" options={["Series", "multiFalse", "Action", "Romance"]}/>
+                <ElectroPromptDropdown icon="bonfire" options={"genres"}/>
+                <ElectroPromptDropdown icon="boat" options={"tropes"}/>
+                <ElectroPromptDropdown icon="layers-outline" options={"series"}/>
                 <ElectroColorCodeBar handlePress={handleColorBarPress}/>
                 <ElectroNotesBar handlePress={handleNotesPress}/>
             </View>
