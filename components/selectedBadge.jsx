@@ -8,9 +8,9 @@ import { styles } from "../constants/stylers";
 import { useColor } from "../hooks/useTheme";
 
 export const ElectroSelectedBadge = (props) => {
-    const [primaryColor] = useColor();
+    const [primaryColor, secondaryColor] = useColor();
 
     return (
-        <Text style={[styles.selectedBadgeText, {backgroundColor: primaryColor}]}>{props.text}</Text>
+        <Text style={[styles.selectedBadgeText, {backgroundColor: props.bgColor, color: secondaryColor}]} numberOfLines={1}>{props.text}</Text>
     )
 };

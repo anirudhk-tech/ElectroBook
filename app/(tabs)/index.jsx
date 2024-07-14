@@ -26,7 +26,7 @@ export default function startingScreen () {
     // startingSetUp()
 
     //if (checkRegister == true) {
-        setTimeout(() => router.push('../(tabs)/libraryScreen'), 5000);
+        setTimeout(() => router.push('./libraryScreen'), 5000);
     //} //else { 
         //setTimeout(() => router.push('../(tabs)/registerScreen'), 5000);
     //}

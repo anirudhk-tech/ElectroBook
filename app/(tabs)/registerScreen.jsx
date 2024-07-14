@@ -35,7 +35,7 @@ export default function registerScreen () {
     const handlePress = useCallback(async () => {
         const created = await check_user();
         if (created == true) {
-            router.push('./settingsScreen');
+            router.navigate('./settingsScreen');
         };
     }, []);
     

@@ -152,7 +152,6 @@ export const styles = StyleSheet.create({
         dropDownAddBarTouchable: {
             borderWidth: 2, 
             borderRadius: 15,
-            width: '90%',
             marginLeft: '5%',
             alignItems: 'center',
             justifyContent: 'center',
@@ -189,16 +188,16 @@ export const styles = StyleSheet.create({
 
         dropDownBarColorCode: {
             height: '100%',
-            flex: 0.8,
-            borderTopRightRadius: 10,
-            borderBottomRightRadius: 10,
+            width: 30,
+            borderTopRightRadius: 5,
+            borderBottomRightRadius: 5,
             borderTopLeftRadius: 4,
             borderBottomLeftRadius: 4,
             borderWidth: 2,
         },
 
         dropDownBarText: {
-            flex: 9,
+            flex: 10,
             fontSize: 20,
             fontWeight: 'bold',
             textAlignVertical: 'center',
@@ -215,6 +214,7 @@ export const styles = StyleSheet.create({
             alignItems: 'center',
             flexDirection: 'row',
             paddingHorizontal: 10,
+            overflow: 'hidden',
             gap: 10
         },
 
@@ -229,8 +229,8 @@ export const styles = StyleSheet.create({
         dropDownMenuBarColorCode: {
             height: '100%',
             flex: 0.8,
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
+            borderTopLeftRadius: 5,
+            borderBottomLeftRadius: 5,
             borderTopRightRadius: 4,
             borderBottomRightRadius: 4,
             borderWidth: 2,
@@ -240,8 +240,8 @@ export const styles = StyleSheet.create({
             alignItems: 'center',
             justifyContent: 'center',
             flex: 1,
-            borderTopRightRadius: 10,
-            borderBottomRightRadius: 10,
+            borderTopRightRadius: 5,
+            borderBottomRightRadius: 5,
             borderTopLeftRadius: 4,
             borderBottomLeftRadius: 4,
             borderWidth: 2,
@@ -310,6 +310,7 @@ export const styles = StyleSheet.create({
         borderRadius: 1000,
         borderWidth: 2,
         flex: 1,
+        marginRight: '5%',
     },
 
     // Components - Title Input
@@ -336,6 +337,57 @@ export const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
 
+    // Components - Notes Pad
+    notesPostMainView: {
+        width: '90%',
+        borderWidth: 2,
+        borderRadius: 5,
+        flexDirection: 'row',
+        alignSelf: 'center'
+    },
+    
+    notesPostTextTouchable: {
+        flex: 8,
+        textAlignVertical: 'top',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+
+    notesPostText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlignVertical: 'top',
+        padding: '5%',
+    },
+
+    notesPostDeleteTouchable: {
+        flex: 2,
+        borderTopLeftRadius: 1,
+        borderTopRightRadius: 5,
+        borderBottomLeftRadius: 1,
+        borderBottomRightRadius: 5,
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    notesPostTextInput: {
+        flex: 8,
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+
+    // Components - Library Header
+    libraryHeaderMainView: {
+        flexDirection: 'row',
+        width: 50,
+        height: 50,
+        alignSelf: 'flex-end',
+        marginHorizontal: '10%',
+        marginTop: '3%',
+        gap: 10
+    },
+
     // DropDown Screen
     dropDownScreenMainView: {
         height: '100%'
@@ -347,7 +399,16 @@ export const styles = StyleSheet.create({
 
     // Notes Screen
     notesScreenMainView: {
-        flex: 1
+        flex: 1,
+        alignItems: 'center',
+        paddingHorizontal: 10,
+    },
+
+    notesScreenFlatList: {
+        width: '100%', 
+        alignItems: 'center', 
+        gap: 20, 
+        paddingTop: 20
     },
 
     // Starting Screen

@@ -1,6 +1,6 @@
 // React
-import { TouchableOpacity } from 'react-native';
-import { useContext, useState, useEffect, useCallback } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import { useContext } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
@@ -15,10 +15,12 @@ import { useFileFunctions } from '../../hooks/useFileFunctions';
 // Components
 import { ElectroSelectedBadge } from '../selectedBadge';
 
+// Hooks
+import { useColor } from '../../hooks/useTheme';
+
 
 export const ElectroDrop = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor, secondaryColor] = useColor();
     const options = props.options;
     let [value] = useFileFunctions(options);
     
@@ -32,15 +34,20 @@ export const ElectroDrop = (props) => {
 
     return (
         <TouchableOpacity 
-            style={[styles.dropDownMainView, {borderColor: primaryColor}]}
+            style={[styles.dropDownMainView, {borderColor: props.libraryHeader == undefined ? primaryColor : secondaryColor}]}
             onPress={handlePress}>
         {
             value.map((text) => {
-                return(
-                    <ElectroSelectedBadge text={text}/>
-                )
-            })
+                if (text == "") {
+                    return
+                } else {
+                    return (
+                        <ElectroSelectedBadge key={value.indexOf(text)} text={text} bgColor={primaryColor}/>
+                    )
+                }})
         }
+        <View style={{backgroundColor: secondaryColor, width: 10, height: '100%', position: 'absolute', marginLeft: '103%'}}></View>
         </TouchableOpacity>
+        
     );
 };

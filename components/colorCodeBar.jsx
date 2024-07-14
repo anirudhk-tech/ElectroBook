@@ -9,9 +9,12 @@ import { ElectroIcon } from "./icon";
 
 // Hooks
 import { useColor } from "../hooks/useTheme";
+import { useFileFunctions } from "../hooks/useFileFunctions";
 
 export const ElectroColorCodeBar = (props) => {
     const [primaryColor] = useColor();
+    const [color] = useFileFunctions("color");
+    const colorCircleFill = color == "" ? primaryColor : color
 
     return (
         <TouchableOpacity style={styles.colorCodeBarSubView} onPress={() => props.handlePress()}>
@@ -22,7 +25,7 @@ export const ElectroColorCodeBar = (props) => {
                     color={primaryColor}
                 />
                 <Text style={[styles.uploadScreenTitle, {color: primaryColor}]}>Color Code</Text>
-                <View style={[styles.colorCodeBarCircleView, {borderColor: 'green', backgroundColor: 'green'}]}></View>
+                <View style={[styles.colorCodeBarCircleView, {borderColor: colorCircleFill, backgroundColor: colorCircleFill}]}></View>
             </View>
         </TouchableOpacity>
     )

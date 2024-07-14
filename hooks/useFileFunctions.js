@@ -42,18 +42,19 @@ export const useFileFunctions = (type) => {
         }));
         return [series, setSeries];
     } else if (type == "color") {
-        const { color, setColor } = useFile.useColor((state) => ({
+        const { color, setColor } = useFile.useFileColor((state) => ({
             color: state.color,
             setColor: state.setColor,
         }));
         return [color, setColor];
     } else if (type == "notes") {
-        const { notes, addNotes, removeNotes, clearNotes } = useFile.useNotes((state) => ({
+        const { notes, addNotes, removeNotes, clearNotes, editNote } = useFile.useNotes((state) => ({
             notes: state.notes,
             addNotes: state.addNotes,
             removeNotes: state.removeNotes,
+            editNote: state.editNote,
             clearNotes: state.clearNotes,
         }));
-        return [notes, addNotes, removeNotes, clearNotes];
+        return [notes, addNotes, removeNotes, clearNotes, editNote];
     };
 };

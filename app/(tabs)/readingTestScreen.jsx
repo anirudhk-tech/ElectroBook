@@ -26,7 +26,7 @@ export default function readingTestScreen () {
     const colors = ['black', secondaryColor, 'white'];
 
     const handleCancelPress = useCallback(() => {
-        router.push("./libraryScreen")
+        router.navigate("./libraryScreen")
     }, []);
 
     const handleOkayPress = useCallback(() => {
@@ -55,7 +55,7 @@ export default function readingTestScreen () {
         }};
 
     const handleEndPress = useCallback(() => {
-        router.push('./libraryScreen');
+        router.navigate('./libraryScreen');
         setFinishAlertVisible('none');
     }, []);
 

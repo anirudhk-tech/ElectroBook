@@ -3,13 +3,12 @@ import ColorPicker, { Panel1, Preview, OpacitySlider, HueSlider } from 'reanimat
 
 // Backend
 import { styles } from '../../constants/stylers';
-import { ThemeContext } from '../../constants/context';
 import { store_data } from '../backend/controller';
 
 
 // React
 import { View } from 'react-native';
-import { useContext, useState, memo } from 'react';
+import { useState } from 'react';
 
 // Expo
 import { Stack, useLocalSearchParams, router } from 'expo-router';
@@ -17,12 +16,16 @@ import { Stack, useLocalSearchParams, router } from 'expo-router';
 // Components
 import { ElectroButton } from '../../components/button';
 
+// Hooks
+import { useFileFunctions } from '../../hooks/useFileFunctions';
+import { useColor, changeTheme } from '../../hooks/useTheme';
 
 
-const colorPicker = memo(function colorPicker () {
-    const context = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [context.primaryColor, context.secondaryColor];
 
+export default function colorPicker () {
+    const [primaryColor, secondaryColor] = useColor();
+    const [setPrimary, setSecondary] = changeTheme();
+    const [color, setColor] = useFileFunctions("color");
     const [hex, setHex] = useState("");
     const { backRoute } = useLocalSearchParams();
     
@@ -32,20 +35,23 @@ const colorPicker = memo(function colorPicker () {
     const onCompleteColor = ({hex}) => {
         setHex(hex);
         if (backRoute.includes("uploadFile")) {
-            store_data("color", hex);
+            setColor(hex);
         }};
 
     const handlePress = () => {
         if (backRoute.includes("Primary")) {
-            router.navigate('../(tabs)/settingsScreen');
-            context.changePrimary(hex);
+            if (hex != "") {
+                setPrimary(hex);
+                store_data("primaryColor", hex);
+            };
 
         } else if (backRoute.includes("Secondary")) {
-            context.changeSecondary(hex);
-
-        } else {
-            router.navigate(`../(tabs)/${backRoute}Screen`);
+            if (hex != "") {
+                setSecondary(hex);
+                store_data("secondaryColor", hex);
+            };
         };
+        router.dismiss();
     };
 
     return (
@@ -55,7 +61,8 @@ const colorPicker = memo(function colorPicker () {
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
                     headerTitleAlign: 'center',
                     headerTitle: "Color",
-                    headerShown: true}}/>
+                    headerShown: true,
+                    headerTintColor: secondaryColor}}/>
 
                 <ColorPicker style={styles.colorPicker} value = "red" onComplete={onCompleteColor}>
                     <Preview hideInitialColor={true}/>
@@ -72,6 +79,5 @@ const colorPicker = memo(function colorPicker () {
                     />
         </View>
     );
-});
+};
 
-export default colorPicker;

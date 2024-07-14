@@ -156,19 +156,19 @@ export const fetch_book = async (bookName) => {
 export const get_library_name = async () => {
     const libraryName = await AsyncStore.getItemFor("libraryName");
     return libraryName
-}
+};
 
 export const get_uuid = async () => {
-    const uuid = await AsyncStore.getItemFor("uuid")
+    const uuid = await AsyncStore.getItemFor("uuid");
     return uuid
-}
+};
 
 export const store_data = async (key, data) => {
-    await AsyncStore.storeData(key, data)
+    await AsyncStore.storeData(key, data);
 };
 
 export const get_data = async (key) => {
-    const data = await AsyncStore.getItemFor(key)
+    const data = await AsyncStore.getItemFor(key);
     return data
 };
 
@@ -179,5 +179,23 @@ export const convertToArray = (array) => {
     const newArray = array.replace("[", "").replace("]", "").split(",");
     return (newArray);
 };
+
+export const get_primaryColor = async () => {
+    const data = await AsyncStore.getItemFor("primaryColor");
+    if (data == undefined) {
+        return("#24C2F4");
+    } else {
+        return (data)
+    };
+};
+
+export const get_secondaryColor = async () => {
+    const data = await AsyncStore.getItemFor("secondaryColor");
+    if (data == undefined) {
+        return("black");
+    } else {
+        return (data)
+    };
+}
 
 // Make Reading TEST LATER

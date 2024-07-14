@@ -21,7 +21,7 @@ export const ElectroNotesBar = (props) => {
     const handleNotesPress = useCallback(() => {props.handlePress()}, []);
 
     return (
-        <TouchableOpacity style={styles.notesBarTouchable} onPress={handleNotesPress}>
+        <TouchableOpacity style={[styles.notesBarTouchable, {borderColor: primaryColor}]} onPress={handleNotesPress}>
             <ElectroIcon 
                 name="bookmarks-outline" 
                 size={40} 

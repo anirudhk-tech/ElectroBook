@@ -7,11 +7,20 @@ export const useTheme = create((set) => ({
     setSecondary: (value) => set(() => ({secondaryColor: value})),
 }));
 
-export const useColor = () => {
-    const {primary, secondary} = useTheme((state) => ({
-        primary: state.primaryColor,
-        secondary: state.secondaryColor
+export const changeTheme = () => {
+    const {setPrimary, setSecondary} = useTheme((state) => ({
+        setPrimary: state.setPrimary,
+        setSecondary: state.setSecondary,
     }));
 
-    return [primary, secondary];
+    return [setPrimary, setSecondary];
+};
+
+export const useColor = () => {
+    const {primaryColor, secondaryColor} = useTheme((state) => ({
+        primaryColor: state.primaryColor,
+        secondaryColor: state.secondaryColor,
+    }));
+
+    return [primaryColor, secondaryColor];
 };

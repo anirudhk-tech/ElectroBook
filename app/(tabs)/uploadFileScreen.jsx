@@ -1,10 +1,9 @@
 // React
 import { View, ScrollView, Dimensions } from 'react-native';
-import { useCallback, useContext, useState, memo } from 'react';
+import { useCallback, useState } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
-import { ThemeContext } from '../../constants/context';
 
 // Hooks
 import { useFileFunctions } from '../../hooks/useFileFunctions';
@@ -26,7 +25,7 @@ export default function uploadFileScreen () {
     const windowHeight = Dimensions.get("window").height;
 
     const [advancedVisible, setAdvancedVisible] = useState('none');
-    const { setTitle } = useFileFunctions("title");
+    const [ title, setTitle ] = useFileFunctions("title");
 
     const handleAdvancedPress = () => {
         if (advancedVisible == 'flex') {
@@ -36,11 +35,11 @@ export default function uploadFileScreen () {
         }};
 
     const handleNotesPress = useCallback(() => {
-        router.push('../notesScreen/notesDropDown')
+        router.navigate('../notesScreen/notesDropDown')
     }, []);
 
     const handleColorBarPress = useCallback(() => {
-        router.push('../colorPickerScreen/uploadFile')
+        router.navigate('../colorPickerScreen/uploadFile')
     }, []);
 
     const handleSubmit = (value) => {

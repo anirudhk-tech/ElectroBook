@@ -2,20 +2,20 @@
 import { Tabs } from 'expo-router';
 
 // React
-import React, { useContext, useState, memo } from 'react';
+import React, { useState } from 'react';
 
 // Backend
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { ThemeContext } from '@/constants/context';
 import { styles } from '@/constants/stylers';
 import { get_data } from '../backend/controller';
 
+// Hooks
+import { useColor } from '../../hooks/useTheme';
 
-const TabLayout = memo(function TabLayout() {
-  const context: any = useContext(ThemeContext);
+
+export default function TabLayout() {
   const [firstTime, setFirstTime] = useState(true);
-  const primaryColor = context.primaryColor;
-  const secondaryColor = context.secondaryColor;
+  const [primaryColor, secondaryColor] = useColor();
 
   get_data("settings completed").then(data => {
     if (data) {
@@ -104,6 +104,5 @@ const TabLayout = memo(function TabLayout() {
         }}
       />
     </Tabs>
-  )});
+  )};
 
-export default TabLayout;

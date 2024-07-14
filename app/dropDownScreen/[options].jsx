@@ -23,7 +23,7 @@ export default function dropDownScreen () {
     const { options } = useLocalSearchParams();
     const windowHeight = Dimensions.get('window').height;
     
-    const [primaryColor, secondaryColor] = useColor()
+    const [primaryColor, secondaryColor] = useColor();
     const data = useData(options);
     const headerTitle = useHeader(options);
     const multiType = useDropDownType(options);
@@ -32,7 +32,7 @@ export default function dropDownScreen () {
     const flatListBars = [];
 
     const handleCheckPress = useCallback(() => {
-        router.navigate("../../(tabs)/uploadFileScreen");
+        router.dismiss();
     }, []);
 
     const handleCancelPress = useCallback(() => {
@@ -42,7 +42,7 @@ export default function dropDownScreen () {
     const handleBarPress = (option) => {
         if (multiType == false) {
             setValue(option);
-            router.navigate("../../(tabs)/uploadFileScreen");
+            router.dismiss();
         } else {
             if (value.includes(option)) {
                 removeValue(option);
@@ -77,7 +77,8 @@ export default function dropDownScreen () {
                     headerTitle: headerTitle,
                     headerTitleAlign: 'center',
                     headerRight: (multiType == true ? multiOptions : () => <></>),
-                    headerShown: true}}/>
+                    headerShown: true,
+                    headerTintColor: secondaryColor}}/>
             <FlatList
                 contentContainerStyle={[styles.dropDownScreenFlatList, {height: windowHeight}]}
                 data={flatListBars}

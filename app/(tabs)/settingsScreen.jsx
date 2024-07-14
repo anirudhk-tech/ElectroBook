@@ -22,11 +22,11 @@ export default function settingsScreen () {
     const [displayAlert, setDisplayAlert] = useState('none');
 
     const handlePrimaryColorPress = useCallback(() => {
-        router.push('../colorPickerScreen/settingsPrimary');
+        router.navigate('../colorPickerScreen/settingsPrimary');
     }, []);
 
     const handleSecondaryColorPress = useCallback(() => {
-        router.push(`../colorPickerScreen/settingsSecondary`)
+        router.navigate(`../colorPickerScreen/settingsSecondary`)
     }, []);
 
     const handleReadingTestPress = useCallback(() => {
@@ -34,13 +34,13 @@ export default function settingsScreen () {
     }, []);
 
     const handleOkayPress = useCallback(() => {
-        router.push('./readingTestScreen');
+        router.navigate('./readingTestScreen');
         setDisplayAlert('none');
         store_data("settings completed", "true");
     }, []);
 
     const handleSkipPress = useCallback(() => {
-        router.push('./libraryScreen');
+        router.navigate('./libraryScreen');
         setDisplayAlert('none');
         store_data("settings completed", "true")
     }, []);

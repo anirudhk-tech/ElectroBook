@@ -21,11 +21,11 @@ export default function menuScreen () {
     const windowHeight = Dimensions.get("window").height;
 
     const handleLibraryPress = useCallback(() => {
-        router.push('./libraryScreen');
+        router.navigate('./libraryScreen');
     });
 
     const handleMenuTabPress = (screen) => {
-        router.push(`../menuDropScreen/${screen}`)
+        router.navigate(`../menuDropScreen/${screen}`)
     };
 
     return(
@@ -41,7 +41,7 @@ export default function menuScreen () {
                                             color={secondaryColor} 
                                             handlePress={handleLibraryPress}/>),
                 headerShown: true}}/>
-            <ScrollView contentContainerStyle={[styles.menuScreenTabView, {height: windowHeight}]}>
+            <ScrollView contentContainerStyle={[styles.menuScreenTabView, {height: windowHeight}]} showsVerticalScrollIndicator={false}>
                 <ElectroMenuTab text="Books" handlePress={handleMenuTabPress}/>
                 <ElectroMenuTab text="Libraries" handlePress={handleMenuTabPress}/>
                 <ElectroMenuTab text="Authors" handlePress={handleMenuTabPress}/>

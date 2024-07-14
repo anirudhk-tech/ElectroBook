@@ -1,5 +1,4 @@
 // Backend
-import { ThemeContext } from '../../constants/context';
 import { styles } from '../../constants/stylers';
 
 // Components
@@ -7,13 +6,16 @@ import { ElectroIcon } from '../icon';
 
 // React
 import { TouchableOpacity, Dimensions, TextInput } from 'react-native';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+
+// Hooks
+import { useColor } from '../../hooks/useTheme';
 
 
 export const ElectroAddMenuBar = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const primaryColor = colorContext.primaryColor;
+    const [primaryColor] = useColor();
     const windowHeight = Dimensions.get('window').height;
+    const windowWidth = Dimensions.get('window').width;
 
     const [inputActive, setInputActive] = useState(false);
     const [value, setValue] = useState("");
@@ -22,9 +24,13 @@ export const ElectroAddMenuBar = (props) => {
         setInputActive(true);
     };
 
+    const handleNoSubmit = () => {
+        setInputActive(false);
+    };
+
     if (inputActive == false) {
         return (
-            <TouchableOpacity style={[styles.dropDownAddBarTouchable, {borderColor: primaryColor, height: windowHeight/9}]} onPress={handleAddPress}>
+            <TouchableOpacity style={[styles.dropDownAddBarTouchable, {borderColor: primaryColor, height: windowHeight/9, width: windowWidth-40}]} onPress={handleAddPress}>
                 <ElectroIcon
                     name="add"
                     size={50}
@@ -36,10 +42,11 @@ export const ElectroAddMenuBar = (props) => {
     } else {
         return (
             <TextInput 
-                style={[styles.dropDownAddBarTouchable, {borderColor: primaryColor, height: windowHeight/9, color: primaryColor}]}
+                style={[styles.dropDownAddBarTouchable, {borderColor: primaryColor, height: windowHeight/9, color: primaryColor, flexShrink: 1}]}
                 autoFocus={true}
-                onBlur={value == "" ? () => {} : () => props.onSubmit(value)}
-                onChangeText={(e) => setValue(e.trim())}/>
-        )
-    }
+                onBlur={value == "" ? handleNoSubmit : () => props.onSubmit(value)}
+                onChangeText={(e) => setValue(e.trim())}
+                multiline={true}/>
+        );
+    };
 };

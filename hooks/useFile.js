@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 export const useTitle = create((set) => ({
     title: "",
     setTitle: (value) => set(() => ({title: value})),
@@ -32,9 +33,9 @@ export const useTropes = create((set) => ({
 export const useSeries = create((set) => ({
     series: "",
     setSeries: ((value) => set(() => ({series: value}))),
-}));
+})); 
 
-export const useColor = create((set) => ({
+export const useFileColor = create((set) => ({
     color: "",
     setColor: ((value) => set(() => ({color: value}))),
 }));
@@ -43,5 +44,8 @@ export const useNotes = create((set) => ({
     notes: [],
     addNotes: ((value) => set((state) => ({notes: [...state.notes, value]}))),
     removeNotes: ((value) => set((state) => ({notes: state.notes.filter(x => x != value)}))),
+    editNote: ((prevNotes, oldValue, newValue, afterNotes) => set(() => ({
+        notes: [...prevNotes, newValue, ...afterNotes].filter(x => x != oldValue),
+    }))),
     clearNotes: () => set(() => ({notes: []})),
 }));

@@ -24,11 +24,11 @@ export default function menuDropDownScreen () {
     const windowHeight = Dimensions.get("window").height;
 
     const handleLibraryPress = useCallback(() => {
-        router.push('../../(tabs)/libraryScreen')
+        router.navigate('../../(tabs)/libraryScreen')
     }, []);
 
     const handleMenuPress = useCallback(() => {
-        router.push('../../(tabs)/menuScreen');
+        router.navigate('../../(tabs)/menuScreen');
     }, []);
 
     const handleDeletePress = (option) => {
@@ -91,7 +91,8 @@ export default function menuDropDownScreen () {
                 headerTitle: menuType,
                 headerBackVisible: false,
                 headerRight: (multiIcons),
-                headerShown: true}}/>
+                headerShown: true,
+                headerTintColor: secondaryColor}}/>
             <FlatList
                 data={flatListData}
                 style={{height: windowHeight}}

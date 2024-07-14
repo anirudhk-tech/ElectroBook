@@ -15,7 +15,7 @@ export const useData = (type) => {
         const data = ["Anirudh", "Sara"];
         return data;
     } else if (type == "tropes") {
-        const data = ["Anirudh", "Sara"];
+        const data = ["Anirudh", "Sara", "option", "live", "tru", "dh", "ssdkfjdkjj"];
         return data;
     } else if (type == "genres") {
         const data = ["Anirudh", "Sara"];

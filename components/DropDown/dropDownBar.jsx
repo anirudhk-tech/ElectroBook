@@ -1,18 +1,16 @@
 // React
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
-import { useContext, useState, useEffect } from 'react';
 
 // Backend
 import { styles } from '../../constants/stylers';
-import { ThemeContext } from '../../constants/context';
 
 // Hooks
 import { useFileFunctions } from '../../hooks/useFileFunctions';
 import { useDropDownType } from '../../hooks/useDropDownType';
+import { useColor } from '../../hooks/useTheme';
 
 export const ElectroDropBar = (props) => {
-    const colorContext = useContext(ThemeContext);
-    const [primaryColor, secondaryColor] = [colorContext.primaryColor, colorContext.secondaryColor];
+    const [primaryColor, secondaryColor] = useColor();
     const windowHeight = Dimensions.get('window').height;
     const [value] = useFileFunctions(props.optionType);
     const multiType = useDropDownType(props.optionType);
