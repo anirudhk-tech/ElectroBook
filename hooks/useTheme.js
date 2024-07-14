@@ -11,6 +11,7 @@ export const useTheme = create(
       setSecondary: (value) => set(() => ({ secondaryColor: value })),
     }),
     {
+      name: "App Colors",
       storage: createJSONStorage(() => AsyncStorage),
     }
   )

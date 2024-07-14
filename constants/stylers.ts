@@ -69,12 +69,6 @@ export const styles = StyleSheet.create({
         maxHeight: 1000
     },
 
-    alertElectroZap: {
-        width: '20%',
-        height: '50%',
-        marginTop: '2%'
-    },
-
     alertButtonView: {
         flexDirection: 'row',
         width: '90%',
@@ -99,6 +93,12 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignSelf: 'center',
         paddingBottom: 20,
+    },
+
+    alertIcon: {
+        margin: '5%',
+        width: '20%',
+        aspectRatio: 1,
     },
 
     // Components - Pdf

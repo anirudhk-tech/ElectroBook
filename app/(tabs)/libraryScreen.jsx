@@ -35,7 +35,7 @@ export default function libraryScreen() {
 
     fetchLibName();
   });
-  // BACK BUTTON COLOR
+
   return (
     <View
       style={[

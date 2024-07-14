@@ -6,7 +6,7 @@ export const create_user = async (libraryName) => {
   const uuid = await SQL.create_user();
   await AsyncStore.storeData("uuid", uuid);
   await AsyncStore.storeData("libraryName", libraryName);
-  await FS.create_user();
+  //await FS.create_user();
 };
 
 export const check_user = async () => {

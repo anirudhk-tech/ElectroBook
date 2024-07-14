@@ -3,7 +3,7 @@ import { Stack, router } from "expo-router";
 
 // React
 import { View } from "react-native";
-import { useCallback, useContext, memo } from "react";
+import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -17,26 +17,28 @@ import { ElectroButton } from "../../components/button";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useChecks, useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function registerScreen() {
   const [primaryColor, secondaryColor] = useColor();
+  const [check] = useChecks();
+  const [setUserCheck] = useCheckSetters();
 
   const changeLibName = async (libName) => {
-    const created = await check_user();
-    if (created == false) {
+    if (check == false) {
       await create_user(libName);
+      setUserCheck(true);
     } else {
       await delete_user();
       await create_user(libName);
     }
   };
 
-  const handlePress = useCallback(async () => {
-    const created = await check_user();
-    if (created == true) {
+  const handlePress = () => {
+    if (check == true) {
       router.navigate("./settingsScreen");
     }
-  }, []);
+  };
 
   return (
     <View
@@ -56,7 +58,7 @@ export default function registerScreen() {
           headerShown: true,
         }}
       />
-      <ElectroLogo styles={styles.registerScreenLogo} />
+      <ElectroLogo styles={[styles.registerScreenLogo, {tintColor: primaryColor}]} />
       <ElectroPromptInput
         viewStyles={styles.registerScreenInputView}
         textStyles={[styles.registerScreenInputPrompt, { color: primaryColor }]}

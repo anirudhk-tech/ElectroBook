@@ -1,10 +1,10 @@
 // React
 import { View } from "react-native";
-import { useContext, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { ThemeContext } from "@/constants/context";
+import { check_user } from "../backend/controller";
 
 // Expo
 import { router } from "expo-router";
@@ -12,25 +12,28 @@ import { router } from "expo-router";
 // Components
 import { ElectroLogo } from "../../components/logo";
 
+// Hooks
+import { useColor } from "@/hooks/useTheme";
+import { useChecks } from "@/hooks/useCheckUser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function startingScreen() {
-  const colorContext = useContext(ThemeContext);
-  const [checkRegister, setCheckRegister] = useState([]);
-  const secondaryColor = colorContext.secondaryColor;
+  const [checkRegister] = useChecks();
+  const [primaryColor, secondaryColor] = useColor();
 
-  const startingSetUp = async () => {
-    await delete_user();
-    check_user().then((data) => {
-      setCheckRegister(data);
-    });
-  };
+  AsyncStorage.clear()
+  useEffect(() => {
+    const startingRouter = () => {
+      if (checkRegister == true) {
+        setTimeout(() => router.push("./libraryScreen"), 5000);
+      } else {
+        setTimeout(() => router.push("../(tabs)/registerScreen"), 5000);
+      };
+    };
 
-  startingSetUp();
+    startingRouter();
+  }, []);
 
-  if (checkRegister == true) {
-    setTimeout(() => router.push("./libraryScreen"), 5000);
-  } else {
-    setTimeout(() => router.push("../(tabs)/registerScreen"), 5000);
-  }
 
   return (
     <View
@@ -39,7 +42,7 @@ export default function startingScreen() {
         { backgroundColor: secondaryColor },
       ]}
     >
-      <ElectroLogo styles={styles.startingScreenLogo} />
+      <ElectroLogo styles={[styles.startingScreenLogo, {tintColor: primaryColor}]} />
     </View>
   );
-}
+};

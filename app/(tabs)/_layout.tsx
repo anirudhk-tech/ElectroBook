@@ -7,22 +7,15 @@ import React, { useState } from "react";
 // Backend
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { styles } from "@/constants/stylers";
-import { get_data } from "../backend/controller";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useChecks } from "../../hooks/useCheckUser";
 
 export default function TabLayout() {
   const [firstTime, setFirstTime] = useState(true);
   const [primaryColor, secondaryColor] = useColor();
-
-  get_data("settings completed").then((data) => {
-    if (data) {
-      setFirstTime(false);
-    } else {
-      setFirstTime(true);
-    }
-  });
+  const [check, settingsCheck] = useChecks();
 
   return (
     <Tabs
@@ -90,7 +83,7 @@ export default function TabLayout() {
         name="settingsScreen"
         options={{
           title: "Settings",
-          tabBarStyle: firstTime ? styles.invisible : styles.tabBarStyle,
+          tabBarStyle: settingsCheck == false ? styles.invisible : styles.tabBarStyle,
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               name={"settings"}

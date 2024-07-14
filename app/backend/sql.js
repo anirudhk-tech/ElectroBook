@@ -5,7 +5,7 @@ import { getItemFor } from './asyncStore';
 
 const getInfo = async () => {
     const uuid = await getItemFor("uuid");
-    const db = await SQLite.openDatabaseAsync(`${uuid}.db`);
+    const db = await SQLite.openDatabaseAsync(`${uuid}.db`, {useNewConnection: true});
 
     return db
 };
@@ -14,19 +14,19 @@ const getInfo = async () => {
 export const create_user = async () => {
 
     const uuid = Crypto.randomUUID();
-    // const db = await SQLite.openDatabaseAsync(`${uuid}.db`);
+    const db = await SQLite.openDatabaseAsync(`${uuid}.db`);
 
-    // db.execAsync(`CREATE TABLE IF NOT EXISTS books_database (name TEXT PRIMARY KEY, author TEXT, library TEXT, notes LIST, genres LIST, tropes LIST, completed LIST, imageUri TEXT, page INT)`);
+    db.execAsync(`CREATE TABLE IF NOT EXISTS books_database (name TEXT PRIMARY KEY, author TEXT, library TEXT, notes LIST, genres LIST, tropes LIST, completed LIST, imageUri TEXT, page INT)`);
 
-    // db.execAsync(`CREATE TABLE IF NOT EXISTS libraries_database (lib TEXT PRIMARY KEY, libColor TEXT)`);
+    db.execAsync(`CREATE TABLE IF NOT EXISTS libraries_database (lib TEXT PRIMARY KEY, libColor TEXT)`);
     
-    // db.execAsync(`CREATE TABLE IF NOT EXISTS authors_database (author TEXT PRIMARY KEY, authorColor TEXT)`);
+    db.execAsync(`CREATE TABLE IF NOT EXISTS authors_database (author TEXT PRIMARY KEY, authorColor TEXT)`);
     
-    // db.execAsync(`CREATE TABLE IF NOT EXISTS genres_database (genre TEXT PRIMARY KEY, genreColor TEXT);`);
+    db.execAsync(`CREATE TABLE IF NOT EXISTS genres_database (genre TEXT PRIMARY KEY, genreColor TEXT);`);
 
-    // db.execAsync(`CREATE TABLE IF NOT EXISTS tropes_database (trope TEXT PRIMARY KEY, tropeColor TEXT)`);
+    db.execAsync(`CREATE TABLE IF NOT EXISTS tropes_database (trope TEXT PRIMARY KEY, tropeColor TEXT)`);
 
-    // db.execAsync(`CREATE TABLE IF NOT EXISTS series_database (series TEXT PRIMARY KEY, books LIST)`);
+    db.execAsync(`CREATE TABLE IF NOT EXISTS series_database (series TEXT PRIMARY KEY, books LIST)`);
 
     return uuid;
 };
@@ -192,6 +192,7 @@ export const get_page = async (bookName) => {
 export const get_genres = async () => {
     const db = await getInfo()
     const genres = await db.execAsync(`SELECT genre FROM genres_database`);
+    console.log(genres)
     return genres;
 };
 

@@ -8,6 +8,9 @@ import { ElectroButton } from "./button";
 // Hooks
 import { useColor } from "../hooks/useTheme";
 
+// Expo
+import { Octicons } from "@expo/vector-icons";
+
 export const ElectroAlert = (props) => {
   const [primaryColor, secondaryColor] = useColor();
 
@@ -29,10 +32,11 @@ export const ElectroAlert = (props) => {
           <Text style={[styles.alertTitleText, { color: primaryColor }]}>
             {props.title ? props.title : null}
           </Text>
-          <Image
-            style={styles.alertElectroZap}
-            source={require("../assets/images/electroZap.png")}
-          />
+          <Octicons
+            name="zap"
+            color={primaryColor}
+            size={40}
+            style={styles.alertIcon}/>
         </View>
         {props.message.map((msg) => {
           return (

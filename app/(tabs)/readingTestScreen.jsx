@@ -22,7 +22,7 @@ export default function readingTestScreen() {
   const [notesVisible, setNotesVisible] = useState(false);
   const [finishAlertVisible, setFinishAlertVisible] = useState("none");
   const [bgColor, setBgColor] = useState("white");
-  const { secondaryColor } = useColor();
+  const [primaryColor, secondaryColor] = useColor();
   const colors = ["black", secondaryColor, "white"];
 
   const handleCancelPress = useCallback(() => {

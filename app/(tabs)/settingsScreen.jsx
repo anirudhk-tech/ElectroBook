@@ -15,10 +15,12 @@ import { ElectroAlert } from "../../components/alert";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function settingsScreen() {
   const [primaryColor, secondaryColor] = useColor();
   const [displayAlert, setDisplayAlert] = useState("none");
+  const [setCheck, setSettingsCheck] = useCheckSetters();
 
   const handlePrimaryColorPress = useCallback(() => {
     router.navigate("../colorPickerScreen/settingsPrimary");
@@ -35,13 +37,13 @@ export default function settingsScreen() {
   const handleOkayPress = useCallback(() => {
     router.navigate("./readingTestScreen");
     setDisplayAlert("none");
-    store_data("settings completed", "true");
+    setSettingsCheck(true);
   }, []);
 
   const handleSkipPress = useCallback(() => {
     router.navigate("./libraryScreen");
     setDisplayAlert("none");
-    store_data("settings completed", "true");
+    setSettingsCheck(true);
   }, []);
 
   return (
