@@ -1,27 +1,26 @@
 // Expo
-import { Tabs } from 'expo-router';
+import { Tabs } from "expo-router";
 
 // React
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 // Backend
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { styles } from '@/constants/stylers';
-import { get_data } from '../backend/controller';
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import { styles } from "@/constants/stylers";
+import { get_data } from "../backend/controller";
 
 // Hooks
-import { useColor } from '../../hooks/useTheme';
-
+import { useColor } from "../../hooks/useTheme";
 
 export default function TabLayout() {
   const [firstTime, setFirstTime] = useState(true);
   const [primaryColor, secondaryColor] = useColor();
 
-  get_data("settings completed").then(data => {
+  get_data("settings completed").then((data) => {
     if (data) {
-      setFirstTime(false)
+      setFirstTime(false);
     } else {
-      setFirstTime(true)
+      setFirstTime(true);
     }
   });
 
@@ -33,8 +32,9 @@ export default function TabLayout() {
         tabBarActiveBackgroundColor: primaryColor,
         tabBarInactiveBackgroundColor: secondaryColor,
         tabBarStyle: styles.tabBarStyle,
-        headerShown: false, 
-      }}> 
+        headerShown: false,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -53,8 +53,11 @@ export default function TabLayout() {
         name="libraryScreen"
         options={{
           title: "Library",
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon name={'book'} color={focused ? secondaryColor : primaryColor}/>
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name={"book"}
+              color={focused ? secondaryColor : primaryColor}
+            />
           ),
         }}
       />
@@ -62,8 +65,11 @@ export default function TabLayout() {
         name="uploadFileScreen"
         options={{
           title: "Upload",
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon name={'add'} color={focused ? secondaryColor : primaryColor}/>
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name={"add"}
+              color={focused ? secondaryColor : primaryColor}
+            />
           ),
         }}
       />
@@ -72,8 +78,11 @@ export default function TabLayout() {
         options={{
           title: "Stats",
           tabBarStyle: styles.tabBarStyle,
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon name={'stats-chart-outline'} color={focused ? secondaryColor : primaryColor}/>
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name={"stats-chart-outline"}
+              color={focused ? secondaryColor : primaryColor}
+            />
           ),
         }}
       />
@@ -82,8 +91,11 @@ export default function TabLayout() {
         options={{
           title: "Settings",
           tabBarStyle: firstTime ? styles.invisible : styles.tabBarStyle,
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon name={'settings'} color={focused ? secondaryColor : primaryColor}/>
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name={"settings"}
+              color={focused ? secondaryColor : primaryColor}
+            />
           ),
         }}
       />
@@ -92,7 +104,7 @@ export default function TabLayout() {
         options={{
           title: "Reading Test",
           tabBarStyle: styles.invisible,
-          tabBarButton: () => null
+          tabBarButton: () => null,
         }}
       />
       <Tabs.Screen
@@ -100,9 +112,9 @@ export default function TabLayout() {
         options={{
           title: "Index",
           tabBarStyle: styles.invisible,
-          tabBarButton: () => null
+          tabBarButton: () => null,
         }}
       />
     </Tabs>
-  )};
-
+  );
+}

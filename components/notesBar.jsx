@@ -1,34 +1,40 @@
 // React
-import { TouchableOpacity, Text } from 'react-native';
-import { useCallback, useContext } from 'react';
+import { TouchableOpacity, Text } from "react-native";
+import { useCallback, useContext } from "react";
 
 // Expo
-import { router } from 'expo-router';
+import { router } from "expo-router";
 
 // Backend
-import { ThemeContext } from '../constants/context';
-import { styles } from '../constants/stylers';
+import { ThemeContext } from "../constants/context";
+import { styles } from "../constants/stylers";
 
 // Components
-import { ElectroIcon } from '../components/icon';
+import { ElectroIcon } from "../components/icon";
 
-// Hooks 
-import { useColor } from '../hooks/useTheme';
+// Hooks
+import { useColor } from "../hooks/useTheme";
 
 export const ElectroNotesBar = (props) => {
-    const [primaryColor] = useColor();
+  const [primaryColor] = useColor();
 
-    const handleNotesPress = useCallback(() => {props.handlePress()}, []);
+  const handleNotesPress = useCallback(() => {
+    props.handlePress();
+  }, []);
 
-    return (
-        <TouchableOpacity style={[styles.notesBarTouchable, {borderColor: primaryColor}]} onPress={handleNotesPress}>
-            <ElectroIcon 
-                name="bookmarks-outline" 
-                size={40} 
-                color={primaryColor} 
-                handlePress={handleNotesPress}
-                style={styles.notesIcon}/>
-            <Text style={[styles.notesBarText, {color: primaryColor}]}>Notes</Text>
-        </TouchableOpacity>
-    );
+  return (
+    <TouchableOpacity
+      style={[styles.notesBarTouchable, { borderColor: primaryColor }]}
+      onPress={handleNotesPress}
+    >
+      <ElectroIcon
+        name="bookmarks-outline"
+        size={40}
+        color={primaryColor}
+        handlePress={handleNotesPress}
+        style={styles.notesIcon}
+      />
+      <Text style={[styles.notesBarText, { color: primaryColor }]}>Notes</Text>
+    </TouchableOpacity>
+  );
 };

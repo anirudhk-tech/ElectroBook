@@ -1,53 +1,69 @@
 // React
-import { TouchableOpacity, View } from 'react-native';
-import { useContext } from 'react';
+import { TouchableOpacity, View } from "react-native";
+import { useContext } from "react";
 
 // Backend
-import { styles } from '../../constants/stylers';
-import { ThemeContext } from '../../constants/context';
+import { styles } from "../../constants/stylers";
+import { ThemeContext } from "../../constants/context";
 
 // Expo
-import { router } from 'expo-router';
+import { router } from "expo-router";
 
 // Expo
-import { useFileFunctions } from '../../hooks/useFileFunctions';
+import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 // Components
-import { ElectroSelectedBadge } from '../selectedBadge';
+import { ElectroSelectedBadge } from "../selectedBadge";
 
 // Hooks
-import { useColor } from '../../hooks/useTheme';
-
+import { useColor } from "../../hooks/useTheme";
 
 export const ElectroDrop = (props) => {
-    const [primaryColor, secondaryColor] = useColor();
-    const options = props.options;
-    let [value] = useFileFunctions(options);
-    
-    if (Array.isArray(value) == false) {
-        value = [value];
-    };
+  const [primaryColor, secondaryColor] = useColor();
+  const options = props.options;
+  let [value] = useFileFunctions(options);
 
-    const handlePress = () => {
-        router.navigate(`../../dropDownScreen/${options}`);
-    };
+  if (Array.isArray(value) == false) {
+    value = [value];
+  }
 
-    return (
-        <TouchableOpacity 
-            style={[styles.dropDownMainView, {borderColor: props.libraryHeader == undefined ? primaryColor : secondaryColor}]}
-            onPress={handlePress}>
+  const handlePress = () => {
+    router.navigate(`../../dropDownScreen/${options}`);
+  };
+
+  return (
+    <TouchableOpacity
+      style={[
+        styles.dropDownMainView,
         {
-            value.map((text) => {
-                if (text == "") {
-                    return
-                } else {
-                    return (
-                        <ElectroSelectedBadge key={value.indexOf(text)} text={text} bgColor={primaryColor}/>
-                    )
-                }})
+          borderColor:
+            props.libraryHeader == undefined ? primaryColor : secondaryColor,
+        },
+      ]}
+      onPress={handlePress}
+    >
+      {value.map((text) => {
+        if (text == "") {
+          return;
+        } else {
+          return (
+            <ElectroSelectedBadge
+              key={value.indexOf(text)}
+              text={text}
+              bgColor={primaryColor}
+            />
+          );
         }
-        <View style={{backgroundColor: secondaryColor, width: 10, height: '100%', position: 'absolute', marginLeft: '103%'}}></View>
-        </TouchableOpacity>
-        
-    );
+      })}
+      <View
+        style={{
+          backgroundColor: secondaryColor,
+          width: 10,
+          height: "100%",
+          position: "absolute",
+          marginLeft: "103%",
+        }}
+      ></View>
+    </TouchableOpacity>
+  );
 };
