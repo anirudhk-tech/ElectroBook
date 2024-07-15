@@ -1,4 +1,4 @@
-import zustand, { create } from "zustand";
+import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -17,7 +17,8 @@ export const useCheckUser = create(
     )
 );
 
- 
+useCheckUser.persist.clearStorage();          
+
 export const useChecks = () => {
     const {check, settingsCheck} = useCheckUser(
         (state) => ({

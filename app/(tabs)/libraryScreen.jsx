@@ -30,11 +30,12 @@ export default function libraryScreen() {
   useEffect(() => {
     const fetchLibName = async () => {
       const asyncLibName = await get_library_name();
+      console.log(asyncLibName)
       setLibName(asyncLibName);
     };
 
     fetchLibName();
-  });
+  }, []);
 
   return (
     <View
