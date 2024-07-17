@@ -13,7 +13,7 @@ import { useFileFunctions } from "../hooks/useFileFunctions";
 
 export const ElectroColorCodeBar = (props) => {
   const [primaryColor] = useColor();
-  const [color] = useFileFunctions("color");
+  const [color] = useFileFunctions("fileColor");
   const colorCircleFill = color == "" ? primaryColor : color;
 
   return (

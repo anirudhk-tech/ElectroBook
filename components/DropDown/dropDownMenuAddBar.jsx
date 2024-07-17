@@ -56,6 +56,7 @@ export const ElectroAddMenuBar = (props) => {
           {
             borderColor: primaryColor,
             height: windowHeight / 9,
+            width: windowWidth - 40,
             color: primaryColor,
             flexShrink: 1,
           },

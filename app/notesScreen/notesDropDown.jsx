@@ -18,7 +18,7 @@ import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar"
 
 export default function notesDropDown() {
   const [primaryColor, secondaryColor] = useColor();
-  const [notes, addNote, removeNote, clearNotes] = useFileFunctions("notes");
+  const [notes, addNote] = useFileFunctions("note");
   const [flatListData, setFlatListData] = useState([]);
   const windowHeight = Dimensions.get("window").height;
 

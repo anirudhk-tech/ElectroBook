@@ -59,7 +59,8 @@ export const create_book = async (bookName, libName, imageUri) => {
   }
 };
 
-export const pickImage = async () => {
+export const pickImage = async (handleImageSubmit) => {
+
   const getImageAfterPerms = async (perms) => {
     if (
       perms.accessPrivileges == "all" ||
@@ -70,6 +71,7 @@ export const pickImage = async () => {
       });
       if (imageData.canceled != true) {
         const imageUri = imageData.assets[0].uri;
+        handleImageSubmit(imageUri);
         return imageUri;
       }
     } else {

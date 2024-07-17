@@ -17,18 +17,11 @@ export const ElectroLibraryHeader = (props) => {
   return (
     <View style={styles.libraryHeaderMainView}>
       <ElectroIcon
-        name="folder-open"
+        name="create"
         size={30}
         style={styles.libraryMenuIcon}
         color={secondaryColor}
-        handlePress={props.folderPress}
-      />
-      <ElectroIcon
-        name="albums-outline"
-        size={30}
-        style={styles.libraryMenuIcon}
-        color={secondaryColor}
-        handlePress={props.albumPress}
+        handlePress={props.editPress}
       />
     </View>
   );

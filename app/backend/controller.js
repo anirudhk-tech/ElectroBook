@@ -6,7 +6,7 @@ export const create_user = async (libraryName) => {
   const uuid = await SQL.create_user();
   await MMKV.storeData("uuid", uuid);
   await MMKV.storeData("libraryName", libraryName);
-  //await FS.create_user();
+  //await //FS.create_user();
 };
 
 export const create_library = async (libName, color) => {
@@ -14,27 +14,25 @@ export const create_library = async (libName, color) => {
   if (result == null) {
     return "SQL error";
   } else {
-    await FS.create_library(libName);
+    //await FS.create_library(libName);
   }
 };
 
-export const create_image = async () => {
-  let imageUri = "";
-  await FS.pickImage()
-    .then(uri => imageUri = uri)
-    .then(console.log(imageUri));
+export const establish_userDb = async () => {
+  await SQL.getInfo();
+};
+
+export const create_image = async (handleImageSubmit) => {
+  await FS.pickImage(handleImageSubmit);
 };
 
 export const create_book = async (info) => {
   const bookCreate = await SQL.create_book(info);
-  if (bookCreate == null) {
-    return "SQL error";
-  } else {
-    FS.create_book(info.name, info.lib);
-    if (info.imageUri != null) {
-      MMKV.storeData(info.name, info.imageUri);
-    }
-  }
+  // if (bookCreate == null) {
+  //   return "SQL error";
+  // } else {
+  //   //FS.create_book(info.name, info.lib);
+  // }
 };
 
 export const create_genre = async (genre, color) => {
@@ -65,15 +63,15 @@ export const create_series = async (series, color) => {
   };
 };
 
-export const delete_book = async (lib, bookName) => {
+export const delete_book = async (bookName) => {
   await SQL.delete_book(bookName);
-  await FS.delete_book(lib, bookName);
-  await MMKV.deleteKey(bookName);
+  //await FS.delete_book(lib, bookName);
+  //await MMKV.deleteKey(bookName);
 };
 
 export const delete_library = async (lib, newLib) => {
   await SQL.delete_lib(lib);
-  //await FS.delete_lib(lib, newLib);
+  //await //FS.delete_lib(lib, newLib);
 };
 
 export const delete_genre = async (genre) => {
@@ -93,7 +91,7 @@ export const delete_series = async (series) => {
 };
 
 export const delete_user = async () => {
-  await FS.delete_user();
+  await //FS.delete_user();
   await MMKV.deleteAll();
 };
 
@@ -106,7 +104,7 @@ export const update_lib = async (lib, newLib) => {
   if (updateLib == null) {
     return "SQL Error";
   } else {
-    FS.update_lib(lib, newLib);
+    //FS.update_lib(lib, newLib);
   }
 };
 

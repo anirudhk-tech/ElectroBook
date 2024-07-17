@@ -17,8 +17,6 @@ export const useCheckUser = create(
     )   
 );
 
-
-
 export const useChecks = () => {
     const {check, settingsCheck} = useCheckUser(
         (state) => ({
@@ -38,3 +36,7 @@ export const useCheckSetters = () => {
     ) 
     return [setCheck, setSettingsCheck];
 };
+
+
+
+

@@ -37,8 +37,8 @@ export const useSeries = create((set) => ({
 }));
 
 export const useFileColor = create((set) => ({
-  color: "",
-  setColor: (value) => set(() => ({ color: value })),
+  fileColor: "",
+  setFileColor: (value) => set(() => ({ fileColor: value })),
 }));
 
 export const useNotes = create((set) => ({
@@ -53,4 +53,9 @@ export const useNotes = create((set) => ({
       ),
     })),
   clearNotes: () => set(() => ({ notes: [] })),
+}));
+
+export const useImage = create((set) => ({
+  imageUri: "",
+  setImageUri: (value) => set(() => ({ imageUri: value}))
 }));

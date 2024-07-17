@@ -1,6 +1,6 @@
 // Backend
 import { styles } from "../../constants/stylers";
-import { get_library_name } from "../backend/controller";
+import { get_library_name, establish_userDb } from "../backend/controller";
 
 // React
 import { View } from "react-native";
@@ -34,6 +34,7 @@ export default function libraryScreen() {
     };
 
     fetchLibName();
+    establish_userDb();
   }, []);
 
   return (
@@ -53,8 +54,7 @@ export default function libraryScreen() {
           headerTitle: libName,
           headerRight: () => (
             <ElectroLibraryHeader
-              folderPress={handleLibraryPress}
-              albumPress={handleMenuPress}
+              editPress={handleMenuPress}
             />
           ),
           headerShown: true,

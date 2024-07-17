@@ -1,9 +1,9 @@
 // React
 import { Text, TextInput, View } from "react-native";
-import { useState } from "react";
-
+import { useState} from "react";
 export const ElectroPromptInput = (props) => {
   const [value, setValue] = useState("");
+
 
   return (
     <View style={props.viewStyles}>

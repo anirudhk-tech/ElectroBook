@@ -20,17 +20,18 @@ import { ElectroTitleInput } from "../../components/titleInput";
 import { ElectroNotesBar } from "../../components/notesBar";
 import { ElectroColorCodeBar } from "../../components/colorCodeBar";
 import { ElectroImageBar } from "../../components/imageBar";
+import { ElectroUploadButton } from "../../components/uploadButton";
 
 export default function uploadFileScreen() {
   const [primaryColor, secondaryColor] = useColor();
   const windowHeight = Dimensions.get("window").height;
-
   const [advancedVisible, setAdvancedVisible] = useState("none");
   const [title, setTitle] = useFileFunctions("title");
+  const [imageUri, setImageUri] = useFileFunctions("image");
 
-  const handleImagePress = () => {
-    create_image();
-  };
+  const handleImagePress = useCallback(() => {
+    create_image(setImageUri);
+  }, []);
 
   const handleAdvancedPress = () => {
     if (advancedVisible == "flex") {
@@ -52,6 +53,12 @@ export default function uploadFileScreen() {
     setTitle(value);
   };
 
+  const uploadIcons = useCallback(() => {
+    return(
+      <ElectroUploadButton/>
+    )
+  }, []);
+
   // Implement SQL where you get data about libs, genres, tropes, etc
 
   return (
@@ -69,6 +76,7 @@ export default function uploadFileScreen() {
             { color: secondaryColor },
           ],
           headerTitle: "Add",
+          headerRight: uploadIcons,
           headerShown: true,
         }}
       />
@@ -88,6 +96,7 @@ export default function uploadFileScreen() {
         <ElectroPromptDropdown icon="library-outline" options={"library"} />
         <ElectroPromptDropdown icon="person" options={"author"} />
       </View>
+
       <ElectroAdvancedDivider handlePress={handleAdvancedPress} />
       <View
         style={[styles.uploadScreenAdvancedView, { display: advancedVisible }]}
@@ -99,6 +108,7 @@ export default function uploadFileScreen() {
         <ElectroNotesBar handlePress={handleNotesPress} />
         <ElectroImageBar handlePress={handleImagePress} />
       </View>
+
     </ScrollView>
   );
 }

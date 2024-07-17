@@ -1,4 +1,8 @@
 import * as useFile from "../hooks/useFile";
+import * as FileSystem from "expo-file-system";
+
+import { useRefreshInfo } from "./useRefreshInfo";
+import { useEffect, useState } from "react";
 
 export const useFileFunctions = (type) => {
   if (type == "title") {
@@ -45,15 +49,14 @@ export const useFileFunctions = (type) => {
       setSeries: state.setSeries,
     }));
     return [series, setSeries];
-  } else if (type == "color") {
-    const { color, setColor } = useFile.useFileColor((state) => ({
-      color: state.color,
-      setColor: state.setColor,
+  } else if (type == "fileColor") {
+    const { fileColor, setFileColor } = useFile.useFileColor((state) => ({
+      fileColor: state.fileColor,
+      setFileColor: state.setFileColor,
     }));
-    return [color, setColor];
+    return [fileColor, setFileColor];
   } else if (type == "note") {
-    const { notes, addNotes, removeNotes, clearNotes, editNote } =
-      useFile.useNotes((state) => ({
+    const { notes, addNotes, removeNotes, clearNotes, editNote } = useFile.useNotes((state) => ({
         notes: state.notes,
         addNotes: state.addNotes,
         removeNotes: state.removeNotes,
@@ -61,5 +64,11 @@ export const useFileFunctions = (type) => {
         clearNotes: state.clearNotes,
       }));
     return [notes, addNotes, removeNotes, clearNotes, editNote];
+  } else if (type == "image") {
+    const { imageUri, setImageUri } = useFile.useImage((state) => ({
+      imageUri: state.imageUri,
+      setImageUri: state.setImageUri,
+    }));
+    return [imageUri, setImageUri];
   }
 };

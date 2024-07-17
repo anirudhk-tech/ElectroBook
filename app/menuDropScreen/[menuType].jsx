@@ -5,6 +5,7 @@ import { View, FlatList, Dimensions } from "react-native";
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
 import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
 import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar";
+import { ElectroIcon } from "../../components/icon";
 
 // Backend
 import { useCallback, useEffect, useState } from "react";
@@ -20,6 +21,7 @@ import { useHeader } from "../../hooks/useHeader";
 import { useData } from '../../hooks/useData';
 import { useDelete } from '../../hooks/useDelete';
 import { useMenuColor } from "../../hooks/useMenuColor";
+import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
@@ -28,15 +30,17 @@ export default function menuDropDownScreen() {
   const [rawData, setRawData] = useState([]);
   const [flatListData, setFlatListData] = useState([]);
   const [menuColor] = useMenuColor();
+  const [refresh, setRefresh] = useRefreshOptions();
   const windowHeight = Dimensions.get("window").height;
+
+  const handleBackPress = () => {
+    setRefresh(!refresh);
+    router.dismiss();
+  };
 
   const handleLibraryPress = useCallback(() => {
     router.dismiss();
     router.navigate("../../(tabs)/libraryScreen");
-  }, []);
-
-  const handleMenuPress = useCallback(() => {
-    router.dismiss();
   }, []);
 
   const handleDeletePress = (option) => {
@@ -51,14 +55,24 @@ export default function menuDropDownScreen() {
 
   const handleAddPress = (value) => {
     useAdd(menuType, value, secondaryColor);
-    setRawData([{option: value}, ...rawData]);
+    setRawData([...rawData, {option: value}]);
   };
+
+  const backIcon = useCallback(() => {
+    return (
+      <ElectroIcon 
+        name="arrow-back"
+        color={secondaryColor}
+        size={30}
+        handlePress={handleBackPress}
+      />
+    )
+  });
 
   const multiIcons = useCallback(() => {
     return (
       <ElectroMultiIcons
         icons={[
-          { name: "albums-outline", handlePress: handleMenuPress },
           { name: "library-outline", handlePress: handleLibraryPress },
         ]}
       />
@@ -99,8 +113,6 @@ export default function menuDropDownScreen() {
   }, [menuColor]);
  
   useEffect(() => {
-    console.log(rawData)
-
     dataCreation(rawData);
   }, [rawData]);
 
@@ -122,9 +134,11 @@ export default function menuDropDownScreen() {
           ],
           headerTitle: headerTitle,
           headerBackVisible: false,
+          headerLeft: backIcon,
           headerRight: multiIcons,
           headerShown: true,
           headerTintColor: secondaryColor,
+          headerTitleAlign: 'center'
         }}
       />
       <FlatList

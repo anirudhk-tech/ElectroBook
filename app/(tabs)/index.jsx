@@ -15,12 +15,11 @@ import { ElectroLogo } from "../../components/logo";
 // Hooks
 import { useColor } from "@/hooks/useTheme";
 import { useChecks } from "@/hooks/useCheckUser";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function startingScreen() {
   const [checkRegister] = useChecks();
   const [primaryColor, secondaryColor] = useColor();
-
+  
   useEffect(() => {
     const startingRouter = () => {
       if (checkRegister == true) {

@@ -1,5 +1,5 @@
 // Backend
-import { delete_genre, delete_trope, delete_author, delete_library, delete_series} from '../app/backend/controller';
+import { delete_genre, delete_trope, delete_author, delete_library, delete_series, delete_book} from '../app/backend/controller';
 
 export const useDelete = async (type, option) => {
   let data = [];
@@ -24,7 +24,9 @@ export const useDelete = async (type, option) => {
       delete_genre(option);
 
   } else if (type == "completed") {
-      await get_genres().then(genres => {data = genres});
+      await get_genres().then(genres => {data = genres}); // Remove completed from menu? Or just from file screen?
       return data
+  } else if (type == "book") {
+    delete_book(option);
   }
 };

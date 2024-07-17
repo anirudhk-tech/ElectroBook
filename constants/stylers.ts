@@ -215,7 +215,7 @@ export const styles = StyleSheet.create({
             flexDirection: 'row',
             paddingHorizontal: 10,
             overflow: 'hidden',
-            gap: 10
+            gap: 10,
         },
 
         // Drop Down Multi Icons
@@ -345,6 +345,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         textAlignVertical: 'center',
+        padding: 5
     },
 
     // Components - Notes Pad
@@ -390,12 +391,10 @@ export const styles = StyleSheet.create({
     // Components - Library Header
     libraryHeaderMainView: {
         flexDirection: 'row',
-        width: 50,
+        width: 40,
         height: 50,
         alignSelf: 'flex-end',
-        marginHorizontal: '10%',
-        marginTop: '3%',
-        gap: 10
+        marginTop: '5%',
     },
 
     // DropDown Screen
@@ -588,7 +587,7 @@ export const styles = StyleSheet.create({
     },
 
     uploadScreenAdvancedTouchable: {
-        flex: 1,
+        flex: 3/4,
     },
 
     uploadScreenAdvancedDividerView: {
@@ -638,6 +637,22 @@ export const styles = StyleSheet.create({
         paddingHorizontal: '5%',
         fontSize: 30,
         fontWeight: 'bold',
+    },
+
+    uploadScreenButtonTouchable: {
+        borderWidth: 3,
+        borderRadius: 10,
+        width: '30%',
+        flex: 3/4,
+        justifyContent: 'center',
+        alignSelf: 'flex-end',
+        marginRight: '5%',
+    },
+
+    uploadScreenButtonText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        alignSelf: 'center',
     },
 
     // Menu Screen

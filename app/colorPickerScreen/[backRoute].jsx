@@ -28,7 +28,7 @@ import { useMenuColor } from "../../hooks/useMenuColor";
 export default function colorPicker() {
   const [primaryColor, secondaryColor] = useColor();
   const [setPrimary, setSecondary] = changeTheme();
-  const [color, setColor] = useFileFunctions("color");
+  const [color, setColor] = useFileFunctions("fileColor");
   const [menuColor, setMenuColor] = useMenuColor();
   const [hex, setHex] = useState("");
   const { backRoute } = useLocalSearchParams();
@@ -40,7 +40,7 @@ export default function colorPicker() {
     setHex(hex);
     if (backRoute.includes("uploadFile")) {
       setColor(hex);
-    }
+    };
   };
 
   const handlePress = () => {

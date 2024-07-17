@@ -1,6 +1,6 @@
 // React
 import { View, TextInput, Text } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Backend
 import { styles } from "../constants/stylers";
@@ -10,11 +10,17 @@ import { ElectroIcon } from "./icon";
 
 // Hooks
 import { useColor } from "../hooks/useTheme";
+import { useRefreshInfo } from "../hooks/useRefreshInfo";
 
 export const ElectroTitleInput = (props) => {
   const [primaryColor] = useColor();
-
+  const [refreshKey, setRefreshKey] = useRefreshInfo();
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    textInputField.clear();
+    console.log(refreshKey);
+  }, [refreshKey]);
 
   return (
     <View style={styles.uploadScreenSubView}>
@@ -40,6 +46,7 @@ export const ElectroTitleInput = (props) => {
           value.trim() == "" ? () => {} : () => props.onSubmit(value.trim())
         }
         onChangeText={(e) => setValue(e)}
+        ref={input => {textInputField = input}}
       />
     </View>
   );

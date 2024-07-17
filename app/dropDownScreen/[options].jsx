@@ -3,11 +3,12 @@ import { useLocalSearchParams, Stack, router } from "expo-router";
 
 // React
 import { FlatList, View, Dimensions } from "react-native";
-import { useContext, useState, useCallback, useEffect, memo } from "react";
+import { useState, useCallback, useEffect, memo } from "react";
 
 // Components
 import { ElectroDropBar } from "../../components/DropDown/dropDownBar";
 import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
+import { ElectroIcon } from "../../components/icon";
 
 // Hooks
 import { useData } from "../../hooks/useData";
@@ -15,6 +16,7 @@ import { useHeader } from "../../hooks/useHeader";
 import { useDropDownType } from "../../hooks/useDropDownType";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor } from "../../hooks/useTheme";
+import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -26,10 +28,15 @@ export default function dropDownScreen() {
   const headerTitle = useHeader(options);
   const multiType = useDropDownType(options);
   const [value, setValue, removeValue, clearValue] = useFileFunctions(options);
+  const [refresh] = useRefreshOptions();
 
   const [data, setData] = useState([]);
 
   const flatListBars = []; 
+
+  const handleAddPress = () => {
+    router.navigate(`../menuDropScreen/${options}`);
+  };
 
   const handleCheckPress = useCallback(() => {
     router.dismiss();
@@ -51,6 +58,17 @@ export default function dropDownScreen() {
       }
     }
   };
+
+  const addIcon = useCallback(() => {
+    return(
+      <ElectroIcon 
+        name="create"
+        color={secondaryColor}
+        size={30}
+        handlePress={handleAddPress}
+      />
+    );
+  }, [options]);
 
   const multiOptions = useCallback(() => {
     return (
@@ -82,7 +100,7 @@ export default function dropDownScreen() {
 
   useEffect(() => {
     useData(options).then(rawData => setData(rawData));
-  }, [])
+  }, [refresh])
 
   useEffect(() => {
     createFlatList();
@@ -105,7 +123,9 @@ export default function dropDownScreen() {
           ],
           headerTitle: headerTitle,
           headerTitleAlign: "center",
-          headerRight: multiType == true ? multiOptions : () => <></>,
+          headerBackVisible: multiType ? false : true,
+          headerLeft: multiType ? multiOptions : () => <></>,
+          headerRight: addIcon,
           headerShown: true,
           headerTintColor: secondaryColor,
         }}
