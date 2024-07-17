@@ -21,7 +21,6 @@ export default function startingScreen() {
   const [checkRegister] = useChecks();
   const [primaryColor, secondaryColor] = useColor();
 
-  AsyncStorage.clear()
   useEffect(() => {
     const startingRouter = () => {
       if (checkRegister == true) {

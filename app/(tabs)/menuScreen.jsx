@@ -25,7 +25,7 @@ export default function menuScreen() {
   });
 
   const handleMenuTabPress = (screen) => {
-    router.navigate(`../menuDropScreen/${screen}`);
+    router.push(`../menuDropScreen/${screen}`);
   };
 
   return (
@@ -59,13 +59,13 @@ export default function menuScreen() {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <ElectroMenuTab text="Books" handlePress={handleMenuTabPress} />
-        <ElectroMenuTab text="Libraries" handlePress={handleMenuTabPress} />
-        <ElectroMenuTab text="Authors" handlePress={handleMenuTabPress} />
-        <ElectroMenuTab text="Genres" handlePress={handleMenuTabPress} />
-        <ElectroMenuTab text="Tropes" handlePress={handleMenuTabPress} />
-        <ElectroMenuTab text="Series" handlePress={handleMenuTabPress} />
-        <ElectroMenuTab text="Completed" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Books" type="books" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Libraries" type="library" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Authors" type="author" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Genres" type="genre" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Tropes" type="trope" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Series" type="series" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Completed" type="completed" handlePress={handleMenuTabPress} />
       </ScrollView>
     </View>
   );

@@ -86,8 +86,8 @@ export default function uploadFileScreen() {
       <View
         style={[styles.uploadScreenAdvancedView, { display: advancedVisible }]}
       >
-        <ElectroPromptDropdown icon="bonfire" options={"genres"} />
-        <ElectroPromptDropdown icon="boat" options={"tropes"} />
+        <ElectroPromptDropdown icon="bonfire" options={"genre"} />
+        <ElectroPromptDropdown icon="boat" options={"trope"} />
         <ElectroPromptDropdown icon="layers-outline" options={"series"} />
         <ElectroColorCodeBar handlePress={handleColorBarPress} />
         <ElectroNotesBar handlePress={handleNotesPress} />

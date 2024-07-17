@@ -17,7 +17,7 @@ export const ElectroMenuTab = (props) => {
         styles.menuTabTouchable,
         { borderColor: primaryColor, width: windowWidth - 40 },
       ]}
-      onPress={() => props.handlePress(props.text)}
+      onPress={() => props.handlePress(props.type)}
     >
       <Text style={[styles.menuTabText, { color: primaryColor }]}>
         {props.text}

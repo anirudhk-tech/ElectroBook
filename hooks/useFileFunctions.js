@@ -7,7 +7,7 @@ export const useFileFunctions = (type) => {
       setTitle: state.setTitle,
     }));
     return [title, setTitle];
-  } else if (type == "genres") {
+  } else if (type == "genre") {
     const { genres, addGenres, removeGenres, clearGenres } = useFile.useGenres(
       (state) => ({
         genres: state.genres,
@@ -17,7 +17,7 @@ export const useFileFunctions = (type) => {
       })
     );
     return [genres, addGenres, removeGenres, clearGenres];
-  } else if (type == "tropes") {
+  } else if (type == "trope") {
     const { tropes, addTropes, removeTropes, clearTropes } = useFile.useTropes(
       (state) => ({
         tropes: state.tropes,
@@ -51,7 +51,7 @@ export const useFileFunctions = (type) => {
       setColor: state.setColor,
     }));
     return [color, setColor];
-  } else if (type == "notes") {
+  } else if (type == "note") {
     const { notes, addNotes, removeNotes, clearNotes, editNote } =
       useFile.useNotes((state) => ({
         notes: state.notes,

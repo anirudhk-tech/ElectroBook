@@ -28,7 +28,7 @@ export const ElectroDrop = (props) => {
   }
 
   const handlePress = () => {
-    router.navigate(`../../dropDownScreen/${options}`);
+    router.push(`../../dropDownScreen/${options}`);
   };
 
   return (

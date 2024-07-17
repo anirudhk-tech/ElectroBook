@@ -1,21 +1,12 @@
-import * as AsyncStore from "./asyncStore";
+import * as MMKV from "./MMKV";
 import * as SQL from "./sql";
 import * as FS from "./fileSystem";
 
 export const create_user = async (libraryName) => {
   const uuid = await SQL.create_user();
-  await AsyncStore.storeData("uuid", uuid);
-  await AsyncStore.storeData("libraryName", libraryName);
+  await MMKV.storeData("uuid", uuid);
+  await MMKV.storeData("libraryName", libraryName);
   //await FS.create_user();
-};
-
-export const check_user = async () => {
-  const check = await AsyncStore.getItemFor("uuid");
-  if (check != undefined) {
-    return true;
-  } else {
-    return false;
-  }
 };
 
 export const create_library = async (libName, color) => {
@@ -34,7 +25,7 @@ export const create_book = async (info) => {
   } else {
     FS.create_book(info.name, info.lib);
     if (info.imageUri != null) {
-      AsyncStore.storeData(info.name, info.imageUri);
+      MMKV.storeData(info.name, info.imageUri);
     }
   }
 };
@@ -60,15 +51,22 @@ export const create_author = async (author, color) => {
   }
 };
 
+export const create_series = async (series, color) => {
+  const insertSeries = await SQL.create_series(series, color);
+  if (insertSeries == null) {
+    return "SQL Error";
+  };
+};
+
 export const delete_book = async (lib, bookName) => {
   await SQL.delete_book(bookName);
   await FS.delete_book(lib, bookName);
-  await AsyncStore.deleteKey(bookName);
+  await MMKV.deleteKey(bookName);
 };
 
-export const delete_lib = async (lib, newLib) => {
+export const delete_library = async (lib, newLib) => {
   await SQL.delete_lib(lib);
-  await FS.delete_lib(lib, newLib);
+  //await FS.delete_lib(lib, newLib);
 };
 
 export const delete_genre = async (genre) => {
@@ -79,13 +77,21 @@ export const delete_trope = async (trope) => {
   await SQL.delete_trope(trope);
 };
 
+export const delete_author = async (author) => {
+  await SQL.delete_author(author);
+};
+
+export const delete_series = async (series) => {
+  await SQL.delete_series(series);
+};
+
 export const delete_user = async () => {
   await FS.delete_user();
-  await AsyncStore.deleteAll();
+  await MMKV.deleteAll();
 };
 
 export const update_user = async (newLibraryName) => {
-  AsyncStore.updateKey("library", newLibraryName);
+  MMKV.updateKey("library", newLibraryName);
 };
 
 export const update_lib = async (lib, newLib) => {
@@ -105,19 +111,43 @@ export const update_author = async (author, newAuthor) => {
   await SQL.update_author(author, newAuthor);
 };
 
+export const update_color = async (type, name, color) => {
+  await SQL.update_color(type, name, color);
+};
+
 export const get_books = async (libs) => {
   const books = await SQL.get_books();
   return books;
 };
 
 export const get_genres = async () => {
-  const genres = await SQL.get_genres();
+  let genres = ""
+  await SQL.get_genres().then(data => genres = data);
   return genres;
 };
 
 export const get_tropes = async () => {
-  const tropes = await SQL.get_tropes();
+  let tropes = ""
+  await SQL.get_tropes().then(data => tropes = data);
   return tropes;
+};
+
+export const get_authors = async () => {
+  let authors = ""
+  await SQL.get_authors().then(data => authors = data);
+  return authors;
+};
+
+export const get_libraries = async () => {
+  let libraries = ""
+  await SQL.get_libraries().then(data => libraries = data);
+  return libraries;
+}
+
+export const get_series = async () => {
+  let series = ""
+  await SQL.get_series().then(data => series = data);
+  return series;
 };
 
 export const get_search_genres = async (entry) => {
@@ -147,27 +177,27 @@ export const get_search_libs = async (entry) => {
 
 export const fetch_book = async (bookName) => {
   const sqlInfo = SQL.fetch_book(bookName);
-  const imageUri = await AsyncStore.getItemFor(bookName);
+  const imageUri = await MMKV.getItemFor(bookName);
   const bookData = [...sqlInfo, imageUri];
   return bookData;
 };
 
 export const get_library_name = async () => {
-  const libraryName = await AsyncStore.getItemFor("libraryName");
+  const libraryName = await MMKV.getItemFor("libraryName");
   return libraryName;
 };
 
 export const get_uuid = async () => {
-  const uuid = await AsyncStore.getItemFor("uuid");
+  const uuid = await MMKV.getItemFor("uuid");
   return uuid;
 };
 
 export const store_data = async (key, data) => {
-  await AsyncStore.storeData(key, data);
+  await MMKV.storeData(key, data);
 };
 
 export const get_data = async (key) => {
-  const data = await AsyncStore.getItemFor(key);
+  const data = await MMKV.getItemFor(key);
   return data;
 };
 
@@ -177,24 +207,6 @@ export const convertToArray = (array) => {
   }
   const newArray = array.replace("[", "").replace("]", "").split(",");
   return newArray;
-};
-
-export const get_primaryColor = async () => {
-  const data = await AsyncStore.getItemFor("primaryColor");
-  if (data == undefined) {
-    return "#24C2F4";
-  } else {
-    return data;
-  }
-};
-
-export const get_secondaryColor = async () => {
-  const data = await AsyncStore.getItemFor("secondaryColor");
-  if (data == undefined) {
-    return "black";
-  } else {
-    return data;
-  }
 };
 
 // Make Reading TEST LATER

@@ -1,20 +1,20 @@
 export const useHeader = (type) => {
   if (type == "author") {
-    const header = "Author";
+    const header = "Authors";
     return header;
   } else if (type == "library") {
-    const header = "Library";
+    const header = "Libraries";
     return header;
   } else if (type == "series") {
     const header = "Series";
     return header;
-  } else if (type == "notes") {
+  } else if (type == "note") {
     const header = "Notes";
     return header;
-  } else if (type == "tropes") {
+  } else if (type == "trope") {
     const header = "Tropes";
     return header;
-  } else if (type == "genres") {
+  } else if (type == "genre") {
     const header = "Genres";
     return header;
   } else if (type == "completed") {

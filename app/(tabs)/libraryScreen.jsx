@@ -20,17 +20,16 @@ export default function libraryScreen() {
   const [primaryColor, secondaryColor] = useColor();
 
   const handleMenuPress = useCallback(() => {
-    router.navigate("./menuScreen");
+    router.push("./menuScreen");
   }, []);
 
   const handleLibraryPress = useCallback(() => {
-    router.navigate("../dropDownScreen/library");
+    router.push("../dropDownScreen/library");
   }, []);
 
   useEffect(() => {
     const fetchLibName = async () => {
       const asyncLibName = await get_library_name();
-      console.log(asyncLibName)
       setLibName(asyncLibName);
     };
 

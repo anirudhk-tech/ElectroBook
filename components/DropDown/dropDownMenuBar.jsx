@@ -1,5 +1,7 @@
 // React
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
+import { useEffect } from "react";
+
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -22,9 +24,9 @@ export const ElectroMenuBar = (props) => {
         <TouchableOpacity
           style={[
             styles.dropDownMenuBarColorCode,
-            { backgroundColor: "green" },
+            { backgroundColor: props.color, borderColor: primaryColor },
           ]}
-          onPress={() => props.handleColorPress()}
+          onPress={() => props.handleColorPress(props.option)}
         ></TouchableOpacity>
         <Text
           style={[styles.dropDownBarText, { color: primaryColor }]}

@@ -22,14 +22,14 @@ import { styles } from "../../constants/stylers";
 export default function dropDownScreen() {
   const { options } = useLocalSearchParams();
   const windowHeight = Dimensions.get("window").height;
-
   const [primaryColor, secondaryColor] = useColor();
-  const data = useData(options);
   const headerTitle = useHeader(options);
   const multiType = useDropDownType(options);
   const [value, setValue, removeValue, clearValue] = useFileFunctions(options);
 
-  const flatListBars = [];
+  const [data, setData] = useState([]);
+
+  const flatListBars = []; 
 
   const handleCheckPress = useCallback(() => {
     router.dismiss();
@@ -63,19 +63,31 @@ export default function dropDownScreen() {
     );
   }, []);
 
-  for (let x = 0; x < data.length; x++) {
-    flatListBars.push({
-      item: (
-        <ElectroDropBar
-          option={data[x]}
-          optionType={options}
-          multi={multiType}
-          handlePress={handleBarPress}
-        />
-      ),
-      key: x,
-    });
-  }
+  const createFlatList = () => {
+    for (let x = 0; x < data.length; x++) {
+      flatListBars.push({
+        item: (
+          <ElectroDropBar
+            option={data[x].option}
+            colorCode={data[x].color}
+            optionType={options}
+            multi={multiType}
+            handlePress={handleBarPress}
+          />
+        ),
+        key: x,
+      });
+    }
+  };
+
+  useEffect(() => {
+    useData(options).then(rawData => setData(rawData));
+  }, [])
+
+  useEffect(() => {
+    createFlatList();
+  }, [value, data]);
+  
 
   return (
     <View

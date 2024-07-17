@@ -15,34 +15,43 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useAdd } from "../../hooks/useAdd";
+import { useHeader } from "../../hooks/useHeader";
+import { useData } from '../../hooks/useData';
+import { useDelete } from '../../hooks/useDelete';
+import { useMenuColor } from "../../hooks/useMenuColor";
 
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
+  const headerTitle = useHeader(menuType);
   const [primaryColor, secondaryColor] = useColor();
   const [rawData, setRawData] = useState([]);
   const [flatListData, setFlatListData] = useState([]);
+  const [menuColor] = useMenuColor();
   const windowHeight = Dimensions.get("window").height;
 
   const handleLibraryPress = useCallback(() => {
+    router.dismiss();
     router.navigate("../../(tabs)/libraryScreen");
   }, []);
 
   const handleMenuPress = useCallback(() => {
-    router.navigate("../../(tabs)/menuScreen");
+    router.dismiss();
   }, []);
 
   const handleDeletePress = (option) => {
-    // Delete From SQL and FileSystem (Image AND Book)
-    setRawData(rawData.filter((x) => x != option));
+    // FileSystem (Image AND Book)
+    useDelete(menuType, option);
+    setRawData(rawData.filter((x) => x.option != option));
   };
 
-  const handleColorPress = (option) => {
-    // Change Color in SQL and implement color picker
-    console.log("Color Pressed!");
+  const handleColorPress = (name) => {
+    router.push(`../colorPickerScreen/${menuType}and${name}`);
   };
 
   const handleAddPress = (value) => {
-    setRawData([value, ...rawData]);
+    useAdd(menuType, value, secondaryColor);
+    setRawData([{option: value}, ...rawData]);
   };
 
   const multiIcons = useCallback(() => {
@@ -63,7 +72,8 @@ export default function menuDropDownScreen() {
         dataOrganize.push({
           item: (
             <ElectroMenuBar
-              option={data[x]}
+              option={data[x].option}
+              color={data[x].color}
               handleDeletePress={handleDeletePress}
               handleColorPress={handleColorPress}
             />
@@ -85,14 +95,12 @@ export default function menuDropDownScreen() {
   );
 
   useEffect(() => {
-    // Fetch SQL instead of dataTest
-    const dataTest = [
-      "Wizard of Oz: The King of Macedonia and The Roman Empire: Conqueror of the Great Seas. Must Read!.pdf",
-    ];
-    setRawData(dataTest);
-  }, []);
-
+    useData(menuType).then(rawData => setRawData(rawData));
+  }, [menuColor]);
+ 
   useEffect(() => {
+    console.log(rawData)
+
     dataCreation(rawData);
   }, [rawData]);
 
@@ -112,7 +120,7 @@ export default function menuDropDownScreen() {
             styles.headerTitleStyle,
             { color: secondaryColor },
           ],
-          headerTitle: menuType,
+          headerTitle: headerTitle,
           headerBackVisible: false,
           headerRight: multiIcons,
           headerShown: true,

@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const useCheckUser = create(
     persist((set) => (
         {
-            check: (false),
+            check: (false),      
             settingsCheck: (false),
             setCheck: (value) => set(() => ({ check: (value) })),
             setSettingsCheck: (value) => set(() => ({settingsCheck: (value)})),
@@ -14,10 +14,10 @@ export const useCheckUser = create(
             name: "User Checks",
             storage: createJSONStorage(() => AsyncStorage),
         }
-    )
+    )   
 );
 
-useCheckUser.persist.clearStorage();          
+
 
 export const useChecks = () => {
     const {check, settingsCheck} = useCheckUser(

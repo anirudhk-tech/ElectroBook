@@ -8,7 +8,7 @@ import ColorPicker, {
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { store_data } from "../backend/controller";
+import { update_color } from "../backend/controller";
 
 // React
 import { View } from "react-native";
@@ -23,11 +23,13 @@ import { ElectroButton } from "../../components/button";
 // Hooks
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor, changeTheme } from "../../hooks/useTheme";
+import { useMenuColor } from "../../hooks/useMenuColor";
 
 export default function colorPicker() {
   const [primaryColor, secondaryColor] = useColor();
   const [setPrimary, setSecondary] = changeTheme();
   const [color, setColor] = useFileFunctions("color");
+  const [menuColor, setMenuColor] = useMenuColor();
   const [hex, setHex] = useState("");
   const { backRoute } = useLocalSearchParams();
 
@@ -45,14 +47,22 @@ export default function colorPicker() {
     if (backRoute.includes("Primary")) {
       if (hex != "") {
         setPrimary(hex);
-        store_data("primaryColor", hex);
       }
     } else if (backRoute.includes("Secondary")) {
       if (hex != "") {
         setSecondary(hex);
-        store_data("secondaryColor", hex);
       }
-    }
+    } else if (backRoute.includes("and")) {
+      if (hex != "") {
+        const barInfo = backRoute.split("and");
+        const menuType = barInfo[0];
+        const name = barInfo[1];
+
+        update_color(menuType, name, hex);
+        setMenuColor(hex);
+      };
+    };
+
     router.dismiss();
   };
 

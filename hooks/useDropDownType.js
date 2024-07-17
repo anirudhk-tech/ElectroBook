@@ -11,10 +11,10 @@ export const useDropDownType = (type) => {
   } else if (type == "notes") {
     const multi = true;
     return multi;
-  } else if (type == "tropes") {
+  } else if (type == "trope") {
     const multi = true;
     return multi;
-  } else if (type == "genres") {
+  } else if (type == "genre") {
     const multi = true;
     return multi;
   } else if (type == "completed") {

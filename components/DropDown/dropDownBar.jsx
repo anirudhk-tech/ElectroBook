@@ -27,10 +27,8 @@ export const ElectroDropBar = (props) => {
           styles.dropDownBarSelectedCircle,
           {
             borderColor: primaryColor,
-            display: multiType == true ? "flex" : "none",
-            backgroundColor: value.includes(props.option)
-              ? primaryColor
-              : secondaryColor,
+            display: multiType == true ? value.includes(props.option) ? "flex" : "none" : "none",
+            backgroundColor: primaryColor,
           },
         ]}
       ></View>
@@ -39,7 +37,7 @@ export const ElectroDropBar = (props) => {
           {props.option}
         </Text>
         <View
-          style={[styles.dropDownBarColorCode, { backgroundColor: "green" }]}
+          style={[styles.dropDownBarColorCode, { backgroundColor: props.colorCode, borderColor: primaryColor }]}
         ></View>
       </View>
     </TouchableOpacity>
