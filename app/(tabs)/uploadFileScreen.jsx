@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
+import { create_image } from "../backend/controller"
 
 // Hooks
 import { useFileFunctions } from "../../hooks/useFileFunctions";
@@ -18,6 +19,7 @@ import { ElectroAdvancedDivider } from "../../components/advancedDivider";
 import { ElectroTitleInput } from "../../components/titleInput";
 import { ElectroNotesBar } from "../../components/notesBar";
 import { ElectroColorCodeBar } from "../../components/colorCodeBar";
+import { ElectroImageBar } from "../../components/imageBar";
 
 export default function uploadFileScreen() {
   const [primaryColor, secondaryColor] = useColor();
@@ -25,6 +27,10 @@ export default function uploadFileScreen() {
 
   const [advancedVisible, setAdvancedVisible] = useState("none");
   const [title, setTitle] = useFileFunctions("title");
+
+  const handleImagePress = () => {
+    create_image();
+  };
 
   const handleAdvancedPress = () => {
     if (advancedVisible == "flex") {
@@ -91,6 +97,7 @@ export default function uploadFileScreen() {
         <ElectroPromptDropdown icon="layers-outline" options={"series"} />
         <ElectroColorCodeBar handlePress={handleColorBarPress} />
         <ElectroNotesBar handlePress={handleNotesPress} />
+        <ElectroImageBar handlePress={handleImagePress} />
       </View>
     </ScrollView>
   );

@@ -1,5 +1,5 @@
 // Backend
-import { get_genres, get_tropes, get_authors, get_series, get_libraries} from '../app/backend/controller';
+import { get_genres, get_tropes, get_authors, get_series, get_libraries, get_books, get_completed} from '../app/backend/controller';
 
 export const useData = async (type) => {
   let data = [];
@@ -29,7 +29,11 @@ export const useData = async (type) => {
       return data;
 
   } else if (type.toLowerCase() == "completed") {
-      await get_genres().then(genres => {data = genres});
+      await get_completed().then(completed => {data = completed});
       return data;
-  }
+      
+  } else if (type.toLowerCase() == "book") {
+    await get_books().then(books => {data = books});
+    return data;
+  };
 };

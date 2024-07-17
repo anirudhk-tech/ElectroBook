@@ -289,6 +289,16 @@ export const styles = StyleSheet.create({
         width: '100%',
     },
 
+    // Components - Image Bar  --> NotesBarTouchable used for ImageBarTouchable
+    imageBarText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        width: '53%',
+        height: '100%',
+        textAlignVertical: 'center',
+        textAlign: 'center',
+    },
+
     // Components - Prompt DropDown
     promptDropDownTextIconView: {
         flexDirection: 'row',

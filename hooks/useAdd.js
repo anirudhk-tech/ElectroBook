@@ -5,26 +5,23 @@ export const useAdd = async (type, option, color) => {
   let data = [];
 
   if (type == "author") {
-      create_author(option, color);
+        create_author(option, color);
 
   } else if (type == "library") {
-      create_library(option, color);
+        create_library(option, color);
 
   } else if (type == "series") {
-      create_series(option, color);
+        create_series(option, color);
 
   } else if (type == "notes") {
-      await get_genres().then(genres => {data = genres});
-      return data
+        await get_genres().then(genres => {data = genres});
+        return data
 
   } else if (type == "trope") {
-      create_trope(option, color);
+        create_trope(option, color);
 
   } else if (type == "genre") {
-      create_genre(option, color);
+        create_genre(option, color);
 
-  } else if (type == "completed") {
-      await get_genres().then(genres => {data = genres});
-      return data
   }
 };

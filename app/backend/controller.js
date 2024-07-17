@@ -18,6 +18,13 @@ export const create_library = async (libName, color) => {
   }
 };
 
+export const create_image = async () => {
+  let imageUri = "";
+  await FS.pickImage()
+    .then(uri => imageUri = uri)
+    .then(console.log(imageUri));
+};
+
 export const create_book = async (info) => {
   const bookCreate = await SQL.create_book(info);
   if (bookCreate == null) {
@@ -52,7 +59,7 @@ export const create_author = async (author, color) => {
 };
 
 export const create_series = async (series, color) => {
-  const insertSeries = await SQL.create_series(series, color);
+  const insertSeries = await SQL.create_series(series, [], color);
   if (insertSeries == null) {
     return "SQL Error";
   };
@@ -113,6 +120,11 @@ export const update_author = async (author, newAuthor) => {
 
 export const update_color = async (type, name, color) => {
   await SQL.update_color(type, name, color);
+};
+
+export const get_completed = async () => {
+  const completed = await SQL.get_completed();
+  return completed;
 };
 
 export const get_books = async (libs) => {

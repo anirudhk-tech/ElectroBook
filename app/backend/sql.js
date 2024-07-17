@@ -1,6 +1,10 @@
+// Node Modules
 import * as SQLite from "expo-sqlite";
 import * as Crypto from "expo-crypto";
-import { getItemFor, storeData } from "./MMKV";
+
+// Backend
+import { getItemFor } from "./MMKV";
+
 
 let db = "";
 let uuid = "";
@@ -12,8 +16,7 @@ const getInfo = async () => {
 try {
   getInfo();
 } catch {
-  {
-  }
+  {}
 }
 
 export const create_user = async () => {
@@ -21,7 +24,7 @@ export const create_user = async () => {
   const db = await SQLite.openDatabaseAsync(`${uuid}.db`);
 
   db.execAsync(
-    `CREATE TABLE IF NOT EXISTS books_database (name TEXT PRIMARY KEY, author TEXT, library TEXT, notes LIST, genres LIST, tropes LIST, completed LIST, imageUri TEXT, page INT)`
+    `CREATE TABLE IF NOT EXISTS books_database (name TEXT PRIMARY KEY, author TEXT, library TEXT, notes LIST, genres LIST, tropes LIST, completed TEXT, imageUri TEXT, page INT)`
   );
 
   db.execAsync(
@@ -39,41 +42,43 @@ export const create_user = async () => {
   db.execAsync(
     `CREATE TABLE IF NOT EXISTS tropes_database (option TEXT PRIMARY KEY, color TEXT)`
   );
-  // Add color to series
+
   db.execAsync(
-    `CREATE TABLE IF NOT EXISTS series_database (option TEXT PRIMARY KEY, books LIST)`
+    `CREATE TABLE IF NOT EXISTS series_database (option TEXT PRIMARY KEY, color TEXT, books LIST)`
   );
+
+  // ADD STARTER TROPES AND GENRES
 
   return uuid;
 };
 
-export const create_library = async (libName, color) => {
-  const result = await db.execAsync(
-    `INSERT INTO libraries_database (option, color) VALUES ('${libName}', '${color}')`
-  );
-};
-
-export const create_genre = async (option, color) => {
+export const create_library = async (libName) => {
   const result = db.execAsync(
-    `INSERT INTO genres_database (option, color) VALUES ('${option}', '${color}')`
+    `INSERT INTO libraries_database (option, color) VALUES ("${libName}", '')`
   );
 };
 
-export const create_trope = async (trope, color) => {
-  const result = await db.execAsync(
-    `INSERT INTO tropes_database (option, color) VALUES ('${trope}', '${color}')`
+export const create_genre = async (option) => {
+  const result = db.execAsync(
+    `INSERT INTO genres_database (option, color) VALUES ("${option}", '')`
   );
 };
 
-export const create_author = async (author, color) => {
+export const create_trope = async (trope) => {
   const result = await db.execAsync(
-    `INSERT INTO authors_database (option, color) VALUES ('${author}', '${color}')`
+    `INSERT INTO tropes_database (option, color) VALUES ("${trope}", '')`
+  );
+};
+
+export const create_author = async (author) => {
+  const result = await db.execAsync(
+    `INSERT INTO authors_database (option, color) VALUES ("${author}", '')`
   );
 };
 
 export const create_series = async (seriesName) => {
   const result = db.execAsync(
-    `INSERT INTO series_database (option) VALUES ('${seriesName}')`
+    `INSERT INTO series_database (option) VALUES ("${seriesName}")`
   );
 };
 
@@ -197,7 +202,7 @@ export const update_trope = async (trope, newTrope) => {
     const tropes = booksToUpdate.tropes.filter((x) => x == trope);
     tropes.push(newTrope);
     await db.execAsync(
-      `UPDATE books_database SET genre = ${tropes} WHERE bookName = ${booksToUpdate.bookName}`
+      `UPDATE books_database SET genre = '${tropes}' WHERE bookName = '${booksToUpdate.bookName}'`
     );
   }
 };
@@ -205,31 +210,40 @@ export const update_trope = async (trope, newTrope) => {
 export const update_author = async (author, newAuthor) => {
   const db = await getInfo();
   await db.execAsync(
-    `UPDATE authors_database SET author = ${newAuthor} WHERE author = ${author}`
+    `UPDATE authors_database SET author = ${newAuthor} WHERE author = '${author}'`
   );
 };
 
+export const get_completed = async () => {
+  const completed = [];
+  const completedData = db.getAllAsync(`SELECT * FROM books_database WHERE completed = 'true'`);
+  for (let x = 0; x < completedData.length; x++) {
+    completed.push(completedData[x]);
+  };
+  return completed
+};
+
 export const get_books = async (libs) => {
-  const db = await getInfo();
   if (libs != true) {
     const books = [];
-    const booksData = await db.execAsync(`SELECT * FROM books_database`);
+    const booksData = db.getAllAsync(`SELECT * FROM books_database`);
     for (let x = 0; x < booksData.length; x++) {
       books.push(booksData[x].name);
     }
     return books;
   } else {
     const data = [];
-    const booksData = await db.execAsync(
+    const booksData = db.getAllAsync(
       `SELECT * FROM books_database WHERE lib = 'All'`
     );
-    const libsData = await db.execAsync(`SELECT * FROM libraries_database`);
+    const libsData = db.getAllAsync(`SELECT * FROM libraries_database`);
     for (let x = 0; x < booksData.length; x++) {
       data.append(booksData[x].name);
     }
     for (let x = 0; x < libsData.length; x++) {
       data.append(libsData[x].libName);
     }
+    console.log(data)
     return data;
   }
 };

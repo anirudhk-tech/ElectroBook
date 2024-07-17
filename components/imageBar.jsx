@@ -3,7 +3,6 @@ import { TouchableOpacity, Text } from "react-native";
 import { useCallback } from "react";
 
 // Backend
-import { ThemeContext } from "../constants/context";
 import { styles } from "../constants/stylers";
 
 // Components
@@ -12,7 +11,9 @@ import { ElectroIcon } from "../components/icon";
 // Hooks
 import { useColor } from "../hooks/useTheme";
 
-export const ElectroNotesBar = (props) => {
+// Styles are the same as notes bar
+
+export const ElectroImageBar = (props) => {
   const [primaryColor] = useColor();
 
   const handleNotesPress = useCallback(() => {
@@ -25,13 +26,13 @@ export const ElectroNotesBar = (props) => {
       onPress={handleNotesPress}
     >
       <ElectroIcon
-        name="bookmarks-outline"
+        name="image"
         size={40}
         color={primaryColor}
         handlePress={handleNotesPress}
         style={styles.notesIcon}
       />
-      <Text style={[styles.notesBarText, { color: primaryColor }]}>Notes</Text>
+      <Text style={[styles.imageBarText, { color: primaryColor }]} numberOfLines={1}>Cover Image</Text>
     </TouchableOpacity>
   );
 };

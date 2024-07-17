@@ -59,7 +59,7 @@ export default function menuScreen() {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <ElectroMenuTab text="Books" type="books" handlePress={handleMenuTabPress} />
+        <ElectroMenuTab text="Books" type="book" handlePress={handleMenuTabPress} />
         <ElectroMenuTab text="Libraries" type="library" handlePress={handleMenuTabPress} />
         <ElectroMenuTab text="Authors" type="author" handlePress={handleMenuTabPress} />
         <ElectroMenuTab text="Genres" type="genre" handlePress={handleMenuTabPress} />

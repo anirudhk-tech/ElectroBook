@@ -7,11 +7,11 @@ import { ElectroIcon } from "../icon";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { ThemeContext } from "../../constants/context";
 
+// Hooks
+import { useColor } from "../../hooks/useTheme";
 export const ElectroMultiIcons = (props) => {
-  const colorContext = useContext(ThemeContext);
-  const secondaryColor = colorContext.secondaryColor;
+  const [primary, secondaryColor] = useColor();
 
   return (
     <View style={styles.dropDownMultiIconsMainView}>

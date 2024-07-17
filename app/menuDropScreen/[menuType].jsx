@@ -81,8 +81,8 @@ export default function menuDropDownScreen() {
           key: x,
         });
       }
-      if (menuType != "Books") {
-        if (menuType != "Completed") {
+      if (menuType != "book") {
+        if (menuType != "completed") {
           dataOrganize.push({
             item: <ElectroAddMenuBar onSubmit={handleAddPress} />,
             key: dataOrganize.length + 1,

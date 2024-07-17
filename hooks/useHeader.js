@@ -20,5 +20,8 @@ export const useHeader = (type) => {
   } else if (type == "completed") {
     const header = "Completed";
     return header;
-  }
+  } else if (type == "book") {
+    const header = "Books"
+    return header
+  };
 };
