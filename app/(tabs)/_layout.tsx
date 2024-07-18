@@ -26,6 +26,7 @@ export default function TabLayout() {
         tabBarInactiveBackgroundColor: secondaryColor,
         tabBarStyle: styles.tabBarStyle,
         headerShown: false,
+        unmountOnBlur: true
       }}
     >
       <Tabs.Screen

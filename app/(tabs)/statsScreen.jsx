@@ -1,5 +1,6 @@
 // React
 import { View, Text } from "react-native";
+import { useEffect, useState } from "react";
 
 // Expo
 import { Stack } from "expo-router";
@@ -12,9 +13,24 @@ import { ElectroBar } from "../../components/progressBar";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useData } from "../../hooks/useData";
 
 export default function statsScreen() {
   const [primaryColor, secondaryColor] = useColor();
+  const [totalBooks, setTotalBooks] = useState([]);
+  const [totalBooksLabel, setTotalBooksLabel] = useState("");
+  
+  useEffect(() => {
+    useData("book").then(data => setTotalBooks(data));
+  }, []);
+
+  useEffect(() => {
+    if (totalBooks.length == 1) {
+      setTotalBooksLabel("Book");
+    } else {
+      setTotalBooksLabel("Books");
+    };
+  }, [totalBooks])
 
   return (
     <View
@@ -57,7 +73,7 @@ export default function statsScreen() {
           ></View>
         </View>
         <Text style={[styles.statsScreenText, { color: primaryColor }]}>
-          25 Books
+          {totalBooks.length} {totalBooksLabel}
         </Text>
       </View>
       <View style={styles.statsScreenSubView}>
