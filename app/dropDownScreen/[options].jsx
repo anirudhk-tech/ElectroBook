@@ -8,7 +8,7 @@ import { useState, useCallback, useEffect, memo } from "react";
 // Components
 import { ElectroDropBar } from "../../components/DropDown/dropDownBar";
 import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
-import { ElectroIcon } from "../../components/icon";
+import { ElectroIcon } from "../../components/General/icon";
 
 // Hooks
 import { useData } from "../../hooks/useData";

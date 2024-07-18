@@ -3,14 +3,14 @@ import { View, TextInput, Text } from "react-native";
 import { useState, useEffect } from "react";
 
 // Backend
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroIcon } from "./icon";
+import { ElectroIcon } from "../General/icon";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
-import { useRefreshInfo } from "../hooks/useRefreshInfo";
+import { useColor } from "../../hooks/useTheme";
+import { useRefreshInfo } from "../../hooks/useRefreshInfo";
 
 export const ElectroTitleInput = (props) => {
   const [primaryColor] = useColor();
@@ -19,7 +19,6 @@ export const ElectroTitleInput = (props) => {
 
   useEffect(() => {
     textInputField.clear();
-    console.log(refreshKey);
   }, [refreshKey]);
 
   return (

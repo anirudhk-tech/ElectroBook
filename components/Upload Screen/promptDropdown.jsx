@@ -1,21 +1,21 @@
 // Backend
-import { styles } from "../constants/stylers";
-import { ThemeContext } from "../constants/context";
+import { styles } from "../../constants/stylers";
+import { ThemeContext } from "../../constants/context";
 
 // React
 import { View, Text } from "react-native";
 import { useContext } from "react";
 
 // Components
-import { ElectroDrop } from "./DropDown/dropDown";
-import { ElectroIcon } from "./icon";
+import { ElectroDrop } from "../DropDown/dropDown";
+import { ElectroIcon } from "../General/icon";
 
 // Expo
 import { router } from "expo-router";
 
 // Hooks
-import { useHeader } from "../hooks/useHeader";
-import { useColor } from "../hooks/useTheme";
+import { useHeader } from "../../hooks/useHeader";
+import { useColor } from "../../hooks/useTheme";
 
 export const ElectroPromptDropdown = (props) => {
   const [primaryColor] = useColor();

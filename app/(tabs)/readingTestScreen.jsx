@@ -4,12 +4,10 @@ import { useState, useContext, useCallback, memo } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { ThemeContext } from "../../constants/context";
-
 // Components
-import { ElectroAlert } from "../../components/alert";
-import { ElectroPdf } from "../../components/pdf";
-import { NotesSideBar } from "../../components/notesSideBar";
+import { ElectroAlert } from "../../components/General/alert";
+import { ElectroPdf } from "../../components/Reading Screen/pdf";
+import { NotesSideBar } from "../../components/Reading Screen/notesSideBar";
 
 // Expo
 import { router } from "expo-router";

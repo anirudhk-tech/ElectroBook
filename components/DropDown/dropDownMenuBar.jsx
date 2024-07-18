@@ -1,13 +1,13 @@
 // React
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
-import { useEffect } from "react";
-
+import { useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroIcon } from "../icon";
+import { ElectroIcon } from "../General/icon";
+import { ElectroMenuText } from "./dropDownMenuBarText";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
@@ -19,7 +19,7 @@ export const ElectroMenuBar = (props) => {
   return (
     <View style={[styles.dropDownBarMainView, { height: windowHeight / 10 }]}>
       <View
-        style={[styles.dropDownBarView, { borderColor: primaryColor, gap: 5 }]}
+        style={[styles.dropDownBarView, { borderColor: primaryColor, paddingHorizontal: 0.30 }]}
       >
         <TouchableOpacity
           style={[
@@ -28,15 +28,10 @@ export const ElectroMenuBar = (props) => {
           ]}
           onPress={() => props.handleColorPress(props.option)}
         ></TouchableOpacity>
-        <Text
-          style={[styles.dropDownBarText, { color: primaryColor }]}
-          numberOfLines={1}
-        >
-          {props.option}
-        </Text>
+        <ElectroMenuText option={props.option} type={props.type}/>
         <TouchableOpacity
           style={[
-            styles.dropDownMenuBarDeleteTouchable,
+            styles.dropDownMenuBarActionsTouchable,
             { backgroundColor: primaryColor },
           ]}
           onPress={() => props.handleDeletePress(props.option)}

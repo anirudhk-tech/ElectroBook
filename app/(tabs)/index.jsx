@@ -1,16 +1,16 @@
 // React
 import { View } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { check_user } from "../backend/controller";
+import { establish_userDb } from "../backend/controller";
 
 // Expo
 import { router } from "expo-router";
 
 // Components
-import { ElectroLogo } from "../../components/logo";
+import { ElectroLogo } from "../../components/General/logo";
 
 // Hooks
 import { useColor } from "@/hooks/useTheme";
@@ -29,6 +29,7 @@ export default function startingScreen() {
       };
     };
 
+    establish_userDb();
     startingRouter();
   }, []);
 

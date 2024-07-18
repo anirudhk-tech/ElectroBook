@@ -1,9 +1,9 @@
 // Components
-import { ElectroIcon } from "./icon";
+import { ElectroIcon } from "../General/icon";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
-import { useFileFunctions } from "../hooks/useFileFunctions";
+import { useColor } from "../../hooks/useTheme";
+import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 // React
 import { useState } from "react";
@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 // Backend
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 
 export const ElectroNotesPost = (props) => {
   const [primaryColor, secondaryColor] = useColor();

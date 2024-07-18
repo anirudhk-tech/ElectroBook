@@ -1,6 +1,6 @@
 // Backend
 import { styles } from "../../constants/stylers";
-import { get_library_name, establish_userDb } from "../backend/controller";
+import { get_library_name } from "../backend/controller";
 
 // React
 import { View } from "react-native";
@@ -10,22 +10,35 @@ import { useState, useEffect, useCallback } from "react";
 import { Stack, router } from "expo-router";
 
 // Components
-import { ElectroLibraryHeader } from "../../components/libraryHeader";
+import { ElectroLibraryHeader } from "../../components/Main Library Screen/libraryHeader";
+import { ElectroLibraryScroll } from "../../components/Library Scroll/libraryScroll";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useLibraryCardPress, useLibraryIconPress } from "../../hooks/useLibraryCardPress";
 
 export default function libraryScreen() {
   const [libName, setLibName] = useState("");
   const [primaryColor, secondaryColor] = useColor();
+  const [libraryCardPress, setLibraryCardPress] = useLibraryCardPress();
+  const [libraryIconPress, setLibraryIconPress] = useLibraryIconPress();
 
   const handleMenuPress = useCallback(() => {
     router.push("./menuScreen");
   }, []);
 
-  const handleLibraryPress = useCallback(() => {
-    router.push("../dropDownScreen/library");
+  const handleLibraryCardPress = (libraryName) => {
+    router.navigate(`./${libraryName}`);
+  };
+
+  const handleLibraryIconPress = useCallback(() => {
+    router.navigate(`./libraryScreen`);
   }, []);
+
+  const handleLibraryCardActions = useCallback(() => {
+    setLibraryCardPress(handleLibraryCardPress);
+    setLibraryIconPress(handleLibraryIconPress);
+  });
 
   useEffect(() => {
     const fetchLibName = async () => {
@@ -34,7 +47,7 @@ export default function libraryScreen() {
     };
 
     fetchLibName();
-    establish_userDb();
+    handleLibraryCardActions();
   }, []);
 
   return (
@@ -60,6 +73,7 @@ export default function libraryScreen() {
           headerShown: true,
         }}
       />
+      <ElectroLibraryScroll/>
     </View>
   );
 }

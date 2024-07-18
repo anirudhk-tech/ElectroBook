@@ -1,11 +1,11 @@
 // Backend
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 
 // React
 import { TouchableOpacity, Text, Dimensions } from "react-native";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
+import { useColor } from "../../hooks/useTheme";
 
 export const ElectroMenuTab = (props) => {
   const [primaryColor] = useColor();

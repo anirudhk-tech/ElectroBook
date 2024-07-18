@@ -18,7 +18,7 @@ import { useState } from "react";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 
 // Components
-import { ElectroButton } from "../../components/button";
+import { ElectroButton } from "../../components/General/button";
 
 // Hooks
 import { useFileFunctions } from "../../hooks/useFileFunctions";

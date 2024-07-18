@@ -197,11 +197,16 @@ export const styles = StyleSheet.create({
         },
 
         dropDownBarText: {
-            flex: 10,
+            flex: 9,
             fontSize: 20,
             fontWeight: 'bold',
             textAlignVertical: 'center',
             textAlign: 'center',
+        },
+
+        dropDownBarTextTouchable: {
+            flex: 10,
+            flexDirection: 'row'
         },
 
         // Drop Down
@@ -236,7 +241,7 @@ export const styles = StyleSheet.create({
             borderWidth: 2,
         },
 
-        dropDownMenuBarDeleteTouchable: {
+        dropDownMenuBarActionsTouchable: {
             alignItems: 'center',
             justifyContent: 'center',
             flex: 1,
@@ -397,6 +402,78 @@ export const styles = StyleSheet.create({
         marginTop: '5%',
     },
 
+    // Components - Library Scroll
+        // Library Scroll
+            libraryScrollFlatListMainView: {
+                alignItems: 'center',
+                paddingHorizontal: 30,
+                gap: 40
+            },
+        // Library Card
+            libraryCardRowMainTouchable: {
+                borderWidth: 3,
+                borderRadius: 20,
+                aspectRatio: 1/2,
+            },
+
+            libraryCardRowText: {
+                flex: 3,
+                textAlign: 'center',
+                textAlignVertical: 'center',
+                fontSize: 40,
+                fontWeight: 'bold',
+            },
+
+            libraryCardRowHeaderView: {
+                flexDirection: 'row',
+                flex: 0.5,
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                padding: 10,
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+            },
+
+            libraryCardBookCountText: {
+                fontSize: 30,
+                fontWeight: 'bold',
+                textAlign: 'center',
+            },
+
+    // Components - Books Scroll
+        // Book Card
+        bookCardRowPageText: {
+            fontSize: 20,
+            fontWeight: 'bold',
+            textAlign: 'center',
+        },
+
+        bookCardRowText: {
+            flex: 2,
+            textAlign: 'center',
+            textAlignVertical: 'center',
+            fontSize: 20,
+            fontWeight: 'bold',
+            borderBottomRightRadius: 20,
+            borderBottomLeftRadius: 20,
+            padding: 3
+        },
+
+        bookCardRowHeaderView: {
+            flexDirection: 'row',
+            flex: 1,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            padding: 10,
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+        },
+
+
+    // Library Books Screen
+    libraryBooksScreenMainView: {
+        flex: 1,
+    },
     // DropDown Screen
     dropDownScreenMainView: {
         height: '100%'
@@ -405,6 +482,11 @@ export const styles = StyleSheet.create({
     dropDownScreenFlatList: {
         justifyContent: 'flex-start',
     },
+    // Book Screen
+    bookScreenMainView: {
+        
+    },
+
 
     // Notes Screen
     notesScreenMainView: {
@@ -508,8 +590,6 @@ export const styles = StyleSheet.create({
 
     // Library Screen
     libraryScreenMainView: {
-        width: '100%',
-        height: '100%',
         flex: 1,
     },
 

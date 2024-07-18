@@ -2,11 +2,11 @@
 import { View, Text, Image } from "react-native";
 
 // Backend
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 import { ElectroButton } from "./button";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
+import { useColor } from "../../hooks/useTheme";
 
 // Expo
 import { Octicons } from "@expo/vector-icons";

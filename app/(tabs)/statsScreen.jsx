@@ -9,7 +9,7 @@ import { Stack } from "expo-router";
 import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroBar } from "../../components/progressBar";
+import { ElectroBar } from "../../components/Stats Screen/progressBar";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";

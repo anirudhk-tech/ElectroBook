@@ -3,17 +3,15 @@ import { Stack, router } from "expo-router";
 
 // React
 import { View } from "react-native";
-import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { ThemeContext } from "../../constants/context";
-import { create_user, check_user, delete_user } from "../backend/controller";
+import { create_user, delete_user } from "../backend/controller";
 
 // Components
-import { ElectroLogo } from "../../components/logo";
-import { ElectroPromptInput } from "../../components/promptInput";
-import { ElectroButton } from "../../components/button";
+import { ElectroLogo } from "../../components/General/logo";
+import { ElectroPromptInput } from "../../components/Register Screen/promptInput";
+import { ElectroButton } from "../../components/General/button";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";

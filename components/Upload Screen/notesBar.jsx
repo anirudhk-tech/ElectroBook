@@ -3,14 +3,13 @@ import { TouchableOpacity, Text } from "react-native";
 import { useCallback } from "react";
 
 // Backend
-import { ThemeContext } from "../constants/context";
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroIcon } from "../components/icon";
+import { ElectroIcon } from "../General/icon";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
+import { useColor } from "../../hooks/useTheme";
 
 export const ElectroNotesBar = (props) => {
   const [primaryColor] = useColor();

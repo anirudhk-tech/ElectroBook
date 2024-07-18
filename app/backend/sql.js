@@ -53,7 +53,6 @@ export const create_library = async (libName) => {
 };
 
 export const create_genre = async (option) => {
-  getInfo();
   const result = db.execAsync(
     `INSERT INTO genres_database (option, color) VALUES ("${option}", "")`
   );
@@ -88,6 +87,7 @@ export const create_book = async (info) => {
     const imageUri = info.imageUri;
     const series = info.series;
 
+    console.log(info)
     const result = await db.execAsync(
       `INSERT INTO books_database (option, author, library, color, series, notes, genres, tropes, completed, imageUri, page) VALUES ("${name}", "${author}", "${library}", "${color}", "${series}", "${notes}", "${genres}", "${tropes}", "false", "${imageUri}", 0)`
     );
@@ -108,24 +108,58 @@ export const delete_book = async (bookName) => {
   );
 };
 
-export const delete_lib = async (lib) => {
-  db.execAsync(`DELETE FROM libraries_database WHERE option = "${lib}"`);
+export const delete_lib = async (library) => {
+  db.execAsync(
+    `DELETE FROM libraries_database WHERE option = "${library}";
+    DELETE FROM books_database WHERE library = "${library}";
+    `);
 };
 
 export const delete_genre = async (genre) => {
   db.execAsync(`DELETE FROM genres_database WHERE option = "${genre}"`);
+  const genresToCheck = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE genres LIKE "%${genre}%"`
+  );
+
+  for (let x in genresToCheck) {
+    const bookName = genresToCheck[x].option;
+    const genres = genresToCheck[x].genres.replace('"', '').split(",");
+    const newGenres = genres.filter(x => x != genre);
+    await db.execAsync(
+      `UPDATE books_database SET genres = "${newGenres}" WHERE option = "${bookName}"`
+    );
+  };
 };
+
 
 export const delete_trope = async (trope) => {
   db.execAsync(`DELETE FROM tropes_database WHERE option = "${trope}"`);
+  const tropesToCheck = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE tropes LIKE "%${trope}%"`
+  );
+
+  for (let x in tropesToCheck) {
+    const bookName = tropesToCheck[x].option;
+    const tropes = tropesToCheck[x].tropes.replace('"', '').split(",");
+    const newtropes = tropes.filter(x => x != trope);
+    await db.execAsync(
+      `UPDATE books_database SET tropes = "${newtropes}" WHERE option = "${bookName}"`
+    );
+  };
 };
 
 export const delete_series = async (series) => {
-  db.execAsync(`DELETE FROM series_database WHERE option = "${series}"`);
+  db.execAsync(
+    `DELETE FROM series_database WHERE option = "${series}";
+    UPDATE books_database SET series = "" WHERE series = "${series}";
+  `);
 };
 
 export const delete_author = async (author) => {
-  db.execAsync(`DELETE FROM authors_database WHERE option = "${author}"`)
+  db.execAsync(
+    `DELETE FROM authors_database WHERE option = "${author}";
+    UPDATE books_database SET author = "" WHERE author = "${author}";
+  `);
 };
 
 export const update_color = async (type, name, color) => {
@@ -156,62 +190,93 @@ export const update_color = async (type, name, color) => {
   }
 };
 
-export const update_lib = async (lib, newLib) => {
+export const update_bookName = async (bookName, newBookName) => {
   await db.execAsync(
-    `UPDATE libraries_database SET lib = "${newLib}" WHERE option = "${lib}"`
+    `UPDATE books_database SET option = "${newBookName}" WHERE option = "${bookName}"`
   );
+};
+
+export const update_library = async (libraryName, newLibraryName) => {
   await db.execAsync(
-    `UPDATE books_database SET lib = "${newLib}" WHERE option = "${lib}"`
+    `UPDATE libraries_database SET option = "${newLibraryName}" WHERE option = "${libraryName}";
+    UPDATE books_database SET library = "${newLibraryName}" WHERE library = "${libraryName}"`
   );
 };
 
 export const update_genre = async (genre, newGenre) => {
-  const db = await getInfo();
-  const booksToUpdate = await db.execAsync(
-    `SELECT * FROM books_database WHERE ${genre} IN genres`
+  const genresToCheck = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE genres LIKE "%${genre}%"`
   );
+
+  for (let x in genresToCheck) {
+    const bookName = genresToCheck[x].option;
+    const genres = genresToCheck[x].genres.replace('"', '').split(",");
+    for (let x in genres) {
+      if (genres[x] == genre) {
+        genres[x] = newGenre;
+        await db.execAsync(
+          `UPDATE books_database SET genres = "${genres}" WHERE option = "${bookName}"`
+        );
+      };
+    };
+  };
   await db.execAsync(
-    `UPDATE genres_database SET genre = ${newGenre} WHERE genre = ${genre}`
+    `UPDATE genres_database SET option = "${newGenre}" WHERE option = "${genre}"`
   );
-  for (let x = 0; x < booksToUpdate.length; x++) {
-    const genres = booksToUpdate.genres.filter((x) => x == genre);
-    genres.push(newGenre);
-    await db.execAsync(
-      `UPDATE books_database SET genre = ${genres} WHERE bookName = ${booksToUpdate.bookName}`
-    );
-  }
 };
 
 export const update_page = async (page, bookName) => {
-  const db = await getInfo();
   await db.execAsync(
-    `UPDATE books_database SET page = ${page} WHERE bookName = ${bookName}}`
+    `UPDATE books_database SET page = ${page} WHERE option = "${bookName}"}`
   );
 };
 
 export const update_trope = async (trope, newTrope) => {
-  const db = await getInfo();
-  const booksToUpdate = await db.execAsync(
-    `SELECT * FROM books_database WHERE ${trope} IN tropes`
+  const tropesToCheck = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE tropes LIKE "%${trope}%"`
   );
+
+  for (let x in tropesToCheck) {
+    const bookName = tropesToCheck[x].option;
+    const tropes = tropesToCheck[x].tropes.replace('"', '').split(",");
+    for (let x in tropes) {
+      if (tropes[x] == trope) {
+        tropes[x] = newTrope;
+        await db.execAsync(
+          `UPDATE books_database SET tropes = "${tropes}" WHERE option = "${bookName}"`
+        );
+      };
+    };
+  };
   await db.execAsync(
-    `UPDATE tropes_database SET trope = ${newTrope} WHERE trope = ${trope}`
+    `UPDATE tropes_database SET option = "${newTrope}" WHERE option = "${trope}"`
   );
-  for (let x = 0; x < booksToUpdate.length; x++) {
-    const tropes = booksToUpdate.tropes.filter((x) => x == trope);
-    tropes.push(newTrope);
-    await db.execAsync(
-      `UPDATE books_database SET genre = "${tropes}" WHERE bookName = "${booksToUpdate.bookName}"`
-    );
-  }
+};
+
+export const update_series = async (series, newSeries) => {
+  await db.execAsync(
+    `UPDATE books_database SET series = "${newSeries}" WHERE series = "${series}";
+    UPDATE series_database SET option = "${newSeries}" WHERE option = "${series}";
+    `)
 };
 
 export const update_author = async (author, newAuthor) => {
-  const db = await getInfo();
   await db.execAsync(
-    `UPDATE authors_database SET author = ${newAuthor} WHERE author = "${author}"`
+    `UPDATE authors_database SET option = "${newAuthor}" WHERE option = "${author}"`
   );
 };
+
+export const update_completed = async (bookName, oldStatus) => {
+  if (oldStatus == "true") {
+    await db.execAsync (
+      `UPDATE books_database SET completed = "false" WHERE option = "${bookName}"`
+    );
+  } else {
+    await db.execAsync (
+      `UPDATE books_database SET completed = "true" WHERE option = "${bookName}"`
+    )
+  }
+}
 
 export const get_completed = async () => {
   const completed = [];
@@ -246,18 +311,26 @@ export const get_books = async (libs) => {
   }
 };
 
+export const get_books_inLibrary = async (library) => {
+  const books = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE library = "${library}"`
+  );
+
+  return books;
+}
+
 export const completeBook = async (completeState, bookName) => {
   const db = await getInfo();
   db.execAsync(
-    `UPDATE books_database SET complete = ${completeState.toString()} WHERE bookName = ${bookName}`
+    `UPDATE books_database SET complete = ${completeState.toString()} WHERE option = ${bookName}`
   );
 };
 
 export const get_page = async (bookName) => {
-  const db = await getInfo();
-  const page = await db.execAsync(
-    `SELECT page FROM books_database WHERE bookName = ${bookName}`
+  const page = await db.getFirstAsync(
+    `SELECT page FROM books_database WHERE option = "${bookName}"`
   );
+  
   return page;
 };
 
@@ -359,7 +432,7 @@ export const get_search_books = async (entry) => {
 export const fetch_book = async (bookName) => {
   const db = await getInfo();
   const book = await db.execAsync(
-    `SELECT * FROM books_database WHERE bookName = ${bookName}`
+    `SELECT * FROM books_database WHERE option = ${bookName}`
   );
   return book;
 };

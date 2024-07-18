@@ -1,17 +1,16 @@
 // React
 import { View, ScrollView, Dimensions } from "react-native";
-import { useContext, useCallback, memo } from "react";
+import { useCallback } from "react";
 
 // Backend
-import { ThemeContext } from "../../constants/context";
 import { styles } from "../../constants/stylers";
 
 // Expo
 import { Stack, router } from "expo-router";
 
 // Components
-import { ElectroIcon } from "../../components/icon";
-import { ElectroMenuTab } from "../../components/menuTab";
+import { ElectroIcon } from "../../components/General/icon";
+import { ElectroMenuTab } from "../../components/Main Menu Screen/menuTab";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";

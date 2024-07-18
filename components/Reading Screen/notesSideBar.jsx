@@ -5,10 +5,10 @@ import { View, Text } from "react-native";
 import MultiTap from "react-native-multitap";
 
 // Backend
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
+import { useColor } from "../../hooks/useTheme";
 
 export const NotesSideBar = (props) => {
   const [primaryColor, secondaryColor] = useColor();

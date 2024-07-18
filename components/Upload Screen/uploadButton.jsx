@@ -3,13 +3,13 @@ import { TouchableOpacity, Text } from "react-native";
 import { useEffect } from "react";
 
 // Backend
-import { styles } from "../constants/stylers";
-import { create_book } from "../app/backend/controller";
+import { styles } from "../../constants/stylers";
+import { create_book } from "../../app/backend/controller";
 
 // Hooks
-import { useRefreshInfo } from "../hooks/useRefreshInfo";
-import { useColor } from "../hooks/useTheme";
-import { useInfo } from "../hooks/useInfoFunctions";
+import { useRefreshInfo } from "../../hooks/useRefreshInfo";
+import { useColor } from "../../hooks/useTheme";
+import { useInfo } from "../../hooks/useInfoFunctions";
 
 export const ElectroUploadButton = () => {
     const [refreshKey, setRefreshKey] = useRefreshInfo();

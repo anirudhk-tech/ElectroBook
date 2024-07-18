@@ -5,7 +5,7 @@ import { View, FlatList, Dimensions } from "react-native";
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
 import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
 import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar";
-import { ElectroIcon } from "../../components/icon";
+import { ElectroIcon } from "../../components/General/icon";
 
 // Backend
 import { useCallback, useEffect, useState } from "react";
@@ -88,6 +88,7 @@ export default function menuDropDownScreen() {
             <ElectroMenuBar
               option={data[x].option}
               color={data[x].color}
+              type={menuType}
               handleDeletePress={handleDeletePress}
               handleColorPress={handleColorPress}
             />

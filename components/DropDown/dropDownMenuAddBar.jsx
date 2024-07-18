@@ -2,7 +2,7 @@
 import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroIcon } from "../icon";
+import { ElectroIcon } from "../General/icon";
 
 // React
 import { TouchableOpacity, Dimensions, TextInput } from "react-native";

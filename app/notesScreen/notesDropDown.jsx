@@ -13,7 +13,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 // Components
-import { ElectroNotesPost } from "../../components/notesPost";
+import { ElectroNotesPost } from "../../components/Notes Screen/notesPost";
 import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar";
 
 export default function notesDropDown() {

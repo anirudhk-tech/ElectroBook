@@ -1,17 +1,16 @@
 // React
 import { View } from "react-native";
-import { useContext, useCallback, useState, memo } from "react";
+import { useCallback, useState } from "react";
 
 // Expo
 import { Stack, router } from "expo-router";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { store_data } from "../backend/controller";
 
 // Components
-import { ElectroButton } from "../../components/button";
-import { ElectroAlert } from "../../components/alert";
+import { ElectroButton } from "../../components/General/button";
+import { ElectroAlert } from "../../components/General/alert";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";

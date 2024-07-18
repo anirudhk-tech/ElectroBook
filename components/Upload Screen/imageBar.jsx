@@ -3,14 +3,14 @@ import { TouchableOpacity, Text } from "react-native";
 import { useCallback } from "react";
 
 // Backend
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroIcon } from "../components/icon";
+import { ElectroIcon } from "../General/icon";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
-import { useFileFunctions } from "../hooks/useFileFunctions";
+import { useColor } from "../../hooks/useTheme";
+import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 // Styles are the same as notes bar
 

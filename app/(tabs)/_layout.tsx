@@ -55,6 +55,13 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen 
+      name="[libraryName]"
+      options={{
+        title: "Library Books",
+        tabBarButton: () => null,
+      }}
+      />
       <Tabs.Screen
         name="uploadFileScreen"
         options={{

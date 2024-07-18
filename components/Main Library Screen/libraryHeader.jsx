@@ -1,15 +1,14 @@
 // Components
-import { ElectroIcon } from "./icon";
-import { ElectroDrop } from "./DropDown/dropDown";
+import { ElectroIcon } from "../General/icon";
 
 // Backend
-import { styles } from "../constants/stylers";
+import { styles } from "../../constants/stylers";
 
 // React
 import { View } from "react-native";
 
 // Hooks
-import { useColor } from "../hooks/useTheme";
+import { useColor } from "../../hooks/useTheme";
 
 export const ElectroLibraryHeader = (props) => {
   const [primaryColor, secondaryColor] = useColor();

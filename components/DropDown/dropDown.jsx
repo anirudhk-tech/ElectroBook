@@ -1,10 +1,8 @@
 // React
 import { TouchableOpacity, View } from "react-native";
-import { useContext } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { ThemeContext } from "../../constants/context";
 
 // Expo
 import { router } from "expo-router";
@@ -13,7 +11,7 @@ import { router } from "expo-router";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 // Components
-import { ElectroSelectedBadge } from "../selectedBadge";
+import { ElectroSelectedBadge } from "../Upload Screen/selectedBadge";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";

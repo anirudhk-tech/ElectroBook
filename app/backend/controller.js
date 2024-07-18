@@ -91,7 +91,7 @@ export const delete_series = async (series) => {
 };
 
 export const delete_user = async () => {
-  await //FS.delete_user();
+  //await FS.delete_user();
   await MMKV.deleteAll();
 };
 
@@ -99,8 +99,16 @@ export const update_user = async (newLibraryName) => {
   MMKV.updateKey("library", newLibraryName);
 };
 
-export const update_lib = async (lib, newLib) => {
-  const updateLib = SQL.update_lib(lib, newLib);
+export const update_bookName = async (bookName, newBookName) => {
+  await SQL.update_bookName(bookName, newBookName);
+
+  // FS IMPLEMENTATION HERE
+};
+
+export const update_library = async (libraryName, newLibraryName) => {
+  const updateLib = SQL.update_library(libraryName, newLibraryName);
+
+  // FS Implementation
   if (updateLib == null) {
     return "SQL Error";
   } else {
@@ -108,8 +116,16 @@ export const update_lib = async (lib, newLib) => {
   }
 };
 
+export const update_series = async (series, newSeries) => {
+  await SQL.update_series(series, newSeries);
+};
+
 export const update_genre = async (genre, newGenre) => {
-  SQL.update_genre(genre, newGenre);
+  await SQL.update_genre(genre, newGenre);
+};
+
+export const update_trope = async (trope, newTrope) => {
+  await SQL.update_trope(trope, newTrope);
 };
 
 export const update_author = async (author, newAuthor) => {
@@ -120,6 +136,14 @@ export const update_color = async (type, name, color) => {
   await SQL.update_color(type, name, color);
 };
 
+export const update_completed = async (bookName, oldStatus) => {
+  await SQL.update_completed(bookName, oldStatus);
+}; 
+
+export const get_books_inLibrary = async (library) => {
+  const books = await SQL.get_books_inLibrary(library);
+  return books;
+}
 export const get_completed = async () => {
   const completed = await SQL.get_completed();
   return completed;
@@ -146,6 +170,12 @@ export const get_authors = async () => {
   let authors = ""
   await SQL.get_authors().then(data => authors = data);
   return authors;
+};
+
+export const get_page = async (bookName) => {
+  let page = ""
+  await SQL.get_page(bookName).then(number => page = number);
+  return page;
 };
 
 export const get_libraries = async () => {

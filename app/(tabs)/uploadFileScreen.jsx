@@ -14,13 +14,13 @@ import { useColor } from "../../hooks/useTheme";
 import { Stack, router } from "expo-router";
 
 // Components
-import { ElectroPromptDropdown } from "../../components/promptDropdown";
-import { ElectroAdvancedDivider } from "../../components/advancedDivider";
-import { ElectroTitleInput } from "../../components/titleInput";
-import { ElectroNotesBar } from "../../components/notesBar";
-import { ElectroColorCodeBar } from "../../components/colorCodeBar";
-import { ElectroImageBar } from "../../components/imageBar";
-import { ElectroUploadButton } from "../../components/uploadButton";
+import { ElectroPromptDropdown } from "../../components/Upload Screen/promptDropdown";
+import { ElectroAdvancedDivider } from "../../components/Upload Screen/advancedDivider";
+import { ElectroTitleInput } from "../../components/Upload Screen/titleInput";
+import { ElectroNotesBar } from "../../components/Upload Screen/notesBar";
+import { ElectroColorCodeBar } from "../../components/Upload Screen/colorCodeBar";
+import { ElectroImageBar } from "../../components/Upload Screen/imageBar";
+import { ElectroUploadButton } from "../../components/Upload Screen/uploadButton";
 
 export default function uploadFileScreen() {
   const [primaryColor, secondaryColor] = useColor();

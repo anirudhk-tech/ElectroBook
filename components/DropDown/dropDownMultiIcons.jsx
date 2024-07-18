@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useContext } from "react";
 
 // Components
-import { ElectroIcon } from "../icon";
+import { ElectroIcon } from "../General/icon";
 
 // Backend
 import { styles } from "../../constants/stylers";
