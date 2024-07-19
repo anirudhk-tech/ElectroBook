@@ -21,21 +21,20 @@ import { useBookCardPress } from "../../hooks/useLibraryCardPress";
 
 export const ElectroBookRowCard = (props) => {
     const [primaryColor, secondaryColor] = useColor();
-    const [page, setPage] = useState([]);
+    const [bookInfo, setBookInfo] = useState([]);
     const windowHeight = Dimensions.get("window").height;
     const [handleCardPress] = useBookCardPress();
 
     useEffect(() => {
-        useBookInfo("page", props.bookName).then(number => setPage(number));
+        useBookInfo(props.bookName).then(data => setBookInfo(data));
     }, []);
-
 
     return (
         <TouchableOpacity 
             style={[styles.libraryCardRowMainTouchable, {borderColor: primaryColor, backgroundColor: primaryColor, height: windowHeight/2}]}
             onPress={() => handleCardPress(props.bookName)}>
             <View style={[styles.bookCardRowHeaderView, {backgroundColor: secondaryColor}]}>
-                <Text style={[styles.bookCardRowPageText, {color: primaryColor}]}>On Pg {page}</Text>
+                <Text style={[styles.bookCardRowPageText, {color: primaryColor}]}>On Pg. {bookInfo.page}</Text>
                 <ElectroIcon 
                     name="book"
                     color={props.bookColor == "" ? secondaryColor : props.bookColor}

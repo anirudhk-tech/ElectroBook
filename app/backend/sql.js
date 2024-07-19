@@ -6,6 +6,10 @@ import * as Crypto from "expo-crypto";
 import { getItemFor } from "./MMKV";
 
 
+
+
+// START UP
+
 let db = "";
 let uuid = "";
 export const getInfo = async () => {
@@ -45,6 +49,10 @@ export const create_user = async () => {
 
   return uuid;
 };
+
+
+
+// CREATION FUNCTIONS
 
 export const create_library = async (libName) => {
   const result = db.execAsync(
@@ -87,7 +95,6 @@ export const create_book = async (info) => {
     const imageUri = info.imageUri;
     const series = info.series;
 
-    console.log(info)
     const result = await db.execAsync(
       `INSERT INTO books_database (option, author, library, color, series, notes, genres, tropes, completed, imageUri, page) VALUES ("${name}", "${author}", "${library}", "${color}", "${series}", "${notes}", "${genres}", "${tropes}", "false", "${imageUri}", 0)`
     );
@@ -101,6 +108,10 @@ export const add_books_series = async (books, series) => {
     );
   }
 };
+
+
+
+// DELETE FUNCTIONS 
 
 export const delete_book = async (bookName) => {
   await db.execAsync(
@@ -161,6 +172,9 @@ export const delete_author = async (author) => {
     UPDATE books_database SET author = "" WHERE author = "${author}";
   `);
 };
+
+
+// UPDATE FUNCTIONS
 
 export const update_color = async (type, name, color) => {
   if (type == "author") {
@@ -278,6 +292,16 @@ export const update_completed = async (bookName, oldStatus) => {
   }
 }
 
+export const completeBook = async (completeState, bookName) => {
+  const db = await getInfo();
+  db.execAsync(
+    `UPDATE books_database SET complete = ${completeState.toString()} WHERE option = ${bookName}`
+  );
+};
+
+
+// DATA FETCHING FUNCTIONS
+
 export const get_completed = async () => {
   const completed = [];
   const completedData = db.getAllAsync(`SELECT * FROM books_database WHERE completed = "true"`);
@@ -318,21 +342,6 @@ export const get_books_inLibrary = async (library) => {
 
   return books;
 }
-
-export const completeBook = async (completeState, bookName) => {
-  const db = await getInfo();
-  db.execAsync(
-    `UPDATE books_database SET complete = ${completeState.toString()} WHERE option = ${bookName}`
-  );
-};
-
-export const get_page = async (bookName) => {
-  const page = await db.getFirstAsync(
-    `SELECT page FROM books_database WHERE option = "${bookName}"`
-  );
-  
-  return page;
-};
 
 export const get_genres = async () => {
   const genres = [];
@@ -389,6 +398,28 @@ export const get_authors = async () => {
   return authors;
 };
 
+
+
+
+
+// BOOK INFO FUNCTIONS
+
+export const fetch_book = async (bookName) => {
+  let bookData = ""
+  const book = await db.getFirstAsync(
+    `SELECT * FROM books_database WHERE option = "${bookName}"`
+  ).then(
+    data => bookData = data
+  );
+
+  return bookData;
+};
+
+
+
+
+// SEARCH FUNCTIONS
+
 export const get_search_genres = async (entry) => {
   const db = await getInfo();
   const genres = await db.execAsync(
@@ -427,12 +458,4 @@ export const get_search_books = async (entry) => {
     `SELECT * FROM books_database WHERE ${entry} IN bookName`
   );
   return books;
-};
-
-export const fetch_book = async (bookName) => {
-  const db = await getInfo();
-  const book = await db.execAsync(
-    `SELECT * FROM books_database WHERE option = ${bookName}`
-  );
-  return book;
 };

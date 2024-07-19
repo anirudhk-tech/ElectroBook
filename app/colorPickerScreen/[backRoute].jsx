@@ -24,6 +24,7 @@ import { ElectroButton } from "../../components/General/button";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor, changeTheme } from "../../hooks/useTheme";
 import { useMenuColor } from "../../hooks/useMenuColor";
+import { useMenuType } from "../../hooks/useMenuType";
 
 export default function colorPicker() {
   const [primaryColor, secondaryColor] = useColor();
@@ -32,6 +33,7 @@ export default function colorPicker() {
   const [menuColor, setMenuColor] = useMenuColor();
   const [hex, setHex] = useState("");
   const { backRoute } = useLocalSearchParams();
+  const menuType = useMenuType().type;
 
   // Implement where inital color is already selected color - Get from Async Store
   // Fix moving back to library screen by implementing Async Store check if color was changed
@@ -52,10 +54,9 @@ export default function colorPicker() {
       if (hex != "") {
         setSecondary(hex);
       }
-    } else if (backRoute.includes("and")) {
+    } else if (backRoute.includes("of")) {
       if (hex != "") {
-        const barInfo = backRoute.split("and");
-        const menuType = barInfo[0];
+        const barInfo = backRoute.split("of");
         const name = barInfo[1];
 
         update_color(menuType, name, hex);

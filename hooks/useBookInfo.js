@@ -1,11 +1,7 @@
-import { get_page } from "../app/backend/controller"
+import { fetch_book } from "../app/backend/controller"
 
-export const useBookInfo = async (type, bookName) => {
-    if (type != undefined) {
-        if (type == "page") {
-            let page = "";
-            await get_page(bookName).then(book => page = book.page);
-            return page
-        };
-    };
+export const useBookInfo = async (bookName) => {
+    let bookData = "";
+    await fetch_book(bookName).then(data => bookData = data);
+    return bookData;
 };

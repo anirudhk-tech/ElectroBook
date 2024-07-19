@@ -41,7 +41,6 @@ export default function libraryBooksScreen () {
         };
         
         setBookCardPress(handleCardPress);
-        console.log("render")
     }, []);
 
     return (

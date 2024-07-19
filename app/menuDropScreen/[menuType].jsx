@@ -22,6 +22,7 @@ import { useData } from '../../hooks/useData';
 import { useDelete } from '../../hooks/useDelete';
 import { useMenuColor } from "../../hooks/useMenuColor";
 import { useRefreshOptions } from "../../hooks/useRefreshOptions";
+import { useMenuType } from "../../hooks/useMenuType";
 
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
@@ -32,6 +33,7 @@ export default function menuDropDownScreen() {
   const [menuColor] = useMenuColor();
   const [refresh, setRefresh] = useRefreshOptions();
   const windowHeight = Dimensions.get("window").height;
+  const setMenuType = useMenuType().setType;
 
   const handleBackPress = () => {
     setRefresh(!refresh);
@@ -50,7 +52,7 @@ export default function menuDropDownScreen() {
   };
 
   const handleColorPress = (name) => {
-    router.push(`../colorPickerScreen/${menuType}and${name}`);
+    router.push(`../colorPickerScreen/changeColorof${name}`);
   };
 
   const handleAddPress = (value) => {
@@ -117,7 +119,9 @@ export default function menuDropDownScreen() {
     dataCreation(rawData);
   }, [rawData]);
 
-  // Implement SQL Data transfer
+  useEffect(() => {
+    setMenuType(menuType);
+  }, []);
 
   return (
     <View

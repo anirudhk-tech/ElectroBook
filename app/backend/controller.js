@@ -2,12 +2,23 @@ import * as MMKV from "./MMKV";
 import * as SQL from "./sql";
 import * as FS from "./fileSystem";
 
+
+// START UP
+
+export const establish_userDb = async () => {
+  await SQL.getInfo();
+};
+
 export const create_user = async (libraryName) => {
   const uuid = await SQL.create_user();
   await MMKV.storeData("uuid", uuid);
   await MMKV.storeData("libraryName", libraryName);
   //await //FS.create_user();
 };
+
+
+
+// CREATION FUNCTIONS
 
 export const create_library = async (libName, color) => {
   const result = await SQL.create_library(libName, color);
@@ -16,10 +27,6 @@ export const create_library = async (libName, color) => {
   } else {
     //await FS.create_library(libName);
   }
-};
-
-export const establish_userDb = async () => {
-  await SQL.getInfo();
 };
 
 export const create_image = async (handleImageSubmit) => {
@@ -63,6 +70,11 @@ export const create_series = async (series, color) => {
   };
 };
 
+
+
+// DELETE FUNCTIONS 
+
+
 export const delete_book = async (bookName) => {
   await SQL.delete_book(bookName);
   //await FS.delete_book(lib, bookName);
@@ -94,6 +106,10 @@ export const delete_user = async () => {
   //await FS.delete_user();
   await MMKV.deleteAll();
 };
+
+
+
+// UPDATE FUNCTIONS
 
 export const update_user = async (newLibraryName) => {
   MMKV.updateKey("library", newLibraryName);
@@ -140,6 +156,10 @@ export const update_completed = async (bookName, oldStatus) => {
   await SQL.update_completed(bookName, oldStatus);
 }; 
 
+
+// DATA FETCHING FUNCTIONS
+
+
 export const get_books_inLibrary = async (library) => {
   const books = await SQL.get_books_inLibrary(library);
   return books;
@@ -172,12 +192,6 @@ export const get_authors = async () => {
   return authors;
 };
 
-export const get_page = async (bookName) => {
-  let page = ""
-  await SQL.get_page(bookName).then(number => page = number);
-  return page;
-};
-
 export const get_libraries = async () => {
   let libraries = ""
   await SQL.get_libraries().then(data => libraries = data);
@@ -189,6 +203,21 @@ export const get_series = async () => {
   await SQL.get_series().then(data => series = data);
   return series;
 };
+
+
+
+// BOOK INFO FUNCTIONS
+
+export const fetch_book = async (bookName) => {
+  let bookData = [];
+  await SQL.fetch_book(bookName).then(data => bookData = data);
+  return bookData;
+};
+
+
+
+
+// SEARCH FUNCTIONS
 
 export const get_search_genres = async (entry) => {
   const genres = await SQL.get_search_genres(entry);
@@ -215,12 +244,8 @@ export const get_search_libs = async (entry) => {
   return libs;
 };
 
-export const fetch_book = async (bookName) => {
-  const sqlInfo = SQL.fetch_book(bookName);
-  const imageUri = await MMKV.getItemFor(bookName);
-  const bookData = [...sqlInfo, imageUri];
-  return bookData;
-};
+
+// USER DATA FETCHING FUNCTIONS
 
 export const get_library_name = async () => {
   const libraryName = await MMKV.getItemFor("libraryName");
