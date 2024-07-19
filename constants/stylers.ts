@@ -213,6 +213,7 @@ export const styles = StyleSheet.create({
         dropDownBarMenuTextTouchable: {
             flex: 10,
             flexDirection: 'row',
+            gap: 5,
         },
 
         // Drop Down
@@ -490,12 +491,116 @@ export const styles = StyleSheet.create({
             justifyContent: 'space-between',
             alignItems: 'flex-start',
         },
+    
+    // Components - Author Library Page Box
+    authorLibraryPageBoxMainView: {
+        flex: 2,
+        gap: 5,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+    },
+
+    authorLibraryPageBoxSubView: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        gap: 5,
+    },
+
+    authorLibraryPageBoxDetailsView: {
+        flexDirection: 'row', 
+        gap: 5, 
+        alignItems: 'center'
+    },
+
+    authorLibraryPageBoxPrompt: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        textAlignVertical: 'center'
+    },
+
+    authorLibraryPageBoxText: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        borderRadius: 4,
+        width: 'auto',
+        padding: 5,
+        textAlignVertical: 'center',
+    },
+
+    // Components - Genres List
+    booksScreenListMainView: {
+        height: 'auto',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        rowGap: 10,
+    },
 
 
-    // Library Books Screen
+    // Components - List Badge
+
+    booksScreenListBadgeMainView: {
+        height: 'auto',
+        width: 'auto',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    booksScreenListBadgeText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        width: 'auto',
+        height: 'auto',
+        padding: 5,
+        borderRadius: 4,
+    },
+
+    booksScreenListBadgeLine: {
+        height: 1,
+        width: 20,
+        borderWidth: 1,
+    },
+
+    // Components - Notes List
+    booksScreenNotesList: {
+        height: 'auto',
+        justifyContent: 'space-around',
+    },
+
+    // Book Screen 
+    libraryBooksScreenMainScrollView: {
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+
+    libraryBooksScreenListMainView: {
+        gap: 10,
+        height: 'auto',
+        alignItems: 'center',
+    },
+
+    libraryBooksScreenImage: {
+        flex: 1,
+        height: '100%',
+    },
+
+    libraryBooksScreenImageAndBoxView: {
+        flexDirection: 'row',
+        gap: 10,
+    },
+
+    libraryBooksScreenTitle: {
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+
+    // Library Screen
     libraryBooksScreenMainView: {
         flex: 1,
     },
+
     // DropDown Screen
     dropDownScreenMainView: {
         height: '100%'
@@ -610,7 +715,7 @@ export const styles = StyleSheet.create({
         width: '100%'
     },
 
-    // Library Screen
+    // Main Libraries Screen
     libraryScreenMainView: {
         flex: 1,
     },

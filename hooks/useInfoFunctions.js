@@ -71,7 +71,6 @@ export const useInfo = (type) => {
             fileColor: fileColor,
             series: series,
         };  
-
         setInfo(bookData);
         }, [refreshKey])
 

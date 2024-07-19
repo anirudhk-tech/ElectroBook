@@ -13,7 +13,6 @@ import { useColor } from "../../hooks/useTheme";
 import { useChecks } from "../../hooks/useCheckUser";
 
 export default function TabLayout() {
-  const [firstTime, setFirstTime] = useState(true);
   const {primaryColor, secondaryColor} = useColor();
   const {settingsCheck} = useChecks();
 
@@ -26,7 +25,7 @@ export default function TabLayout() {
         tabBarInactiveBackgroundColor: secondaryColor,
         tabBarStyle: styles.tabBarStyle,
         headerShown: false,
-        unmountOnBlur: true
+        unmountOnBlur:true,
       }}
     >
       <Tabs.Screen

@@ -8,6 +8,12 @@ import { useState, useEffect } from "react";
 // Backend
 import { styles } from "../../constants/stylers";
 
+// Components
+import { ElectroAuthorLibraryPageBox } from "../../components/Book Screen/authorLibraryPageBox";
+import { ElectroGenresList } from "../../components/Book Screen/genresList";
+import { ElectroTropesList } from "../../components/Book Screen/tropesList";
+import { ElectroNotesList } from "../../components/Book Screen/notesList";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useBookInfo } from "../../hooks/useBookInfo";
@@ -25,7 +31,9 @@ export default function bookScreen () {
     }, []);
 
     return (
-        <ScrollView style={[{backgroundColor: secondaryColor, height: windowHeight}]}>
+        <ScrollView 
+            style={{backgroundColor: secondaryColor}}
+            contentContainerStyle={[styles.libraryBooksScreenMainScrollView, {height: windowHeight}]}>
             <Stack.Screen
                 options={{
                     headerStyle: { backgroundColor: primaryColor },
@@ -35,16 +43,22 @@ export default function bookScreen () {
                     headerShown: true,
                 }}
             />
-            <View>
-                <Image/>
-                {/*/Component with author and library deeds/*/}  
+            <View style={[styles.libraryBooksScreenImageAndBoxView, {height: windowHeight / 3}]}>
+                <Image style={[styles.libraryBooksScreenImage, {height: windowHeight / 3}]}/>
+                <ElectroAuthorLibraryPageBox bookName={bookName}/> 
             </View>
-            <Text></Text>
-            {/*/Componenet with list/*/}
-            <Text></Text>
-            {/*/Componenet with list/*/}
-            <Text></Text>
-            {/*/Component with notes list/*/}
+            <View style={styles.libraryBooksScreenListMainView}>
+                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Genres</Text>
+                <ElectroGenresList bookName={bookName}/>
+            </View>
+            <View style={styles.libraryBooksScreenListMainView}>
+                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Tropes</Text>
+                <ElectroTropesList bookName={bookName}/>
+            </View>
+            <View style={styles.libraryBooksScreenListMainView}>
+                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}> Notes</Text>
+                <ElectroNotesList bookName={bookName}/>
+            </View>
         </ScrollView>
     )
 }

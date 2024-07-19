@@ -1,14 +1,10 @@
 // React
 import { View, ScrollView, Dimensions } from "react-native";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
 import { create_image } from "../backend/controller"
-
-// Hooks
-import { useFileFunctions } from "../../hooks/useFileFunctions";
-import { useColor } from "../../hooks/useTheme";
 
 // Expo
 import { Stack, router } from "expo-router";
@@ -22,12 +18,19 @@ import { ElectroColorCodeBar } from "../../components/Upload Screen/colorCodeBar
 import { ElectroImageBar } from "../../components/Upload Screen/imageBar";
 import { ElectroUploadButton } from "../../components/Upload Screen/uploadButton";
 
+// Hooks
+import { useFileFunctions } from "../../hooks/useFileFunctions";
+import { useColor } from "../../hooks/useTheme";
+
+
 export default function uploadFileScreen() {
-  const {primaryColor, secondaryColor} = useColor();
   const windowHeight = Dimensions.get("window").height;
+  
   const [advancedVisible, setAdvancedVisible] = useState("none");
+  
   const setTitle = useFileFunctions("title").setValue;
   const setImageUri = useFileFunctions("image").setValue;
+  const {primaryColor, secondaryColor} = useColor();
 
   const handleImagePress = useCallback(() => {
     create_image(setImageUri);
@@ -49,17 +52,12 @@ export default function uploadFileScreen() {
     router.navigate("../colorPickerScreen/uploadFile");
   }, []);
 
-  const handleSubmit = (value) => {
-    setTitle(value);
-  };
-
   const uploadIcons = useCallback(() => {
     return(
       <ElectroUploadButton/>
     )
   }, []);
 
-  // Implement SQL where you get data about libs, genres, tropes, etc
 
   return (
     <ScrollView
@@ -91,7 +89,6 @@ export default function uploadFileScreen() {
           icon="text"
           iconSize={40}
           placeholder="File name if blank..."
-          onSubmit={handleSubmit}
         />
         <ElectroPromptDropdown icon="library-outline" options={"library"} />
         <ElectroPromptDropdown icon="person" options={"author"} />

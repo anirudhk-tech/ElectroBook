@@ -28,7 +28,7 @@ export default function dropDownScreen() {
   const headerTitle = useHeader(options);
   const multiType = useDropDownType(options);
   const {value, setValue, removeValue, clearValue} = useFileFunctions(options);
-  const {refresh} = useRefreshOptions();
+  const {refresh} = useRefreshOptions(); 
 
   const [data, setData] = useState([]);
 
@@ -42,8 +42,16 @@ export default function dropDownScreen() {
     router.dismiss();
   }, []);
 
+  // For Single Dropdown - Remove
+  const handleRemovePress = useCallback(() => {
+    setValue("");
+    router.dismiss();
+  }, []);
+
+  // For Multi DropDown - Remove
   const handleCancelPress = useCallback(() => {
     clearValue();
+    router.dismiss();
   }, []);
 
   const handleBarPress = (option) => {
@@ -59,18 +67,28 @@ export default function dropDownScreen() {
     }
   };
 
-  const addIcon = useCallback(() => {
+  const multiCloseandAddIcons = useCallback(() => {
     return(
-      <ElectroIcon 
-        name="create"
-        color={secondaryColor}
-        size={30}
-        handlePress={handleAddPress}
+      <ElectroMultiIcons
+        icons={[
+          { name: "close-circle", handlePress: handleRemovePress },
+          { name: "create", handlePress: handleAddPress },
+        ]}
       />
     );
   }, [options]);
 
-  const multiOptions = useCallback(() => {
+  const addIcon = useCallback(() => {
+    return (
+      <ElectroIcon 
+      name="create"
+      size={30}
+      color={secondaryColor}
+      handlePress={handleAddPress}/>
+    );
+  });
+
+  const multiDeleteAndCheckIcons = useCallback(() => {
     return (
       <ElectroMultiIcons
         icons={[
@@ -124,8 +142,8 @@ export default function dropDownScreen() {
           headerTitle: headerTitle,
           headerTitleAlign: "center",
           headerBackVisible: multiType ? false : true,
-          headerLeft: multiType ? multiOptions : () => <></>,
-          headerRight: addIcon,
+          headerLeft: multiType ? multiDeleteAndCheckIcons : () => <></>,
+          headerRight: multiType ? addIcon : multiCloseandAddIcons,
           headerShown: true,
           headerTintColor: secondaryColor,
         }}

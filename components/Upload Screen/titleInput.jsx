@@ -10,16 +10,24 @@ import { ElectroIcon } from "../General/icon";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useRefreshInfo } from "../../hooks/useRefreshInfo";
+import { useInfo } from "../../hooks/useInfoFunctions";
+import { useUploadPressed } from "../../hooks/useUploadStatus";
+import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroTitleInput = (props) => {
   const {primaryColor} = useColor();
-  const refreshKey = useRefreshInfo().refresh;
-  const [value, setValue] = useState("");
+  const { uploadPressed, setUploadPressed } = useUploadPressed();
+  const { value, setValue} = useFileFunctions("title");
+  const info = useInfo("info");
 
   useEffect(() => {
-    textInputField.clear();
-  }, [refreshKey]);
+      if (info.name != "" && info.library != "") {
+        if (uploadPressed == true) {
+            textInputField.clear();
+            setUploadPressed(false);
+        };
+      };
+  }, [info]);
 
   return (
     <View style={styles.uploadScreenSubView}>
@@ -41,10 +49,8 @@ export const ElectroTitleInput = (props) => {
         ]}
         placeholder={props.placeholder ? props.placeholder : ""}
         placeholderTextColor={primaryColor}
-        onBlur={
-          value.trim() == "" ? () => {} : () => props.onSubmit(value.trim())
-        }
         onChangeText={(e) => setValue(e)}
+        defaultValue={value}
         ref={input => {textInputField = input}}
       />
     </View>
