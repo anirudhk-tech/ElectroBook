@@ -16,7 +16,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useData } from "../../hooks/useData";
 
 export default function statsScreen() {
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const [totalBooks, setTotalBooks] = useState([]);
   const [totalBooksLabel, setTotalBooksLabel] = useState("");
   

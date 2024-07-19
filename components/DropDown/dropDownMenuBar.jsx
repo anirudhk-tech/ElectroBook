@@ -13,11 +13,11 @@ import { ElectroMenuText } from "./dropDownMenuBarText";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroMenuBar = (props) => {
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const windowHeight = Dimensions.get("window").height;
 
   return (
-    <View style={[styles.dropDownBarMainView, { height: windowHeight / 10 }]}>
+    <View style={[styles.dropDownBarMainView, { height: windowHeight / 10, marginLeft: '3%' }]}>
       <View
         style={[styles.dropDownBarView, { borderColor: primaryColor, paddingHorizontal: 0.30 }]}
       >
@@ -31,8 +31,8 @@ export const ElectroMenuBar = (props) => {
         <ElectroMenuText option={props.option} type={props.type}/>
         <TouchableOpacity
           style={[
-            styles.dropDownMenuBarActionsTouchable,
-            { backgroundColor: primaryColor },
+            styles.dropDownMenuBarDeleteTouchable,
+            { backgroundColor: primaryColor, borderColor: primaryColor },
           ]}
           onPress={() => props.handleDeletePress(props.option)}
         >

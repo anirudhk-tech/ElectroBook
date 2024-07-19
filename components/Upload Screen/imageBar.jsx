@@ -15,8 +15,8 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 // Styles are the same as notes bar
 
 export const ElectroImageBar = (props) => {
-  const [primaryColor] = useColor();
-  const [imageUrl] = useFileFunctions("image");
+  const {primaryColor} = useColor();
+  const imageUrl = useFileFunctions("image").value;
 
   const handleNotesPress = useCallback(() => {
     props.handlePress();

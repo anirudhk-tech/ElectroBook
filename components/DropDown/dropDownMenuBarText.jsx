@@ -15,28 +15,43 @@ import { useUpdate } from "../../hooks/useUpdate";
 
 export const ElectroMenuText = (props) => {
     const [editing, setEditing] = useState(false);
+    const [duplicate, setDuplicate] = useState(false);
     const [inputOption, setInputOption] = useState(null);
     const [oldInputOption, setOldInputOption] = useState("");
-    const [primaryColor, secondaryColor] = useColor();
+    const {primaryColor, secondaryColor} = useColor();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (inputOption == "") {
             setInputOption(null);
             setEditing(false);
             return
         };
         if (oldInputOption == "") { 
-            useUpdate(props.type, props.option, inputOption);
+            const result = await useUpdate(props.type, props.option, inputOption);
+            if (result == "duplicate") {
+                setInputOption(props.option);
+                setOldInputOption(props.option);
+                setEditing(false);
+            } else {
+                setOldInputOption(inputOption);
+                setEditing(false);
+            };
         } else {
-            useUpdate(props.type, oldInputOption, inputOption);
+            const result = await useUpdate(props.type, oldInputOption, inputOption);
+            console.log(result)
+            if (result == "duplicate") {
+                setInputOption(oldInputOption);
+                setEditing(false);
+            } else {
+                setOldInputOption(inputOption);
+                setEditing(false);
+            }
         };
-        setEditing(false);
-        setOldInputOption(inputOption);
     };
 
     if (!editing) {
         return (
-        <View style={styles.dropDownBarTextTouchable}>
+        <View style={styles.dropDownBarMenuTextTouchable}>
             <Text
                 style={[styles.dropDownBarText, { color: primaryColor }]}
                 numberOfLines={1}
@@ -45,8 +60,8 @@ export const ElectroMenuText = (props) => {
             </Text>
             <TouchableOpacity
             style={[
-                styles.dropDownMenuBarActionsTouchable,
-                { backgroundColor: primaryColor },
+                styles.dropDownMenuTextEditIconTouchable,
+                { backgroundColor: primaryColor, borderRightColor: secondaryColor, borderLeftColor: primaryColor, borderTopColor: primaryColor, borderBottomColor: primaryColor },
             ]}
             onPress={() => setEditing(true)}
             >
@@ -61,6 +76,7 @@ export const ElectroMenuText = (props) => {
         );
       } else {
         return (
+        <View style={styles.dropDownBarMenuTextTouchable}>
           <TextInput 
             style={[styles.dropDownBarText, { color: primaryColor, flex: 10 }]}
             autoFocus={true}
@@ -68,6 +84,21 @@ export const ElectroMenuText = (props) => {
             onChangeText={(e) => setInputOption(e)}
             onBlur={handleSubmit}
           />
+            <TouchableOpacity
+            style={[
+                styles.dropDownMenuTextEditIconTouchable,
+                { backgroundColor: primaryColor, borderRightColor: secondaryColor, borderLeftColor: primaryColor, borderTopColor: primaryColor, borderBottomColor: primaryColor },
+            ]}
+            onPress={() => setEditing(!editing)}
+            >
+            <ElectroIcon
+                name="create"
+                size={20}
+                color={secondaryColor}
+                handlePress={() => setEditing(!editing)}
+                />
+            </TouchableOpacity>
+        </View>
         )
       }
 }

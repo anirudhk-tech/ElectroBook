@@ -8,7 +8,7 @@ import { styles } from "../../constants/stylers";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroAdvancedDivider = (props) => {
-  const [primaryColor] = useColor();
+  const {primaryColor} = useColor();
 
   return (
     <TouchableOpacity

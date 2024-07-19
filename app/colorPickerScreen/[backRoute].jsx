@@ -27,10 +27,10 @@ import { useMenuColor } from "../../hooks/useMenuColor";
 import { useMenuType } from "../../hooks/useMenuType";
 
 export default function colorPicker() {
-  const [primaryColor, secondaryColor] = useColor();
-  const [setPrimary, setSecondary] = changeTheme();
-  const [color, setColor] = useFileFunctions("fileColor");
-  const [menuColor, setMenuColor] = useMenuColor();
+  const {primaryColor, secondaryColor} = useColor();
+  const {setPrimary, setSecondary} = changeTheme();
+  const setColor = useFileFunctions("fileColor").setValue;
+  const {setMenuColor} = useMenuColor();
   const [hex, setHex] = useState("");
   const { backRoute } = useLocalSearchParams();
   const menuType = useMenuType().type;

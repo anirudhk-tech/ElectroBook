@@ -23,11 +23,11 @@ import { ElectroImageBar } from "../../components/Upload Screen/imageBar";
 import { ElectroUploadButton } from "../../components/Upload Screen/uploadButton";
 
 export default function uploadFileScreen() {
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const windowHeight = Dimensions.get("window").height;
   const [advancedVisible, setAdvancedVisible] = useState("none");
-  const [title, setTitle] = useFileFunctions("title");
-  const [imageUri, setImageUri] = useFileFunctions("image");
+  const setTitle = useFileFunctions("title").setValue;
+  const setImageUri = useFileFunctions("image").setValue;
 
   const handleImagePress = useCallback(() => {
     create_image(setImageUri);

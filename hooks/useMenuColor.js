@@ -12,5 +12,5 @@ export const useMenuColor = () => {
             setMenuColor: state.setMenuColor,
         }));
 
-    return [menuColor, setMenuColor]
+    return {menuColor: menuColor, setMenuColor: setMenuColor};
 };

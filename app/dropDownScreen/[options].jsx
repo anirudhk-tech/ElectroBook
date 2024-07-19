@@ -24,11 +24,11 @@ import { styles } from "../../constants/stylers";
 export default function dropDownScreen() {
   const { options } = useLocalSearchParams();
   const windowHeight = Dimensions.get("window").height;
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const headerTitle = useHeader(options);
   const multiType = useDropDownType(options);
-  const [value, setValue, removeValue, clearValue] = useFileFunctions(options);
-  const [refresh] = useRefreshOptions();
+  const {value, setValue, removeValue, clearValue} = useFileFunctions(options);
+  const {refresh} = useRefreshOptions();
 
   const [data, setData] = useState([]);
 

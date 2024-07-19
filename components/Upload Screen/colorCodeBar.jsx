@@ -12,8 +12,8 @@ import { useColor } from "../../hooks/useTheme";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroColorCodeBar = (props) => {
-  const [primaryColor] = useColor();
-  const [color] = useFileFunctions("fileColor");
+  const {primaryColor} = useColor();
+  const color = useFileFunctions("fileColor").value;
   const colorCircleFill = color == "" ? primaryColor : color;
 
   return (

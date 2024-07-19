@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroAddMenuBar = (props) => {
-  const [primaryColor] = useColor();
+  const {primaryColor} = useColor();
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
 
@@ -35,7 +35,7 @@ export const ElectroAddMenuBar = (props) => {
           {
             borderColor: primaryColor,
             height: windowHeight / 9,
-            width: windowWidth - 40,
+            width: windowWidth - 48,
           },
         ]}
         onPress={handleAddPress}
@@ -62,7 +62,10 @@ export const ElectroAddMenuBar = (props) => {
           },
         ]}
         autoFocus={true}
-        onBlur={value == "" ? handleNoSubmit : () => props.onSubmit(value)}
+        onBlur={value == "" ? handleNoSubmit : () => {
+          props.onSubmit(value);
+          setInputActive(false);
+        }}
         onChangeText={(e) => setValue(e.trim())}
         multiline={true}
       />

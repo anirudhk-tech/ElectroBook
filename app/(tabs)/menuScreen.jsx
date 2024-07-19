@@ -16,7 +16,7 @@ import { ElectroMenuTab } from "../../components/Main Menu Screen/menuTab";
 import { useColor } from "../../hooks/useTheme";
 
 export default function menuScreen() {
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const windowHeight = Dimensions.get("window").height;
 
   const handleLibraryPress = useCallback(() => {

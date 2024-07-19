@@ -1,6 +1,5 @@
 // React
 import { View } from "react-native";
-import { useContext } from "react";
 
 // Components
 import { ElectroIcon } from "../General/icon";
@@ -11,7 +10,7 @@ import { styles } from "../../constants/stylers";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 export const ElectroMultiIcons = (props) => {
-  const [primary, secondaryColor] = useColor();
+  const {secondaryColor} = useColor();
 
   return (
     <View style={styles.dropDownMultiIconsMainView}>

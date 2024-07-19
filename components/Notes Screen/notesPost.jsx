@@ -19,8 +19,8 @@ import {
 import { styles } from "../../constants/stylers";
 
 export const ElectroNotesPost = (props) => {
-  const [primaryColor, secondaryColor] = useColor();
-  const [notes, addNote, removeNote, clearNotes, editNote] = useFileFunctions("note");
+  const {primaryColor, secondaryColor} = useColor();
+  const {notes, removeNote, editNote} = useFileFunctions("note");
   const [editing, setEditing] = useState(false);
   const [editNoteText, setEditNoteText] = useState("");
   const windowHeight = Dimensions.get("window").height;

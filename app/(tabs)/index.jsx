@@ -17,12 +17,12 @@ import { useColor } from "@/hooks/useTheme";
 import { useChecks } from "@/hooks/useCheckUser";
 
 export default function startingScreen() {
-  const [checkRegister] = useChecks();
-  const [primaryColor, secondaryColor] = useColor();
+  const {check} = useChecks();
+  const {primaryColor, secondaryColor} = useColor();
   
   useEffect(() => {
     const startingRouter = () => {
-      if (checkRegister == true) {
+      if (check == true) {
         setTimeout(() => router.push("./libraryScreen"), 5000);
       } else {
         setTimeout(() => router.push("../(tabs)/registerScreen"), 5000);

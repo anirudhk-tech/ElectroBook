@@ -12,5 +12,5 @@ export const useRefreshOptions = () => {
             setRefreshStatus: state.setRefreshStatus,
         })
     );
-    return [refreshStatus, setRefreshStatus];
+    return {refresh: refreshStatus, setRefresh: setRefreshStatus};
 };

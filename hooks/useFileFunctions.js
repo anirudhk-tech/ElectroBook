@@ -1,8 +1,5 @@
 import * as useFile from "../hooks/useFile";
-import * as FileSystem from "expo-file-system";
 
-import { useRefreshInfo } from "./useRefreshInfo";
-import { useEffect, useState } from "react";
 
 export const useFileFunctions = (type) => {
   if (type == "title") {
@@ -10,7 +7,7 @@ export const useFileFunctions = (type) => {
       title: state.title,
       setTitle: state.setTitle,
     }));
-    return [title, setTitle];
+    return {value: title, setValue: setTitle};
   } else if (type == "genre") {
     const { genres, addGenres, removeGenres, clearGenres } = useFile.useGenres(
       (state) => ({
@@ -20,7 +17,7 @@ export const useFileFunctions = (type) => {
         clearGenres: state.clearGenres,
       })
     );
-    return [genres, addGenres, removeGenres, clearGenres];
+    return {value: genres, setValue: addGenres, removeValue: removeGenres, clearValue: clearGenres};
   } else if (type == "trope") {
     const { tropes, addTropes, removeTropes, clearTropes } = useFile.useTropes(
       (state) => ({
@@ -30,31 +27,31 @@ export const useFileFunctions = (type) => {
         clearTropes: state.clearTropes,
       })
     );
-    return [tropes, addTropes, removeTropes, clearTropes];
+    return {value: tropes, setValue: addTropes, removeValue: removeTropes, clearValue: clearTropes};
   } else if (type == "library") {
     const { library, setLibrary } = useFile.useLibrary((state) => ({
       library: state.library,
       setLibrary: state.setLibrary,
     }));
-    return [library, setLibrary];
+    return {value: library, setValue: setLibrary};
   } else if (type == "author") {
     const { author, setAuthor } = useFile.useAuthor((state) => ({
       author: state.author,
       setAuthor: state.setAuthor,
     }));
-    return [author, setAuthor];
+    return {value: author, setValue: setAuthor};
   } else if (type == "series") {
     const { series, setSeries } = useFile.useSeries((state) => ({
       series: state.series,
       setSeries: state.setSeries,
     }));
-    return [series, setSeries];
+    return {value: series, setValue: setSeries};
   } else if (type == "fileColor") {
     const { fileColor, setFileColor } = useFile.useFileColor((state) => ({
       fileColor: state.fileColor,
       setFileColor: state.setFileColor,
     }));
-    return [fileColor, setFileColor];
+    return {value: fileColor, setValue: setFileColor};
   } else if (type == "note") {
     const { notes, addNotes, removeNotes, clearNotes, editNote } = useFile.useNotes((state) => ({
         notes: state.notes,
@@ -63,12 +60,12 @@ export const useFileFunctions = (type) => {
         editNote: state.editNote,
         clearNotes: state.clearNotes,
       }));
-    return [notes, addNotes, removeNotes, clearNotes, editNote];
+    return {notes: notes, addNote: addNotes, removeNote: removeNotes, clearNotes: clearNotes, editNote: editNote};
   } else if (type == "image") {
     const { imageUri, setImageUri } = useFile.useImage((state) => ({
       imageUri: state.imageUri,
       setImageUri: state.setImageUri,
     }));
-    return [imageUri, setImageUri];
+    return {value: imageUri, setValue: setImageUri};
   }
 };

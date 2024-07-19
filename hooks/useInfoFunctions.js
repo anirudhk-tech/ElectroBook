@@ -57,7 +57,7 @@ export const useInfo = (type) => {
 
     if (type == "info") {
         const [info, setInfo] = useState([]);
-        const [refreshKey] = useRefreshInfo();
+        const refreshKey = useRefreshInfo().refresh;
         useEffect(() => {
         const newImageUri = imageUri == "" ? "" : `${FileSystem.documentDirectory}Images/${imageUri.split("/ImagePicker/")[1]}`
         const bookData = {

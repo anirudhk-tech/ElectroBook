@@ -12,7 +12,7 @@ import { ElectroIcon } from "../General/icon";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroNotesBar = (props) => {
-  const [primaryColor] = useColor();
+  const {primaryColor} = useColor();
 
   const handleNotesPress = useCallback(() => {
     props.handlePress();

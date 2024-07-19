@@ -1,18 +1,37 @@
 import { update_bookName, update_library, update_author, update_genre, update_trope, update_series, update_completed } from "../app/backend/controller";
 
-export const useUpdate = (type, oldValue, newValue) => {
+export const useUpdate = async (type, oldValue, newValue) => {
     if (type == "book") {
-        update_bookName(oldValue, newValue);
+        const result = await update_bookName(oldValue, newValue);
+        if (result == "duplicate") {
+            return "duplicate";
+        };
     } else if (type == "library") {
-        update_library(oldValue, newValue);
+        const result = await update_library(oldValue, newValue);
+        if (result == "duplicate") {
+            return "duplicate";
+        };
     } else if (type == "author") {
-        update_author(oldValue, newValue);
+        const result = await update_author(oldValue, newValue);
+        console.log (result)
+        if (result == "duplicate") {
+            return "duplicate";
+        };
     } else if (type == "genre") {
-        update_genre(oldValue, newValue);
+        const result = await update_genre(oldValue, newValue);
+        if (result == "duplicate") {
+            return "duplicate";
+        };
     } else if (type == "trope") {
-        update_trope(oldValue, newValue);
+        const result = await update_trope(oldValue, newValue);
+        if (result == "duplicate") {
+            return "duplicate";
+        };
     } else if (type == "series") {
-        update_series(oldValue, newValue);
+        const result = await update_series(oldValue, newValue);
+        if (result == "duplicate") {
+            return "duplicate";
+        };
     };
 };
 

@@ -8,7 +8,7 @@ import { TouchableOpacity, Text, Dimensions } from "react-native";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroMenuTab = (props) => {
-  const [primaryColor] = useColor();
+  const {primaryColor} = useColor();
   const windowWidth = Dimensions.get("window").width;
 
   return (

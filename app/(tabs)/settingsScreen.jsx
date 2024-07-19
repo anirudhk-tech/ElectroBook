@@ -17,9 +17,9 @@ import { useColor } from "../../hooks/useTheme";
 import { useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function settingsScreen() {
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const [displayAlert, setDisplayAlert] = useState("none");
-  const [setCheck, setSettingsCheck] = useCheckSetters();
+  const {setSettingsCheck} = useCheckSetters();
 
   const handlePrimaryColorPress = useCallback(() => {
     router.navigate("../colorPickerScreen/settingsPrimary");

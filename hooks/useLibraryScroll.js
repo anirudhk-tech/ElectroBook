@@ -21,5 +21,5 @@ export const useLibraryScrollType = () => {
         setType: state.setType,
     }));
 
-    return [type, setType];
+    return {type: type, setType: setType};
 };

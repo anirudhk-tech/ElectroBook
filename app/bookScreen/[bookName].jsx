@@ -16,7 +16,7 @@ import { useBookInfo } from "../../hooks/useBookInfo";
 
 export default function bookScreen () {
     const { bookName } = useLocalSearchParams();
-    const [primaryColor, secondaryColor] = useColor();
+    const {primaryColor, secondaryColor} = useColor();
     const [bookInfo, setBookInfo] = useState([]);
     const windowHeight = Dimensions.get("window").height;
 

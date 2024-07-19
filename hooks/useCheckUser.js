@@ -24,7 +24,7 @@ export const useChecks = () => {
             settingsCheck: state.settingsCheck,
         })
     ) 
-    return [check, settingsCheck];
+    return {check: check, settingsCheck: settingsCheck};
 };
 
 export const useCheckSetters = () => {
@@ -34,7 +34,7 @@ export const useCheckSetters = () => {
             setSettingsCheck: state.setSettingsCheck,
         })
     ) 
-    return [setCheck, setSettingsCheck];
+    return {setCheck: setCheck, setSettingsCheck: setSettingsCheck};
 };
 
 

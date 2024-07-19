@@ -12,5 +12,5 @@ export const useRefreshInfo = () => {
             setInfoRefreshStatus: state.setInfoRefreshStatus,
         })
     );
-    return [infoRefreshStatus, setInfoRefreshStatus];
+    return {refresh: infoRefreshStatus, setRefresh: setInfoRefreshStatus};
 };

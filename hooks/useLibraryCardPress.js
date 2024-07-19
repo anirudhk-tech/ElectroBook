@@ -17,7 +17,7 @@ export const useLibraryCardPress = () => {
         setPress: state.setPress,
     }));
 
-    return [press, setPress];
+    return {press: press, setPress: setPress};
 };
 
 export const useLibraryIconPress = () => {
@@ -26,7 +26,7 @@ export const useLibraryIconPress = () => {
     setPress: state.setLibraryPress,
   }));
   
-  return [press, setPress];
+  return {press: press, setPress: setPress}
 };
 
 export const useLibraryFolderIconPress = () => {
@@ -35,7 +35,7 @@ export const useLibraryFolderIconPress = () => {
     setPress: state.setFolderPress,
   }));
   
-  return [press, setPress];
+  return {press: press, setPress: setPress}
 };
 
 export const useBookCardPress = () => {
@@ -44,5 +44,5 @@ export const useBookCardPress = () => {
     setPress: state.setBookCardPress,
   }));
 
-  return [press, setPress];
+  return {press: press, setPress: setPress}
 };

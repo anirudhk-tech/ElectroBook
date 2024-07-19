@@ -14,8 +14,8 @@ import { useChecks } from "../../hooks/useCheckUser";
 
 export default function TabLayout() {
   const [firstTime, setFirstTime] = useState(true);
-  const [primaryColor, secondaryColor] = useColor();
-  const [check, settingsCheck] = useChecks();
+  const {primaryColor, secondaryColor} = useColor();
+  const {settingsCheck} = useChecks();
 
   return (
     <Tabs

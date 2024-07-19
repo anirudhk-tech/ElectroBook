@@ -161,6 +161,7 @@ export const styles = StyleSheet.create({
             fontWeight: 'bold',
             paddingHorizontal: 10,
             marginTop: '5%',
+            alignSelf: 'center',
         },
 
         dropDownBarMainView: {
@@ -169,6 +170,7 @@ export const styles = StyleSheet.create({
             flexDirection: 'row',
             justifyContent: 'center',
             gap: 10,
+            alignSelf: 'center',
         },
 
         dropDownBarSelectedCircle: {
@@ -189,11 +191,14 @@ export const styles = StyleSheet.create({
         dropDownBarColorCode: {
             height: '100%',
             width: 30,
-            borderTopRightRadius: 5,
-            borderBottomRightRadius: 5,
             borderTopLeftRadius: 4,
             borderBottomLeftRadius: 4,
-            borderWidth: 2,
+            borderTopRightRadius: 7,
+            borderBottomRightRadius: 7,
+            borderLeftWidth: 2,
+            borderRightWidth: 0,
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
         },
 
         dropDownBarText: {
@@ -202,11 +207,12 @@ export const styles = StyleSheet.create({
             fontWeight: 'bold',
             textAlignVertical: 'center',
             textAlign: 'center',
+            marginLeft: 30,
         },
 
-        dropDownBarTextTouchable: {
+        dropDownBarMenuTextTouchable: {
             flex: 10,
-            flexDirection: 'row'
+            flexDirection: 'row',
         },
 
         // Drop Down
@@ -234,19 +240,34 @@ export const styles = StyleSheet.create({
         dropDownMenuBarColorCode: {
             height: '100%',
             flex: 0.8,
-            borderTopLeftRadius: 5,
-            borderBottomLeftRadius: 5,
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+            borderLeftWidth: 0,
             borderTopRightRadius: 4,
             borderBottomRightRadius: 4,
-            borderWidth: 2,
+            borderBottomLeftRadius: 7,
+            borderTopLeftRadius: 7,
+            borderRightWidth: 2,
         },
 
-        dropDownMenuBarActionsTouchable: {
+        dropDownMenuBarDeleteTouchable: {
             alignItems: 'center',
             justifyContent: 'center',
             flex: 1,
             borderTopRightRadius: 5,
             borderBottomRightRadius: 5,
+            borderTopLeftRadius: 1,
+            borderBottomLeftRadius: 1,
+            borderRightWidth: 1
+        },
+
+        // Drop Down Menu Text Bar 
+        dropDownMenuTextEditIconTouchable: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 2,
+            borderTopRightRadius: 1,
+            borderBottomRightRadius: 1,
             borderTopLeftRadius: 4,
             borderBottomLeftRadius: 4,
             borderWidth: 2,
@@ -400,6 +421,7 @@ export const styles = StyleSheet.create({
         height: 50,
         alignSelf: 'flex-end',
         marginTop: '5%',
+        marginLeft: '2%'
     },
 
     // Components - Library Scroll

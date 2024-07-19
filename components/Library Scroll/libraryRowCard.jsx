@@ -16,9 +16,9 @@ import { useEffect, useState } from "react";
 
 
 export const ElectroLibraryRowCard = (props) => {
-    const [primaryColor, secondaryColor] = useColor();
+    const {primaryColor, secondaryColor} = useColor();
     const [bookCount, setBookCount] = useState(0);
-    const [cardPress] = useLibraryCardPress();
+    const cardPress = useLibraryCardPress().press;
     const windowHeight = Dimensions.get("window").height;
 
     useEffect(() => {

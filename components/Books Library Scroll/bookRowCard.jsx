@@ -20,11 +20,11 @@ import { useBookCardPress } from "../../hooks/useLibraryCardPress";
 // INSERT IMAGE ONCE FILESYSTEM COMPLETE
 
 export const ElectroBookRowCard = (props) => {
-    const [primaryColor, secondaryColor] = useColor();
+    const {primaryColor, secondaryColor} = useColor();
     const [bookInfo, setBookInfo] = useState([]);
     const windowHeight = Dimensions.get("window").height;
-    const [handleCardPress] = useBookCardPress();
-
+    const handleCardPress = useBookCardPress().press;
+    console.log(props.bookColor)
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
     }, []);
@@ -37,7 +37,7 @@ export const ElectroBookRowCard = (props) => {
                 <Text style={[styles.bookCardRowPageText, {color: primaryColor}]}>On Pg. {bookInfo.page}</Text>
                 <ElectroIcon 
                     name="book"
-                    color={props.bookColor == "" ? secondaryColor : props.bookColor}
+                    color={props.bookColor == "" || props.bookColor == "undefined" ? secondaryColor : props.bookColor}
                     size={40}
                     handlePress={() => {}}
                 />

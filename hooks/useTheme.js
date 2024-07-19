@@ -23,7 +23,7 @@ export const changeTheme = () => {
     setSecondary: state.setSecondary,
   }));
 
-  return [setPrimary, setSecondary];
+  return {setPrimary: setPrimary, setSecondary: setSecondary};
 };
 
 export const useColor = () => {
@@ -32,5 +32,5 @@ export const useColor = () => {
     secondaryColor: state.secondaryColor,
   }));
 
-  return [primaryColor, secondaryColor];
+  return {primaryColor: primaryColor, secondaryColor: secondaryColor};
 };

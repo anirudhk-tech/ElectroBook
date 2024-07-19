@@ -16,7 +16,7 @@ import { styles } from "../../constants/stylers";
 export const ElectroLibraryScroll = (props) => {
     const [libraries, setLibraries] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
-    const [type] = useLibraryScrollType();
+    const {type} = useLibraryScrollType();
     const windowHeight = Dimensions.get("window").height;
 
     useEffect(() => {

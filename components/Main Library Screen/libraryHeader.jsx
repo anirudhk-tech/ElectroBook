@@ -11,12 +11,12 @@ import { View } from "react-native";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroLibraryHeader = (props) => {
-  const [primaryColor, secondaryColor] = useColor();
+  const {secondaryColor} = useColor();
 
   return (
     <View style={styles.libraryHeaderMainView}>
       <ElectroIcon
-        name="create"
+        name="construct"
         size={30}
         style={styles.libraryMenuIcon}
         color={secondaryColor}

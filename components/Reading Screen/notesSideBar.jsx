@@ -11,7 +11,7 @@ import { styles } from "../../constants/stylers";
 import { useColor } from "../../hooks/useTheme";
 
 export const NotesSideBar = (props) => {
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
 
   if (props.visible == true) {
     return (

@@ -27,11 +27,11 @@ import { useMenuType } from "../../hooks/useMenuType";
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
   const headerTitle = useHeader(menuType);
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const [rawData, setRawData] = useState([]);
   const [flatListData, setFlatListData] = useState([]);
-  const [menuColor] = useMenuColor();
-  const [refresh, setRefresh] = useRefreshOptions();
+  const {menuColor} = useMenuColor();
+  const {refresh, setRefresh} = useRefreshOptions();
   const windowHeight = Dimensions.get("window").height;
   const setMenuType = useMenuType().setType;
 
@@ -39,11 +39,6 @@ export default function menuDropDownScreen() {
     setRefresh(!refresh);
     router.dismiss();
   };
-
-  const handleLibraryPress = useCallback(() => {
-    router.dismiss();
-    router.navigate("../../(tabs)/libraryScreen");
-  }, []);
 
   const handleDeletePress = (option) => {
     // FileSystem (Image AND Book)
@@ -55,9 +50,13 @@ export default function menuDropDownScreen() {
     router.push(`../colorPickerScreen/changeColorof${name}`);
   };
 
-  const handleAddPress = (value) => {
-    useAdd(menuType, value, secondaryColor);
-    setRawData([...rawData, {option: value}]);
+  const handleAddPress = async (value) => {
+    const result = await useAdd(menuType, value, secondaryColor);
+    if (result == "duplicate") {
+      return
+    } else {
+      setRawData([...rawData, {option: value}]);
+    };
   };
 
   const backIcon = useCallback(() => {
@@ -70,16 +69,6 @@ export default function menuDropDownScreen() {
       />
     )
   });
-
-  const multiIcons = useCallback(() => {
-    return (
-      <ElectroMultiIcons
-        icons={[
-          { name: "library-outline", handlePress: handleLibraryPress },
-        ]}
-      />
-    );
-  }, []);
 
   const dataCreation = useCallback(
     (data) => {
@@ -140,7 +129,6 @@ export default function menuDropDownScreen() {
           headerTitle: headerTitle,
           headerBackVisible: false,
           headerLeft: backIcon,
-          headerRight: multiIcons,
           headerShown: true,
           headerTintColor: secondaryColor,
           headerTitleAlign: 'center'

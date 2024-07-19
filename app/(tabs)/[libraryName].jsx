@@ -4,7 +4,7 @@ import { useLocalSearchParams, Stack, router } from "expo-router"
 // Components
 import { ElectroIcon } from "../../components/General/icon";
 import { ElectroBookScroll } from "../../components/Books Library Scroll/bookLibraryScroll";
-
+import { ElectroLibraryHeader } from "../../components/Main Library Screen/libraryHeader";
 // React
 import { View } from "react-native";
 import { useCallback, useEffect } from "react";
@@ -14,24 +14,33 @@ import { styles } from "../../constants/stylers";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useBookCardPress, useLibraryIconPress } from "../../hooks/useLibraryCardPress";
+import { useBookCardPress } from "../../hooks/useLibraryCardPress";
+import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
 
 
 export default function libraryBooksScreen () {
     const { libraryName } = useLocalSearchParams();
-    const [primaryColor, secondaryColor] = useColor();
-    const [libraryIconPress] = useLibraryIconPress();
-    const [bookCardPress, setBookCardPress] = useBookCardPress();
+    const {primaryColor, secondaryColor} = useColor();
+    const setBookCardPress = useBookCardPress().setPress;
+
+    const handleCreateIconPress = useCallback (() => {
+        router.push("../menuDropScreen/book");
+    }, []);
+
+    const handleLibraryPress = useCallback (() => {
+        router.navigate("./libraryScreen")
+    }, []);
 
     const libraryIcon = useCallback(() => {
         return (
-            <ElectroIcon 
-                name="library"
-                color={secondaryColor}
-                size={30}
-                style={{marginRight: '5%'}}
-                handlePress={libraryIconPress}
-            />
+            <View style={{marginBottom: '1.5%', marginRight: '2%'}}>
+                <ElectroMultiIcons
+                    icons={[
+                        { name: "library", handlePress: handleLibraryPress },
+                        { name: "create", handlePress: handleCreateIconPress },
+                      ]}
+                />
+            </View>
         );
     }, []);
 

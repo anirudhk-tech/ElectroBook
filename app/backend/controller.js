@@ -22,10 +22,8 @@ export const create_user = async (libraryName) => {
 
 export const create_library = async (libName, color) => {
   const result = await SQL.create_library(libName, color);
-  if (result == null) {
-    return "SQL error";
-  } else {
-    //await FS.create_library(libName);
+  if (result == "duplicate") {
+    return "duplicate";
   }
 };
 
@@ -35,38 +33,36 @@ export const create_image = async (handleImageSubmit) => {
 
 export const create_book = async (info) => {
   const bookCreate = await SQL.create_book(info);
-  // if (bookCreate == null) {
-  //   return "SQL error";
-  // } else {
-  //   //FS.create_book(info.name, info.lib);
-  // }
+  if (bookCreate == "duplicate") {
+    return "duplicate";
+  }
 };
 
 export const create_genre = async (genre, color) => {
   const insertGenre = await SQL.create_genre(genre, color);
-  if (insertGenre == null) {
-    return "SQL error";
+  if (insertGenre == "duplicate") {
+    return "duplicate";
   }
 };
 
 export const create_trope = async (trope, color) => {
   const insertTrope = await SQL.create_trope(trope, color);
-  if (insertTrope == null) {
-    return "SQL error";
+  if (insertTrope == "duplicate") {
+    return "duplicate";
   }
 };
 
 export const create_author = async (author, color) => {
   const insertAuthor = await SQL.create_author(author, color);
-  if (insertAuthor == null) {
-    return "SQL Error";
+  if (insertAuthor == "duplicate") {
+    return "duplicate";
   }
 };
 
 export const create_series = async (series, color) => {
   const insertSeries = await SQL.create_series(series, [], color);
-  if (insertSeries == null) {
-    return "SQL Error";
+  if (insertSeries == "duplicate") {
+    return "duplicate";
   };
 };
 
@@ -116,36 +112,52 @@ export const update_user = async (newLibraryName) => {
 };
 
 export const update_bookName = async (bookName, newBookName) => {
-  await SQL.update_bookName(bookName, newBookName);
+ const result = await SQL.update_bookName(bookName, newBookName);
 
+ if (result == "duplicate") {
+  return "duplicate"
+ } else {
   // FS IMPLEMENTATION HERE
+ };
 };
 
 export const update_library = async (libraryName, newLibraryName) => {
-  const updateLib = SQL.update_library(libraryName, newLibraryName);
+  const result = await SQL.update_library(libraryName, newLibraryName);
 
-  // FS Implementation
-  if (updateLib == null) {
-    return "SQL Error";
+  if (result == "duplicate") {
+    return "duplicate";
   } else {
     //FS.update_lib(lib, newLib);
-  }
+  };
 };
 
 export const update_series = async (series, newSeries) => {
-  await SQL.update_series(series, newSeries);
+  const result = await SQL.update_series(series, newSeries);
+  if (result == "duplicate") {
+    return "duplicate"
+  };
 };
 
 export const update_genre = async (genre, newGenre) => {
-  await SQL.update_genre(genre, newGenre);
+  const result = await SQL.update_genre(genre, newGenre);
+  if (result == "duplicate") {
+    return "duplicate"
+  };
 };
 
 export const update_trope = async (trope, newTrope) => {
-  await SQL.update_trope(trope, newTrope);
+  const result = await SQL.update_trope(trope, newTrope);
+  if (result == "duplicate") {
+    return "duplicate"
+  };
 };
 
 export const update_author = async (author, newAuthor) => {
-  await SQL.update_author(author, newAuthor);
+  const result = await SQL.update_author(author, newAuthor);
+  if (result == "duplicate") {
+    return "duplicate"
+  };
+
 };
 
 export const update_color = async (type, name, color) => {

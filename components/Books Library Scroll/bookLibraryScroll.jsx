@@ -17,7 +17,7 @@ import { useBooksInLibrary } from "../../hooks/useBookInLibrary";
 export const ElectroBookScroll = (props) => {
     const [books, setBooks] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
-    const [type] = useLibraryScrollType();
+    const {type} = useLibraryScrollType();
     const windowHeight = Dimensions.get("window").height;
 
     useEffect(() => {

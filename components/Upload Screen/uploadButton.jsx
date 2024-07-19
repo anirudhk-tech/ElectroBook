@@ -12,8 +12,8 @@ import { useColor } from "../../hooks/useTheme";
 import { useInfo } from "../../hooks/useInfoFunctions";
 
 export const ElectroUploadButton = () => {
-    const [refreshKey, setRefreshKey] = useRefreshInfo();
-    const [primaryColor, secondaryColor] = useColor();
+    const {refreshKey, setRefreshKey} = useRefreshInfo();
+    const {secondaryColor} = useColor();
     const info = useInfo("info");
     const clearValues = useInfo("infoClear");
 

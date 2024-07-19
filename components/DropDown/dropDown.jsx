@@ -17,9 +17,9 @@ import { ElectroSelectedBadge } from "../Upload Screen/selectedBadge";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroDrop = (props) => {
-  const [primaryColor, secondaryColor] = useColor();
+  const {primaryColor, secondaryColor} = useColor();
   const options = props.options;
-  let [value] = useFileFunctions(options);
+  let {value} = useFileFunctions(options);
 
   if (Array.isArray(value) == false) {
     value = [value];

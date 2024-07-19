@@ -18,14 +18,14 @@ import { useColor } from "../../hooks/useTheme";
 import { useChecks, useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function registerScreen() {
-  const [primaryColor, secondaryColor] = useColor();
-  const [check] = useChecks();
-  const [setUserCheck] = useCheckSetters();
+  const {primaryColor, secondaryColor} = useColor();
+  const {check} = useChecks();
+  const {setCheck} = useCheckSetters();
 
   const changeLibName = async (libName) => {
     if (check == false) {
       await create_user(libName);
-      setUserCheck(true);
+      setCheck(true);
     } else {
       await delete_user();
       await create_user(libName);

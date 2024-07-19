@@ -8,7 +8,7 @@ import { styles } from "../../constants/stylers";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroBar = (props) => {
-  const [primaryColor] = useColor();
+  const {primaryColor} = useColor();
   const barPercentage = props.bookRatio * 100;
 
   return (

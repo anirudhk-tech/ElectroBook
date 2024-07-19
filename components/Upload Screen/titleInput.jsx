@@ -13,8 +13,8 @@ import { useColor } from "../../hooks/useTheme";
 import { useRefreshInfo } from "../../hooks/useRefreshInfo";
 
 export const ElectroTitleInput = (props) => {
-  const [primaryColor] = useColor();
-  const [refreshKey, setRefreshKey] = useRefreshInfo();
+  const {primaryColor} = useColor();
+  const refreshKey = useRefreshInfo().refresh;
   const [value, setValue] = useState("");
 
   useEffect(() => {
