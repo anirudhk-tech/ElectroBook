@@ -172,6 +172,14 @@ export const update_bookGenres = async (bookName, newGenres) => {
   await SQL.update_bookGenres(bookName, newGenres)
 };
 
+export const update_bookTropes = async (bookName, newTropes) => {
+  await SQL.update_bookTropes(bookName, newTropes);
+};
+
+export const update_bookNotes = async (bookName, newNotes) => {
+  await SQL.update_bookNotes(bookName, newNotes);
+};
+
 
 // DATA FETCHING FUNCTIONS
 

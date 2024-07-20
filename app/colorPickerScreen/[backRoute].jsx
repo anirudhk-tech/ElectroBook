@@ -36,7 +36,6 @@ export default function colorPicker() {
   const menuType = useMenuType().type;
 
   // Implement where inital color is already selected color - Get from Async Store
-  // Fix moving back to library screen by implementing Async Store check if color was changed
 
   const onCompleteColor = ({ hex }) => {
     setHex(hex);

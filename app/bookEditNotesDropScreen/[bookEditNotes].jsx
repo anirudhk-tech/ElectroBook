@@ -3,27 +3,51 @@ import { Dimensions, View, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 
 // Expo
-import { Stack } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
-// Hooks
-import { useColor } from "../../hooks/useTheme";
-import { useFileFunctions } from "../../hooks/useFileFunctions";
-
 // Components
-import { ElectroNotesPost } from "../../components/Notes Screen/notesPost";
+import { ElectroBookNotesPost } from "../../components/Book Screen/bookNotesPost";
 import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar";
 
+// Hooks
+import { useColor } from "../../hooks/useTheme";
+import { useEditRefresh } from "../../hooks/useEdit";
+import { useBookInfo } from "../../hooks/useBookInfo";
+import { useBookUpdate } from "../../hooks/useBookUpdate";
+
 export default function notesDropDown() {
+  const { bookEditNotes } = useLocalSearchParams();  
   const {primaryColor, secondaryColor} = useColor();
-  const {notes, addNote} = useFileFunctions("note");
+  const {setEditRefresh} = useEditRefresh();
+
   const [flatListData, setFlatListData] = useState([]);
+  const [bookInfo, setBookInfo] = useState([]);
+  const [notes, setNotes] = useState([]);
   const windowHeight = Dimensions.get("window").height;
 
+  const notesSplit = () => {
+    const notes = bookInfo.notes.split(",");
+    setNotes(notes);
+  };
+
+  const handleDeletePress = (note) => {
+    setNotes(notes.filter(x => x != note));
+    setEditRefresh();
+  };
+  
+  const handleEditPress = (oldNote, newNote) => {
+    const newNotes = notes;
+    const index = notes.indexOf(oldNote);
+    newNotes[index] = newNote;
+    setNotes([...newNotes]);
+    setEditRefresh();
+  };
+
   const handleAddNote = (note) => {
-    addNote(note);
+    setNotes([...notes, note]);
   };
 
   const insertAddBar = (array) => {
@@ -36,14 +60,35 @@ export default function notesDropDown() {
   useEffect(() => {
     const rawData = [];
     for (let x = 0; x < notes.length; x++) {
-      rawData.push({
-        item: <ElectroNotesPost note={notes[x]} />,
-        key: x,
-      });
-    }
+      if (notes[x] != "") {
+        rawData.push({
+          item: <ElectroBookNotesPost 
+                  note={notes[x]} 
+                  handleDeletePress={handleDeletePress}
+                  handleEditPress={handleEditPress}/>,
+          key: x,
+        });
+      };
+    };
+
     insertAddBar(rawData);
     setFlatListData(rawData);
+
+    if (notes.length != 0) {
+      useBookUpdate("note", bookEditNotes, notes);
+      setEditRefresh();
+    };
   }, [notes]);
+
+  useEffect(() => {
+    useBookInfo(bookEditNotes).then(data => setBookInfo(data));
+  }, []);
+
+  useEffect(() => {
+    if (bookInfo.notes != undefined || bookInfo.notes != null) {
+        notesSplit();
+    };
+  }, [bookInfo]);
 
   return (
     <View
@@ -57,7 +102,7 @@ export default function notesDropDown() {
             styles.headerTitleStyle,
             { color: secondaryColor },
           ],
-          headerTitle: "Notes",
+          headerTitle: "Edit Notes",
           headerShown: true,
           headerTintColor: secondaryColor,
         }}

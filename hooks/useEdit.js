@@ -7,8 +7,8 @@ const useEditMain = create ((set) => ({
     setBookData: (value) => set(() => ({ bookData: value})),
     data: [],
     setData: (value) => set(() => ({ data: value})),
-    editBookName: "",
-    setEditBookName: (value) => set(() => ({ bookName: value}))
+    editRefresh: false,
+    setEditRefresh: () => set((state) => ({ editRefresh: !state.editRefresh}))
 }));
 
 export const useEditType = () => {
@@ -29,12 +29,12 @@ export const useEditData = () => {
     return {data: data, setData: setData};
 };
 
-export const useEditBookName = () => {
-    const { editBookName, setEditBookName } = useEditMain ((state) => ({
-        editBookName: state.editBookName,
-        setEditBookName: state.setEditBookName
+export const useEditRefresh = () => {
+    const { editRefresh, setEditRefresh } = useEditMain((state) => ({
+        editRefresh: state.editRefresh,
+        setEditRefresh: state.setEditRefresh,
     }));
 
-    return {editBookName: editBookName, setEditBookName: setEditBookName};
+    return {editRefresh: editRefresh, setEditRefresh: setEditRefresh};
 };
 

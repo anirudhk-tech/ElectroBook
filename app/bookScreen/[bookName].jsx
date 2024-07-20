@@ -13,6 +13,7 @@ import { ElectroGenresList } from "../../components/Book Screen/genresList";
 import { ElectroTropesList } from "../../components/Book Screen/tropesList";
 import { ElectroNotesList } from "../../components/Book Screen/notesList";
 import { ElectroIcon } from "../../components/General/icon";
+import { ElectroSeriesHeader } from "../../components/Book Screen/seriesHeader";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
@@ -25,13 +26,18 @@ export default function bookScreen () {
     const windowHeight = Dimensions.get("window").height;
 
     const handleIconPress = () => {
-        router.push(`../bookEditScreen/${bookName}`)
+        router.push(`../bookEditDropScreen/${bookName}`)
+    };
+
+    const handleNotesPress = () => {
+        router.push(`../bookEditNotesDropScreen/${bookName}`);
     };
 
     return (
         <ScrollView 
             style={{backgroundColor: secondaryColor}}
-            contentContainerStyle={[styles.libraryBooksScreenMainScrollView, {height: windowHeight}]}>
+            contentContainerStyle={styles.libraryBooksScreenMainScrollView}
+            showsVerticalScrollIndicator={false}>
             <Stack.Screen
                 options={{
                     headerStyle: { backgroundColor: primaryColor },
@@ -41,6 +47,7 @@ export default function bookScreen () {
                     headerShown: true,
                 }}
             />
+            <ElectroSeriesHeader bookName={bookName}/>
             <View style={[styles.libraryBooksScreenImageAndBoxView, {height: windowHeight / 3}]}>
                 <Image style={[styles.libraryBooksScreenImage, {height: windowHeight / 3}]}/>
                 <ElectroAuthorLibraryPageBox bookName={bookName}/> 
@@ -61,11 +68,32 @@ export default function bookScreen () {
                 <ElectroGenresList bookName={bookName}/>
             </View>
             <View style={styles.libraryBooksScreenListMainView}>
-                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Tropes</Text>
+                <View style={styles.libraryBooksScreenTitleView}>
+                    <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Tropes</Text>
+                    <ElectroIcon 
+                    name="create"
+                    size={30}
+                    color={primaryColor}
+                    handlePress={() => {
+                        handleIconPress();
+                        setType("trope");
+                    }}
+                    />
+                </View>
                 <ElectroTropesList bookName={bookName}/>
             </View>
             <View style={styles.libraryBooksScreenListMainView}>
-                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}> Notes</Text>
+                <View style={styles.libraryBooksScreenTitleView}> 
+                    <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Notes</Text>
+                    <ElectroIcon 
+                    name="create"
+                    size={30}
+                    color={primaryColor}
+                    handlePress={() => {
+                        handleNotesPress();
+                    }}
+                    />
+                </View>
                 <ElectroNotesList bookName={bookName}/>
             </View>
         </ScrollView>

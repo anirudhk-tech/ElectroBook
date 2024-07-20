@@ -10,10 +10,11 @@ import { ElectroListBadge } from "./listBadge";
 
 // Hooks
 import { useBookInfo } from "../../hooks/useBookInfo";
-import { useColor } from "../../hooks/useTheme";
+import { useEditRefresh } from "../../hooks/useEdit";
 
 
 export const ElectroGenresList = (props) => {
+    const {editRefresh} = useEditRefresh();
     const [bookInfo, setBookInfo] = useState([]);
     const [genres, setGenres] = useState([]);
 
@@ -24,7 +25,7 @@ export const ElectroGenresList = (props) => {
 
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
-    }, []);
+    }, [editRefresh]);
 
     useEffect(() => {
         if (bookInfo.genres != undefined || bookInfo.genres != null) {

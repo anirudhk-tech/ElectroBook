@@ -13,27 +13,32 @@ import { ElectroIcon } from "../../components/General/icon";
 import { ElectroEditDropBar } from "../../components/DropDown/dropDownEditBar";
 
 // Hooks
-import { useEditType, useEditData, useEditBookName } from "../../hooks/useEdit";
+import { useEditType, useEditData, useEditRefresh } from "../../hooks/useEdit";
 import { useData } from "../../hooks/useData";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
 import { useHeader } from "../../hooks/useHeader";
+import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 
 
 
 export default function bookEditScreen () {
     const { bookEdit } = useLocalSearchParams();
     const {type} = useEditType();
-    const {data, setData} = useEditData();
+    const {setData} = useEditData();
+    const {setEditRefresh} = useEditRefresh();
+    const refreshOptions = useRefreshOptions().refresh; 
     const {primaryColor, secondaryColor} = useColor();
     const headerTitle = "Edit "+useHeader(type);
-    const {setEditBookName} = useEditBookName();
+
+
     const [rawData, setRawData] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
 
     const windowHeight = Dimensions.get("window").height;
 
     const handleBackPress = useCallback(() => {
+        setEditRefresh();
         router.dismiss();
     }, []);
 
@@ -47,6 +52,20 @@ export default function bookEditScreen () {
         )
     }, []);
 
+    const handleAddIconPress = useCallback(() => {
+      router.push(`../menuDropScreen/${type}`);
+    }, [type]);
+
+    const addIcon = useCallback(() => {
+      return(
+        <ElectroIcon 
+          name="construct"
+          color={secondaryColor}
+          size={30}
+          handlePress={handleAddIconPress}
+        />
+    )}, []);
+
     const dataCreation = useCallback(
         (data) => {
           const dataOrganize = [];
@@ -56,6 +75,7 @@ export default function bookEditScreen () {
                 <ElectroEditDropBar
                   option={data[x].option}
                   color={data[x].color}
+                  bookName={bookEdit}
                 />
               ),
               key: x,
@@ -66,7 +86,7 @@ export default function bookEditScreen () {
         [rawData]
       );
 
-    const listSplit = useCallback((list) => {
+    const listSplit = (list) => {
         if (list.includes(",")) {
             const newList = list.split(",")
             return newList;
@@ -75,22 +95,23 @@ export default function bookEditScreen () {
             newList.push(list);
             return newList;
         };
-
-    }, [data]);
+    };
       
     useEffect(() => {
-        useData(type).then(rawData => setRawData(rawData));
         if (type == "genre") {
             useBookInfo(bookEdit).then(bookData => setData(listSplit(bookData.genres)));
         } else if (type == "trope") {
             useBookInfo(bookEdit).then(bookData => setData(listSplit(bookData.tropes)));
         };
-        setEditBookName(bookEdit);
-    }, []);
+    }, [type]);
 
     useEffect(() => {
         dataCreation(rawData);
     }, [rawData]);
+
+    useEffect(() => {
+      useData(type).then(rawData => setRawData(rawData));
+    }, [refreshOptions]);
 
 
     return (
@@ -105,6 +126,7 @@ export default function bookEditScreen () {
             headerTitle: headerTitle,
             headerBackVisible: false,
             headerLeft: backIcon,
+            headerRight: addIcon,
             headerShown: true,
             headerTintColor: secondaryColor,
             headerTitleAlign: 'center'

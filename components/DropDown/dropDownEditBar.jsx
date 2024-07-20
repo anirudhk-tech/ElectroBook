@@ -1,20 +1,19 @@
 // React
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useEditData, useEditType, useEditBookName } from "../../hooks/useEdit";
+import { useEditData, useEditType } from "../../hooks/useEdit";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
 
 export const ElectroEditDropBar = (props) => {
   const {primaryColor} = useColor();
   const {type} = useEditType();
   const {data, setData} = useEditData();
-  const {editBookName} = useEditBookName();
 
   const windowHeight = Dimensions.get("window").height;
   
@@ -27,7 +26,7 @@ export const ElectroEditDropBar = (props) => {
   };
 
   useEffect(() => {
-    useBookUpdate(type, editBookName, data);
+    useBookUpdate(type, props.bookName, data);
   }, [data]);
 
   return (

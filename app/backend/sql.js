@@ -109,7 +109,7 @@ export const create_book = async (info) => {
     const name = info.name;
     const author = info.author;
     const library = info.library;
-    const color = info.color;
+    const fileColor = info.fileColor;
     const notes = info.notes;
     const genres = info.genres;
     const tropes = info.tropes;
@@ -118,7 +118,7 @@ export const create_book = async (info) => {
 
   try {
     await db.execAsync(
-      `INSERT INTO books_database (option, author, library, color, series, notes, genres, tropes, completed, imageUri, page) VALUES ("${name}", "${author}", "${library}", "${color}", "${series}", "${notes}", "${genres}", "${tropes}", "false", "${imageUri}", 0)`
+      `INSERT INTO books_database (option, author, library, color, series, notes, genres, tropes, completed, imageUri, page) VALUES ("${name}", "${author}", "${library}", "${fileColor}", "${series}", "${notes}", "${genres}", "${tropes}", "false", "${imageUri}", 0)`
     );
   } catch {
     return "duplicate"
@@ -274,16 +274,6 @@ export const update_genre = async (genre, newGenre) => {
   } catch {
     return "duplicate"
   };
-}
-
-export const update_page = async (page, bookName) => {
-  try {
-  await db.execAsync(
-    `UPDATE books_database SET page = ${page} WHERE option = "${bookName}"}`
-  );
-} catch {
-  return "duplicate"
-}
 };
 
 export const update_trope = async (trope, newTrope) => {
@@ -335,6 +325,20 @@ export const update_author = async (author, newAuthor) => {
 }
 };
 
+
+// BOOK UPDATE FUNCTIONS
+
+
+export const update_page = async (page, bookName) => {
+  try {
+  await db.execAsync(
+    `UPDATE books_database SET page = ${page} WHERE option = "${bookName}"}`
+  );
+} catch {
+  return "duplicate"
+}
+};
+
 export const update_completed = async (bookName, oldStatus) => {
   if (oldStatus == "true") {
     await db.execAsync (
@@ -359,15 +363,11 @@ export const update_bookTropes = async (bookName, newTropes) => {
   );
 };
 
-
-
-export const completeBook = async (completeState, bookName) => {
-  const db = await getInfo();
-  db.execAsync(
-    `UPDATE books_database SET complete = ${completeState.toString()} WHERE option = ${bookName}`
+export const update_bookNotes = async (bookName, newNotes) => {
+  await db.execAsync (
+    `UPDATE books_database SET notes = "${newNotes}" WHERE option = "${bookName}"`
   );
 };
-
 
 // DATA FETCHING FUNCTIONS
 

@@ -10,11 +10,13 @@ import { ElectroListBadge } from "./listBadge";
 
 // Hooks
 import { useBookInfo } from "../../hooks/useBookInfo";
+import { useEditRefresh } from "../../hooks/useEdit";
 
 
 export const ElectroTropesList = (props) => {
     const [bookInfo, setBookInfo] = useState([]);
     const [tropes, setTropes] = useState([]);
+    const {editRefresh} = useEditRefresh();
 
     const tropesSplit = () => {
         const tropes = bookInfo.tropes.split(",");
@@ -23,7 +25,7 @@ export const ElectroTropesList = (props) => {
 
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
-    }, []);
+    }, [editRefresh]);
 
     useEffect(() => {
         if (bookInfo.tropes != undefined) {

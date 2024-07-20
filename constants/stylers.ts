@@ -539,7 +539,6 @@ export const styles = StyleSheet.create({
 
 
     // Components - List Badge
-
     booksScreenListBadgeMainView: {
         height: 'auto',
         width: 'auto',
@@ -568,11 +567,22 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
 
+    booksScreenNotesListLine: {
+        height: 1,
+        borderWidth: 1,
+    },
+
+    // Components - Series Header
+    booksScreenSeriesHeaderText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+
     // Book Screen 
     libraryBooksScreenMainScrollView: {
         padding: 10,
         alignItems: 'center',
-        justifyContent: 'space-around',
+        gap: 50,
     },
 
     libraryBooksScreenListMainView: {
@@ -614,10 +624,6 @@ export const styles = StyleSheet.create({
 
     dropDownScreenFlatList: {
         justifyContent: 'flex-start',
-    },
-    // Book Screen
-    bookScreenMainView: {
-        
     },
 
 

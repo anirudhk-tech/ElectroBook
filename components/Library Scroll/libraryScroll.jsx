@@ -43,6 +43,7 @@ export const ElectroLibraryScroll = (props) => {
                 renderItem={({item}) => item.item}
                 keyExtractor={(item) => item.key}
                 horizontal={true}
+                showsHorizontalScrollIndicator={false}
             />
         )
     }

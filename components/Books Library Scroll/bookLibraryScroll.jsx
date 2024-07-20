@@ -11,6 +11,7 @@ import { styles } from "../../constants/stylers";
 // Hooks
 import { useLibraryScrollType } from "../../hooks/useLibraryScroll";
 import { useBooksInLibrary } from "../../hooks/useBookInLibrary";
+import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 
 // Same styles as Library Scroll
 
@@ -18,11 +19,12 @@ export const ElectroBookScroll = (props) => {
     const [books, setBooks] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
     const {type} = useLibraryScrollType();
+    const {refresh} = useRefreshOptions();
     const windowHeight = Dimensions.get("window").height;
 
     useEffect(() => {
         useBooksInLibrary(props.library).then(data => setBooks(data));
-    }, []);
+    }, [refresh]);
 
     useEffect(() => {
         const flatListData = [];
@@ -44,6 +46,7 @@ export const ElectroBookScroll = (props) => {
                 renderItem={({item}) => item.item}
                 keyExtractor={(item) => item.key}
                 horizontal={true}
+                showsHorizontalScrollIndicator={false}
             />
         )
     }
