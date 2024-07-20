@@ -28,12 +28,13 @@ export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
   const headerTitle = useHeader(menuType);
   const {primaryColor, secondaryColor} = useColor();
-  const [rawData, setRawData] = useState([]);
-  const [flatListData, setFlatListData] = useState([]);
   const {menuColor} = useMenuColor();
   const {refresh, setRefresh} = useRefreshOptions();
   const windowHeight = Dimensions.get("window").height;
   const setMenuType = useMenuType().setType;
+
+  const [rawData, setRawData] = useState([]);
+  const [flatListData, setFlatListData] = useState([]);
 
   const handleBackPress = () => {
     setRefresh(!refresh);

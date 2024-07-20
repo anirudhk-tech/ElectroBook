@@ -345,7 +345,21 @@ export const update_completed = async (bookName, oldStatus) => {
       `UPDATE books_database SET completed = "true" WHERE option = "${bookName}"`
     )
   }
-}
+};
+
+export const update_bookGenres = async (bookName, newGenres) => {
+  await db.execAsync (
+    `UPDATE books_database SET genres = "${newGenres}" WHERE option = "${bookName}"`
+  );
+};
+
+export const update_bookTropes = async (bookName, newTropes) => {
+  await db.execAsync (
+    `UPDATE books_database SET tropes = "${newTropes}" WHERE option = "${bookName}"`
+  );
+};
+
+
 
 export const completeBook = async (completeState, bookName) => {
   const db = await getInfo();

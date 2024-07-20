@@ -24,7 +24,7 @@ export const ElectroBookRowCard = (props) => {
     const [bookInfo, setBookInfo] = useState([]);
     const windowHeight = Dimensions.get("window").height;
     const handleCardPress = useBookCardPress().press;
-    console.log(props.bookColor)
+
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
     }, []);

@@ -168,6 +168,10 @@ export const update_completed = async (bookName, oldStatus) => {
   await SQL.update_completed(bookName, oldStatus);
 }; 
 
+export const update_bookGenres = async (bookName, newGenres) => {
+  await SQL.update_bookGenres(bookName, newGenres)
+};
+
 
 // DATA FETCHING FUNCTIONS
 

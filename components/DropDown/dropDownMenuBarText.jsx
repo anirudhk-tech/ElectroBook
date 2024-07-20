@@ -38,7 +38,6 @@ export const ElectroMenuText = (props) => {
             };
         } else {
             const result = await useUpdate(props.type, oldInputOption, inputOption);
-            console.log(result)
             if (result == "duplicate") {
                 setInputOption(oldInputOption);
                 setEditing(false);

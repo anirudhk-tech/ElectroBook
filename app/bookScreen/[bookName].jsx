@@ -1,9 +1,8 @@
 // Expo
-import { useLocalSearchParams, Stack } from "expo-router"
+import { useLocalSearchParams, Stack, router } from "expo-router"
 
 // React
 import { Dimensions, ScrollView, View, Image, Text } from "react-native";
-import { useState, useEffect } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -13,22 +12,21 @@ import { ElectroAuthorLibraryPageBox } from "../../components/Book Screen/author
 import { ElectroGenresList } from "../../components/Book Screen/genresList";
 import { ElectroTropesList } from "../../components/Book Screen/tropesList";
 import { ElectroNotesList } from "../../components/Book Screen/notesList";
+import { ElectroIcon } from "../../components/General/icon";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useBookInfo } from "../../hooks/useBookInfo";
-
-
+import { useEditType } from "../../hooks/useEdit";
 
 export default function bookScreen () {
     const { bookName } = useLocalSearchParams();
+    const { setType } = useEditType();
     const {primaryColor, secondaryColor} = useColor();
-    const [bookInfo, setBookInfo] = useState([]);
     const windowHeight = Dimensions.get("window").height;
 
-    useEffect(() => {
-        useBookInfo(bookName).then(data => setBookInfo(data));
-    }, []);
+    const handleIconPress = () => {
+        router.push(`../bookEditScreen/${bookName}`)
+    };
 
     return (
         <ScrollView 
@@ -48,7 +46,18 @@ export default function bookScreen () {
                 <ElectroAuthorLibraryPageBox bookName={bookName}/> 
             </View>
             <View style={styles.libraryBooksScreenListMainView}>
-                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Genres</Text>
+                <View style={styles.libraryBooksScreenTitleView}>
+                    <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Genres</Text>
+                    <ElectroIcon 
+                    name="create"
+                    size={30}
+                    color={primaryColor}
+                    handlePress={() => {
+                        handleIconPress();
+                        setType("genre");
+                    }}
+                    />
+                </View>
                 <ElectroGenresList bookName={bookName}/>
             </View>
             <View style={styles.libraryBooksScreenListMainView}>

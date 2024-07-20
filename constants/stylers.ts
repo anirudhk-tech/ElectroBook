@@ -596,6 +596,12 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    libraryBooksScreenTitleView: {
+        flexDirection: 'row',
+        gap: 10,
+        alignItems: 'center',
+    },
+
     // Library Screen
     libraryBooksScreenMainView: {
         flex: 1,

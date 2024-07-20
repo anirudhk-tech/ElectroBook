@@ -1,4 +1,4 @@
-import { update_bookName, update_library, update_author, update_genre, update_trope, update_series, update_completed } from "../app/backend/controller";
+import { update_bookName, update_library, update_author, update_genre, update_trope, update_series, update_completed, update_bookGenres } from "../app/backend/controller";
 
 export const useUpdate = async (type, oldValue, newValue) => {
     if (type == "book") {
@@ -13,7 +13,6 @@ export const useUpdate = async (type, oldValue, newValue) => {
         };
     } else if (type == "author") {
         const result = await update_author(oldValue, newValue);
-        console.log (result)
         if (result == "duplicate") {
             return "duplicate";
         };
