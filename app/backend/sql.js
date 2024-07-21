@@ -376,7 +376,9 @@ export const check_duplicate = async (bookName) => {
 
   if (check != null) {
     return "duplicate"
-  };
+  } else {
+    return "safe"
+  }
 };
 
 export const get_completed = async () => {

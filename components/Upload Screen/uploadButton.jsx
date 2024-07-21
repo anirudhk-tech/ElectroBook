@@ -11,51 +11,57 @@ import { useRefreshInfo } from "../../hooks/useRefreshInfo";
 import { useColor } from "../../hooks/useTheme";
 import { useInfo } from "../../hooks/useInfoFunctions";
 import { useUploadPressed } from "../../hooks/useUploadStatus";
+import { useUploadAlert } from "../../hooks/useUploadAlert";
 
 export const ElectroUploadButton = () => {
     const {refresh, setRefresh} = useRefreshInfo();
     const {secondaryColor} = useColor();
+    const {setUploadAlertText} = useUploadAlert();
     const info = useInfo("info");
     const clearValues = useInfo("infoClear");
-    const {uploadPressed, setUploadPressed} = useUploadPressed();
+    const [uploadPressed, setUploadPressed] = useState(false);
 
     const [clear, setClear] = useState(false);
-    const check = useRef();
         
     const handleUploadPress = () => {
         setRefresh(!refresh);
+        setUploadPressed(true);
     };
 
-    const checkDuplicate = () => {
-        check_duplicate(info.name).then(data => check.current = data);
+    const checkDuplicate = async () => {
+        const check = await check_duplicate(info.name);
+        return check;
     };
 
-    const createBook = () => {
-        create_book(info).then(creation => {
-            if (creation != "canceled") {
-                setClear(true);
-            };
-        });
-        setUploadPressed(false);         
+    const createBook = (check) => {
+        if (check == "duplicate") {
+            setUploadAlertText("That file already exists!");
+            setTimeout(() => setUploadAlertText(""), 2000);
+            setUploadPressed(false);
+        } else if (check == "safe") {
+            create_book(info).then(creation => {
+                if (creation != "canceled") {
+                    setClear(true);
+                };
+            });
+            setUploadPressed(false);
+            setClear(false); 
+        };        
     };
     
-
-    useEffect(() => {
-        if (info.library != "") {
-            checkDuplicate();
-            setUploadPressed(true);
-        }; 
-    }, [info]); 
-
     useEffect(() => {
         if (uploadPressed == true) {
-            if (check.current != "duplicate") {
-                createBook();         
+            if (info.library != "" && info.library != undefined) {
+                let check = ""
+                checkDuplicate().then(data => check = data);
+                setTimeout(() => createBook(check), 1000);
             } else {
+                setUploadAlertText("A library is required!");
+                setTimeout(() => setUploadAlertText(""), 2000);
                 setUploadPressed(false);
             };
         };
-    }, [uploadPressed]);
+    }, [info]);
 
     useEffect(() => {
         if (clear == true) {

@@ -21,16 +21,17 @@ import { ElectroUploadButton } from "../../components/Upload Screen/uploadButton
 // Hooks
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor } from "../../hooks/useTheme";
+import { useUploadAlert } from "../../hooks/useUploadAlert";
+import { ElectroUploadAlert } from "../../components/Upload Screen/uploadAlert";
 
 
 export default function uploadFileScreen() {
-  const windowHeight = Dimensions.get("window").height;
-  
-  const [advancedVisible, setAdvancedVisible] = useState("none");
-  
-  const setTitle = useFileFunctions("title").setValue;
   const setImageUri = useFileFunctions("image").setValue;
   const {primaryColor, secondaryColor} = useColor();
+  const {uploadAlertText} = useUploadAlert();
+  const [advancedVisible, setAdvancedVisible] = useState("none");
+  const [uploadAlertDisplay, setUploadAlertDisplay] = useState("none");
+  const windowHeight = Dimensions.get("window").height;
 
   const handleImagePress = useCallback(() => {
     create_image(setImageUri);
@@ -58,6 +59,13 @@ export default function uploadFileScreen() {
     )
   }, []);
 
+  useEffect(() => {
+    if (uploadAlertText != "") {
+      setUploadAlertDisplay("flex");
+    } else {
+      setUploadAlertDisplay("none");
+    };
+  }, [uploadAlertText]);
 
   return (
     <ScrollView
@@ -84,6 +92,7 @@ export default function uploadFileScreen() {
           { display: advancedVisible == "none" ? "flex" : "none" },
         ]}
       >
+        <ElectroUploadAlert display={uploadAlertDisplay} alert={uploadAlertText}/>
         <ElectroTitleInput
           prompt="Title"
           icon="text"

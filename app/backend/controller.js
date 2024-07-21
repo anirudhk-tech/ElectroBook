@@ -36,8 +36,8 @@ export const create_book = async (info) => {
   if (fileSystem != null) {
     await SQL.create_book(info);
   } else {
-    return ("canceled")
-  }
+    return ("canceled");
+  };
 };
 
 export const create_genre = async (genre, color) => {

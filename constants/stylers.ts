@@ -586,6 +586,15 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    // Components - Upload Alert
+    uploadAlertText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        height: 'auto',
+        width: 'auto',
+        alignSelf: 'center',
+    },
+
     // Components - Series Header
     booksScreenSeriesHeaderText: {
         fontSize: 30,
