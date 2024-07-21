@@ -33,6 +33,10 @@ export const ElectroNotesList = (props) => {
     };
 
     const handleEditPress = (oldNote, newNote) => {
+        if (newNote.trim() == "") {
+            return
+        };
+        
         const index = notes.indexOf(oldNote);
         const newNotes = notes;
         newNotes[index] = newNote;

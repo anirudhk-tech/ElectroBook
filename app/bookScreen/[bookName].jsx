@@ -2,7 +2,8 @@
 import { useLocalSearchParams, Stack, router } from "expo-router"
 
 // React
-import { Dimensions, ScrollView, View, Image, Text } from "react-native";
+import { Dimensions, ScrollView, View, Image, Text, TouchableOpacity } from "react-native";
+import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -12,8 +13,8 @@ import { ElectroAuthorLibraryPageBox } from "../../components/Book Screen/author
 import { ElectroGenresList } from "../../components/Book Screen/genresList";
 import { ElectroTropesList } from "../../components/Book Screen/tropesList";
 import { ElectroNotesList } from "../../components/Book Screen/notesList";
-import { ElectroIcon } from "../../components/General/icon";
 import { ElectroSeriesHeader } from "../../components/Book Screen/seriesHeader";
+import { ElectroReadButton } from "../../components/Book Screen/readButton";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
@@ -33,6 +34,12 @@ export default function bookScreen () {
         router.push(`../bookEditNotesDropScreen/${bookName}`);
     };
 
+    const readButton = useCallback(() => {
+        return (
+            <ElectroReadButton />
+        );
+    });
+
     return (
         <ScrollView 
             style={{backgroundColor: secondaryColor}}
@@ -44,6 +51,7 @@ export default function bookScreen () {
                     headerTitleAlign: 'center',
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
                     headerTitle: bookName,
+                    headerRight: readButton,
                     headerShown: true,
                 }}
             />
@@ -52,50 +60,32 @@ export default function bookScreen () {
                 <Image style={[styles.libraryBooksScreenImage, {height: windowHeight / 3}]}/>
                 <ElectroAuthorLibraryPageBox bookName={bookName}/> 
             </View>
+            <TouchableOpacity onPress={() => {
+                handleIconPress();
+                setType("genre");
+            }}>
             <View style={styles.libraryBooksScreenListMainView}>
-                <View style={styles.libraryBooksScreenTitleView}>
-                    <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Genres</Text>
-                    <ElectroIcon 
-                    name="create"
-                    size={30}
-                    color={primaryColor}
-                    handlePress={() => {
-                        handleIconPress();
-                        setType("genre");
-                    }}
-                    />
-                </View>
+                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Genres</Text>
                 <ElectroGenresList bookName={bookName}/>
             </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                handleIconPress();
+                setType("trope");
+            }}>
             <View style={styles.libraryBooksScreenListMainView}>
-                <View style={styles.libraryBooksScreenTitleView}>
-                    <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Tropes</Text>
-                    <ElectroIcon 
-                    name="create"
-                    size={30}
-                    color={primaryColor}
-                    handlePress={() => {
-                        handleIconPress();
-                        setType("trope");
-                    }}
-                    />
-                </View>
+                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Tropes</Text>
                 <ElectroTropesList bookName={bookName}/>
             </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                handleNotesPress();
+            }}>
             <View style={styles.libraryBooksScreenListMainView}>
-                <View style={styles.libraryBooksScreenTitleView}> 
-                    <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Notes</Text>
-                    <ElectroIcon 
-                    name="create"
-                    size={30}
-                    color={primaryColor}
-                    handlePress={() => {
-                        handleNotesPress();
-                    }}
-                    />
-                </View>
+                <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Notes</Text>
                 <ElectroNotesList bookName={bookName}/>
             </View>
+            </TouchableOpacity>
         </ScrollView>
     )
 }

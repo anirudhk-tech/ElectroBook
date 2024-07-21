@@ -572,6 +572,20 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
     },
 
+    // Components - Read Button
+    booksScreenReadButton: {
+        width: 'auto',
+        height: 'auto',
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        borderWidth: 2,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+
     // Components - Series Header
     booksScreenSeriesHeaderText: {
         fontSize: 30,

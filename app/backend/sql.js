@@ -371,6 +371,14 @@ export const update_bookNotes = async (bookName, newNotes) => {
 
 // DATA FETCHING FUNCTIONS
 
+export const check_duplicate = async (bookName) => {
+  const check = await db.getFirstAsync(`SELECT * FROM books_database WHERE option = "${bookName}"`);
+
+  if (check != null) {
+    return "duplicate"
+  };
+};
+
 export const get_completed = async () => {
   const completed = [];
   const completedData = db.getAllAsync(`SELECT * FROM books_database WHERE completed = "true"`);
@@ -466,9 +474,6 @@ export const get_authors = async () => {
 
   return authors;
 };
-
-
-
 
 
 // BOOK INFO FUNCTIONS

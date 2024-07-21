@@ -11,23 +11,12 @@ import { ElectroIcon } from "../General/icon";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useInfo } from "../../hooks/useInfoFunctions";
-import { useUploadPressed } from "../../hooks/useUploadStatus";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroTitleInput = (props) => {
   const {primaryColor} = useColor();
-  const { uploadPressed, setUploadPressed } = useUploadPressed();
   const { value, setValue} = useFileFunctions("title");
   const info = useInfo("info");
-
-  useEffect(() => {
-      if (info.name != "" && info.library != "") {
-        if (uploadPressed == true) {
-            textInputField.clear();
-            setUploadPressed(false);
-        };
-      };
-  }, [info]);
 
   return (
     <View style={styles.uploadScreenSubView}>

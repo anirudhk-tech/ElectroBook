@@ -2,9 +2,8 @@
 import { useLocalSearchParams, Stack, router } from "expo-router"
 
 // Components
-import { ElectroIcon } from "../../components/General/icon";
 import { ElectroBookScroll } from "../../components/Books Library Scroll/bookLibraryScroll";
-import { ElectroLibraryHeader } from "../../components/Main Library Screen/libraryHeader";
+
 // React
 import { View } from "react-native";
 import { useCallback, useEffect } from "react";

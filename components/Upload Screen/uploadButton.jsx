@@ -1,10 +1,10 @@
 // React
 import { TouchableOpacity, Text } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { create_book } from "../../app/backend/controller";
+import { create_book, check_duplicate } from "../../app/backend/controller";
 
 // Hooks
 import { useRefreshInfo } from "../../hooks/useRefreshInfo";
@@ -19,20 +19,49 @@ export const ElectroUploadButton = () => {
     const clearValues = useInfo("infoClear");
     const {uploadPressed, setUploadPressed} = useUploadPressed();
 
+    const [clear, setClear] = useState(false);
+    const check = useRef();
+        
     const handleUploadPress = () => {
         setRefresh(!refresh);
-        setUploadPressed(true);
+    };
+
+    const checkDuplicate = () => {
+        check_duplicate(info.name).then(data => check.current = data);
+    };
+
+    const createBook = () => {
+        create_book(info).then(creation => {
+            if (creation != "canceled") {
+                setClear(true);
+            };
+        });
+        setUploadPressed(false);         
     };
     
 
     useEffect(() => {
-        if (info.name != "" && info.library != "") {
-            if (uploadPressed == true) {
-                create_book(info);
-                clearValues();
+        if (info.library != "") {
+            checkDuplicate();
+            setUploadPressed(true);
+        }; 
+    }, [info]); 
+
+    useEffect(() => {
+        if (uploadPressed == true) {
+            if (check.current != "duplicate") {
+                createBook();         
+            } else {
+                setUploadPressed(false);
             };
         };
-    }, [info]); 
+    }, [uploadPressed]);
+
+    useEffect(() => {
+        if (clear == true) {
+            clearValues();
+        };
+    }, [clear]);
 
     return (
         <TouchableOpacity

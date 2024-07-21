@@ -32,9 +32,11 @@ export const create_image = async (handleImageSubmit) => {
 };
 
 export const create_book = async (info) => {
-  const bookCreate = await SQL.create_book(info);
-  if (bookCreate == "duplicate") {
-    return "duplicate";
+  const fileSystem = await FS.create_book();
+  if (fileSystem != null) {
+    await SQL.create_book(info);
+  } else {
+    return ("canceled")
   }
 };
 
@@ -183,6 +185,11 @@ export const update_bookNotes = async (bookName, newNotes) => {
 
 // DATA FETCHING FUNCTIONS
 
+
+export const check_duplicate = async (bookName) => {
+  const check = await SQL.check_duplicate(bookName);
+  return check
+};
 
 export const get_books_inLibrary = async (library) => {
   const books = await SQL.get_books_inLibrary(library);
