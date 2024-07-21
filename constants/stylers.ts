@@ -885,7 +885,7 @@ export const styles = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 10,
         width: '30%',
-        flex: 3/4,
+        flex: 1,
         justifyContent: 'center',
         alignSelf: 'flex-end',
         marginRight: '5%',
@@ -895,6 +895,14 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         alignSelf: 'center',
+    },
+
+    uploadScreenButtonView: {
+        flexDirection: 'row', 
+        flex: 1, 
+        width: '70%', 
+        marginBottom: '3%', 
+        height: '100%'
     },
 
     // Menu Screen

@@ -1,6 +1,6 @@
 // React
 import { TouchableOpacity, Text } from "react-native";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -10,7 +10,6 @@ import { create_book, check_duplicate } from "../../app/backend/controller";
 import { useRefreshInfo } from "../../hooks/useRefreshInfo";
 import { useColor } from "../../hooks/useTheme";
 import { useInfo } from "../../hooks/useInfoFunctions";
-import { useUploadPressed } from "../../hooks/useUploadStatus";
 import { useUploadAlert } from "../../hooks/useUploadAlert";
 
 export const ElectroUploadButton = () => {
@@ -74,7 +73,7 @@ export const ElectroUploadButton = () => {
         style={[styles.uploadScreenButtonTouchable, {borderColor: secondaryColor}]}
         onPress={handleUploadPress}
         >
-        <Text style={[styles.uploadScreenButtonText, {color: secondaryColor}]}>Upload</Text>
+            <Text style={[styles.uploadScreenButtonText, {color: secondaryColor}]}>Upload</Text>
         </TouchableOpacity>
     );
 };

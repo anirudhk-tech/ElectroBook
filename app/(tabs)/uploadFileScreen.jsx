@@ -23,6 +23,7 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor } from "../../hooks/useTheme";
 import { useUploadAlert } from "../../hooks/useUploadAlert";
 import { ElectroUploadAlert } from "../../components/Upload Screen/uploadAlert";
+import { ElectroClearUploadButton } from "../../components/Upload Screen/clearUploadButton";
 
 
 export default function uploadFileScreen() {
@@ -55,7 +56,10 @@ export default function uploadFileScreen() {
 
   const uploadIcons = useCallback(() => {
     return(
-      <ElectroUploadButton/>
+      <View style={styles.uploadScreenButtonView}>
+        <ElectroClearUploadButton/>
+        <ElectroUploadButton/>
+      </View>
     )
   }, []);
 
