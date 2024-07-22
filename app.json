@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "ElectroBook_Latest",
-    "slug": "ElectroBook_Latest",
+    "name": "ElectroBook",
+    "slug": "ElectroBook-Latest",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/EB_Logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/EB_Logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/logo_EB.png",
+        "foregroundImage": "./assets/images/EB_Logo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anirudh_k.ElectroBook_Latest"

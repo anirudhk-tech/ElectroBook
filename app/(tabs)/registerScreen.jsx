@@ -6,7 +6,7 @@ import { View } from "react-native";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { create_user, delete_user } from "../backend/controller";
+import { create_user, delete_user, establish_userDb } from "../backend/controller";
 
 // Components
 import { ElectroLogo } from "../../components/General/logo";

@@ -21,8 +21,6 @@ export const ElectroImageBar = (props) => {
     props.handlePress();
   }, []);
 
-  console.log(imageUrl)
-
   return (
     <TouchableOpacity
       style={[styles.notesBarTouchable, { borderColor: primaryColor }]}

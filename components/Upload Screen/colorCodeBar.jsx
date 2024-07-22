@@ -1,5 +1,6 @@
 // React
 import { View, Text, TouchableOpacity } from "react-native";
+import { memo } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -11,7 +12,7 @@ import { ElectroIcon } from "../General/icon";
 import { useColor } from "../../hooks/useTheme";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
-export const ElectroColorCodeBar = (props) => {
+export const ElectroColorCodeBar = memo((props) => {
   const {primaryColor} = useColor();
   const color = useFileFunctions("fileColor").value;
   const colorCircleFill = color == "" ? primaryColor : color;
@@ -19,7 +20,7 @@ export const ElectroColorCodeBar = (props) => {
   return (
     <TouchableOpacity
       style={styles.colorCodeBarSubView}
-      onPress={() => props.handlePress()}
+      onPress={props.handlePress}
     >
       <View style={styles.colorCodeBarTextCircleView}>
         <ElectroIcon
@@ -39,4 +40,4 @@ export const ElectroColorCodeBar = (props) => {
       </View>
     </TouchableOpacity>
   );
-};
+});

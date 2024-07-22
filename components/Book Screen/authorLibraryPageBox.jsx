@@ -1,6 +1,6 @@
 // React
 import { View, Text, Dimensions } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 
 // Components
 import { ElectroIcon } from "../General/icon";
@@ -12,7 +12,7 @@ import { styles } from "../../constants/stylers";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
 
-export const ElectroAuthorLibraryPageBox = (props) => {
+export const ElectroAuthorLibraryPageBox = memo((props) => {
     const [bookInfo, setBookInfo] = useState([]);
     const [author, setAuthor] = useState("");
     const [page, setPage] = useState(0);
@@ -21,7 +21,7 @@ export const ElectroAuthorLibraryPageBox = (props) => {
     const windowHeight = Dimensions.get("window").height;
     const windowWidth = Dimensions.get("window").width;
 
-    const shortenAuthor = () => {
+    const shortenAuthor = useCallback(() => {
         if (author == "" || author == undefined) {
             return
         };
@@ -29,7 +29,7 @@ export const ElectroAuthorLibraryPageBox = (props) => {
         const authorInitial = " "+authorList[1][0]+".";
         const author = authorList[0]+authorInitial;
         setAuthor(author);
-    };
+    }, [author]);
 
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
@@ -86,5 +86,5 @@ export const ElectroAuthorLibraryPageBox = (props) => {
                 </View>
             </View>
         </View>
-    )
-}
+    );
+});
