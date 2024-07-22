@@ -71,7 +71,7 @@ export const ElectroAuthorLibraryPageBox = (props) => {
                 />
                 <View style={styles.authorLibraryPageBoxDetailsView}>
                     <Text style={[styles.authorLibraryPageBoxPrompt, {color: primaryColor}]}>Author |</Text>
-                    <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: author == "" ? secondaryColor : primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{author}</Text>
+                    <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: author == "" ? null : primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{author}</Text>
                 </View>
             </View>
             <View style={styles.authorLibraryPageBoxSubView}>

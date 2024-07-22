@@ -320,10 +320,11 @@ export const styles = StyleSheet.create({
     imageBarText: {
         fontSize: 30,
         fontWeight: 'bold',
-        width: '53%',
+        width: '80%',
         height: '100%',
         textAlignVertical: 'center',
-        textAlign: 'center',
+        textAlign: 'left',
+        paddingLeft: '2%'
     },
 
     // Components - Prompt DropDown
@@ -381,7 +382,7 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 5,
         flexDirection: 'row',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     
     notesPostTextTouchable: {
@@ -400,10 +401,7 @@ export const styles = StyleSheet.create({
 
     notesPostDeleteTouchable: {
         flex: 2,
-        borderTopLeftRadius: 1,
-        borderTopRightRadius: 5,
-        borderBottomLeftRadius: 1,
-        borderBottomRightRadius: 5,
+        borderRadius: 1,
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
@@ -494,10 +492,9 @@ export const styles = StyleSheet.create({
     
     // Components - Author Library Page Box
     authorLibraryPageBoxMainView: {
-        flex: 2,
         gap: 5,
         justifyContent: 'center',
-        alignItems: 'flex-start',
+        alignItems: 'center',
     },
 
     authorLibraryPageBoxSubView: {
@@ -535,6 +532,7 @@ export const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'center',
         rowGap: 10,
+        marginBottom: '10%'
     },
 
 
@@ -577,13 +575,14 @@ export const styles = StyleSheet.create({
         width: 'auto',
         height: 'auto',
         paddingVertical: 5,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         borderRadius: 10,
         borderWidth: 2,
         textAlign: 'center',
         textAlignVertical: 'center',
         fontSize: 20,
         fontWeight: 'bold',
+        alignSelf: 'flex-end'
     },
 
     // Components - Upload Alert
@@ -614,9 +613,9 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    libraryBooksScreenImage: {
+    libraryBooksScreenImageBackground: {
+        alignItems: 'center',
         flex: 1,
-        height: '100%',
     },
 
     libraryBooksScreenImageAndBoxView: {
@@ -821,7 +820,7 @@ export const styles = StyleSheet.create({
 
     // Upload Screen
     uploadScreenMainView: {
-        paddingVertical: 20,
+        paddingVertical: 30,
     },
 
     uploadScreenSubView: {

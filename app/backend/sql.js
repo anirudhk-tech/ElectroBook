@@ -1,6 +1,7 @@
 // Node Modules
 import * as SQLite from "expo-sqlite";
 import * as Crypto from "expo-crypto";
+import * as FileSystem from "expo-file-system";
 
 // Backend
 import { getItemFor } from "./MMKV";
@@ -113,7 +114,7 @@ export const create_book = async (info) => {
     const notes = info.notes;
     const genres = info.genres;
     const tropes = info.tropes;
-    const imageUri = info.imageUri;
+    const imageUri = `${FileSystem.documentDirectory}Images/${info.name}`;
     const series = info.series;
 
   try {
@@ -125,23 +126,18 @@ export const create_book = async (info) => {
   };
 };
 
-export const add_books_series = async (books, series) => {
-  const db = await getInfo();
-  for (let x = 0; x < books.length; x++) {
-    db.execAsync(
-      `INSERT INTO series_data (books) VALUES ("${books[x]}") WHERE series = ${series}`
-    );
-  }
-};
-
 
 
 // DELETE FUNCTIONS 
 
 export const delete_book = async (bookName) => {
+  const book = await db.getFirstAsync(
+    `SELECT * FROM books_database WHERE option = "${bookName}"`
+  );
   await db.execAsync(
     `DELETE FROM books_database WHERE option = "${bookName}"`
   );
+  return book;
 };
 
 export const delete_lib = async (library) => {
@@ -229,11 +225,17 @@ export const update_color = async (type, name, color) => {
   }
 };
 
-export const update_bookName = async (bookName, newBookName) => {
+export const update_book = async (bookName, newBookName) => {
   try {
-  await db.execAsync(
-    `UPDATE books_database SET option = "${newBookName}" WHERE option = "${bookName}"`
-  );
+    const info = await db.getFirstAsync(
+      `SELECT * from books_database WHERE option = "${bookName}"`
+    );
+    const library = info.library;
+    await db.execAsync(
+      `UPDATE books_database SET option = "${newBookName}" WHERE option = "${bookName}"`
+    );
+
+    return library
 } catch {
   return "duplicate"
 };

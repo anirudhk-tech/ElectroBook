@@ -32,7 +32,7 @@ export default function uploadFileScreen() {
   const {uploadAlertText} = useUploadAlert();
   const [advancedVisible, setAdvancedVisible] = useState("none");
   const [uploadAlertDisplay, setUploadAlertDisplay] = useState("none");
-  const windowHeight = Dimensions.get("window").height;
+  const screenHeight = Dimensions.get("screen").height;
 
   const handleImagePress = useCallback(() => {
     create_image(setImageUri);
@@ -75,7 +75,7 @@ export default function uploadFileScreen() {
     <ScrollView
       contentContainerStyle={[
         styles.uploadScreenMainView,
-        { backgroundColor: secondaryColor, height: windowHeight },
+        { backgroundColor: secondaryColor, height: screenHeight },
       ]}
     >
       <Stack.Screen

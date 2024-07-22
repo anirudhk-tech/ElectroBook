@@ -17,21 +17,22 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 export const ElectroImageBar = (props) => {
   const {primaryColor} = useColor();
   const imageUrl = useFileFunctions("image").value;
-
-  const handleNotesPress = useCallback(() => {
+  const handleImagePress = useCallback(() => {
     props.handlePress();
   }, []);
+
+  console.log(imageUrl)
 
   return (
     <TouchableOpacity
       style={[styles.notesBarTouchable, { borderColor: primaryColor }]}
-      onPress={handleNotesPress}
+      onPress={handleImagePress}
     >
         <ElectroIcon
           name="image"
           size={40}
           color={primaryColor}
-          handlePress={handleNotesPress}
+          handlePress={handleImagePress}
           style={styles.notesIcon}
         />
         <Text style={[styles.imageBarText, { color: primaryColor }]} numberOfLines={1}>Cover Image</Text>
@@ -40,7 +41,7 @@ export const ElectroImageBar = (props) => {
           size={30}
           color={primaryColor}
           handlePress={() => {}}
-          style={[styles.notesIcon, {display: imageUrl == "" ? "none" : "flex", marginLeft: "45%"}]}
+          style={[styles.notesIcon, {display: imageUrl == "" ? "none" : "flex"}]}
         />
     </TouchableOpacity>
   );

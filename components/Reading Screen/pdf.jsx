@@ -1,6 +1,5 @@
 // Node Modules
 import Pdf from "react-native-pdf";
-import MultiTap from "react-native-multitap";
 
 // React
 import { View } from "react-native";
@@ -10,19 +9,7 @@ import { styles } from "../../constants/stylers";
 
 export const ElectroPdf = (props) => {
   return (
-    <MultiTap
-      onSingleTap={() => {
-        props.singleTap();
-      }}
-      onDoubleTap={() => {
-        props.doubleTap();
-      }}
-      onTripleTap={() => {
-        props.tripleTap();
-      }}
-      delay={650}
-      style={styles.fullScreen}
-    >
+
       <View style={styles.electroPdfMainView}>
         <Pdf
           trustAllCerts={false}
@@ -36,8 +23,8 @@ export const ElectroPdf = (props) => {
               : { uri: props.source }
           }
           style={[styles.electroPdf, { backgroundColor: props.bgColor }]}
+          onPageSingleTap={() => props.onSingleTap()}
         />
       </View>
-    </MultiTap>
   );
 };

@@ -50,7 +50,7 @@ export const ElectroNotesPost = (props) => {
       <View
         style={[
           styles.notesPostMainView,
-          { borderColor: primaryColor, height: windowHeight / 8 },
+          { borderColor: primaryColor },
         ]}
       >
         <TouchableOpacity
@@ -59,7 +59,6 @@ export const ElectroNotesPost = (props) => {
         >
           <Text
             style={[styles.notesPostText, { color: primaryColor }]}
-            numberOfLines={6}
           >
             {props.note}
           </Text>
@@ -85,7 +84,7 @@ export const ElectroNotesPost = (props) => {
       <View
         style={[
           styles.notesPostMainView,
-          { borderColor: primaryColor, height: windowHeight / 8 },
+          { borderColor: primaryColor },
         ]}
       >
         <TextInput
@@ -97,6 +96,7 @@ export const ElectroNotesPost = (props) => {
           autoFocus={true}
           onBlur={() => handleEditFinish(editNoteText)}
           defaultValue={props.note}
+          multiline={true}
         />
         <TouchableOpacity
           style={[

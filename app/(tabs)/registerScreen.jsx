@@ -29,7 +29,7 @@ export default function registerScreen() {
     } else {
       await delete_user();
       await create_user(libName);
-    }
+    };
   };
 
   const handlePress = () => {
@@ -75,7 +75,10 @@ export default function registerScreen() {
             { borderColor: primaryColor },
           ]}
           textStyles={[styles.buttonText, { color: primaryColor }]}
-          action={handlePress}
+          action={() => {
+            handlePress();
+            establish_userDb();
+          }}
         />
       </View>
     </View>

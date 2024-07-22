@@ -13,11 +13,19 @@ export const create_user = async () => {
   });
 };
 
-export const create_library = async (libName) => {
-  await FileSystem.makeDirectoryAsync(`${allPath}/${libName}`);
+export const create_library = async (libraryName) => {
+  await FileSystem.makeDirectoryAsync(`${allPath}/${libraryName}`);
 };
 
-export const create_book = async (bookName, libName, imageUri) => {
+const splitImageUri = (imageUri) => {
+  const splitImageUri = imageUri.split("/");
+  const imageName = splitImageUri[splitImageUri.length-1];
+  const newUri = `file:///data/user/0/com.anirudh_k.ElectroBook_Latest/cache/ImagePicker/${imageName}`;
+
+  return newUri;
+};
+
+export const create_book = async (bookName, libraryName, imageUri) => {
   const filesData = await DocumentPicker.getDocumentAsync({
     multiple: true,
     type: "application/*",
@@ -25,38 +33,37 @@ export const create_book = async (bookName, libName, imageUri) => {
 
   if (filesData.canceled != true) {
     const files = filesData.assets;
-    if (files.length > 1) {
-      for (let x = 0; x < files.length; x++) {
-        const uri = files[x];
-        const destinationUri =
-          libName == "All"
-            ? `${allPath}/${bookName}`
-            : `${allPath}/${libName}/${bookName}`;
-        await FileSystem.copyAsync({
-          from: uri,
-          to: destinationUri,
-        });
-      }
-    } else {
-      const file = filesData.assets;
-      const uri = file.uri;
-      const destinationUri =
-        libName == "All"
-          ? `${allPath}/${bookName}`
-          : `${allPath}/${libName}/${bookName}`;
-      const imageDestinationUri = imagePath;
+    const filesAdded = [];
+    for (let x = 0; x < files.length; x++) {
+      const uri = files[x].uri;
+      const name = files.length > 1 ? files[x].name : bookName == "" ? files[x].name : bookName;
+      const destinationUri = `${allPath}/${libraryName}/${name}`;
+      const imageDestinationUri=`${imagePath}/${name}`;
+
       await FileSystem.copyAsync({
         from: uri,
         to: destinationUri,
       });
-      await FileSystem.copyAsync({
-        from: imageUri,
-        to: imageDestinationUri,
-      });
-    }
+      
+      create_image(imageUri, imageDestinationUri);
+
+      filesAdded.push(name);
+    };
+
+    return filesAdded;
   } else {
     return null;
-  }
+  };
+};
+
+export const create_image = async (imageUri, imageDestinationUri) => {
+  if (imageUri != "") {
+    const newImageUri = splitImageUri(imageUri);
+    await FileSystem.copyAsync({
+      from: newImageUri,
+      to: imageDestinationUri,
+    });
+  };
 };
 
 export const pickImage = async (handleImageSubmit) => {
@@ -85,30 +92,36 @@ export const pickImage = async (handleImageSubmit) => {
   getImageAfterPerms(perms);
 };
 
-export const delete_book = async (lib, bookName) => {
-  const deletePath =
-    lib == "All"
-      ? `${FileSystem.documentDirectory}All/${bookName}`
-      : `${FileSystem.documentDirectory}All/${lib}/${bookName}`;
+export const delete_book = async (library, bookName) => {
+  const deletePath = `${FileSystem.documentDirectory}All/${library}/${bookName}`;
+  const imageDeletePath = `${FileSystem.documentDirectory}Images/${bookName}`;
   await FileSystem.deleteAsync(deletePath);
+  await FileSystem.deleteAsync(imageDeletePath);
 };
 
-export const update_lib = async (lib, newLib) => {
-  const files = await FileSystem.readDirectoryAsync(`${allPath}/${lib}`);
+export const update_library = async (library, newLibrary) => {
+  const files = await FileSystem.readDirectoryAsync(`${allPath}/${library}`);
   for (let x = 0; x < files.length; x++) {
     await FileSystem.copyAsync({
-      from: `${allPath}/${lib}/${files[x]}`,
-      to: `${allPath}/${newLib}/${files[x]}`,
+      from: `${allPath}/${library}/${files[x]}`,
+      to: `${allPath}/${newLibrary}/${files[x]}`,
     });
   }
   await FileSystem.deleteAsync(`${allPath}/${lib}`);
 };
 
-export const delete_lib = async (lib, newLib) => {
-  if (newLib) {
-    update_lib(lib, newLib);
+export const update_book = async (library, oldName, newName) => {
+  await FileSystem.copyAsync({
+    from: `${allPath}/${library}/${oldName}`,
+    to: `${allPath}/${library}/${newName}`,
+  });
+};
+
+export const delete_lib = async (library, newLibrary) => {
+  if (newLibrary) {
+    update_lib(library, newLibrary);
   } else {
-    await FileSystem.deleteAsync(`${allPath}/${lib}`);
+    await FileSystem.deleteAsync(`${allPath}/${library}`);
   }
 };
 

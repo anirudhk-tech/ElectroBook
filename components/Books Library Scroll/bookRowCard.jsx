@@ -1,5 +1,5 @@
 // React
-import { TouchableOpacity, View, Text, Dimensions } from "react-native";
+import { TouchableOpacity, View, Text, Dimensions, Image } from "react-native";
 
 // Components
 import { ElectroIcon } from "../General/icon";
@@ -16,9 +16,6 @@ import { useBookCardPress } from "../../hooks/useLibraryCardPress";
 
 
 // Same styles as library card rows
-
-// INSERT IMAGE ONCE FILESYSTEM COMPLETE
-
 export const ElectroBookRowCard = (props) => {
     const {primaryColor, secondaryColor} = useColor();
     const [bookInfo, setBookInfo] = useState([]);
@@ -43,9 +40,9 @@ export const ElectroBookRowCard = (props) => {
                 />
             </View>
             <View style={{flex: 6}}>
-                {
-                /*/Add Image Here /*/
-                }
+                <Image 
+                    style={{display: bookInfo.imageUri == "" || bookInfo.imageUri == undefined ? "none" : "flex"}} 
+                    source={{uri: bookInfo.imageUri, height: '100%', width: '100%'}}/>
             </View>
             <Text style={[styles.bookCardRowText, {color: primaryColor, backgroundColor: secondaryColor}]} numberOfLines={3}>{props.bookName}</Text>
         </TouchableOpacity>

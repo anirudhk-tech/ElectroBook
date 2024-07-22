@@ -32,11 +32,20 @@ export const create_image = async (handleImageSubmit) => {
 };
 
 export const create_book = async (info) => {
-  const fileSystem = await FS.create_book();
-  if (fileSystem != null) {
-    await SQL.create_book(info);
+  const filesAdded = await FS.create_book(info.name, info.library, info.imageUri);
+
+  if (filesAdded != null) {
+    for (let x in filesAdded) {
+      const check = await SQL.check_duplicate(filesAdded[x]);
+      if (check != "duplicate") {
+        info["name"] = filesAdded[x];
+        await SQL.create_book(info);
+      } else {
+        return "duplicate";
+      };
+    };
   } else {
-    return ("canceled");
+    return "canceled";
   };
 };
 
@@ -74,9 +83,8 @@ export const create_series = async (series, color) => {
 
 
 export const delete_book = async (bookName) => {
-  await SQL.delete_book(bookName);
-  //await FS.delete_book(lib, bookName);
-  //await MMKV.deleteKey(bookName);
+  const book = await SQL.delete_book(bookName);
+  await FS.delete_book(book.library, bookName);
 };
 
 export const delete_library = async (lib, newLib) => {
@@ -114,12 +122,11 @@ export const update_user = async (newLibraryName) => {
 };
 
 export const update_bookName = async (bookName, newBookName) => {
- const result = await SQL.update_bookName(bookName, newBookName);
-
+ const result = await SQL.update_book(bookName, newBookName);
  if (result == "duplicate") {
   return "duplicate"
  } else {
-  // FS IMPLEMENTATION HERE
+  await FS.update_book(result, bookName, newBookName);
  };
 };
 
@@ -129,7 +136,7 @@ export const update_library = async (libraryName, newLibraryName) => {
   if (result == "duplicate") {
     return "duplicate";
   } else {
-    //FS.update_lib(lib, newLib);
+    await FS.update_library(libraryName, newLibraryName);
   };
 };
 
@@ -234,8 +241,6 @@ export const get_series = async () => {
   await SQL.get_series().then(data => series = data);
   return series;
 };
-
-
 
 // BOOK INFO FUNCTIONS
 

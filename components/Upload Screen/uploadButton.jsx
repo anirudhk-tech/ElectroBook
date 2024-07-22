@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { create_book, check_duplicate } from "../../app/backend/controller";
+import { create_book } from "../../app/backend/controller";
 
 // Hooks
 import { useRefreshInfo } from "../../hooks/useRefreshInfo";
@@ -19,41 +19,29 @@ export const ElectroUploadButton = () => {
     const info = useInfo("info");
     const clearValues = useInfo("infoClear");
     const [uploadPressed, setUploadPressed] = useState(false);
-
     const [clear, setClear] = useState(false);
         
     const handleUploadPress = () => {
         setRefresh(!refresh);
         setUploadPressed(true);
     };
-
-    const checkDuplicate = async () => {
-        const check = await check_duplicate(info.name);
-        return check;
-    };
-
-    const createBook = (check) => {
-        if (check == "duplicate") {
-            setUploadAlertText("That file already exists!");
-            setTimeout(() => setUploadAlertText(""), 2000);
-            setUploadPressed(false);
-        } else if (check == "safe") {
-            create_book(info).then(creation => {
-                if (creation != "canceled") {
-                    setClear(true);
-                };
-            });
-            setUploadPressed(false);
-            setClear(false); 
-        };        
-    };
     
     useEffect(() => {
         if (uploadPressed == true) {
             if (info.library != "" && info.library != undefined) {
-                let check = ""
-                checkDuplicate().then(data => check = data);
-                setTimeout(() => createBook(check), 1000);
+                let duplicateStatus = "";
+                create_book(info).then(data => duplicateStatus = data);
+                setTimeout(() => {
+                    if (duplicateStatus == "duplicate") {
+                        setUploadAlertText("A file with that name already exists!");
+                        setTimeout(() => setUploadAlertText(""), 2000);
+                        setUploadPressed(false);
+                    } else {
+                        setClear(true);
+                        setUploadPressed(false);
+                        setTimeout(() => setClear(false), 200);
+                    };
+                }, 2000);
             } else {
                 setUploadAlertText("A library is required!");
                 setTimeout(() => setUploadAlertText(""), 2000);

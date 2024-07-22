@@ -42,7 +42,6 @@ export default function menuDropDownScreen() {
   };
 
   const handleDeletePress = (option) => {
-    // FileSystem (Image AND Book)
     useDelete(menuType, option);
     setRawData(rawData.filter((x) => x.option != option));
   };
