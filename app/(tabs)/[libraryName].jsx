@@ -11,6 +11,9 @@ import { useCallback, useEffect } from "react";
 // Backend
 import { styles } from "../../constants/stylers";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useBookCardPress } from "../../hooks/useLibraryCardPress";
@@ -62,7 +65,12 @@ export default function libraryBooksScreen () {
                     headerShown: true,
                 }}
             />
-            <ElectroBookScroll library={libraryName}/>
+            <Animatable.View
+            animation={"bounceIn"}
+            useNativeDriver={true}
+            >
+                <ElectroBookScroll library={libraryName}/>
+            </Animatable.View>
         </View>
     )
 };

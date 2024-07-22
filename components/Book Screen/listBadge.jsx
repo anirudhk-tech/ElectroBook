@@ -3,6 +3,7 @@ import { styles } from '../../constants/stylers';
 
 //React
 import { View, Text } from "react-native";
+
 // Hooks
 import { useColor } from '../../hooks/useTheme';
 
@@ -19,4 +20,4 @@ export const ElectroListBadge = (props) => {
             <View style={[styles.booksScreenListBadgeLine, {borderColor: primaryColor}]}></View>
         </View>
     )
-}
+};

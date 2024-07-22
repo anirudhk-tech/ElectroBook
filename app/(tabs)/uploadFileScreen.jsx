@@ -18,6 +18,9 @@ import { ElectroColorCodeBar } from "../../components/Upload Screen/colorCodeBar
 import { ElectroImageBar } from "../../components/Upload Screen/imageBar";
 import { ElectroUploadButton } from "../../components/Upload Screen/uploadButton";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor } from "../../hooks/useTheme";
@@ -72,53 +75,52 @@ export default function uploadFileScreen() {
   }, [uploadAlertText]);
 
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.uploadScreenMainView,
-        { backgroundColor: secondaryColor, height: screenHeight },
-      ]}
-    >
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: primaryColor },
-          headerTitleStyle: [
-            styles.headerTitleStyle,
-            { color: secondaryColor },
-          ],
-          headerTitle: "Add",
-          headerRight: uploadIcons,
-          headerShown: true,
-        }}
-      />
-      <View
-        style={[
-          styles.uploadScreenGeneralView,
-          { display: advancedVisible == "none" ? "flex" : "none" },
+      <ScrollView
+        contentContainerStyle={[
+          styles.uploadScreenMainView,
+          { backgroundColor: secondaryColor, height: screenHeight },
         ]}
       >
-        <ElectroUploadAlert display={uploadAlertDisplay} alert={uploadAlertText}/>
-        <ElectroTitleInput
-          prompt="Title"
-          icon="text"
-          iconSize={40}
-          placeholder="File name if blank..."
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: primaryColor },
+            headerTitleStyle: [
+              styles.headerTitleStyle,
+              { color: secondaryColor },
+            ],
+            headerTitle: "Add",
+            headerRight: uploadIcons,
+            headerShown: true,
+          }}
         />
-        <ElectroPromptDropdown icon="library-outline" options={"library"} />
-        <ElectroPromptDropdown icon="person" options={"author"} />
-      </View>
+          <View
+            style={[
+              styles.uploadScreenGeneralView,
+              { display: advancedVisible == "none" ? "flex" : "none" },
+            ]}
+          >
+            <ElectroUploadAlert display={uploadAlertDisplay} alert={uploadAlertText}/>
+            <ElectroTitleInput
+              prompt="Title"
+              icon="text"
+              iconSize={40}
+              placeholder="File name if blank..."
+            />
+            <ElectroPromptDropdown icon="library-outline" options={"library"} />
+            <ElectroPromptDropdown icon="person" options={"author"} />
+          </View>
 
-      <ElectroAdvancedDivider handlePress={handleAdvancedPress} />
-      <View
-        style={[styles.uploadScreenAdvancedView, { display: advancedVisible }]}
-      >
-        <ElectroPromptDropdown icon="bonfire" options={"genre"} />
-        <ElectroPromptDropdown icon="boat" options={"trope"} />
-        <ElectroPromptDropdown icon="layers-outline" options={"series"} />
-        <ElectroColorCodeBar handlePress={handleColorBarPress} />
-        <ElectroNotesBar handlePress={handleNotesPress} />
-        <ElectroImageBar handlePress={handleImagePress} />
-      </View>
-
-    </ScrollView>
+          <ElectroAdvancedDivider handlePress={handleAdvancedPress} />
+          <View
+            style={[styles.uploadScreenAdvancedView, { display: advancedVisible }]}
+          >
+            <ElectroPromptDropdown icon="bonfire" options={"genre"} />
+            <ElectroPromptDropdown icon="boat" options={"trope"} />
+            <ElectroPromptDropdown icon="layers-outline" options={"series"} />
+            <ElectroColorCodeBar handlePress={handleColorBarPress} />
+            <ElectroNotesBar handlePress={handleNotesPress} />
+            <ElectroImageBar handlePress={handleImagePress} />
+          </View>
+      </ScrollView>
   );
 }

@@ -3,6 +3,7 @@ import { styles } from "../../constants/stylers";
 
 // React
 import { TouchableOpacity, Text, Dimensions } from "react-native";
+import { useCallback } from "react";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
@@ -11,13 +12,17 @@ export const ElectroMenuTab = (props) => {
   const {primaryColor} = useColor();
   const windowWidth = Dimensions.get("window").width;
 
+  const handlePress = useCallback(() => {
+    props.handlePress(props.type)
+  }, [props.type]);
+
   return (
     <TouchableOpacity
       style={[
         styles.menuTabTouchable,
         { borderColor: primaryColor, width: windowWidth - 40 },
       ]}
-      onPress={() => props.handlePress(props.type)}
+      onPress={handlePress}
     >
       <Text style={[styles.menuTabText, { color: primaryColor }]}>
         {props.text}

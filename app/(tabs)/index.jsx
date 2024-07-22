@@ -1,6 +1,5 @@
 // React
-import { View } from "react-native";
-import { useEffect } from "react";
+import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -12,6 +11,9 @@ import { router } from "expo-router";
 // Components
 import { ElectroLogo } from "../../components/General/logo";
 
+// Node Modules
+import * as Animatable from 'react-native-animatable';
+
 // Hooks
 import { useColor } from "@/hooks/useTheme";
 import { useChecks } from "@/hooks/useCheckUser";
@@ -20,28 +22,43 @@ export default function startingScreen() {
   const {check} = useChecks();
   const {primaryColor, secondaryColor} = useColor();
   
-  useEffect(() => {
-    const startingRouter = () => {
-      if (check == true) {
-        setTimeout(() => router.push("./libraryScreen"), 5000);
-      } else {
-        setTimeout(() => router.push("../(tabs)/registerScreen"), 5000);
-      };
+  const startingRouter = useCallback(() => {
+    if (check == true) {
+      router.push("./libraryScreen");
+    } else {
+      router.push("../(tabs)/registerScreen");
     };
+  }, [check]);
 
-    establish_userDb();
-    startingRouter();
-  }, []);
-
+  const zoomIntoScreen = {
+    0: {
+      opacity: 1,
+      scale: 1,
+    },
+    0.5: {
+      opacity: 1,
+      scale: 30,
+    },
+    1: {
+      opacity: 1,
+      scale: 70,
+    },
+};
 
   return (
-    <View
+    <Animatable.View
+      animation={zoomIntoScreen}
+      delay={3000}
+      useNativeDriver={true}
+      onAnimationBegin={establish_userDb}
+      onAnimationEnd={startingRouter}
+      easing={'ease-in'}
       style={[
         styles.startingScreenMainView,
         { backgroundColor: secondaryColor },
       ]}
     >
       <ElectroLogo styles={[styles.startingScreenLogo, {tintColor: primaryColor}]} />
-    </View>
+    </Animatable.View>
   );
 };

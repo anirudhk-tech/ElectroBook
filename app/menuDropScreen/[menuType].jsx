@@ -136,6 +136,7 @@ export default function menuDropDownScreen() {
       />
       <FlatList
         data={flatListData}
+        contentContainerStyle={[styles.dropDownScreenFlatList, { height: windowHeight }]}
         style={{ height: windowHeight }}
         renderItem={({ item }) => item.item}
         keyExtractor={(item) => item.key}

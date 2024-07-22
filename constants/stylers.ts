@@ -646,6 +646,7 @@ export const styles = StyleSheet.create({
 
     dropDownScreenFlatList: {
         justifyContent: 'flex-start',
+        alignItems: 'center',
     },
 
 
@@ -888,6 +889,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'flex-end',
         marginRight: '5%',
+        height: '100%',
     },
 
     uploadScreenButtonText: {

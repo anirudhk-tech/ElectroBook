@@ -12,6 +12,9 @@ import { styles } from "../../constants/stylers";
 import { ElectroButton } from "../../components/General/button";
 import { ElectroAlert } from "../../components/General/alert";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useCheckSetters } from "../../hooks/useCheckUser";
@@ -69,7 +72,10 @@ export default function settingsScreen() {
             headerShown: true,
           }}
         />
-        <View style={[styles.settingsScreenButtonContainer]}>
+        <Animatable.View 
+        animation={"bounceIn"}
+        useNativeDriver={true}
+        style={[styles.settingsScreenButtonContainer]}>
           <ElectroButton
             text="Pick Primary Color"
             touchableStyles={[
@@ -79,8 +85,11 @@ export default function settingsScreen() {
             textStyles={[styles.buttonText, { color: primaryColor }]}
             action={handlePrimaryColorPress}
           />
-        </View>
-        <View style={styles.settingsScreenButtonContainer}>
+        </Animatable.View>
+        <Animatable.View 
+        animation={"bounceIn"}
+        useNativeDriver={true}
+        style={styles.settingsScreenButtonContainer}>
           <ElectroButton
             text="Pick Secondary Color"
             touchableStyles={[
@@ -90,8 +99,11 @@ export default function settingsScreen() {
             textStyles={[styles.buttonText, { color: primaryColor }]}
             action={handleSecondaryColorPress}
           />
-        </View>
-        <View style={styles.settingsScreenButtonContainer}>
+        </Animatable.View>
+        <Animatable.View 
+        animation={"bounceIn"}
+        useNativeDriver={true}
+        style={styles.settingsScreenButtonContainer}>
           <ElectroButton
             text="Take Reading Test"
             touchableStyles={[
@@ -101,7 +113,7 @@ export default function settingsScreen() {
             textStyles={[styles.buttonText, { color: primaryColor }]}
             action={handleReadingTestPress}
           />
-        </View>
+        </Animatable.View>
       </View>
       <ElectroAlert
         display={displayAlert}

@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { styles } from "../../constants/stylers";
 import { create_book } from "../../app/backend/controller";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useRefreshInfo } from "../../hooks/useRefreshInfo";
 import { useColor } from "../../hooks/useTheme";
@@ -61,7 +64,10 @@ export const ElectroUploadButton = () => {
         style={[styles.uploadScreenButtonTouchable, {borderColor: secondaryColor}]}
         onPress={handleUploadPress}
         >
-            <Text style={[styles.uploadScreenButtonText, {color: secondaryColor}]}>Upload</Text>
+            <Animatable.Text 
+            animation={"bounceIn"}
+            useNativeDriver={true}
+            style={[styles.uploadScreenButtonText, {color: secondaryColor}]}>Upload</Animatable.Text>
         </TouchableOpacity>
     );
 };

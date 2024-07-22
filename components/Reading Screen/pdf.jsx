@@ -3,13 +3,18 @@ import Pdf from "react-native-pdf";
 
 // React
 import { View } from "react-native";
+import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
 export const ElectroPdf = (props) => {
-  return (
+  
+  const handleSingleTap = useCallback(() => {
+    props.onSingleTap();
+  }, []);
 
+  return (
       <View style={styles.electroPdfMainView}>
         <Pdf
           trustAllCerts={false}
@@ -23,7 +28,7 @@ export const ElectroPdf = (props) => {
               : { uri: props.source }
           }
           style={[styles.electroPdf, { backgroundColor: props.bgColor }]}
-          onPageSingleTap={() => props.onSingleTap()}
+          onPageSingleTap={handleSingleTap}
         />
       </View>
   );

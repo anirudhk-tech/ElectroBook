@@ -1,6 +1,6 @@
 // React
 import { View } from "react-native";
-import { useState, useContext, useCallback, memo } from "react";
+import { useState, useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";

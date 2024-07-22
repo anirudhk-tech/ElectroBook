@@ -13,6 +13,9 @@ import { Stack, router } from "expo-router";
 import { ElectroLibraryHeader } from "../../components/Main Library Screen/libraryHeader";
 import { ElectroLibraryScroll } from "../../components/Library Scroll/libraryScroll";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useLibraryCardPress, useLibraryIconPress } from "../../hooks/useLibraryCardPress";
@@ -73,7 +76,12 @@ export default function libraryScreen() {
           headerShown: true,
         }}
       />
-      <ElectroLibraryScroll/>
+      <Animatable.View
+        animation={"bounceIn"}
+        useNativeDriver={true}
+      >
+        <ElectroLibraryScroll/>
+      </Animatable.View>
     </View>
   );
 }

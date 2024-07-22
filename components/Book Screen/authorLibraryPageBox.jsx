@@ -1,6 +1,6 @@
 // React
 import { View, Text, Dimensions } from "react-native";
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // Components
 import { ElectroIcon } from "../General/icon";
@@ -12,7 +12,7 @@ import { styles } from "../../constants/stylers";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
 
-export const ElectroAuthorLibraryPageBox = memo((props) => {
+export const ElectroAuthorLibraryPageBox = (props) => {
     const [bookInfo, setBookInfo] = useState([]);
     const [author, setAuthor] = useState("");
     const [page, setPage] = useState(0);
@@ -48,7 +48,7 @@ export const ElectroAuthorLibraryPageBox = memo((props) => {
             setPage(bookInfo.page);
         };
 
-    }, [bookInfo])
+    }, [bookInfo]);
 
     return (
         <View style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 3}]}>
@@ -87,4 +87,4 @@ export const ElectroAuthorLibraryPageBox = memo((props) => {
             </View>
         </View>
     );
-});
+};

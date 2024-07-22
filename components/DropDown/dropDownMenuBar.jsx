@@ -1,6 +1,6 @@
 // React
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
-import { useState } from "react";
+import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -16,6 +16,14 @@ export const ElectroMenuBar = (props) => {
   const {primaryColor, secondaryColor} = useColor();
   const windowHeight = Dimensions.get("window").height;
 
+  const handleColorPress = useCallback(() => {
+    props.handleColorPress(props.option);
+  }, [props.option]);
+
+  const handleDeletePress = useCallback(() => {
+    props.handleDeletePress(props.option);
+  }, [props.option]);
+
   return (
     <View style={[styles.dropDownBarMainView, { height: windowHeight / 10, marginLeft: '3%' }]}>
       <View
@@ -26,7 +34,7 @@ export const ElectroMenuBar = (props) => {
             styles.dropDownMenuBarColorCode,
             { backgroundColor: props.color, borderColor: primaryColor },
           ]}
-          onPress={() => props.handleColorPress(props.option)}
+          onPress={handleColorPress}
         ></TouchableOpacity>
         <ElectroMenuText option={props.option} type={props.type}/>
         <TouchableOpacity
@@ -34,13 +42,13 @@ export const ElectroMenuBar = (props) => {
             styles.dropDownMenuBarDeleteTouchable,
             { backgroundColor: primaryColor, borderColor: primaryColor },
           ]}
-          onPress={() => props.handleDeletePress(props.option)}
+          onPress={handleDeletePress}
         >
           <ElectroIcon
             name="close"
             size={20}
             color={secondaryColor}
-            handlePress={() => props.handleDeletePress(props.option)}
+            handlePress={handleDeletePress}
           />
         </TouchableOpacity>
       </View>

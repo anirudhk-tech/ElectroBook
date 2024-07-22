@@ -3,7 +3,7 @@ import { useLocalSearchParams, Stack, router } from "expo-router";
 
 // React
 import { FlatList, View, Dimensions } from "react-native";
-import { useState, useCallback, useEffect, memo } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 // Components
 import { ElectroDropBar } from "../../components/DropDown/dropDownBar";
@@ -48,7 +48,7 @@ export default function dropDownScreen() {
     router.dismiss();
   }, []);
 
-  // For Multi DropDown - Remove
+  // For Multi DropDown - Cancel
   const handleCancelPress = useCallback(() => {
     clearValue();
     router.dismiss();

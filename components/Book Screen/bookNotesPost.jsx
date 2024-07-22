@@ -5,7 +5,7 @@ import { ElectroIcon } from "../General/icon";
 import { useColor } from "../../hooks/useTheme";
 
 // React
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   TextInput,
   TouchableOpacity,
@@ -28,7 +28,16 @@ export const ElectroBookNotesPost = (props) => {
 
   const handleNotePress = () => {
     setEditing(!editing);
-};
+  };
+
+  const handleDeletePress = useCallback(() => {
+    props.handleDeletePress(props.note)
+  }, [props.note]);
+
+  const handleEditPress = () => {
+    props.handleEditPress(props.note, editNoteText)
+    setEditing(!editing)
+  };
 
   if (editing == false) {
     return (
@@ -53,13 +62,13 @@ export const ElectroBookNotesPost = (props) => {
             styles.notesPostDeleteTouchable,
             { borderColor: primaryColor, backgroundColor: primaryColor },
           ]}
-          onPress={() => props.handleDeletePress(props.note)}
+          onPress={handleDeletePress}
         >
           <ElectroIcon
             name="close"
             size={40}
             color={secondaryColor}
-            handlePress={() => props.handleDeletePress(props.note)}
+            handlePress={handleDeletePress}
           />
         </TouchableOpacity>
       </View>
@@ -79,10 +88,7 @@ export const ElectroBookNotesPost = (props) => {
           ]}
           onChangeText={(e) => setEditNoteText(e)}
           autoFocus={true}
-          onBlur={() => {
-            props.handleEditPress(props.note, editNoteText)
-            setEditing(!editing)
-        }}
+          onBlur={handleEditPress}
           defaultValue={props.note}
           multiline={true}
         />
@@ -91,19 +97,13 @@ export const ElectroBookNotesPost = (props) => {
             styles.notesPostDeleteTouchable,
             { borderColor: primaryColor, backgroundColor: primaryColor },
           ]}
-          onPress={() => {
-            props.handleEditPress(props.note, editNoteText)
-            setEditing(!editing)
-          }}
+          onPress={handleEditPress}
         >
           <ElectroIcon
             name="pencil"
             size={40}
             color={secondaryColor}
-            handlePress={() => {
-                props.handleEditPress(props.note, editNoteText)
-                setEditing(!editing)
-            }}
+            handlePress={handleEditPress}
           />
         </TouchableOpacity>
       </View>

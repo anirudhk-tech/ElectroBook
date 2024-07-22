@@ -33,7 +33,7 @@ export const ElectroDropBar = (props) => {
         ]}
       ></View>
       <View style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
-        <Text style={[styles.dropDownBarText, { color: primaryColor, paddingRight: props.colorCode != undefined && props.colorCode != "" ? 0 : 10 }]}>
+        <Text style={[styles.dropDownBarText, { color: primaryColor, paddingRight: props.colorCode != undefined && props.colorCode != "" ? 0 : 30 }]}>
           {props.option}
         </Text>
         <View

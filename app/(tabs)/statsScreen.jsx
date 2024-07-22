@@ -9,7 +9,10 @@ import { Stack } from "expo-router";
 import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroBar } from "../../components/Stats Screen/progressBar";
+import { ElectroProgressBar } from "../../components/Stats Screen/progressBar";
+
+// Node Modules
+import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
@@ -48,43 +51,52 @@ export default function statsScreen() {
         }}
       />
       <View style={styles.statsScreenSubView}>
-        <View style={styles.statsScreenTitleContainer}>
+        <Animatable.View 
+        animation={"slideInRight"}
+        useNativeDriver={true}
+        style={styles.statsScreenTitleContainer}>
           <Text style={[styles.statsScreenTitle, { color: primaryColor }]}>
             Completed
           </Text>
           <View
             style={[styles.statsScreenDivider, { borderColor: primaryColor }]}
           ></View>
-        </View>
+        </Animatable.View>
         <Text style={[styles.statsScreenText, { color: primaryColor }]}>
           10 Books
         </Text>
         <View style={styles.statsScreenProgressBarView}>
-          <ElectroBar bookRatio={1 / 2} />
+          <ElectroProgressBar bookRatio={1 / 2} />
         </View>
       </View>
       <View style={styles.statsScreenSubView}>
-        <View style={styles.statsScreenTitleContainer}>
+        <Animatable.View 
+        animation={"slideInRight"}
+        useNativeDriver={true}
+        style={styles.statsScreenTitleContainer}>
           <Text style={[styles.statsScreenTitle, { color: primaryColor }]}>
             Books
           </Text>
           <View
             style={[styles.statsScreenDivider, { borderColor: primaryColor }]}
           ></View>
-        </View>
+        </Animatable.View>
         <Text style={[styles.statsScreenText, { color: primaryColor }]}>
           {totalBooks.length} {totalBooksLabel}
         </Text>
       </View>
       <View style={styles.statsScreenSubView}>
-        <View style={styles.statsScreenTitleContainer}>
+        <Animatable.View 
+        animation={"slideInRight"}
+        useNativeDriver={true}
+        style={styles.statsScreenTitleContainer}>
           <Text style={[styles.statsScreenTitle, { color: primaryColor }]}>
             Speed
           </Text>
           <View
             style={[styles.statsScreenDivider, { borderColor: primaryColor }]}
           ></View>
-        </View>
+        </Animatable.View>
         <Text style={[styles.statsScreenText, { color: primaryColor }]}>
           25 WPM
         </Text>
