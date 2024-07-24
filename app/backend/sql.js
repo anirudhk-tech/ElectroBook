@@ -131,13 +131,9 @@ export const create_book = async (info) => {
 // DELETE FUNCTIONS 
 
 export const delete_book = async (bookName) => {
-  const book = await db.getFirstAsync(
-    `SELECT * FROM books_database WHERE option = "${bookName}"`
-  );
   await db.execAsync(
     `DELETE FROM books_database WHERE option = "${bookName}"`
   );
-  return book;
 };
 
 export const delete_lib = async (library) => {
@@ -227,15 +223,12 @@ export const update_color = async (type, name, color) => {
 
 export const update_book = async (bookName, newBookName) => {
   try {
-    const info = await db.getFirstAsync(
+    await db.getFirstAsync(
       `SELECT * from books_database WHERE option = "${bookName}"`
     );
-    const library = info.library;
     await db.execAsync(
       `UPDATE books_database SET option = "${newBookName}" WHERE option = "${bookName}"`
     );
-
-    return library
 } catch {
   return "duplicate"
 };
@@ -341,16 +334,10 @@ export const update_page = async (page, bookName) => {
 }
 };
 
-export const update_completed = async (bookName, oldStatus) => {
-  if (oldStatus == "true") {
-    await db.execAsync (
-      `UPDATE books_database SET completed = "false" WHERE option = "${bookName}"`
-    );
-  } else {
-    await db.execAsync (
-      `UPDATE books_database SET completed = "true" WHERE option = "${bookName}"`
-    )
-  }
+export const update_completed = async (bookName, newStatus) => {
+  await db.execAsync (
+    `UPDATE books_database SET completed = "${newStatus}" WHERE option = "${bookName}"`
+  ); 
 };
 
 export const update_bookGenres = async (bookName, newGenres) => {
@@ -484,12 +471,12 @@ export const get_authors = async () => {
 
 export const fetch_book = async (bookName) => {
   let bookData = ""
-  const book = await db.getFirstAsync(
+  await db.getFirstAsync(
     `SELECT * FROM books_database WHERE option = "${bookName}"`
   ).then(
     data => bookData = data
   );
-
+  
   return bookData;
 };
 

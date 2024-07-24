@@ -32,7 +32,7 @@ export const create_image = async (handleImageSubmit) => {
 };
 
 export const create_book = async (info) => {
-  const filesAdded = await FS.create_book(info.name, info.library, info.imageUri);
+  const filesAdded = await FS.create_book(info.name, info.imageUri);
 
   if (filesAdded != null) {
     for (let x in filesAdded) {
@@ -83,13 +83,12 @@ export const create_series = async (series, color) => {
 
 
 export const delete_book = async (bookName) => {
-  const book = await SQL.delete_book(bookName);
-  await FS.delete_book(book.library, bookName);
+  await SQL.delete_book(bookName);
+  await FS.delete_book(bookName);
 };
 
 export const delete_library = async (lib, newLib) => {
   await SQL.delete_lib(lib);
-  //await //FS.delete_lib(lib, newLib);
 };
 
 export const delete_genre = async (genre) => {
@@ -126,7 +125,7 @@ export const update_bookName = async (bookName, newBookName) => {
  if (result == "duplicate") {
   return "duplicate"
  } else {
-  await FS.update_book(result, bookName, newBookName);
+  await FS.update_book(bookName, newBookName);
  };
 };
 
@@ -135,8 +134,6 @@ export const update_library = async (libraryName, newLibraryName) => {
 
   if (result == "duplicate") {
     return "duplicate";
-  } else {
-    await FS.update_library(libraryName, newLibraryName);
   };
 };
 
@@ -173,8 +170,10 @@ export const update_color = async (type, name, color) => {
   await SQL.update_color(type, name, color);
 };
 
-export const update_completed = async (bookName, oldStatus) => {
-  await SQL.update_completed(bookName, oldStatus);
+// BOOK UPDATE FUNCTIONS
+
+export const update_completed = async (bookName, newStatus) => {
+  await SQL.update_completed(bookName, newStatus);
 }; 
 
 export const update_bookGenres = async (bookName, newGenres) => {

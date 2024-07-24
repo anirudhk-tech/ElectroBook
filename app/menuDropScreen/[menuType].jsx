@@ -3,12 +3,11 @@ import { View, FlatList, Dimensions } from "react-native";
 
 // Components
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
-import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
 import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar";
 import { ElectroIcon } from "../../components/General/icon";
 
 // Backend
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { styles } from "../../constants/stylers";
 
 // Expo
@@ -51,11 +50,12 @@ export default function menuDropDownScreen() {
   };
 
   const handleAddPress = async (value) => {
-    const result = await useAdd(menuType, value, secondaryColor);
+    const editedValue = value.replaceAll('"', "'").replaceAll(",", ";")
+    const result = await useAdd(menuType, editedValue, secondaryColor);
     if (result == "duplicate") {
       return
     } else {
-      setRawData([...rawData, {option: value}]);
+      setRawData([...rawData, {option: editedValue}]);
     };
   };
 
@@ -70,8 +70,7 @@ export default function menuDropDownScreen() {
     )
   });
 
-  const dataCreation = useCallback(
-    (data) => {
+  const dataCreation = (data) => {
       const dataOrganize = [];
       for (let x = 0; x < data.length; x++) {
         dataOrganize.push({
@@ -95,8 +94,12 @@ export default function menuDropDownScreen() {
           });
         }
       }
-      setFlatListData(dataOrganize);
-    },
+
+      return dataOrganize
+    };
+
+  const dataOrganize = useMemo(
+    () => dataCreation(rawData), 
     [rawData]
   );
 
@@ -105,8 +108,11 @@ export default function menuDropDownScreen() {
   }, [menuColor]);
  
   useEffect(() => {
-    dataCreation(rawData);
-  }, [rawData]);
+    if (rawData != undefined) {
+      setFlatListData(dataOrganize);
+    };
+  }, [rawData]
+);
 
   useEffect(() => {
     setMenuType(menuType);
@@ -136,10 +142,14 @@ export default function menuDropDownScreen() {
       />
       <FlatList
         data={flatListData}
-        contentContainerStyle={[styles.dropDownScreenFlatList, { height: windowHeight }]}
+        contentContainerStyle={[styles.dropDownScreenFlatList, { height: 50 + flatListData.length * 100 }]}
         style={{ height: windowHeight }}
         renderItem={({ item }) => item.item}
+        getItemLayout={(index) => (
+          {length: windowHeight/10, offset: windowHeight/10 * index, index}
+        )}
         keyExtractor={(item) => item.key}
+        removeClippedSubviews={false}
       />
     </View>
   );

@@ -21,7 +21,7 @@ export default function menuScreen() {
 
   const handleLibraryPress = useCallback(() => {
     router.navigate("./libraryScreen");
-  });
+  }, []);
 
   const handleMenuTabPress = (screen) => {
     router.push(`../menuDropScreen/${screen}`);

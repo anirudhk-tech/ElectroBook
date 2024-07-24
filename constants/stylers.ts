@@ -113,19 +113,21 @@ export const styles = StyleSheet.create({
     },
 
     // Components - Notes Side Bar
-    notesSideBarMainViewMultiTap: {
-        position: 'absolute',
-        marginLeft: '20%',
-        width: '80%',
-        height: '100%'
-    },
 
     notesSideBarView: {
-        width: '100%',
+        width: '80%',
         height: '100%',
+        marginLeft: '20%',
+        position: 'absolute',
         alignItems: 'flex-start',
-        paddingHorizontal: 30,
         paddingTop: 20,
+        gap: 30,
+    },
+
+    notesSideBarTitleView: {
+        gap: 180,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 
     notesSideBarTitleText: {
@@ -494,7 +496,7 @@ export const styles = StyleSheet.create({
     authorLibraryPageBoxMainView: {
         gap: 5,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
     },
 
     authorLibraryPageBoxSubView: {
@@ -507,7 +509,7 @@ export const styles = StyleSheet.create({
     authorLibraryPageBoxDetailsView: {
         flexDirection: 'row', 
         gap: 5, 
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     authorLibraryPageBoxPrompt: {
@@ -600,11 +602,29 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    // Components - Complete Button
+    booksScreenCompleteTouchable: {
+        height: 50,
+        width: 'auto',
+        padding: 10,
+        borderRadius: 30,
+        borderWidth: 2,
+        marginTop: '20%'
+    },
+
+    booksScreenCompleteText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+
+    // Components - Reading Header
+    readingScreenReaderHeaderMainView: {
+        flexDirection: 'row',
+    },
+
     // Book Screen 
     libraryBooksScreenMainScrollView: {
-        padding: 10,
         alignItems: 'center',
-        gap: 50,
     },
 
     libraryBooksScreenListMainView: {
@@ -616,6 +636,7 @@ export const styles = StyleSheet.create({
     libraryBooksScreenImageBackground: {
         alignItems: 'center',
         flex: 1,
+        justifyContent: 'space-between',
     },
 
     libraryBooksScreenImageAndBoxView: {

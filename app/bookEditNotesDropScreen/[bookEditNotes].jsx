@@ -1,6 +1,6 @@
 // React
 import { Dimensions, View, FlatList } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 // Expo
 import { Stack, useLocalSearchParams } from "expo-router";
@@ -14,7 +14,7 @@ import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar"
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useEditRefresh } from "../../hooks/useEdit";
+import { useEditNotes, useEditRefresh } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
 
@@ -25,29 +25,32 @@ export default function notesDropDown() {
 
   const [flatListData, setFlatListData] = useState([]);
   const [bookInfo, setBookInfo] = useState([]);
-  const [notes, setNotes] = useState([]);
+  const {data, setData} = useEditNotes();
   const windowHeight = Dimensions.get("window").height;
 
   const notesSplit = () => {
     const notes = bookInfo.notes.split(",");
-    setNotes(notes);
+    setData(notes);
   };
 
   const handleDeletePress = (note) => {
-    setNotes(notes.filter(x => x != note));
-    setEditRefresh();
+    setData(data.filter(x => x != note));
   };
   
   const handleEditPress = (oldNote, newNote) => {
-    const newNotes = notes;
-    const index = notes.indexOf(oldNote);
+    const newNotes = data;
+    const index = data.indexOf(oldNote);
     newNotes[index] = newNote;
-    setNotes([...newNotes]);
-    setEditRefresh();
+    setData([...newNotes]);  
   };
 
   const handleAddNote = (note) => {
-    setNotes([...notes, note]);
+    const editedNote = note.replaceAll('"', "'").replaceAll(",", ";");
+    if (data.includes(editedNote) != true) {
+      setData([...data, editedNote]);
+    } else if (data == null) {
+      setData([editedNote]);
+    };
   };
 
   const insertAddBar = (array) => {
@@ -57,28 +60,37 @@ export default function notesDropDown() {
     });
   };
 
-  useEffect(() => {
-    const rawData = [];
-    for (let x = 0; x < notes.length; x++) {
-      if (notes[x] != "") {
-        rawData.push({
-          item: <ElectroBookNotesPost 
-                  note={notes[x]} 
-                  handleDeletePress={handleDeletePress}
-                  handleEditPress={handleEditPress}/>,
-          key: x,
-        });
+  const dataCreation = (data) => {
+    if (data != null) {
+      const dataOrganize = [];
+      for (let x = 0; x < data.length; x++) {
+        if (data[x] != "") {
+          dataOrganize.push({
+            item: <ElectroBookNotesPost 
+                    note={data[x]} 
+                    handleDeletePress={handleDeletePress}
+                    handleEditPress={handleEditPress}/>,
+            key: x,
+          });
+        };
       };
+  
+      insertAddBar(dataOrganize);
+      return dataOrganize; 
     };
+  };
 
-    insertAddBar(rawData);
-    setFlatListData(rawData);
+  const dataOrganize = useMemo(
+    () => dataCreation(data), 
+    [data]
+  );
 
-    if (notes.length != 0) {
-      useBookUpdate("note", bookEditNotes, notes);
-      setEditRefresh();
+  useEffect(() => {
+    if (data != undefined) {
+      setFlatListData(dataOrganize);
+      useBookUpdate("note", bookEditNotes, data);
     };
-  }, [notes]);
+  }, [data]);
 
   useEffect(() => {
     useBookInfo(bookEditNotes).then(data => setBookInfo(data));

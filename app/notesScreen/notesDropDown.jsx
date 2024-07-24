@@ -22,8 +22,11 @@ export default function notesDropDown() {
   const [flatListData, setFlatListData] = useState([]);
   const windowHeight = Dimensions.get("window").height;
 
+  console.log(notes)
+
   const handleAddNote = (note) => {
-    addNote(note);
+    const editedNote = note.replaceAll('"', "'").replaceAll(",", ";");
+    addNote(editedNote);
   };
 
   const insertAddBar = (array) => {

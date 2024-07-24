@@ -27,6 +27,11 @@ export const ElectroAddMenuBar = (props) => {
     setInputActive(false);
   };
 
+  const handleSubmit = () => {
+    props.onSubmit(value);
+    setInputActive(false);
+  };
+
   if (inputActive == false) {
     return (
       <TouchableOpacity
@@ -62,10 +67,7 @@ export const ElectroAddMenuBar = (props) => {
           },
         ]}
         autoFocus={true}
-        onBlur={value == "" ? handleNoSubmit : () => {
-          props.onSubmit(value);
-          setInputActive(false);
-        }}
+        onBlur={value == "" ? handleNoSubmit : handleSubmit}
         onChangeText={(e) => setValue(e.trim())}
         multiline={true}
       />

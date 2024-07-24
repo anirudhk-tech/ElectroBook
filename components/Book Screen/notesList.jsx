@@ -1,6 +1,6 @@
 // React
 import { Dimensions, View } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Components
 import { ElectroBookNotesPost } from "./bookNotesPost";
@@ -11,25 +11,24 @@ import { styles } from "../../constants/stylers";
 // Hooks
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
-import { useEditRefresh } from "../../hooks/useEdit";
+import { useEditNotes, useEditRefresh } from "../../hooks/useEdit";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
 
 
 export const ElectroNotesList = (props) => {
-    const [bookInfo, setBookInfo] = useState([]);
-    const [notes, setNotes] = useState([]);
+    const {data, setData} = useEditNotes();
     const {primaryColor} = useColor();
     const {editRefresh} = useEditRefresh();
 
     const windowWidth = Dimensions.get("window").width;
 
-    const notesSplit = () => {
-        const notes = bookInfo.notes.split(",");
-        setNotes(notes);
+    const notesSplit = (notesArray) => {
+        const notes = notesArray.split(",");
+        setData(notes);
     };
 
     const handleDeletePress = (note) => {
-        setNotes(notes.filter(x => x != note));
+        setData(data.filter(x => x != note));
     };
 
     const handleEditPress = (oldNote, newNote) => {
@@ -37,42 +36,34 @@ export const ElectroNotesList = (props) => {
             return
         };
         
-        const index = notes.indexOf(oldNote);
-        const newNotes = notes;
+        const index = data.indexOf(oldNote);
+        const newNotes = data;
         newNotes[index] = newNote;
-        setNotes([...newNotes]);
+        setData([...newNotes]);
       };
 
     useEffect(() => {
-        useBookInfo(props.bookName).then(data => setBookInfo(data));
+        useBookInfo(props.bookName).then(data => notesSplit(data.notes));
     }, [editRefresh]);
 
     useEffect(() => {
-        if (bookInfo.notes != undefined) {
-            notesSplit();
-        };
-    }, [bookInfo]);
-
-    useEffect(() => {
-        if (notes.length != 0) {
-            useBookUpdate("note", props.bookName, notes);
-        };
-    }, [notes]);
+        useBookUpdate("note", props.bookName, data);
+    }, [data]);
 
     return (
         <View style={{gap: 10, alignItems: 'center'}}>
             {
-                notes.map((note) => {
+                data.map((note) => {
                     if (note != "") {
                         return (
                             <ElectroBookNotesPost 
-                                key={notes.indexOf(note)} note={note}
+                                key={data.indexOf(note)} note={note}
                                 handleDeletePress={handleDeletePress}
                                 handleEditPress={handleEditPress}/>
                         );
                     } else {
                         return (
-                            <View key={notes.indexOf(note)}
+                            <View key={data.indexOf(note)}
                             style={[styles.booksScreenNotesListLine, {borderColor: primaryColor, width: windowWidth/2}]}></View>
                         )
                     }

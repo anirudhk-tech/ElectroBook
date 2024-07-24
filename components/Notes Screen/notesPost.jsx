@@ -1,10 +1,6 @@
 // Components
 import { ElectroIcon } from "../General/icon";
 
-// Hooks
-import { useColor } from "../../hooks/useTheme";
-import { useFileFunctions } from "../../hooks/useFileFunctions";
-
 // React
 import { useState } from "react";
 import {
@@ -15,8 +11,15 @@ import {
   Dimensions,
 } from "react-native";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Backend
 import { styles } from "../../constants/stylers";
+
+// Hooks
+import { useColor } from "../../hooks/useTheme";
+import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroNotesPost = (props) => {
   const {primaryColor, secondaryColor} = useColor();
@@ -34,20 +37,23 @@ export const ElectroNotesPost = (props) => {
   };
 
   const handleEditFinish = (newNote) => {
-    if (newNote.trim() == "") {
+    const editedNewNote = newNote.replaceAll('"', "'").replaceAll(",", ";");
+    if (editedNewNote.trim() == "") {
       setEditing(false);
       return;
     }
     const pos = notes.indexOf(props.note);
     const prevNotes = notes.slice(0, pos);
     const afterNotes = notes.slice(pos);
-    editNote(prevNotes, props.note, newNote, afterNotes);
+    editNote(prevNotes, props.note, editedNewNote, afterNotes);
     setEditing(false);
   };
 
   if (editing == false) {
     return (
-      <View
+      <Animatable.View
+        animation={"flipInX"}
+        useNativeDriver={true}
         style={[
           styles.notesPostMainView,
           { borderColor: primaryColor },
@@ -77,7 +83,7 @@ export const ElectroNotesPost = (props) => {
             handlePress={() => handleDeletePress(props.note)}
           />
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     );
   } else {
     return (

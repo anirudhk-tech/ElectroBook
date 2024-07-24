@@ -10,9 +10,9 @@ import { styles } from "../../constants/stylers";
 
 export const ElectroPdf = (props) => {
   
-  const handleSingleTap = useCallback(() => {
+  const handleSingleTap = () => {
     props.onSingleTap();
-  }, []);
+  };
 
   return (
       <View style={styles.electroPdfMainView}>

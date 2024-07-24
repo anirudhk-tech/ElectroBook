@@ -1,6 +1,5 @@
 // React
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
-import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -9,6 +8,9 @@ import { styles } from "../../constants/stylers";
 import { ElectroIcon } from "../General/icon";
 import { ElectroMenuText } from "./dropDownMenuBarText";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 
@@ -16,17 +18,19 @@ export const ElectroMenuBar = (props) => {
   const {primaryColor, secondaryColor} = useColor();
   const windowHeight = Dimensions.get("window").height;
 
-  const handleColorPress = useCallback(() => {
+  const handleColorPress = () => {
     props.handleColorPress(props.option);
-  }, [props.option]);
+  };
 
-  const handleDeletePress = useCallback(() => {
+  const handleDeletePress = () => {
     props.handleDeletePress(props.option);
-  }, [props.option]);
+  };
 
   return (
     <View style={[styles.dropDownBarMainView, { height: windowHeight / 10, marginLeft: '3%' }]}>
-      <View
+      <Animatable.View
+        animation={"bounceIn"}
+        useNativeDriver={true}
         style={[styles.dropDownBarView, { borderColor: primaryColor, paddingHorizontal: 0.30 }]}
       >
         <TouchableOpacity
@@ -51,7 +55,7 @@ export const ElectroMenuBar = (props) => {
             handlePress={handleDeletePress}
           />
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     </View>
   );
 };

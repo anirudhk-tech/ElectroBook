@@ -3,7 +3,7 @@ import { useLocalSearchParams, Stack, router } from "expo-router";
 
 // React
 import { FlatList, View, Dimensions } from "react-native";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 
 // Components
 import { ElectroDropBar } from "../../components/DropDown/dropDownBar";
@@ -30,9 +30,8 @@ export default function dropDownScreen() {
   const {value, setValue, removeValue, clearValue} = useFileFunctions(options);
   const {refresh} = useRefreshOptions(); 
 
-  const [data, setData] = useState([]);
-
-  const flatListBars = []; 
+  const [rawData, setRawData] = useState([]);
+  const [flatListData, setFlatListData] = useState([]);
 
   const handleAddPress = () => {
     router.navigate(`../menuDropScreen/${options}`);
@@ -48,7 +47,7 @@ export default function dropDownScreen() {
     router.dismiss();
   }, []);
 
-  // For Multi DropDown - Cancel
+  // For Multi DropDown - Remove
   const handleCancelPress = useCallback(() => {
     clearValue();
     router.dismiss();
@@ -99,9 +98,10 @@ export default function dropDownScreen() {
     );
   }, []);
 
-  const createFlatList = () => {
+  const dataCreation = (data) => {
+    const dataOrganize = []
     for (let x = 0; x < data.length; x++) {
-      flatListBars.push({
+      dataOrganize.push({
         item: (
           <ElectroDropBar
             option={data[x].option}
@@ -113,16 +113,24 @@ export default function dropDownScreen() {
         ),
         key: x,
       });
-    }
+    };
+
+    return dataOrganize;
   };
 
+  const dataOrganize = useMemo(
+    () => dataCreation(rawData),
+    [rawData, value]
+  );
+
   useEffect(() => {
-    useData(options).then(rawData => setData(rawData));
+    useData(options).then(data => setRawData(data));
   }, [refresh])
 
   useEffect(() => {
-    createFlatList();
-  }, [value, data]);
+    if (rawData != undefined)
+    setFlatListData(dataOrganize);
+  }, [value, rawData]);
   
 
   return (
@@ -151,11 +159,15 @@ export default function dropDownScreen() {
       <FlatList
         contentContainerStyle={[
           styles.dropDownScreenFlatList,
-          { height: windowHeight },
+          { height: flatListData.length * 100 },
         ]}
-        data={flatListBars}
+        getItemLayout={(index) => (
+          {length: windowHeight/10, offset: windowHeight/10 * index, index}
+        )}
+        data={flatListData}
         renderItem={({ item }) => item.item}
         keyExtractor={(item) => item.key}
+        removeClippedSubviews={false}
       />
     </View>
   );

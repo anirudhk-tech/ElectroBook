@@ -4,6 +4,9 @@ import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 // Backend
 import { styles } from "../../constants/stylers";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useDropDownType } from "../../hooks/useDropDownType";
@@ -16,30 +19,33 @@ export const ElectroDropBar = (props) => {
   const multiType = useDropDownType(props.optionType);
 
   return (
-    <TouchableOpacity
-      style={[styles.dropDownBarMainView, { height: windowHeight / 10 }]}
-      onPress={() => {
-        props.handlePress(props.option);
-      }}
-    >
-      <View
-        style={[
-          styles.dropDownBarSelectedCircle,
-          {
-            borderColor: primaryColor,
-            display: multiType ? value.includes(props.option) ? "flex" : "none" : "none",
-            backgroundColor: primaryColor,
-          },
-        ]}
-      ></View>
-      <View style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
-        <Text style={[styles.dropDownBarText, { color: primaryColor, paddingRight: props.colorCode != undefined && props.colorCode != "" ? 0 : 30 }]}>
-          {props.option}
-        </Text>
+      <TouchableOpacity
+        style={[styles.dropDownBarMainView, { height: windowHeight / 10 }]}
+        onPress={() => {
+          props.handlePress(props.option);
+        }}
+      >
         <View
-          style={[styles.dropDownBarColorCode, { backgroundColor: props.colorCode, borderColor: primaryColor, display: props.colorCode != undefined && props.colorCode != "" ? "flex" : "none" }]}
+          style={[
+            styles.dropDownBarSelectedCircle,
+            {
+              borderColor: primaryColor,
+              display: multiType ? value.includes(props.option) ? "flex" : "none" : "none",
+              backgroundColor: primaryColor,
+            },
+          ]}
         ></View>
-      </View>
-    </TouchableOpacity>
+        <Animatable.View 
+           animation={"bounceIn"}
+           useNativeDriver={true}
+            style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
+          <Text style={[styles.dropDownBarText, { color: primaryColor, paddingRight: props.colorCode != undefined && props.colorCode != "" ? 0 : 30 }]}>
+            {props.option}
+          </Text>
+          <View
+            style={[styles.dropDownBarColorCode, { backgroundColor: props.colorCode, borderColor: primaryColor, display: props.colorCode != undefined && props.colorCode != "" ? "flex" : "none" }]}
+          ></View>
+        </Animatable.View>
+      </TouchableOpacity>
   );
 };

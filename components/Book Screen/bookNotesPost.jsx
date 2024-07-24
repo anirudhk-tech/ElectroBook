@@ -1,11 +1,8 @@
 // Components
 import { ElectroIcon } from "../General/icon";
 
-// Hooks
-import { useColor } from "../../hooks/useTheme";
-
 // React
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import {
   TextInput,
   TouchableOpacity,
@@ -14,11 +11,19 @@ import {
   Dimensions,
 } from "react-native";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Backend
 import { styles } from "../../constants/stylers";
 
+// Hooks
+import { useColor } from "../../hooks/useTheme";
+import { useEditRefresh } from "../../hooks/useEdit";
+
 export const ElectroBookNotesPost = (props) => {
   const {primaryColor, secondaryColor} = useColor();
+  const {setEditRefresh} = useEditRefresh();
 
   const [editing, setEditing] = useState(false);
   const [editNoteText, setEditNoteText] = useState("");
@@ -30,25 +35,32 @@ export const ElectroBookNotesPost = (props) => {
     setEditing(!editing);
   };
 
-  const handleDeletePress = useCallback(() => {
-    props.handleDeletePress(props.note)
-  }, [props.note]);
+  const handleDeletePress = () => {
+    props.handleDeletePress(props.note);
+    setEditRefresh();
+  };
 
   const handleEditPress = () => {
-    props.handleEditPress(props.note, editNoteText)
-    setEditing(!editing)
+    const editedEditNoteText = editNoteText.replaceAll('"', "'").replaceAll(",", ";");
+    if (editedEditNoteText != "") {
+      props.handleEditPress(props.note, editedEditNoteText);
+      setEditRefresh();
+    };
+    setEditing(!editing);
   };
 
   if (editing == false) {
     return (
-      <View
+      <Animatable.View
+        animation={"flipInX"}
+        useNativeDriver={true}
         style={[
           styles.notesPostMainView,
-          { borderColor: primaryColor, width: windowWidth - 20 },
+          { borderColor: primaryColor, width: windowWidth/1.5, height: 'auto' },
         ]}
       >
         <TouchableOpacity
-          style={styles.notesPostTextTouchable}
+          style={[styles.notesPostTextTouchable, {height: 'auto'}]}
           onPress={handleNotePress}
         >
           <Text
@@ -71,14 +83,14 @@ export const ElectroBookNotesPost = (props) => {
             handlePress={handleDeletePress}
           />
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     );
   } else {
     return (
       <View
         style={[
           styles.notesPostMainView,
-          { borderColor: primaryColor, width: windowWidth - 20 },
+          { borderColor: primaryColor, width: windowWidth/1.5 },
         ]}
       >
         <TextInput
@@ -108,5 +120,5 @@ export const ElectroBookNotesPost = (props) => {
         </TouchableOpacity>
       </View>
     );
-  }
+  };
 };

@@ -15,6 +15,10 @@ import { ElectroTropesList } from "../../components/Book Screen/tropesList";
 import { ElectroNotesList } from "../../components/Book Screen/notesList";
 import { ElectroSeriesHeader } from "../../components/Book Screen/seriesHeader";
 import { ElectroReadButton } from "../../components/Book Screen/readButton";
+import { ElectroCompleteButton } from "../../components/Book Screen/completeButton";
+
+// Node Modules
+import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
@@ -25,7 +29,6 @@ export default function bookScreen () {
     const { bookName } = useLocalSearchParams();
     const { setType } = useEditType();
     const {primaryColor, secondaryColor} = useColor();
-    const windowHeight = Dimensions.get("window").height;
     const screenHeight = Dimensions.get("screen").height;
     const screenWidth = Dimensions.get("screen").width;
     const [bookInfo, setBookInfo] = useState([]);
@@ -41,14 +44,14 @@ export default function bookScreen () {
     };
 
     const handleReadPress = () => {
-        router.push(`../pdfReadingScreen/${`${library}+${bookName}`}`);
+        router.push(`../pdfReadingScreen/${bookName}`);
     };
 
-    const readButton = useCallback(() => {
+    const readButton = () => {
         return (
             <ElectroReadButton handlePress={handleReadPress}/>
         );
-    });
+    };
 
     
     useEffect(() => {
@@ -68,7 +71,7 @@ export default function bookScreen () {
     return (
         <ScrollView 
             style={{backgroundColor: secondaryColor}}
-            contentContainerStyle={styles.libraryBooksScreenMainScrollView}
+            contentContainerStyle={[styles.libraryBooksScreenMainScrollView, {height: screenHeight+200, paddingBottom: screenHeight/15}]}
             showsVerticalScrollIndicator={false}>
             <Stack.Screen
                 options={{
@@ -111,6 +114,7 @@ export default function bookScreen () {
                     <ElectroNotesList bookName={bookName}/>
                 </View>
                 </TouchableOpacity>
+                <ElectroCompleteButton bookName={bookName}/>
             </ImageBackground>
         </ScrollView>
     )

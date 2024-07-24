@@ -5,7 +5,7 @@ import { useLocalSearchParams, Stack, router } from "expo-router";
 import { styles } from "../../constants/stylers";
 
 // React
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { FlatList, Dimensions, View } from "react-native";
 
 // Components
@@ -19,13 +19,14 @@ import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
 import { useHeader } from "../../hooks/useHeader";
 import { useRefreshOptions } from "../../hooks/useRefreshOptions";
+import { useBookUpdate } from "../../hooks/useBookUpdate";
 
 
 
 export default function bookEditScreen () {
     const { bookEdit } = useLocalSearchParams();
     const {type} = useEditType();
-    const {setData} = useEditData();
+    const {data, setData} = useEditData();
     const {setEditRefresh} = useEditRefresh();
     const refreshOptions = useRefreshOptions().refresh; 
     const {primaryColor, secondaryColor} = useColor();
@@ -37,20 +38,21 @@ export default function bookEditScreen () {
 
     const windowHeight = Dimensions.get("window").height;
 
-    const handleBackPress = useCallback(() => {
-        setEditRefresh();
-        router.dismiss();
-    }, []);
+    const handleBackIconPress = () => {
+      useBookUpdate(type, bookEdit, data);
+      setEditRefresh();
+      router.dismiss();
+    };
 
-    const backIcon = useCallback(() => {
+    const backIcon = () => {
         return(
             <ElectroIcon 
             name="arrow-back"
             color={secondaryColor}
             size={30}
-            handlePress={handleBackPress}/>
+            handlePress={handleBackIconPress}/>
         )
-    }, []);
+    };
 
     const handleAddIconPress = useCallback(() => {
       router.push(`../menuDropScreen/${type}`);
@@ -66,25 +68,31 @@ export default function bookEditScreen () {
         />
     )}, []);
 
-    const dataCreation = useCallback(
-        (data) => {
-          const dataOrganize = [];
-          for (let x = 0; x < data.length; x++) {
-            dataOrganize.push({
-              item: (
-                <ElectroEditDropBar
-                  option={data[x].option}
-                  color={data[x].color}
-                  bookName={bookEdit}
-                />
-              ),
-              key: x,
-            });
-          }
-          setFlatListData(dataOrganize);
-        },
+    const dataOrganize = (data) => {
+        if (data == undefined) {
+          const emptyArray = []
+          return emptyArray;
+        };
+
+        const dataOrganize = [];
+        for (let x = 0; x < data.length; x++) {
+          dataOrganize.push({
+            item: (
+              <ElectroEditDropBar
+                option={data[x].option}
+                color={data[x].color}
+              />
+            ),
+            key: x,
+          });
+        };
+        return dataOrganize;
+      };
+
+    const dataCreation = useMemo(
+        () => dataOrganize(rawData),
         [rawData]
-      );
+    );
 
     const listSplit = (list) => {
         if (list.includes(",")) {
@@ -103,10 +111,12 @@ export default function bookEditScreen () {
         } else if (type == "trope") {
             useBookInfo(bookEdit).then(bookData => setData(listSplit(bookData.tropes)));
         };
-    }, [type]);
+    }, []);
 
     useEffect(() => {
-        dataCreation(rawData);
+        if (rawData != undefined) {
+          setFlatListData(dataCreation);
+        };
     }, [rawData]);
 
     useEffect(() => {

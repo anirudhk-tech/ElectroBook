@@ -17,12 +17,12 @@ export const useUpdate = async (type, oldValue, newValue) => {
             return "duplicate";
         };
     } else if (type == "genre") {
-        const result = await update_genre(oldValue, newValue);
+        const result = await update_genre(oldValue, newValue.replaceAll('"', "'").replaceAll(",", ";"));
         if (result == "duplicate") {
             return "duplicate";
         };
     } else if (type == "trope") {
-        const result = await update_trope(oldValue, newValue);
+        const result = await update_trope(oldValue, newValue.replaceAll('"', "'").replaceAll(",", ";"));
         if (result == "duplicate") {
             return "duplicate";
         };

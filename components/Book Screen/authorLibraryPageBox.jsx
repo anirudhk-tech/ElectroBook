@@ -1,5 +1,5 @@
 // React
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, LogBox } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 
 // Components
@@ -7,6 +7,9 @@ import { ElectroIcon } from "../General/icon";
 
 // Backend
 import { styles } from "../../constants/stylers";
+
+// Node Modules
+import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useBookInfo } from "../../hooks/useBookInfo";
@@ -51,7 +54,10 @@ export const ElectroAuthorLibraryPageBox = (props) => {
     }, [bookInfo]);
 
     return (
-        <View style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 3}]}>
+        <Animatable.View 
+        animation={"fadeIn"}
+        useNativeDriver={true}
+        style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 3}]}>
             <View style={styles.authorLibraryPageBoxSubView}>
                 <ElectroIcon
                 name="library"
@@ -85,6 +91,6 @@ export const ElectroAuthorLibraryPageBox = (props) => {
                     <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{page}</Text>
                 </View>
             </View>
-        </View>
+        </Animatable.View>
     );
 };

@@ -1,4 +1,4 @@
-import { update_bookGenres, update_bookNotes, update_bookTropes } from "../app/backend/controller"
+import { update_bookGenres, update_bookNotes, update_bookTropes, update_completed } from "../app/backend/controller"
 
 export const useBookUpdate = async (type, bookName, newValue) => {
 
@@ -8,5 +8,7 @@ export const useBookUpdate = async (type, bookName, newValue) => {
         await update_bookTropes(bookName, newValue);
     } else if (type == "note") {
         await update_bookNotes(bookName, newValue);
+    } else if (type == "completed") {
+        await update_completed(bookName, newValue);
     };
 };

@@ -1,18 +1,18 @@
 // React
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
-import { useEffect } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useEditData, useEditType } from "../../hooks/useEdit";
-import { useBookUpdate } from "../../hooks/useBookUpdate";
+import { useEditData } from "../../hooks/useEdit";
 
 export const ElectroEditDropBar = (props) => {
   const {primaryColor} = useColor();
-  const {type} = useEditType();
   const {data, setData} = useEditData();
 
   const windowHeight = Dimensions.get("window").height;
@@ -24,10 +24,6 @@ export const ElectroEditDropBar = (props) => {
       setData([...data, props.option]);
     };
   };
-
-  useEffect(() => {
-    useBookUpdate(type, props.bookName, data);
-  }, [data]);
 
   return (
     <TouchableOpacity
@@ -46,14 +42,17 @@ export const ElectroEditDropBar = (props) => {
           },
         ]}
       ></View>
-      <View style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
+      <Animatable.View 
+        animation={"bounceIn"}
+        useNativeDriver={true}
+        style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
         <Text style={[styles.dropDownBarText, { color: primaryColor }]}>
           {props.option}
         </Text>
         <View
           style={[styles.dropDownBarColorCode, { backgroundColor: props.color, borderColor: primaryColor, display: props.color != undefined ? "flex" : "none" }]}
         ></View>
-      </View>
+      </Animatable.View>
     </TouchableOpacity>
   );
 };

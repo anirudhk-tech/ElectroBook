@@ -15,7 +15,6 @@ import { useUpdate } from "../../hooks/useUpdate";
 
 export const ElectroMenuText = (props) => {
     const [editing, setEditing] = useState(false);
-    const [duplicate, setDuplicate] = useState(false);
     const [inputOption, setInputOption] = useState(null);
     const [oldInputOption, setOldInputOption] = useState("");
     const {primaryColor, secondaryColor} = useColor();
@@ -26,23 +25,27 @@ export const ElectroMenuText = (props) => {
             setEditing(false);
             return
         };
+        
         if (oldInputOption == "") { 
-            const result = await useUpdate(props.type, props.option, inputOption);
+            const editedInputOption = inputOption.replaceAll('"', "'").replaceAll(",", ";");
+            const result = await useUpdate(props.type, props.option, editedInputOption);
             if (result == "duplicate") {
                 setInputOption(props.option);
                 setOldInputOption(props.option);
                 setEditing(false);
             } else {
-                setOldInputOption(inputOption);
+                setOldInputOption(editedInputOption);
                 setEditing(false);
             };
         } else {
-            const result = await useUpdate(props.type, oldInputOption, inputOption);
+            const editedInputOption = inputOption.replaceAll('"', "'").replaceAll(",", ";");
+            const editedOldInputOption = oldInputOption.replaceAll('"', "'").replaceAll(",", ";");
+            const result = await useUpdate(props.type, editedOldInputOption, editedInputOption);
             if (result == "duplicate") {
-                setInputOption(oldInputOption);
+                setInputOption(editedOldInputOption);
                 setEditing(false);
             } else {
-                setOldInputOption(inputOption);
+                setOldInputOption(editedInputOption);
                 setEditing(false);
             }
         };

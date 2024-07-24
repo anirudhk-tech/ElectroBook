@@ -15,8 +15,7 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroTitleInput = (props) => {
   const {primaryColor} = useColor();
-  const { value, setValue} = useFileFunctions("title");
-  const info = useInfo("info");
+  const { value, setValue } = useFileFunctions("title");
 
   return (
     <View style={styles.uploadScreenSubView}>
@@ -38,7 +37,7 @@ export const ElectroTitleInput = (props) => {
         ]}
         placeholder={props.placeholder ? props.placeholder : ""}
         placeholderTextColor={primaryColor}
-        onChangeText={(e) => setValue(e)}
+        onChangeText={(e) => setValue(e.trim())}
         defaultValue={value}
         ref={input => {textInputField = input}}
       />

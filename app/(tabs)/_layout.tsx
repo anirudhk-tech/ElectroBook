@@ -3,6 +3,7 @@ import { Tabs } from "expo-router";
 
 // React
 import React, { useState } from "react";
+import { LogBox } from "react-native";
 
 // Backend
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
@@ -15,7 +16,6 @@ import { useChecks } from "../../hooks/useCheckUser";
 export default function TabLayout() {
   const {primaryColor, secondaryColor} = useColor();
   const {settingsCheck} = useChecks();
-
   return (
     <Tabs
       screenOptions={{

@@ -10,7 +10,7 @@ import { ElectroListBadge } from "./listBadge";
 
 // Hooks
 import { useBookInfo } from "../../hooks/useBookInfo";
-import { useEditRefresh } from "../../hooks/useEdit";
+import { useEditData, useEditRefresh } from "../../hooks/useEdit";
 
 
 export const ElectroGenresList = (props) => {
