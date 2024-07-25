@@ -79,7 +79,6 @@ export default function bookEditScreen () {
           dataOrganize.push({
             item: (
               <ElectroEditDropBar
-                bookName={bookEdit}
                 option={data[x].option}
                 color={data[x].color}
               />

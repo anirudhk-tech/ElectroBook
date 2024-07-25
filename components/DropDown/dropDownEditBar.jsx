@@ -15,12 +15,14 @@ import * as Animatable from "react-native-animatable";
 import { useColor } from "../../hooks/useTheme";
 import { useEditData, useEditRefresh, useEditType } from "../../hooks/useEdit";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
+import { useBookName } from "../../hooks/useBookName";
 
 export const ElectroEditDropBar = (props) => {
   const {primaryColor} = useColor();
   const {data, setData} = useEditData();
   const {setEditRefresh} = useEditRefresh();
   const {type, setType} = useEditType();
+  const { bookName } = useBookName();
 
   const windowHeight = Dimensions.get("window").height;
   const multi = ["genre", "trope"];
@@ -33,7 +35,7 @@ export const ElectroEditDropBar = (props) => {
         setData([...data, props.option]);
       };
     } else {
-      useBookUpdate(type, props.bookName, props.option)
+      useBookUpdate(type, bookName, props.option)
       setEditRefresh();
       setType(null);
       router.dismiss();

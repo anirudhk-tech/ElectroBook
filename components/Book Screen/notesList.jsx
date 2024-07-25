@@ -1,5 +1,5 @@
 // React
-import { Dimensions, View } from "react-native";
+import { Dimensions, View, Text } from "react-native";
 import { useCallback, useEffect } from "react";
 
 // Components
@@ -13,12 +13,14 @@ import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
 import { useEditNotes, useEditRefresh } from "../../hooks/useEdit";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
+import { useBookName } from "../../hooks/useBookName";
 
 
 export const ElectroNotesList = (props) => {
     const {data, setData} = useEditNotes();
     const {primaryColor} = useColor();
     const {editRefresh} = useEditRefresh();
+    const { bookName } = useBookName();
 
     const windowWidth = Dimensions.get("window").width;
 
@@ -28,7 +30,7 @@ export const ElectroNotesList = (props) => {
     };
 
     const updateNotes = useCallback(() => {
-        useBookUpdate("note", props.bookName, data);
+        useBookUpdate("note", bookName, data);
     }, [data]);
 
     const handleDeletePress = (note) => {
@@ -47,7 +49,7 @@ export const ElectroNotesList = (props) => {
       };
 
     useEffect(() => {
-        useBookInfo(props.bookName).then(data => notesSplit(data.notes))
+        useBookInfo(bookName).then(data => notesSplit(data.notes))
     }, [editRefresh]);
 
     useEffect(() => {
@@ -61,6 +63,12 @@ export const ElectroNotesList = (props) => {
             {
                 data.map((note) => {
                     if (note != "") {
+                        if (props.bookScreen) {
+                            if (data.indexOf(note) > 3) {
+                                return
+                            };
+                        };
+
                         return (
                             <ElectroBookNotesPost 
                                 key={data.indexOf(note)} note={note}
@@ -75,6 +83,7 @@ export const ElectroNotesList = (props) => {
                     }
                 })
             }
+            <Text style={[styles.booksScreenNotesListText, {color: primaryColor, display: data.length > 4 ? "flex" : "none"}]}>. . .</Text>
         </View>
     );
 };

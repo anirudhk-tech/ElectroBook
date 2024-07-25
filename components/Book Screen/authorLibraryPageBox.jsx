@@ -19,6 +19,7 @@ import * as Animatable from "react-native-animatable";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
 import { useEditRefresh, useEditType } from "../../hooks/useEdit";
+import { useBookName } from "../../hooks/useBookName";
 
 export const ElectroAuthorLibraryPageBox = (props) => {
     const [bookInfo, setBookInfo] = useState([]);
@@ -26,11 +27,11 @@ export const ElectroAuthorLibraryPageBox = (props) => {
     const [page, setPage] = useState(0);
     const [library, setLibrary] = useState("");
     const {primaryColor, secondaryColor} = useColor();
+    const { bookName } = useBookName();
     const {setType} = useEditType();
     const {editRefresh} = useEditRefresh();
     const windowHeight = Dimensions.get("window").height;
     const windowWidth = Dimensions.get("window").width;
-    const bookName = props.bookName;
 
     const handleAuthorPress = () => {
         setType("author");
@@ -52,16 +53,18 @@ export const ElectroAuthorLibraryPageBox = (props) => {
     }, [editRefresh]);
 
     useEffect(() => {
-        if (bookInfo.author != undefined && bookInfo.author != null) {
-            setAuthor(bookInfo.author);
-        };
+        if (bookInfo != null) {
+            if (bookInfo.author != undefined && bookInfo.author != null) {
+                setAuthor(bookInfo.author);
+            };
 
-        if (bookInfo.library != undefined && bookInfo.library != null) {
-            setLibrary(bookInfo.library)
-        };
+            if (bookInfo.library != undefined && bookInfo.library != null) {
+                setLibrary(bookInfo.library)
+            };
 
-        if (bookInfo.page != undefined && bookInfo.page != null) {
-            setPage(bookInfo.page);
+            if (bookInfo.page != undefined && bookInfo.page != null) {
+                setPage(bookInfo.page);
+            };
         };
 
     }, [bookInfo]);
@@ -72,7 +75,7 @@ export const ElectroAuthorLibraryPageBox = (props) => {
         useNativeDriver={true}
         style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 3}]}>
             <TouchableOpacity onPress={handleSeriesPress}>
-                <ElectroSeriesHeader bookName={bookName}/>
+                <ElectroSeriesHeader/>
             </TouchableOpacity>
             <View style={styles.authorLibraryPageBoxSubView}>
                 <TouchableOpacity style={styles.libraryBooksScreenTouchable} onPress={handleLibraryPress}>

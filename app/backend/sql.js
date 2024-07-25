@@ -377,6 +377,12 @@ export const update_bookSeries = async (bookName, newSeries) => {
   );
 };
 
+export const update_bookPage = async (bookName, newPage) => {
+  await db.execAsync (
+    `UPDATE books_database SET page = ${newPage} WHERE option = "${bookName}"`
+  );
+};
+
 // DATA FETCHING FUNCTIONS
 
 export const check_duplicate = async (bookName) => {

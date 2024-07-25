@@ -25,15 +25,18 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor, changeTheme } from "../../hooks/useTheme";
 import { useMenuColor } from "../../hooks/useMenuColor";
 import { useMenuType } from "../../hooks/useMenuType";
+import { usePdf } from "../../hooks/usePdf";
 
 export default function colorPicker() {
   const {primaryColor, secondaryColor} = useColor();
   const {setPrimary, setSecondary} = changeTheme();
   const setColor = useFileFunctions("fileColor").setValue;
   const {setMenuColor} = useMenuColor();
-  const [hex, setHex] = useState("");
   const { backRoute } = useLocalSearchParams();
   const menuType = useMenuType().type;
+  const { setBgColor } = usePdf();
+
+  const [hex, setHex] = useState("");
 
   // Implement where inital color is already selected color - Get from Async Store
 
@@ -61,6 +64,8 @@ export default function colorPicker() {
         update_color(menuType, name, hex);
         setMenuColor(hex);
       };
+    } else if (backRoute == "pdf-BG-COLOR") {
+      setBgColor(hex);
     };
 
     router.dismiss();

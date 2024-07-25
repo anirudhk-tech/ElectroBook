@@ -1,13 +1,17 @@
 // React
-import { View } from "react-native";
-import { useState, useCallback } from "react";
+import { View, Text } from "react-native";
+import { useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
+
 // Components
-import { ElectroAlert } from "../../components/General/alert";
 import { ElectroPdf } from "../../components/Reading Screen/pdf";
 import { NotesSideBar } from "../../components/Reading Screen/notesSideBar";
+import { ElectroButton } from "../../components/General/button";
+
+// Node Modules
+import * as Animatable from "react-native-animatable";
 
 // Expo
 import { router } from "expo-router";
@@ -16,94 +20,77 @@ import { router } from "expo-router";
 import { useColor } from "../../hooks/useTheme";
 
 export default function readingTestScreen() {
+  const {primaryColor, secondaryColor} = useColor();
   const [testBegin, setTestBegin] = useState(false);
-  const [notesVisible, setNotesVisible] = useState(false);
-  const [finishAlertVisible, setFinishAlertVisible] = useState("none");
-  const [bgColor, setBgColor] = useState("white");
-  const {secondaryColor} = useColor();
   const colors = ["black", secondaryColor, "white"];
 
-  const handleCancelPress = useCallback(() => {
-    router.navigate("./libraryScreen");
-  }, []);
-
-  const handleOkayPress = useCallback(() => {
+  const handleStartPress = () => {
     setTestBegin(true);
-  }, []);
-
-  const handleSingleTap = useCallback(() => {
-    setNotesVisible(false);
-    setFinishAlertVisible("flex");
-  }, []);
-
-  const handleDoubleTap = () => {
-    setNotesVisible(!notesVisible);
   };
 
-  const handleTripleTap = () => {
-    let newColorPos = colors.indexOf(bgColor) + 1;
-    if (newColorPos == 3) {
-      newColorPos = 0;
-    }
-    const newColor = colors[newColorPos];
-    if (newColor == bgColor) {
-      setBgColor("white");
-    } else {
-      setBgColor(newColor);
-    }
+  const handleCancelPress = () => {
+    router.push("./libraryScreen")
   };
 
-  const handleEndPress = useCallback(() => {
-    router.navigate("./libraryScreen");
-    setFinishAlertVisible("none");
-  }, []);
+  const handleSinglePress = () => {
+    router.push("./libraryScreen");
+  };
 
   if (testBegin == true) {
     return (
-      <View>
-        <View style={styles.readingScreenMainView}>
-          <ElectroPdf
-            readingTest={true}
-            tripleTap={handleTripleTap}
-            doubleTap={handleDoubleTap}
-            singleTap={handleSingleTap}
-            bgColor={bgColor}
-          />
-          <NotesSideBar
-            visible={notesVisible}
-            tripleTap={handleTripleTap}
-            doubleTap={handleDoubleTap}
-            singleTap={handleSingleTap}
-          />
-        </View>
-        <ElectroAlert
-          display={finishAlertVisible}
-          title="Completed!"
-          positiveButton="End"
-          positivePress={handleEndPress}
-        />
+      <View style={{flex: 1}}>
+        <ElectroPdf 
+          readingTest={true}
+          onSingleTap={handleSinglePress}/>
       </View>
     );
   } else {
     return (
       <View
-        style={[
-          styles.readingScreenAlertView,
-          { backgroundColor: secondaryColor },
-        ]}
+        style={styles.readingTestScreenMainView}
       >
-        <ElectroAlert
-          title="Reading Test"
-          message={[
-            'The reading test will begin when you tap "Okay"',
-            "Simply tap the screen when you are finished reading.",
-            "Make sure to read at a comfortable pace!",
-          ]}
-          negativeButton="Cancel"
-          positiveButton="Okay"
-          negativePress={handleCancelPress}
-          positivePress={handleOkayPress}
-        />
+        <View style={styles.readingTestScreenTextView}>
+          <Animatable.Text 
+            animation={"fadeIn"}
+            useNativeDriver={true}
+            style={[styles.readingTestScreenTitle, {color: primaryColor}]}>Take the reading test to get approximate read times!</Animatable.Text>
+          <Animatable.Text 
+            animation={"fadeIn"}
+            useNativeDriver={true}
+            style={[styles.readingTestScreenText, {color: primaryColor}]}>You will be prompted to read a short paragraph in the next page</Animatable.Text>
+          <Animatable.Text 
+            animation={"fadeIn"}
+            useNativeDriver={true}
+            style={[styles.readingTestScreenText, {color: primaryColor}]}>Once you're done, your score will appear in the "Stats" screen.</Animatable.Text>
+          <Animatable.Text 
+            animation={"fadeIn"}
+            useNativeDriver={true}
+            style={[styles.readingTestScreenText, {color: primaryColor}]}>Tap the pdf once to end the test</Animatable.Text>
+        </View>
+        <Animatable.View
+          animation={"bounceIn"}
+          useNativeDriver={true}
+          style={styles.readingTestScreenButtonView}
+        >
+          <ElectroButton
+            text="Cancel"
+            touchableStyles={[
+              styles.readingTestScreenButton,
+              { borderColor: primaryColor },
+            ]}
+            textStyles={[styles.buttonText, { color: primaryColor }]}
+            action={handleCancelPress}
+          />
+          <ElectroButton
+            text="Start"
+            touchableStyles={[
+              styles.readingTestScreenButton,
+              { borderColor: primaryColor },
+            ]}
+            textStyles={[styles.buttonText, { color: primaryColor }]}
+            action={handleStartPress}
+          />
+        </Animatable.View>
       </View>
     );
   }

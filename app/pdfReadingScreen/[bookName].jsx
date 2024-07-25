@@ -3,31 +3,41 @@ import { ElectroPdf } from "../../components/Reading Screen/pdf"
 
 // React
 import { View } from "react-native";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 // Expo
-import { useLocalSearchParams, Stack } from "expo-router";
+import { useLocalSearchParams, Stack, router } from "expo-router";
 
 // Node Modules
 import * as FileSystem from "expo-file-system";
-import * as Animatable from "react-native-animatable";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
 // Components
 import { ElectroIcon } from "../../components/General/icon";
-import { NotesSideBar } from "../../components/Reading Screen/notesSideBar";
+import { ElectroNotesSideBar } from "../../components/Reading Screen/notesSideBar";
+import { ElectroSettingsSideBar } from "../../components/Reading Screen/settingsSideBar";
+
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useBookUpdate } from "../../hooks/useBookUpdate";
+import { useEditRefresh } from "../../hooks/useEdit";
+import { useBookInfo } from "../../hooks/useBookInfo";
+import { useBookName } from "../../hooks/useBookName";
 
 
 export default function pdfScreen () {
     const { bookName } = useLocalSearchParams();
+    const { setBookName } = useBookName();
     const {primaryColor, secondaryColor} = useColor();
+    const {setEditRefresh} = useEditRefresh();
     const [headerVisible, setHeaderVisible] = useState(true);
     const [notesVisible, setNotesVisible] = useState(false);
+    const [settingsVisible, setSettingsVisible] = useState(false);
+    const [pdfPg, setPdfPg] = useState(0);
+    const page = useRef();
 
     const generatePdf = (fileName) => {
         const source = `${FileSystem.documentDirectory}All/${fileName}`;
@@ -36,45 +46,109 @@ export default function pdfScreen () {
     };
 
     const handleSinglePress = () => {
-        setHeaderVisible(!headerVisible);
+        if (notesVisible || settingsVisible) {
+            setNotesVisible(false);
+            setSettingsVisible(false);
+        } else {
+            setHeaderVisible(!headerVisible);
+        };
     };
 
     const handleNotesPress = () => {
         setNotesVisible(!notesVisible);
     };
 
-    const handleNotesClose = useCallback(() => {
-        setNotesVisible(false);
+    const handleSettingsPress = () => {
+        setSettingsVisible(!settingsVisible);
+    };
+
+    const handlePageChange = (pageNumber) => {
+        page.current = pageNumber;
+    };
+
+    const handleColorPress = useCallback(() => {
+        router.push("../colorPickerScreen/pdf-BG-COLOR");
     }, []);
 
-    const notesIcon = useCallback(() => {
+    const handleSinglePage = useCallback(() => {
+        setSettingsVisible(false);
+    }, []);
+
+    const updatePage = () => {
+        useBookUpdate("page", bookName, page.current);
+        setEditRefresh();
+        router.dismiss();
+    };
+
+    const backIcon = () => {
         return (
             <ElectroIcon 
-            name="bookmarks"
+            name="arrow-back"
             size={30}
             color={secondaryColor}
-            handlePress={handleNotesPress}
+            handlePress={updatePage}
             />
+        );
+    };
+
+    const headerRightIcons = useCallback(() => {
+        return (
+            <View style={{flexDirection: 'row', gap: 10}}>
+                <ElectroIcon 
+                name="bookmarks"
+                size={30}
+                color={secondaryColor}
+                handlePress={handleNotesPress}
+                />
+                <ElectroIcon 
+                name="settings"
+                size={30}
+                color={secondaryColor}
+                handlePress={handleSettingsPress}
+                />
+            </View>
         )
     });
   
     const {source, name} = generatePdf(bookName);
 
+    useEffect(() => {
+        useBookInfo(bookName).then(data => {
+            setPdfPg(data.page);
+        });
+        setBookName(bookName);
+    }, []);
+
     return (
-        <View style={styles.readingScreenMainView}>
+        <View style={{flex: 1}}>
             <Stack.Screen
                     options={{
-                        //header: header
                         headerTitleAlign: 'center',
                         headerStyle: [styles.headerStyle, {backgroundColor: primaryColor}],
                         headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
                         headerTitle: name,
                         headerShown: headerVisible,
-                        headerRight: notesIcon,
+                        headerRight: headerRightIcons,
+                        headerLeft: backIcon,
+                        headerBackVisible: false,
                     }}
                 />
-            <ElectroPdf source={source} onSingleTap={handleSinglePress}/>
-            <NotesSideBar visible={notesVisible} handleNotesClose={handleNotesClose} bookName={name}/>
+            <ElectroPdf 
+                source={source} 
+                onSingleTap={handleSinglePress} 
+                onPageChange={handlePageChange}
+                page={pdfPg}/>
+            <ElectroNotesSideBar 
+                visible={notesVisible} 
+                handleNotesClose={handleNotesPress}
+                settingsToggle={handleSettingsPress}/>
+            <ElectroSettingsSideBar
+                visible={settingsVisible}
+                handleSettingsClose={handleSettingsPress}
+                notesToggle={handleNotesPress}
+                handleColorPress={handleColorPress}
+                handleSinglePage={handleSinglePage}
+            />
         </View>
     );
 };

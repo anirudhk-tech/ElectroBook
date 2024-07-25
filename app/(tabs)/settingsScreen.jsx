@@ -33,19 +33,7 @@ export default function settingsScreen() {
   }, []);
 
   const handleReadingTestPress = useCallback(() => {
-    setDisplayAlert(undefined);
-  }, []);
-
-  const handleOkayPress = useCallback(() => {
-    router.navigate("./readingTestScreen");
-    setDisplayAlert("none");
-    setSettingsCheck(true);
-  }, []);
-
-  const handleSkipPress = useCallback(() => {
-    router.navigate("./libraryScreen");
-    setDisplayAlert("none");
-    setSettingsCheck(true);
+    router.push("./readingTestScreen");
   }, []);
 
   return (
@@ -115,18 +103,6 @@ export default function settingsScreen() {
           />
         </Animatable.View>
       </View>
-      <ElectroAlert
-        display={displayAlert}
-        title="Reading Test"
-        message={[
-          "Read a short pdf to gauge how fast you read!",
-          "Your result will be used to calculate read times.",
-        ]}
-        negativeButton="Skip"
-        positiveButton="Okay"
-        negativePress={handleSkipPress}
-        positivePress={handleOkayPress}
-      />
     </View>
   );
 }

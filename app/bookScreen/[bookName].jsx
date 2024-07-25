@@ -16,17 +16,16 @@ import { ElectroNotesList } from "../../components/Book Screen/notesList";
 import { ElectroReadButton } from "../../components/Book Screen/readButton";
 import { ElectroCompleteButton } from "../../components/Book Screen/completeButton";
 
-// Node Modules
-import * as Animatable from "react-native-animatable";
-
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useEditType } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
+import { useBookName } from "../../hooks/useBookName";
 
 export default function bookScreen () {
     const { bookName } = useLocalSearchParams();
     const { setType } = useEditType();
+    const { setBookName } = useBookName();
     const {primaryColor, secondaryColor} = useColor();
     const screenHeight = Dimensions.get("screen").height;
     const screenWidth = Dimensions.get("screen").width;
@@ -54,6 +53,7 @@ export default function bookScreen () {
     
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
+        setBookName(bookName);
     }, []);
 
     useEffect(() => {
@@ -82,15 +82,16 @@ export default function bookScreen () {
             source={imageUri == "" ? "placeholder" : {uri: imageUri}}
             />
             <View 
-                style={[styles.libraryBooksScreenImageBackground, {height: screenHeight + 200, width: screenWidth, position: 'absolute', paddingBottom: screenHeight/15}]}>
-                <ElectroAuthorLibraryPageBox bookName={bookName}/> 
+                style={[styles.libraryBooksScreenBackgroundView, {height: screenHeight + 200, width: screenWidth, position: 'absolute', paddingBottom: screenHeight/15}]}>
+                <ElectroCompleteButton/>
+                <ElectroAuthorLibraryPageBox/> 
                 <TouchableOpacity onPress={() => {
                     handleIconPress();
                     setType("genre");
                 }}>
                 <View style={styles.libraryBooksScreenListMainView}>
                     <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Genres</Text>
-                    <ElectroGenresList bookName={bookName}/>
+                    <ElectroGenresList/>
                 </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
@@ -99,7 +100,7 @@ export default function bookScreen () {
                 }}>
                 <View style={styles.libraryBooksScreenListMainView}>
                     <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Tropes</Text>
-                    <ElectroTropesList bookName={bookName}/>
+                    <ElectroTropesList/>
                 </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
@@ -107,11 +108,10 @@ export default function bookScreen () {
                 }}>
                 <View style={styles.libraryBooksScreenListMainView}>
                     <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Notes</Text>
-                    <ElectroNotesList bookName={bookName}/>
+                    <ElectroNotesList bookScreen={true}/>
                 </View>
                 </TouchableOpacity>
-                <ElectroCompleteButton bookName={bookName}/>
             </View>
         </ScrollView>
-    )
-}
+    );
+};

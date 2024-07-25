@@ -15,33 +15,37 @@ import * as Animatable from "react-native-animatable";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
+import { useBookName } from "../../hooks/useBookName";
 
 
-export const ElectroCompleteButton = (props) => {
+export const ElectroCompleteButton = () => {
     const [completed, setCompleted] = useState(false);
     const [info, setInfo] = useState("");
     const {primaryColor, secondaryColor} = useColor();
+    const { bookName } = useBookName();
 
     useEffect(() => {
-        useBookInfo(props.bookName).then(data => setInfo(data));
+        useBookInfo(bookName).then(data => setInfo(data));
     }, []);
 
     useEffect(() => {
-        if (info.completed != undefined && info.completed != "") {
-            if (info.completed != "false") {
-                setCompleted(true);
-            } else {
-                setCompleted(false);
-            };
+        if (info != null) {
+            if (info.completed != undefined && info.completed != "") {
+                if (info.completed != "false") {
+                    setCompleted(true);
+                } else {
+                    setCompleted(false);
+                };
+            }
         };
     }, [info]);
 
     const handlePress = () => {
         if (completed == true) {
-            useBookUpdate("completed", props.bookName, "false");
+            useBookUpdate("completed", bookName, "false");
             setCompleted(false);
         } else {
-            useBookUpdate("completed", props.bookName, "true");
+            useBookUpdate("completed", bookName, "true");
             setCompleted(true);
         };
     };

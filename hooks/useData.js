@@ -18,7 +18,6 @@ export const useData = async (type) => {
 
   } else if (type.toLowerCase() == "library") {
       await get_libraries().then(libraries => {data = libraries});
-      console.log(data)
       return data;
 
   } else if (type.toLowerCase() == "series") {

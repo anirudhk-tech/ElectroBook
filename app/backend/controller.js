@@ -200,6 +200,10 @@ export const update_bookSeries = async (bookName, newSeries) => {
   await SQL.update_bookSeries(bookName, newSeries);
 };
 
+export const update_page = async (bookName, newPage) => {
+  await SQL.update_bookPage(bookName, newPage);
+};
+
 
 // DATA FETCHING FUNCTIONS
 

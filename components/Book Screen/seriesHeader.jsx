@@ -9,20 +9,24 @@ import { styles } from "../../constants/stylers";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useEditRefresh } from "../../hooks/useEdit";
 import { useColor } from "../../hooks/useTheme";
+import { useBookName } from "../../hooks/useBookName";
 
 export const ElectroSeriesHeader = (props) => {
     const [series, setSeries] = useState([]);
     const [bookInfo, setBookInfo] = useState([]);
     const {editRefresh} = useEditRefresh();
     const {primaryColor} = useColor();
+    const { bookName } = useBookName();
 
     useEffect(() => {
-        useBookInfo(props.bookName).then(data => setBookInfo(data));
+        useBookInfo(bookName).then(data => setBookInfo(data));
     }, [editRefresh]);
 
     useEffect(() => {
-        if (bookInfo.series != undefined || bookInfo.series != null) {
-            setSeries(bookInfo.series)
+        if (bookInfo != null) {
+            if (bookInfo.series != undefined || bookInfo.series != null) {
+                setSeries(bookInfo.series)
+            };
         };
     }, [bookInfo]);
 

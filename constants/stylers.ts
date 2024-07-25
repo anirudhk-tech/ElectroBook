@@ -574,6 +574,11 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
     },
 
+    booksScreenNotesListText: {
+        fontSize: 30, 
+        fontWeight: 'bold'
+    },
+
     // Components - Read Button
     booksScreenReadButton: {
         width: 'auto',
@@ -633,6 +638,33 @@ export const styles = StyleSheet.create({
         borderWidth: 5
     },
 
+    // Components - Settings Side Bar
+    settingsSideBarButtonView: {
+        flex: 9, 
+        gap: 40,
+        width: '100%'
+    },
+
+    settingsSideBarButton: {
+        borderRadius: 50,
+        borderWidth: 3,
+        height: '20%',
+        width: '90%',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold', 
+    },
+
+    settingsSideBarInputText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+
     // Book Screen 
     libraryBooksScreenMainScrollView: {
         alignItems: 'center',
@@ -644,7 +676,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    libraryBooksScreenImageBackground: {
+    libraryBooksScreenBackgroundView: {
         alignItems: 'center',
         flex: 1,
         justifyContent: 'space-between',
@@ -797,15 +829,44 @@ export const styles = StyleSheet.create({
     },
 
     // Reading Test Screen
-    readingScreenAlertView: {
-        width: '100%',
-        height: '100%',
+    readingTestScreenMainView: {
+        flex: 1,
+        padding: 50,
     },
 
-    readingScreenMainView: {
-        width: '100%',
-        height: '100%',
+    readingTestScreenButton: {
+        borderRadius: 50,
+        borderWidth: 3,
+        flex: 1,
+        height: '20%',
+        justifyContent: 'center', 
+    },
+
+    readingTestScreenButtonView: {
+        gap: 10,
         flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+    },
+
+    readingTestScreenTextView: {
+        flex: 1,
+    },
+
+    readingTestScreenTitle: {
+        flex: 2,
+        fontSize: 28,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textAlign: 'center',
+    },
+
+    readingTestScreenText: {
+        flex: 1,
+        fontSize: 20,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textAlign: 'center',
     },
 
     // Stats Screen
