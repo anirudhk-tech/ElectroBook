@@ -42,7 +42,8 @@ export const ElectroBookRowCard = (props) => {
             <View style={{flex: 6}}>
                 <Image 
                     style={{display: bookInfo.imageUri == "" || bookInfo.imageUri == undefined ? "none" : "flex"}} 
-                    source={{uri: bookInfo.imageUri, height: '100%', width: '100%'}}/>
+                    source={{uri: bookInfo.imageUri, height: '100%', width: '100%'}}
+                    />
             </View>
             <Text style={[styles.bookCardRowText, {color: primaryColor, backgroundColor: secondaryColor}]} numberOfLines={3}>{props.bookName}</Text>
         </TouchableOpacity>

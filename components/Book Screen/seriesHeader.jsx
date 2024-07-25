@@ -27,6 +27,9 @@ export const ElectroSeriesHeader = (props) => {
     }, [bookInfo]);
 
     return (
-        <Text style={[styles.booksScreenSeriesHeaderText, {color: primaryColor, display: series == "" ? "none" : "flex"}]}>{series}</Text>
+        <Text 
+            style={[styles.booksScreenSeriesHeaderText, {color: primaryColor}]}
+            numberOfLines={2}
+        >{series == "" ? "Stand-Alone" : series}</Text>
     )
 };

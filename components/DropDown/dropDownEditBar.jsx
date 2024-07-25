@@ -61,7 +61,10 @@ export const ElectroEditDropBar = (props) => {
         animation={"bounceIn"}
         useNativeDriver={true}
         style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
-        <Text style={[styles.dropDownBarText, { color: primaryColor }]}>
+        <Text 
+          style={[styles.dropDownBarText, { color: primaryColor }]}
+          numberOfLines={1}
+        >
           {props.option}
         </Text>
         <View

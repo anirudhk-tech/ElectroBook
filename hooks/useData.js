@@ -1,5 +1,13 @@
 // Backend
-import { get_genres, get_tropes, get_authors, get_series, get_libraries, get_books, get_completed} from '../app/backend/controller';
+import { 
+    get_genres, 
+    get_tropes, 
+    get_authors, 
+    get_series, 
+    get_libraries, 
+    get_books, 
+    get_completed
+} from '../app/backend/controller';
 
 export const useData = async (type) => {
   let data = [];
@@ -10,6 +18,7 @@ export const useData = async (type) => {
 
   } else if (type.toLowerCase() == "library") {
       await get_libraries().then(libraries => {data = libraries});
+      console.log(data)
       return data;
 
   } else if (type.toLowerCase() == "series") {

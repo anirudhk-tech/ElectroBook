@@ -1,9 +1,10 @@
 // React
 import { View, Text, Dimensions, LogBox, TouchableOpacity } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 // Components
 import { ElectroIcon } from "../General/icon";
+import { ElectroSeriesHeader } from "../../components/Book Screen/seriesHeader";
 
 // Expo
 import { router } from "expo-router";
@@ -29,19 +30,25 @@ export const ElectroAuthorLibraryPageBox = (props) => {
     const {editRefresh} = useEditRefresh();
     const windowHeight = Dimensions.get("window").height;
     const windowWidth = Dimensions.get("window").width;
+    const bookName = props.bookName;
 
     const handleAuthorPress = () => {
         setType("author");
-        router.push(`../bookEditDropScreen/${props.bookName}`);
+        router.push(`../bookEditDropScreen/${bookName}`);
     };
 
     const handleLibraryPress = () => {
         setType("library");
-        router.push(`../bookEditDropScreen/${props.bookName}`);
+        router.push(`../bookEditDropScreen/${bookName}`);
+    };
+
+    const handleSeriesPress = () => {
+        setType("series");
+        router.push(`../bookEditDropScreen/${bookName}`);
     };
 
     useEffect(() => {
-        useBookInfo(props.bookName).then(data => setBookInfo(data));
+        useBookInfo(bookName).then(data => setBookInfo(data));
     }, [editRefresh]);
 
     useEffect(() => {
@@ -64,6 +71,9 @@ export const ElectroAuthorLibraryPageBox = (props) => {
         animation={"fadeIn"}
         useNativeDriver={true}
         style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 3}]}>
+            <TouchableOpacity onPress={handleSeriesPress}>
+                <ElectroSeriesHeader bookName={bookName}/>
+            </TouchableOpacity>
             <View style={styles.authorLibraryPageBoxSubView}>
                 <TouchableOpacity style={styles.libraryBooksScreenTouchable} onPress={handleLibraryPress}>
                     <ElectroIcon
@@ -73,7 +83,7 @@ export const ElectroAuthorLibraryPageBox = (props) => {
                     />
                     <View style={styles.authorLibraryPageBoxDetailsView}>
                         <Text style={[styles.authorLibraryPageBoxPrompt, {color: primaryColor}]}>Library |</Text>
-                        <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{library}</Text>
+                        <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: library == "" ? undefined : primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{library}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

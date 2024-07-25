@@ -2,8 +2,8 @@
 import { useLocalSearchParams, Stack, router } from "expo-router"
 
 // React
-import { Dimensions, ScrollView, View, ImageBackground, Text, TouchableOpacity } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { Dimensions, ScrollView, View, Image, Text, TouchableOpacity } from "react-native";
+import {useEffect, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -13,7 +13,6 @@ import { ElectroAuthorLibraryPageBox } from "../../components/Book Screen/author
 import { ElectroGenresList } from "../../components/Book Screen/genresList";
 import { ElectroTropesList } from "../../components/Book Screen/tropesList";
 import { ElectroNotesList } from "../../components/Book Screen/notesList";
-import { ElectroSeriesHeader } from "../../components/Book Screen/seriesHeader";
 import { ElectroReadButton } from "../../components/Book Screen/readButton";
 import { ElectroCompleteButton } from "../../components/Book Screen/completeButton";
 
@@ -66,7 +65,7 @@ export default function bookScreen () {
     return (
         <ScrollView 
             style={{backgroundColor: secondaryColor}}
-            contentContainerStyle={[styles.libraryBooksScreenMainScrollView, {height: screenHeight+200, paddingBottom: screenHeight/15}]}
+            contentContainerStyle={[styles.libraryBooksScreenMainScrollView, {height: screenHeight+200}]}
             showsVerticalScrollIndicator={false}>
             <Stack.Screen
                 options={{
@@ -78,10 +77,12 @@ export default function bookScreen () {
                     headerShown: true,
                 }}
             />
-            <ImageBackground 
-                source={imageUri == "" ? "placeholder" : {uri: imageUri}}
-                style={[styles.libraryBooksScreenImageBackground, {height: screenHeight, width: screenWidth}]}>
-                <ElectroSeriesHeader bookName={bookName}/>
+            <Image 
+            style={{height: screenHeight + 200, width: screenWidth, opacity: 0.2}}
+            source={imageUri == "" ? "placeholder" : {uri: imageUri}}
+            />
+            <View 
+                style={[styles.libraryBooksScreenImageBackground, {height: screenHeight + 200, width: screenWidth, position: 'absolute', paddingBottom: screenHeight/15}]}>
                 <ElectroAuthorLibraryPageBox bookName={bookName}/> 
                 <TouchableOpacity onPress={() => {
                     handleIconPress();
@@ -110,7 +111,7 @@ export default function bookScreen () {
                 </View>
                 </TouchableOpacity>
                 <ElectroCompleteButton bookName={bookName}/>
-            </ImageBackground>
+            </View>
         </ScrollView>
     )
 }

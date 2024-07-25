@@ -45,6 +45,11 @@ export default function menuDropDownScreen() {
     setRawData(rawData.filter((x) => x.option != option));
   };
 
+  const handleTextPress = (option) => {
+    router.dismiss();
+    router.push(`../bookScreen/${option}`);
+  };
+
   const handleColorPress = (name) => {
     router.push(`../colorPickerScreen/changeColorof${name}`);
   };
@@ -79,6 +84,7 @@ export default function menuDropDownScreen() {
               option={data[x].option}
               color={data[x].color}
               type={menuType}
+              handleTextPress={handleTextPress}
               handleDeletePress={handleDeletePress}
               handleColorPress={handleColorPress}
             />

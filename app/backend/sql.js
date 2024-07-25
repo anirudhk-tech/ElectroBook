@@ -20,7 +20,8 @@ export const getInfo = async () => {
 
 export const create_user = async () => {
   const uuid = Crypto.randomUUID();
-  const db = await SQLite.openDatabaseAsync(`${uuid}.db`, {useNewConnection: true});
+  const db = await SQLite.openDatabaseAsync(`${uuid}.db`, {useNewConnection: true, });
+  await db.execAsync('PRAGMA journal_mode = WAL');
 
   db.execAsync(
     `CREATE TABLE IF NOT EXISTS books_database (option TEXT PRIMARY KEY, author TEXT, color TEXT, library TEXT, series TEXT, notes LIST, genres LIST, tropes LIST, completed TEXT, imageUri TEXT, page INT)`
@@ -390,7 +391,7 @@ export const check_duplicate = async (bookName) => {
 
 export const get_completed = async () => {
   const completed = [];
-  const completedData = await db.getAllAsync(`SELECT * FROM books_database WHERE completed = "true"`);
+  const completedData = await db.getAllAsync(`SELECT * FROM books_database WHERE completed = "true" ORDER BY option`);
   for (let x = 0; x < completedData.length; x++) {
     completed.push(completedData[x]);
   };
@@ -400,7 +401,7 @@ export const get_completed = async () => {
 export const get_books = async () => {
   const data = [];
 
-  const books = await db.getAllAsync(`SELECT * FROM books_database`);
+  const books = await db.getAllAsync(`SELECT * FROM books_database ORDER BY option`);
   for (let x = 0; x < books.length; x++) {
     data.push(books[x]);
   };
@@ -411,7 +412,7 @@ export const get_books = async () => {
 
 export const get_books_inLibrary = async (library) => {
   const books = await db.getAllAsync(
-    `SELECT * FROM books_database WHERE library = "${library}"`
+    `SELECT * FROM books_database WHERE library = "${library}" ORDER BY option`
   );
 
   return books;
@@ -419,7 +420,7 @@ export const get_books_inLibrary = async (library) => {
 
 export const get_genres = async () => {
   const genres = [];
-  const data = await db.getAllAsync(`SELECT * FROM genres_database`);
+  const data = await db.getAllAsync(`SELECT * FROM genres_database ORDER BY option`);
 
   for (let x = 0; x < data.length; x++) {
     genres.push(data[x]);
@@ -430,7 +431,7 @@ export const get_genres = async () => {
 
 export const get_tropes = async () => {
   const tropes = [];
-  const data = await db.getAllAsync(`SELECT * FROM tropes_database`);
+  const data = await db.getAllAsync(`SELECT * FROM tropes_database ORDER BY option`);
 
   for (let x = 0; x < data.length; x++) {
     tropes.push(data[x]);
@@ -441,7 +442,7 @@ export const get_tropes = async () => {
 
 export const get_libraries = async () => {
   const libs = [];
-  const data = await db.getAllAsync(`SELECT * FROM libraries_database`);
+  const data = await db.getAllAsync(`SELECT * FROM libraries_database ORDER BY option`);
 
   for (let x = 0; x < data.length; x++) {
     libs.push(data[x]);
@@ -452,7 +453,7 @@ export const get_libraries = async () => {
 
 export const get_series = async () => {
   const series = [];
-  const data = await db.getAllAsync(`SELECT * FROM series_database`);
+  const data = await db.getAllAsync(`SELECT * FROM series_database ORDER BY option`);
 
   for (let x = 0; x < data.length; x++) {
     series.push(data[x]);
@@ -463,7 +464,7 @@ export const get_series = async () => {
 
 export const get_authors = async () => {
   const authors = [];
-  const data = await db.getAllAsync(`SELECT * FROM authors_database`);
+  const data = await db.getAllAsync(`SELECT * FROM authors_database ORDER BY option`);
 
   for (let x = 0; x < data.length; x++) {
     authors.push(data[x]);

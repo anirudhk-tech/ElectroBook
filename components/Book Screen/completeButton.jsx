@@ -48,7 +48,7 @@ export const ElectroCompleteButton = (props) => {
 
     return (
         <TouchableOpacity
-        style={[styles.booksScreenCompleteTouchable, {backgroundColor: completed ? primaryColor : secondaryColor, borderColor: primaryColor}]}
+        style={[styles.booksScreenCompleteTouchable, {backgroundColor: completed ? primaryColor : undefined, borderColor: primaryColor}]}
         onPress={handlePress}
         >
             <Text style={[styles.booksScreenCompleteText, {color: primaryColor, display: completed ? "none" : "flex"}]}>Not Complete</Text>

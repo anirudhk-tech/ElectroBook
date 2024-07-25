@@ -78,7 +78,7 @@ export const NotesSideBar = (props) => {
               />
             </View>
             <ScrollView
-            contentContainerStyle={{height: windowHeight}}
+            contentContainerStyle={{height: notes.length * 600}}
             showsVerticalScrollIndicator={false}
             >
               <ElectroNotesList bookName={props.bookName} notesSideBar={true}/>

@@ -124,11 +124,12 @@ export default function notesDropDown() {
         style={{ height: windowHeight, width: "100%" }}
         contentContainerStyle={[
           styles.notesScreenFlatList,
-          { height: windowHeight },
+          { height: flatListData.length * 500 },
         ]}
         renderItem={({ item }) => item.item}
         keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
+        removeClippedSubviews={false}
       />
     </View>
   );

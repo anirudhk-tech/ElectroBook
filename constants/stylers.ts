@@ -209,7 +209,7 @@ export const styles = StyleSheet.create({
             fontWeight: 'bold',
             textAlignVertical: 'center',
             textAlign: 'center',
-            marginLeft: 30,
+            paddingHorizontal: 10
         },
 
         dropDownBarMenuTextTouchable: {
@@ -497,6 +497,8 @@ export const styles = StyleSheet.create({
         gap: 5,
         justifyContent: 'center',
         alignItems: 'flex-start',
+        alignSelf: 'flex-start',
+        marginLeft: '10%',
     },
 
     authorLibraryPageBoxSubView: {

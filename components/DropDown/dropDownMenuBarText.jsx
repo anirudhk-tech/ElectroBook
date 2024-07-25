@@ -19,6 +19,10 @@ export const ElectroMenuText = (props) => {
     const [oldInputOption, setOldInputOption] = useState("");
     const {primaryColor, secondaryColor} = useColor();
 
+    const handleTextPress = () => {
+        props.handleTextPress(props.option);
+    };
+
     const handleSubmit = async () => {
         if (inputOption == "") {
             setInputOption(null);
@@ -54,12 +58,16 @@ export const ElectroMenuText = (props) => {
     if (!editing) {
         return (
         <View style={styles.dropDownBarMenuTextTouchable}>
-            <Text
-                style={[styles.dropDownBarText, { color: primaryColor }]}
-                numberOfLines={1}
-            >
-                {inputOption == null ? props.option : inputOption}
-            </Text>
+            <TouchableOpacity 
+                style={{flex: 9}}
+                onPress={handleTextPress}>
+                <Text
+                    style={[styles.dropDownBarText, { color: primaryColor }]}
+                    numberOfLines={1}
+                >
+                    {inputOption == null ? props.option : inputOption}
+                </Text>
+            </TouchableOpacity>
             <TouchableOpacity
             style={[
                 styles.dropDownMenuTextEditIconTouchable,

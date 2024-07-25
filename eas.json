@@ -6,7 +6,7 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "andoird": {
+      "android": {
         "image": "latest"
       }
     },
