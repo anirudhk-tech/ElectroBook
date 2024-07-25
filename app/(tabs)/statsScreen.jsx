@@ -17,23 +17,30 @@ import * as Animatable from "react-native-animatable";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useData } from "../../hooks/useData";
+import { useCompletedCount } from "../../hooks/useCompleted";
 
 export default function statsScreen() {
   const {primaryColor, secondaryColor} = useColor();
-  const [totalBooks, setTotalBooks] = useState([]);
-  const [totalBooksLabel, setTotalBooksLabel] = useState("");
+  const [totalBooksCount, setTotalBooksCount] = useState([]);
+  const [completedCount, setCompletedCount] = useState(0);
+  const [completedRatio, setCompletedRatio] = useState(0);
   
   useEffect(() => {
-    useData("book").then(data => setTotalBooks(data));
+    useData("book").then(data => setTotalBooksCount(data.length));
+    useCompletedCount().then(count => setCompletedCount(count));
   }, []);
 
   useEffect(() => {
-    if (totalBooks.length == 1) {
-      setTotalBooksLabel("Book");
-    } else {
-      setTotalBooksLabel("Books");
+    if (completedCount != undefined && totalBooksCount != undefined) {
+      if (totalBooksCount != 0) {
+        try {
+          setCompletedRatio(completedCount/totalBooksCount);
+        } catch {
+
+        };
+      };
     };
-  }, [totalBooks])
+  }, [completedCount]);
 
   return (
     <View
@@ -63,10 +70,10 @@ export default function statsScreen() {
           ></View>
         </Animatable.View>
         <Text style={[styles.statsScreenText, { color: primaryColor }]}>
-          10 Books
+          {completedCount}
         </Text>
         <View style={styles.statsScreenProgressBarView}>
-          <ElectroProgressBar bookRatio={1 / 2} />
+          <ElectroProgressBar bookRatio={completedRatio} />
         </View>
       </View>
       <View style={styles.statsScreenSubView}>
@@ -82,7 +89,7 @@ export default function statsScreen() {
           ></View>
         </Animatable.View>
         <Text style={[styles.statsScreenText, { color: primaryColor }]}>
-          {totalBooks.length} {totalBooksLabel}
+          {totalBooksCount}
         </Text>
       </View>
       <View style={styles.statsScreenSubView}>

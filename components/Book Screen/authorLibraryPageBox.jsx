@@ -1,9 +1,12 @@
 // React
-import { View, Text, Dimensions, LogBox } from "react-native";
+import { View, Text, Dimensions, LogBox, TouchableOpacity } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 
 // Components
 import { ElectroIcon } from "../General/icon";
+
+// Expo
+import { router } from "expo-router";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -14,6 +17,7 @@ import * as Animatable from "react-native-animatable";
 // Hooks
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
+import { useEditRefresh, useEditType } from "../../hooks/useEdit";
 
 export const ElectroAuthorLibraryPageBox = (props) => {
     const [bookInfo, setBookInfo] = useState([]);
@@ -21,26 +25,28 @@ export const ElectroAuthorLibraryPageBox = (props) => {
     const [page, setPage] = useState(0);
     const [library, setLibrary] = useState("");
     const {primaryColor, secondaryColor} = useColor();
+    const {setType} = useEditType();
+    const {editRefresh} = useEditRefresh();
     const windowHeight = Dimensions.get("window").height;
     const windowWidth = Dimensions.get("window").width;
 
-    const shortenAuthor = useCallback(() => {
-        if (author == "" || author == undefined) {
-            return
-        };
-        const authorList = bookInfo.author.split(" ");
-        const authorInitial = " "+authorList[1][0]+".";
-        const author = authorList[0]+authorInitial;
-        setAuthor(author);
-    }, [author]);
+    const handleAuthorPress = () => {
+        setType("author");
+        router.push(`../bookEditDropScreen/${props.bookName}`);
+    };
+
+    const handleLibraryPress = () => {
+        setType("library");
+        router.push(`../bookEditDropScreen/${props.bookName}`);
+    };
 
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
-    }, []);
+    }, [editRefresh]);
 
     useEffect(() => {
         if (bookInfo.author != undefined && bookInfo.author != null) {
-            shortenAuthor(bookInfo.author);
+            setAuthor(bookInfo.author);
         };
 
         if (bookInfo.library != undefined && bookInfo.library != null) {
@@ -59,26 +65,30 @@ export const ElectroAuthorLibraryPageBox = (props) => {
         useNativeDriver={true}
         style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 3}]}>
             <View style={styles.authorLibraryPageBoxSubView}>
-                <ElectroIcon
-                name="library"
-                size={20}
-                color={primaryColor}
-                />
-                <View style={styles.authorLibraryPageBoxDetailsView}>
-                    <Text style={[styles.authorLibraryPageBoxPrompt, {color: primaryColor}]}>Library |</Text>
-                    <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{library}</Text>
-                </View>
+                <TouchableOpacity style={styles.libraryBooksScreenTouchable} onPress={handleLibraryPress}>
+                    <ElectroIcon
+                    name="library"
+                    size={20}
+                    color={primaryColor}
+                    />
+                    <View style={styles.authorLibraryPageBoxDetailsView}>
+                        <Text style={[styles.authorLibraryPageBoxPrompt, {color: primaryColor}]}>Library |</Text>
+                        <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{library}</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
             <View style={styles.authorLibraryPageBoxSubView}>
-                <ElectroIcon
-                name="person"
-                size={20}
-                color={primaryColor}
-                />
-                <View style={styles.authorLibraryPageBoxDetailsView}>
-                    <Text style={[styles.authorLibraryPageBoxPrompt, {color: primaryColor}]}>Author |</Text>
-                    <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: author == "" ? null : primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{author}</Text>
-                </View>
+                <TouchableOpacity style={styles.libraryBooksScreenTouchable} onPress={handleAuthorPress}>
+                    <ElectroIcon
+                    name="person"
+                    size={20}
+                    color={primaryColor}
+                    />
+                    <View style={styles.authorLibraryPageBoxDetailsView}>
+                        <Text style={[styles.authorLibraryPageBoxPrompt, {color: primaryColor}]}>Author |</Text>
+                        <Text style={[styles.authorLibraryPageBoxText, {color: secondaryColor, backgroundColor: author == "" ? null : primaryColor, maxWidth: windowWidth / 2.8}]} numberOfLines={1}>{author}</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
             <View style={styles.authorLibraryPageBoxSubView}>
                 <ElectroIcon

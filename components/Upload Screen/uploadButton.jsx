@@ -1,5 +1,5 @@
 // React
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 
 // Backend
@@ -21,6 +21,7 @@ export const ElectroUploadButton = () => {
     const {setUploadAlertText} = useUploadAlert();
     const info = useInfo("info");
     const clearValues = useInfo("infoClear");
+    const [uploadText, setUploadText] = useState("Upload");
     const [uploadPressed, setUploadPressed] = useState(false);
     const [clear, setClear] = useState(false);
         
@@ -37,12 +38,24 @@ export const ElectroUploadButton = () => {
                 setTimeout(() => {
                     if (duplicateStatus == "duplicate") {
                         setUploadAlertText("A file with that name already exists!");
-                        setTimeout(() => setUploadAlertText(""), 2000);
+
+                        setTimeout(() => 
+                            setUploadAlertText(""),
+                        2000);
+
                         setUploadPressed(false);
                     } else {
                         setClear(true);
                         setUploadPressed(false);
-                        setTimeout(() => setClear(false), 200);
+
+                        setTimeout(() => {
+                            setClear(false)
+                            setUploadText("Done");
+                        }, 1000);
+
+                        setTimeout(() => {
+                            setUploadText("Upload");
+                        }, 4000);
                     };
                 }, 2000);
             } else {
@@ -65,9 +78,9 @@ export const ElectroUploadButton = () => {
         onPress={handleUploadPress}
         >
             <Animatable.Text 
-            animation={"bounceIn"}
+            animation={ uploadText == "Upload" ? "bounceIn" : "tada"}
             useNativeDriver={true}
-            style={[styles.uploadScreenButtonText, {color: secondaryColor}]}>Upload</Animatable.Text>
+            style={[styles.uploadScreenButtonText, {color: secondaryColor, fontSize: uploadText == "Upload" ? 20 : 30}]}>{uploadText}</Animatable.Text>
         </TouchableOpacity>
     );
 };

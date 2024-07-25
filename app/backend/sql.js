@@ -358,6 +358,24 @@ export const update_bookNotes = async (bookName, newNotes) => {
   );
 };
 
+export const update_bookAuthor = async (bookName, newAuthor) => {
+  await db.execAsync (
+    `UPDATE books_database SET author = "${newAuthor}" WHERE option = "${bookName}"`
+  );
+};
+
+export const update_bookLibrary = async (bookName, newLibrary) => {
+  await db.execAsync (
+    `UPDATE books_database SET library = "${newLibrary}" WHERE option = "${bookName}"`
+  );
+};
+
+export const update_bookSeries = async (bookName, newSeries) => {
+  await db.execAsync (
+    `UPDATE books_database SET series = "${newSeries}" WHERE option = "${bookName}"`
+  );
+};
+
 // DATA FETCHING FUNCTIONS
 
 export const check_duplicate = async (bookName) => {
@@ -372,36 +390,24 @@ export const check_duplicate = async (bookName) => {
 
 export const get_completed = async () => {
   const completed = [];
-  const completedData = db.getAllAsync(`SELECT * FROM books_database WHERE completed = "true"`);
+  const completedData = await db.getAllAsync(`SELECT * FROM books_database WHERE completed = "true"`);
   for (let x = 0; x < completedData.length; x++) {
     completed.push(completedData[x]);
   };
   return completed
 };
 
-export const get_books = async (libs) => {
-  if (libs != true) {
-    const books = [];
-    const booksData = await db.getAllAsync(`SELECT * FROM books_database`);
-    for (let x = 0; x < booksData.length; x++) {
-      books.push(booksData[x]);
-    }
-    return books;
-  } else {
-    const data = [];
-    const booksData = await db.getAllAsync(
-      `SELECT * FROM books_database WHERE lib = "All"`
-    );
-    const libsData = db.getAllAsync(`SELECT * FROM libraries_database`);
-    for (let x = 0; x < booksData.length; x++) {
-      data.append(booksData[x].name);
-    }
-    for (let x = 0; x < libsData.length; x++) {
-      data.append(libsData[x].libName);
-    }
-    return data;
-  }
+export const get_books = async () => {
+  const data = [];
+
+  const books = await db.getAllAsync(`SELECT * FROM books_database`);
+  for (let x = 0; x < books.length; x++) {
+    data.push(books[x]);
+  };
+
+  return data;
 };
+
 
 export const get_books_inLibrary = async (library) => {
   const books = await db.getAllAsync(

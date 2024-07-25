@@ -622,6 +622,15 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
+    // Components - Upload Screen Complete Alert
+    uploadScreenCompleteAlert: {
+        position: "absolute", 
+        margin: '25%', 
+        width: 100, height: 100, 
+        borderColor: "blue", 
+        borderWidth: 5
+    },
+
     // Book Screen 
     libraryBooksScreenMainScrollView: {
         alignItems: 'center',
@@ -650,6 +659,11 @@ export const styles = StyleSheet.create({
     },
 
     libraryBooksScreenTitleView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    libraryBooksScreenTouchable: {
         flexDirection: 'row',
         gap: 10,
         alignItems: 'center',
@@ -914,9 +928,10 @@ export const styles = StyleSheet.create({
     },
 
     uploadScreenButtonText: {
-        fontSize: 20,
         fontWeight: 'bold',
         alignSelf: 'center',
+        textAlignVertical: 'center',
+        textAlign: 'center',
     },
 
     uploadScreenButtonView: {

@@ -7,7 +7,7 @@ const useEditMain = create ((set) => ({
     setBookData: (value) => set(() => ({ bookData: value })),
     data: [],
     setData: (value) => set(() => ({ data: value })),
-    notesData: [],
+    notesData: [null],
     setNotesData: (value) => set(() => ({ notesData: value })),
     editRefresh: false,
     setEditRefresh: () => set((state) => ({ editRefresh: !state.editRefresh }))

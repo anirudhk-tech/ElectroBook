@@ -25,14 +25,12 @@ import { useBookUpdate } from "../../hooks/useBookUpdate";
 
 export default function bookEditScreen () {
     const { bookEdit } = useLocalSearchParams();
-    const {type} = useEditType();
+    const {type, setType} = useEditType();
     const {data, setData} = useEditData();
     const {setEditRefresh} = useEditRefresh();
     const refreshOptions = useRefreshOptions().refresh; 
     const {primaryColor, secondaryColor} = useColor();
     const headerTitle = "Edit "+useHeader(type);
-
-
     const [rawData, setRawData] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
 
@@ -41,6 +39,8 @@ export default function bookEditScreen () {
     const handleBackIconPress = () => {
       useBookUpdate(type, bookEdit, data);
       setEditRefresh();
+      setData([null]);
+      setType(null);
       router.dismiss();
     };
 
@@ -54,9 +54,9 @@ export default function bookEditScreen () {
         )
     };
 
-    const handleAddIconPress = useCallback(() => {
+    const handleAddIconPress = () => {
       router.push(`../menuDropScreen/${type}`);
-    }, [type]);
+    };
 
     const addIcon = useCallback(() => {
       return(
@@ -79,6 +79,7 @@ export default function bookEditScreen () {
           dataOrganize.push({
             item: (
               <ElectroEditDropBar
+                bookName={bookEdit}
                 option={data[x].option}
                 color={data[x].color}
               />

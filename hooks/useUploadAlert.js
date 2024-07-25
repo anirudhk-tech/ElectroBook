@@ -4,7 +4,7 @@ import { create } from "zustand";
 const useUploadAlertMain = create(
     (set) => ({
         uploadAlertText: "",
-        setUploadAlertText: (value) => set(() => ({ uploadAlertText: value }))
+        setUploadAlertText: (value) => set(() => ({ uploadAlertText: value })),
     })
 );
 

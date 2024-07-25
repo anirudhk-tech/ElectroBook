@@ -5,6 +5,9 @@ import { styles } from "../../constants/stylers";
 import { TouchableOpacity, Text, Dimensions } from "react-native";
 import { useCallback } from "react";
 
+// Node Modules
+import * as Animatable from "react-native-animatable";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 
@@ -17,6 +20,10 @@ export const ElectroMenuTab = (props) => {
   }, [props.type]);
 
   return (
+    <Animatable.View 
+    animation={"flipInX"}
+    useNativeDriver={true}
+    style={{height: 90, width: windowWidth - 40}}>
     <TouchableOpacity
       style={[
         styles.menuTabTouchable,
@@ -24,9 +31,11 @@ export const ElectroMenuTab = (props) => {
       ]}
       onPress={handlePress}
     >
-      <Text style={[styles.menuTabText, { color: primaryColor }]}>
+      <Text 
+      style={[styles.menuTabText, { color: primaryColor }]}>
         {props.text}
       </Text>
     </TouchableOpacity>
+    </Animatable.View>
   );
 };

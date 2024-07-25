@@ -33,7 +33,7 @@ export const NotesSideBar = (props) => {
   const splitNote = (notes) => {
     if (notes != undefined) {
       const splitNotes = notes.split(",");
-      setNotes(splitNotes)
+      setNotes(splitNotes);
     };
   };
 

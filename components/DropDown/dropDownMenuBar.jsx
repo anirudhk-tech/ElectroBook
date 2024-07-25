@@ -1,5 +1,6 @@
 // React
-import { View, TouchableOpacity, Text, Dimensions } from "react-native";
+import { View, TouchableOpacity, Dimensions } from "react-native";
+import { useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";

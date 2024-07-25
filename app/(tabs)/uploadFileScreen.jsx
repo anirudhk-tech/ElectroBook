@@ -17,6 +17,8 @@ import { ElectroNotesBar } from "../../components/Upload Screen/notesBar";
 import { ElectroColorCodeBar } from "../../components/Upload Screen/colorCodeBar";
 import { ElectroImageBar } from "../../components/Upload Screen/imageBar";
 import { ElectroUploadButton } from "../../components/Upload Screen/uploadButton";
+import { ElectroUploadAlert } from "../../components/Upload Screen/uploadAlert";
+import { ElectroClearUploadButton } from "../../components/Upload Screen/clearUploadButton";
 
 // Node Modules
 import * as Animatable from "react-native-animatable";
@@ -25,8 +27,6 @@ import * as Animatable from "react-native-animatable";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor } from "../../hooks/useTheme";
 import { useUploadAlert } from "../../hooks/useUploadAlert";
-import { ElectroUploadAlert } from "../../components/Upload Screen/uploadAlert";
-import { ElectroClearUploadButton } from "../../components/Upload Screen/clearUploadButton";
 
 
 export default function uploadFileScreen() {
@@ -93,7 +93,9 @@ export default function uploadFileScreen() {
             headerShown: true,
           }}
         />
-          <View
+          <Animatable.View
+            animation={"slideInUp"}
+            useNativeDriver={true}
             style={[
               styles.uploadScreenGeneralView,
               { display: advancedVisible == "none" ? "flex" : "none" },
@@ -108,7 +110,7 @@ export default function uploadFileScreen() {
             />
             <ElectroPromptDropdown icon="library-outline" options={"library"} />
             <ElectroPromptDropdown icon="person" options={"author"} />
-          </View>
+          </Animatable.View>
 
           <ElectroAdvancedDivider handlePress={handleAdvancedPress} />
           <View

@@ -32,7 +32,6 @@ export default function bookScreen () {
     const screenHeight = Dimensions.get("screen").height;
     const screenWidth = Dimensions.get("screen").width;
     const [bookInfo, setBookInfo] = useState([]);
-    const [library, setLibrary] = useState("");
     const [imageUri, setImageUri] = useState("");
 
     const handleIconPress = () => {
@@ -59,10 +58,6 @@ export default function bookScreen () {
     }, []);
 
     useEffect(() => {
-        if (bookInfo.library != undefined && bookInfo.library != null) {
-            setLibrary(bookInfo.library)
-        };
-
         if (bookInfo.imageUri != undefined && bookInfo.library != null) {
             setImageUri(bookInfo.imageUri);
         };

@@ -32,13 +32,13 @@ export const create_image = async (handleImageSubmit) => {
 };
 
 export const create_book = async (info) => {
-  const filesAdded = await FS.create_book(info.name, info.imageUri);
+  const filesAdded = await FS.create_book(info.name.replaceAll('"', "'").replaceAll(",", ";"), info.imageUri);
 
   if (filesAdded != null) {
     for (let x in filesAdded) {
       const check = await SQL.check_duplicate(filesAdded[x]);
       if (check != "duplicate") {
-        info["name"] = filesAdded[x];
+        info["name"] = filesAdded[x].replaceAll('"', "'").replaceAll(",", ";");
         await SQL.create_book(info);
       } else {
         return "duplicate";
@@ -186,6 +186,18 @@ export const update_bookTropes = async (bookName, newTropes) => {
 
 export const update_bookNotes = async (bookName, newNotes) => {
   await SQL.update_bookNotes(bookName, newNotes);
+};
+
+export const update_bookAuthor = async (bookName, newAuthor) => {
+  await SQL.update_bookAuthor(bookName, newAuthor);
+};
+
+export const update_bookLibrary = async (bookName, newLibrary) => {
+  await SQL.update_bookLibrary(bookName, newLibrary);
+};
+
+export const update_bookSeries = async (bookName, newSeries) => {
+  await SQL.update_bookSeries(bookName, newSeries);
 };
 
 

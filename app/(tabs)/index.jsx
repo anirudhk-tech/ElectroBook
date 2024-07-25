@@ -48,7 +48,7 @@ export default function startingScreen() {
   return (
     <Animatable.View
       animation={zoomIntoScreen}
-      delay={3000}
+      delay={1000}
       useNativeDriver={true}
       onAnimationBegin={establish_userDb}
       onAnimationEnd={startingRouter}

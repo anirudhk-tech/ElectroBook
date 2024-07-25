@@ -1,6 +1,6 @@
 // React
 import { Dimensions, View } from "react-native";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 // Components
 import { ElectroBookNotesPost } from "./bookNotesPost";
@@ -27,6 +27,10 @@ export const ElectroNotesList = (props) => {
         setData(notes);
     };
 
+    const updateNotes = useCallback(() => {
+        useBookUpdate("note", props.bookName, data);
+    }, [data]);
+
     const handleDeletePress = (note) => {
         setData(data.filter(x => x != note));
     };
@@ -43,11 +47,13 @@ export const ElectroNotesList = (props) => {
       };
 
     useEffect(() => {
-        useBookInfo(props.bookName).then(data => notesSplit(data.notes));
+        useBookInfo(props.bookName).then(data => notesSplit(data.notes))
     }, [editRefresh]);
 
     useEffect(() => {
-        useBookUpdate("note", props.bookName, data);
+        if (data.includes(null) != true) {
+            updateNotes();
+        };
     }, [data]);
 
     return (

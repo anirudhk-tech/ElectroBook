@@ -1,27 +1,42 @@
 // React
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import { useEffect } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
+
+// Expo
+import { router } from "expo-router";
 
 // Node Modules
 import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useEditData } from "../../hooks/useEdit";
+import { useEditData, useEditRefresh, useEditType } from "../../hooks/useEdit";
+import { useBookUpdate } from "../../hooks/useBookUpdate";
 
 export const ElectroEditDropBar = (props) => {
   const {primaryColor} = useColor();
   const {data, setData} = useEditData();
+  const {setEditRefresh} = useEditRefresh();
+  const {type, setType} = useEditType();
 
   const windowHeight = Dimensions.get("window").height;
+  const multi = ["genre", "trope"];
   
   const handlePress = () => {
-    if (data.includes(props.option)) {
-      setData(data.filter(x => x != props.option));
+    if (multi.includes(type)) {
+      if (data.includes(props.option)) {
+        setData(data.filter(x => x != props.option));
+      } else {
+        setData([...data, props.option]);
+      };
     } else {
-      setData([...data, props.option]);
+      useBookUpdate(type, props.bookName, props.option)
+      setEditRefresh();
+      setType(null);
+      router.dismiss();
     };
   };
 
@@ -37,7 +52,7 @@ export const ElectroEditDropBar = (props) => {
           styles.dropDownBarSelectedCircle,
           {
             borderColor: primaryColor,
-            display: data.includes(props.option) ? "flex" : "none",
+            display: data.includes(props.option) ? multi.includes(type) ? "flex" : "none" : "none",
             backgroundColor: primaryColor,
           },
         ]}
