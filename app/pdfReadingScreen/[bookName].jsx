@@ -26,11 +26,13 @@ import { useBookUpdate } from "../../hooks/useBookUpdate";
 import { useEditRefresh } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookName } from "../../hooks/useBookName";
+import { usePdf } from "../../hooks/usePdf";
 
 
 export default function pdfScreen () {
     const { bookName } = useLocalSearchParams();
     const { setBookName } = useBookName();
+    const { setHeadToPage } = usePdf();
     const {primaryColor, secondaryColor} = useColor();
     const {setEditRefresh} = useEditRefresh();
     const [headerVisible, setHeaderVisible] = useState(true);
@@ -78,6 +80,7 @@ export default function pdfScreen () {
         useBookUpdate("page", bookName, page.current);
         setEditRefresh();
         router.dismiss();
+        setHeadToPage(null);
     };
 
     const backIcon = () => {
