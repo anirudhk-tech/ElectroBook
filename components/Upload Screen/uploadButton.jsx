@@ -44,27 +44,29 @@ export const ElectroUploadButton = () => {
                         2000);
 
                         setUploadPressed(false);
-                    } else {
-                        setClear(true);
+                    } else if (duplicateStatus == "canceled") {
                         setUploadPressed(false);
+                    } else {
+                            setClear(true);
+                            setUploadPressed(false);
 
-                        setTimeout(() => {
-                            setClear(false)
-                            setUploadText("Done");
-                        }, 1000);
+                            setTimeout(() => {
+                                setClear(false)
+                                setUploadText("Done");
+                            }, 1000);
 
-                        setTimeout(() => {
-                            setUploadText("Upload");
-                        }, 4000);
-                    };
-                }, 2000);
-            } else {
-                setUploadAlertText("A library is required!");
-                setTimeout(() => setUploadAlertText(""), 2000);
-                setUploadPressed(false);
+                            setTimeout(() => {
+                                setUploadText("Upload");
+                            }, 4000);
+                        };
+                    }, 2000);
+                } else {
+                    setUploadAlertText("A library is required!");
+                    setTimeout(() => setUploadAlertText(""), 2000);
+                    setUploadPressed(false);
+                };
             };
-        };
-    }, [info]);
+        }, [info]);
 
     useEffect(() => {
         if (clear == true) {

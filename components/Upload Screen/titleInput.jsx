@@ -1,6 +1,5 @@
 // React
-import { View, TextInput, Text } from "react-native";
-import { useState, useEffect } from "react";
+import { View, TextInput, Text, Keyboard } from "react-native";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -10,12 +9,24 @@ import { ElectroIcon } from "../General/icon";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useInfo } from "../../hooks/useInfoFunctions";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroTitleInput = (props) => {
   const {primaryColor} = useColor();
   const { value, setValue } = useFileFunctions("title");
+
+  const handleBlur = () => {
+    try {
+      textInputField.blur()
+    } catch {
+      return
+    };
+  };
+
+  const keyboardHideListener = Keyboard.addListener(
+    'keyboardDidHide', 
+    handleBlur
+  );
 
   return (
     <View style={styles.uploadScreenSubView}>

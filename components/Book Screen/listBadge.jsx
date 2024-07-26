@@ -17,6 +17,7 @@ export const ElectroListBadge = (props) => {
         <Animatable.View
         animation={"fadeIn"} 
         useNativeDriver={true}
+        delay={300}
         style={styles.booksScreenListBadgeMainView}>
             <View style={[styles.booksScreenListBadgeLine, {borderColor: primaryColor}]}></View>
             <Text 

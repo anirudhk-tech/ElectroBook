@@ -1,6 +1,6 @@
 // React
 import { useState } from "react";
-import { TouchableOpacity, Text, TextInput, View } from "react-native";
+import { TouchableOpacity, Text, TextInput, View, Keyboard } from "react-native";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -55,6 +55,14 @@ export const ElectroMenuText = (props) => {
         };
     };
 
+    const handleBlur = () => {
+        try {
+          textInputField.blur()
+        } catch {
+            return
+        };
+      };
+
     if (!editing) {
         return (
         <View style={styles.dropDownBarMenuTextTouchable}>
@@ -62,7 +70,7 @@ export const ElectroMenuText = (props) => {
                 style={{flex: 9}}
                 onPress={handleTextPress}>
                 <Text
-                    style={[styles.dropDownBarText, { color: primaryColor }]}
+                    style={[styles.dropDownBarText, { color: primaryColor, paddingLeft: 60 }]}
                     numberOfLines={1}
                 >
                     {inputOption == null ? props.option : inputOption}
@@ -85,30 +93,36 @@ export const ElectroMenuText = (props) => {
         </View>
         );
       } else {
-        return (
-        <View style={styles.dropDownBarMenuTextTouchable}>
-          <TextInput 
-            style={[styles.dropDownBarText, { color: primaryColor, flex: 10 }]}
-            autoFocus={true}
-            defaultValue={inputOption == null ? props.option : inputOption}
-            onChangeText={(e) => setInputOption(e)}
-            onBlur={handleSubmit}
-          />
-            <TouchableOpacity
-            style={[
-                styles.dropDownMenuTextEditIconTouchable,
-                { backgroundColor: primaryColor, borderRightColor: secondaryColor, borderLeftColor: primaryColor, borderTopColor: primaryColor, borderBottomColor: primaryColor },
-            ]}
-            onPress={() => setEditing(!editing)}
-            >
-            <ElectroIcon
-                name="create"
-                size={20}
-                color={secondaryColor}
-                handlePress={() => setEditing(!editing)}
+            const keyboardHideListener = Keyboard.addListener(
+                'keyboardDidHide', 
+                handleBlur
+            );
+
+            return (
+                <View style={styles.dropDownBarMenuTextTouchable}>
+                <TextInput 
+                    style={[styles.dropDownBarText, { color: primaryColor, flex: 10 }]}
+                    autoFocus={true}
+                    defaultValue={inputOption == null ? props.option : inputOption}
+                    onChangeText={(e) => setInputOption(e)}
+                    onBlur={handleSubmit}
+                    ref={input => {textInputField = input}}
                 />
-            </TouchableOpacity>
-        </View>
-        )
-      }
-}
+                    <TouchableOpacity
+                    style={[
+                        styles.dropDownMenuTextEditIconTouchable,
+                        { backgroundColor: primaryColor, borderRightColor: secondaryColor, borderLeftColor: primaryColor, borderTopColor: primaryColor, borderBottomColor: primaryColor },
+                    ]}
+                    onPress={() => setEditing(!editing)}
+                    >
+                    <ElectroIcon
+                        name="create"
+                        size={20}
+                        color={secondaryColor}
+                        handlePress={() => setEditing(!editing)}
+                        />
+                    </TouchableOpacity>
+                </View>
+            )
+        }
+    }

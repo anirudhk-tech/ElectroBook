@@ -25,7 +25,7 @@ export const create_book = async (bookName, imageUri) => {
 
   const filesData = await DocumentPicker.getDocumentAsync({
     multiple: true,
-    type: "application/*",
+    type: ["application/pdf"],
   });
 
   if (filesData.canceled != true) {

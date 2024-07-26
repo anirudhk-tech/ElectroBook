@@ -1,21 +1,22 @@
 // React
-import { View, TouchableOpacity, Text } from "react-native"
+import { Text } from "react-native"
 import { useEffect, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
-// Components
-import { ElectroIcon } from "../General/icon";
-
 // Node Modules
 import * as Animatable from "react-native-animatable";
+
+// Components
+import { ElectroIcon } from "../General/icon";
 
 // Hooks
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useColor } from "../../hooks/useTheme";
-import { useBookUpdate } from "../../hooks/useBookUpdate";
 import { useBookName } from "../../hooks/useBookName";
+import { useEditRefresh } from "../../hooks/useEdit";
+import { useProgressBarAnimation } from "../../hooks/useAnimation";
 
 
 export const ElectroCompleteButton = () => {
@@ -23,47 +24,51 @@ export const ElectroCompleteButton = () => {
     const [info, setInfo] = useState("");
     const {primaryColor, secondaryColor} = useColor();
     const { bookName } = useBookName();
+    const { editRefresh } = useEditRefresh();
+    const { progressBarComplete, setProgressBarComplete } = useProgressBarAnimation();
+
+    const handleAnimationEnd = () => {
+        setProgressBarComplete(false);
+    };
+
+    const handleCompletedTrue = () => {
+        setCompleted(true);
+    };
+
+    const handleCompletedFalse = () => {
+        setCompleted(false);
+    };
 
     useEffect(() => {
         useBookInfo(bookName).then(data => setInfo(data));
-    }, []);
+    }, [editRefresh]);
 
     useEffect(() => {
         if (info != null) {
             if (info.completed != undefined && info.completed != "") {
                 if (info.completed != "false") {
-                    setCompleted(true);
+                    setTimeout(handleCompletedTrue, 1000)
                 } else {
-                    setCompleted(false);
+                    setTimeout(handleCompletedFalse, 1000)
                 };
             }
         };
     }, [info]);
 
-    const handlePress = () => {
-        if (completed == true) {
-            useBookUpdate("completed", bookName, "false");
-            setCompleted(false);
-        } else {
-            useBookUpdate("completed", bookName, "true");
-            setCompleted(true);
-        };
-    };
-
     return (
-        <TouchableOpacity
+        <Animatable.View
+        animation={completed ? "bounceIn" : "pulse"}
+        useNativeDriver={true}
         style={[styles.booksScreenCompleteTouchable, {backgroundColor: completed ? primaryColor : undefined, borderColor: primaryColor}]}
-        onPress={handlePress}
         >
             <Text style={[styles.booksScreenCompleteText, {color: primaryColor, display: completed ? "none" : "flex"}]}>Not Complete</Text>
             <ElectroIcon 
             name="checkmark-done"
             size={30}
             color={secondaryColor}
-            handlePress={handlePress}
             style={{display: completed ? "flex" : "none"}}
             />
-        </TouchableOpacity>
+        </Animatable.View>
   );
 };
 

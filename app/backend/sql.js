@@ -24,7 +24,7 @@ export const create_user = async () => {
   await db.execAsync('PRAGMA journal_mode = WAL');
 
   db.execAsync(
-    `CREATE TABLE IF NOT EXISTS books_database (option TEXT PRIMARY KEY, author TEXT, color TEXT, library TEXT, series TEXT, notes LIST, genres LIST, tropes LIST, completed TEXT, imageUri TEXT, page INT)`
+    `CREATE TABLE IF NOT EXISTS books_database (option TEXT PRIMARY KEY, author TEXT, color TEXT, library TEXT, series TEXT, notes LIST, genres LIST, tropes LIST, completed TEXT, imageUri TEXT, page INT, pageCount INT)`
   );
 
   db.execAsync(
@@ -380,6 +380,14 @@ export const update_bookSeries = async (bookName, newSeries) => {
 export const update_bookPage = async (bookName, newPage) => {
   await db.execAsync (
     `UPDATE books_database SET page = ${newPage} WHERE option = "${bookName}"`
+  );
+};
+
+export const update_bookPageCount = async (bookName, newPageCount) => {
+  console.log(bookName)
+  console.log(newPageCount)
+  await db.execAsync(
+    `UPDATE books_database SET pageCount = ${newPageCount} WHERE option = "${bookName}"`
   );
 };
 

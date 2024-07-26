@@ -39,7 +39,7 @@ export default function libraryBooksScreen () {
                 <ElectroMultiIcons
                     icons={[
                         { name: "library", handlePress: handleLibraryPress },
-                        { name: "create", handlePress: handleCreateIconPress },
+                        { name: "construct", handlePress: handleCreateIconPress },
                       ]}
                 />
             </View>

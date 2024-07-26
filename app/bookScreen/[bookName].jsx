@@ -21,6 +21,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useEditType } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookName } from "../../hooks/useBookName";
+import { ElectroReadingProgressBar } from "../../components/Book Screen/readingProgressBar";
 
 export default function bookScreen () {
     const { bookName } = useLocalSearchParams();
@@ -57,7 +58,7 @@ export default function bookScreen () {
     }, []);
 
     useEffect(() => {
-        if (bookInfo.imageUri != undefined && bookInfo.library != null) {
+        if (bookInfo.imageUri != undefined && bookInfo != null) {
             setImageUri(bookInfo.imageUri);
         };
     }, [bookInfo]);
@@ -83,6 +84,7 @@ export default function bookScreen () {
             />
             <View 
                 style={[styles.libraryBooksScreenBackgroundView, {height: screenHeight + 200, width: screenWidth, position: 'absolute', paddingBottom: screenHeight/15}]}>
+                <ElectroReadingProgressBar/>
                 <ElectroCompleteButton/>
                 <ElectroAuthorLibraryPageBox/> 
                 <TouchableOpacity onPress={() => {

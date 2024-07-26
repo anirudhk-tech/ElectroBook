@@ -7,6 +7,7 @@ import {
     update_bookLibrary, 
     update_bookAuthor,
     update_page,
+    update_pageCount,
 } from "../app/backend/controller"
 
 export const useBookUpdate = async (type, bookName, newValue) => {
@@ -26,6 +27,8 @@ export const useBookUpdate = async (type, bookName, newValue) => {
     } else if (type == "series") {
         await update_bookSeries(bookName, newValue);
     } else if (type == "page") {
-        await update_page(bookName, newValue)
+        await update_page(bookName, newValue);
+    } else if (type == "pageCount") {
+        await update_pageCount(bookName, newValue);
     }
 };

@@ -1,14 +1,13 @@
 // React
-import { View, Text } from "react-native";
-import { useState } from "react";
+import { View } from "react-native";
+import { useState, useRef } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
 
 // Components
-import { ElectroPdf } from "../../components/Reading Screen/pdf";
-import { NotesSideBar } from "../../components/Reading Screen/notesSideBar";
 import { ElectroButton } from "../../components/General/button";
+import { ElectroReadingTestPDF } from "../../components/Reading Screen/readingTestPdf";
 
 // Node Modules
 import * as Animatable from "react-native-animatable";
@@ -18,30 +17,44 @@ import { router } from "expo-router";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useSpeed } from "../../hooks/useSpeed";
+import { useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function readingTestScreen() {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor } = useColor();
+  const { setSpeed } = useSpeed();
+  const { setSettingsCheck } = useCheckSetters();
+  const time = useRef(0);
+  const interval = useRef();
   const [testBegin, setTestBegin] = useState(false);
-  const colors = ["black", secondaryColor, "white"];
+
+  const increaseTime = () => {
+    time.current += 1
+  };
 
   const handleStartPress = () => {
+    interval.current = setInterval(increaseTime, 1000);
     setTestBegin(true);
+    setSettingsCheck(true);
   };
 
   const handleCancelPress = () => {
-    router.push("./libraryScreen")
+    router.push("./libraryScreen");
+    setSettingsCheck(true);
   };
 
   const handleSinglePress = () => {
+    clearInterval(interval.current);
+    setSpeed((250/time.current) * 60);
     router.push("./libraryScreen");
   };
 
   if (testBegin == true) {
     return (
       <View style={{flex: 1}}>
-        <ElectroPdf 
-          readingTest={true}
-          onSingleTap={handleSinglePress}/>
+        <ElectroReadingTestPDF
+          handleSinglePress={handleSinglePress}
+        />
       </View>
     );
   } else {

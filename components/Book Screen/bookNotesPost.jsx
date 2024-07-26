@@ -9,6 +9,7 @@ import {
   View,
   Text,
   Dimensions,
+  Keyboard,
 } from "react-native";
 
 // Node Modules
@@ -49,11 +50,25 @@ export const ElectroBookNotesPost = (props) => {
     setEditing(!editing);
   };
 
+  const handleBlur = () => {
+    try {
+      textInputField.blur()
+    } catch {
+      return
+    }
+  };
+
+  Keyboard.addListener(
+    'keyboardDidHide', 
+    handleBlur
+  );
+
   if (editing == false) {
     return (
       <Animatable.View
         animation={"flipInX"}
         useNativeDriver={true}
+        delay={1000}
         style={[
           styles.notesPostMainView,
           { borderColor: primaryColor, width: windowWidth/1.5, height: 'auto' },
@@ -103,6 +118,7 @@ export const ElectroBookNotesPost = (props) => {
           onBlur={handleEditPress}
           defaultValue={props.note}
           multiline={true}
+          ref={input => {textInputField = input}}
         />
         <TouchableOpacity
           style={[

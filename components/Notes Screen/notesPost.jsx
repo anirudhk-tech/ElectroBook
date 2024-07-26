@@ -9,6 +9,7 @@ import {
   View,
   Text,
   Dimensions,
+  Keyboard,
 } from "react-native";
 
 // Node Modules
@@ -49,6 +50,14 @@ export const ElectroNotesPost = (props) => {
     setEditing(false);
   };
 
+  const handleBlur = () => {
+    try {
+      textInputField.blur()
+    } catch {
+      return
+    };
+  };
+
   if (editing == false) {
     return (
       <Animatable.View
@@ -86,6 +95,12 @@ export const ElectroNotesPost = (props) => {
       </Animatable.View>
     );
   } else {
+
+    const keyboardHideListener = Keyboard.addListener(
+      'keyboardDidHide', 
+      handleBlur
+    );
+
     return (
       <View
         style={[
@@ -103,6 +118,7 @@ export const ElectroNotesPost = (props) => {
           onBlur={() => handleEditFinish(editNoteText)}
           defaultValue={props.note}
           multiline={true}
+          ref={input => {textInputField = input}}
         />
         <TouchableOpacity
           style={[

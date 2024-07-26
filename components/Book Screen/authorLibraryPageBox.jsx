@@ -28,8 +28,8 @@ export const ElectroAuthorLibraryPageBox = (props) => {
     const [library, setLibrary] = useState("");
     const {primaryColor, secondaryColor} = useColor();
     const { bookName } = useBookName();
-    const {setType} = useEditType();
-    const {editRefresh} = useEditRefresh();
+    const { setType } = useEditType();
+    const { editRefresh, setEditRefresh } = useEditRefresh();
     const windowHeight = Dimensions.get("window").height;
     const windowWidth = Dimensions.get("window").width;
 
@@ -48,32 +48,39 @@ export const ElectroAuthorLibraryPageBox = (props) => {
         router.push(`../bookEditDropScreen/${bookName}`);
     };
 
+    const fetchInfo = () => {
+        if (bookInfo.author != undefined && bookInfo.author != null) {
+            setAuthor(bookInfo.author);
+        };
+
+        if (bookInfo.library != undefined && bookInfo.library != null) {
+            setLibrary(bookInfo.library)
+        };
+
+        if (bookInfo.page != undefined && bookInfo.page != null) {
+            setPage(bookInfo.page);
+        };
+    };
+
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
     }, [editRefresh]);
 
     useEffect(() => {
         if (bookInfo != null) {
-            if (bookInfo.author != undefined && bookInfo.author != null) {
-                setAuthor(bookInfo.author);
-            };
-
-            if (bookInfo.library != undefined && bookInfo.library != null) {
-                setLibrary(bookInfo.library)
-            };
-
-            if (bookInfo.page != undefined && bookInfo.page != null) {
-                setPage(bookInfo.page);
+            if (bookInfo.length != 0) {
+                fetchInfo();
+            } else {
+                setEditRefresh();
             };
         };
-
     }, [bookInfo]);
 
     return (
         <Animatable.View 
         animation={"fadeIn"}
         useNativeDriver={true}
-        style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 3}]}>
+        style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 6}]}>
             <TouchableOpacity onPress={handleSeriesPress}>
                 <ElectroSeriesHeader/>
             </TouchableOpacity>

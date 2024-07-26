@@ -18,9 +18,11 @@ import * as Animatable from "react-native-animatable";
 import { useColor } from "../../hooks/useTheme";
 import { useData } from "../../hooks/useData";
 import { useCompletedCount } from "../../hooks/useCompleted";
+import { useSpeed } from "../../hooks/useSpeed";
 
 export default function statsScreen() {
   const {primaryColor, secondaryColor} = useColor();
+  const { speed } = useSpeed();
   const [totalBooksCount, setTotalBooksCount] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);
   const [completedRatio, setCompletedRatio] = useState(0);
@@ -36,7 +38,7 @@ export default function statsScreen() {
         try {
           setCompletedRatio(completedCount/totalBooksCount);
         } catch {
-
+          return
         };
       };
     };
@@ -105,7 +107,7 @@ export default function statsScreen() {
           ></View>
         </Animatable.View>
         <Text style={[styles.statsScreenText, { color: primaryColor }]}>
-          25 WPM
+          {speed == undefined ? "N/A" : `${Math.round(speed)} WPM`}
         </Text>
       </View>
     </View>

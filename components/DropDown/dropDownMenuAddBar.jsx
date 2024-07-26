@@ -5,7 +5,7 @@ import { styles } from "../../constants/stylers";
 import { ElectroIcon } from "../General/icon";
 
 // React
-import { TouchableOpacity, Dimensions, TextInput } from "react-native";
+import { TouchableOpacity, Dimensions, TextInput, Keyboard } from "react-native";
 import { useState } from "react";
 
 // Hooks
@@ -32,6 +32,14 @@ export const ElectroAddMenuBar = (props) => {
     setInputActive(false);
   };
 
+  const handleBlur = () => {
+    try {
+      textInputField.blur()
+    } catch {
+      return
+    };
+  };
+
   if (inputActive == false) {
     return (
       <TouchableOpacity
@@ -54,6 +62,11 @@ export const ElectroAddMenuBar = (props) => {
       </TouchableOpacity>
     );
   } else {
+    const keyboardHideListener = Keyboard.addListener(
+      'keyboardDidHide', 
+      handleBlur
+    );
+
     return (
       <TextInput
         style={[
@@ -69,7 +82,7 @@ export const ElectroAddMenuBar = (props) => {
         autoFocus={true}
         onBlur={value == "" ? handleNoSubmit : handleSubmit}
         onChangeText={(e) => setValue(e.trim())}
-        multiline={true}
+        ref={input => {textInputField = input}}
       />
     );
   }

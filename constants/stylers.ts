@@ -149,6 +149,27 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
     },
 
+    // Components - Reading Progress Bar
+    readingProgressBarMainView: {
+        marginTop: '10%',
+        width: '80%', 
+        height: "5%", 
+        alignItems: 'center'
+    },
+    
+    readingProgressBarText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+
+    readingProgressBarView: {
+        height: '50%',
+        width: '80%',
+        borderRadius: 20,
+        borderWidth: 2,
+        alignItems: 'flex-start',
+    },
+
     // Components - Drop Down
         // Drop Down - Drop Down Bar and Drop Down Bar Add
         dropDownAddBarTouchable: {
@@ -495,7 +516,7 @@ export const styles = StyleSheet.create({
     // Components - Author Library Page Box
     authorLibraryPageBoxMainView: {
         gap: 5,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'flex-start',
         alignSelf: 'flex-start',
         marginLeft: '10%',
@@ -616,7 +637,6 @@ export const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 30,
         borderWidth: 2,
-        marginTop: '20%'
     },
 
     booksScreenCompleteText: {
@@ -636,6 +656,41 @@ export const styles = StyleSheet.create({
         width: 100, height: 100, 
         borderColor: "blue", 
         borderWidth: 5
+    },
+
+    // Components - Reading Test Screen Text Box
+    readingTestScreenTextMainView: {
+        flex: 1, 
+        justifyContent: 'flex-start',
+        padding: 20,
+        gap: 10,
+    },
+    
+    readingTestScreenTitleText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textAlign: 'center',
+        flex: 1,
+        width: '100%',
+        borderColor: 'blue',
+        borderWidth: 1,
+    },
+
+    readingTestScreenTexts: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        alignSelf: 'flex-start',
+        textAlign: 'left',
+        height: '100%',
+        flex: 1,
+        borderColor: 'blue',
+        borderWidth: 1,
+    },
+
+    readingTestScreenIconSentenceView: {
+        flexDirection: 'row',
+        flex: 1,
     },
 
     // Components - Settings Side Bar

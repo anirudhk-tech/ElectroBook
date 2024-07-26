@@ -204,6 +204,10 @@ export const update_page = async (bookName, newPage) => {
   await SQL.update_bookPage(bookName, newPage);
 };
 
+export const update_pageCount = async (bookName, newPageCount) => {
+  await SQL.update_bookPageCount(bookName, newPageCount);
+};
+
 
 // DATA FETCHING FUNCTIONS
 

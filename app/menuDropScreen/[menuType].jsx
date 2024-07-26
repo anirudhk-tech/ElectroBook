@@ -46,8 +46,10 @@ export default function menuDropDownScreen() {
   };
 
   const handleTextPress = (option) => {
-    router.dismiss();
-    router.push(`../bookScreen/${option}`);
+    if (menuType == "book") {
+      router.dismiss();
+      router.push(`../bookScreen/${option}`);
+    };
   };
 
   const handleColorPress = (name) => {

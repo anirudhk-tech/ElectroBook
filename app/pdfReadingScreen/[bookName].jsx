@@ -41,12 +41,6 @@ export default function pdfScreen () {
     const [pdfPg, setPdfPg] = useState(0);
     const page = useRef();
 
-    const generatePdf = (fileName) => {
-        const source = `${FileSystem.documentDirectory}All/${fileName}`;
-
-        return {source: source, name: fileName}
-    };
-
     const handleSinglePress = () => {
         if (notesVisible || settingsVisible) {
             setNotesVisible(false);
@@ -112,8 +106,7 @@ export default function pdfScreen () {
             </View>
         )
     });
-  
-    const {source, name} = generatePdf(bookName);
+
 
     useEffect(() => {
         useBookInfo(bookName).then(data => {
@@ -129,7 +122,7 @@ export default function pdfScreen () {
                         headerTitleAlign: 'center',
                         headerStyle: [styles.headerStyle, {backgroundColor: primaryColor}],
                         headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                        headerTitle: name,
+                        headerTitle: bookName,
                         headerShown: headerVisible,
                         headerRight: headerRightIcons,
                         headerLeft: backIcon,
@@ -137,7 +130,6 @@ export default function pdfScreen () {
                     }}
                 />
             <ElectroPdf 
-                source={source} 
                 onSingleTap={handleSinglePress} 
                 onPageChange={handlePageChange}
                 page={pdfPg}/>
