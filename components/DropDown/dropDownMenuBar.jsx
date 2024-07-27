@@ -16,7 +16,7 @@ import * as Animatable from "react-native-animatable";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroMenuBar = (props) => {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const windowHeight = Dimensions.get("window").height;
 
   const handleColorPress = () => {

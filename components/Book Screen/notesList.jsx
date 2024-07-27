@@ -1,6 +1,6 @@
 // React
 import { Dimensions, View, Text } from "react-native";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 // Components
 import { ElectroBookNotesPost } from "./bookNotesPost";
@@ -17,9 +17,9 @@ import { useBookName } from "../../hooks/useBookName";
 
 
 export const ElectroNotesList = (props) => {
-    const {data, setData} = useEditNotes();
-    const {primaryColor} = useColor();
-    const {editRefresh} = useEditRefresh();
+    const { data, setData } = useEditNotes();
+    const { primaryColor } = useColor();
+    const { editRefreshNotes, setEditRefreshNotes } = useEditRefresh();
     const { bookName } = useBookName();
 
     const windowWidth = Dimensions.get("window").width;
@@ -28,6 +28,7 @@ export const ElectroNotesList = (props) => {
         const notes = notesArray.split(",");
         setData(notes);
     };
+
 
     const updateNotes = useCallback(() => {
         useBookUpdate("note", bookName, data);
@@ -50,19 +51,21 @@ export const ElectroNotesList = (props) => {
 
     useEffect(() => {
         useBookInfo(bookName).then(data => notesSplit(data.notes))
-    }, [editRefresh]);
+    }, [editRefreshNotes]);
 
     useEffect(() => {
         if (data.includes(null) != true) {
             updateNotes();
-        };
+        } else {
+            setEditRefreshNotes();
+        }
     }, [data]);
 
     return (
         <View style={{gap: 10, alignItems: 'center'}}>
             {
                 data.map((note) => {
-                    if (note != "") {
+                    if (note != "" && note != null) {
                         if (props.bookScreen) {
                             if (data.indexOf(note) > 3) {
                                 return
@@ -78,7 +81,7 @@ export const ElectroNotesList = (props) => {
                     } else {
                         return (
                             <View key={data.indexOf(note)}
-                            style={[styles.booksScreenNotesListLine, {borderColor: primaryColor, width: windowWidth/2}]}></View>
+                            style={[styles.booksScreenNotesListLine, {borderColor: primaryColor, width: windowWidth}]}></View>
                         )
                     }
                 })

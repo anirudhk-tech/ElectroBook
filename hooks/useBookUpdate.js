@@ -8,6 +8,7 @@ import {
     update_bookAuthor,
     update_page,
     update_pageCount,
+    update_bookImage,
 } from "../app/backend/controller"
 
 export const useBookUpdate = async (type, bookName, newValue) => {
@@ -30,5 +31,7 @@ export const useBookUpdate = async (type, bookName, newValue) => {
         await update_page(bookName, newValue);
     } else if (type == "pageCount") {
         await update_pageCount(bookName, newValue);
-    }
+    } else if (type == "image") {
+        await update_bookImage(bookName, newValue);
+    };
 };

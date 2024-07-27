@@ -33,8 +33,8 @@ export default function pdfScreen () {
     const { bookName } = useLocalSearchParams();
     const { setBookName } = useBookName();
     const { setHeadToPage } = usePdf();
-    const {primaryColor, secondaryColor} = useColor();
-    const {setEditRefresh} = useEditRefresh();
+    const { primaryColor, secondaryColor } = useColor();
+    const { setEditRefreshPage } = useEditRefresh();
     const [headerVisible, setHeaderVisible] = useState(true);
     const [notesVisible, setNotesVisible] = useState(false);
     const [settingsVisible, setSettingsVisible] = useState(false);
@@ -72,7 +72,7 @@ export default function pdfScreen () {
 
     const updatePage = () => {
         useBookUpdate("page", bookName, page.current);
-        setEditRefresh();
+        setEditRefreshPage();
         router.dismiss();
         setHeadToPage(null);
     };

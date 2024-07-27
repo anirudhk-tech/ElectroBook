@@ -16,7 +16,7 @@ import { ElectroNotesSideBarNotes } from "./notesSideBarNotes";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroNotesSideBar = (props) => {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
 
   const handleNotesClose = () => {
     props.handleNotesClose();
@@ -34,7 +34,7 @@ export const ElectroNotesSideBar = (props) => {
               <ElectroIcon 
               name="close"
               size={30}
-              color={primaryColor}
+              color={ primaryColor }
               handlePress={handleNotesClose}
               />
             </View>

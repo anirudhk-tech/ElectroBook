@@ -19,9 +19,10 @@ import { useColor } from "../../hooks/useTheme";
 import { useData } from "../../hooks/useData";
 import { useCompletedCount } from "../../hooks/useCompleted";
 import { useSpeed } from "../../hooks/useSpeed";
+import { useEditRefresh } from "../../hooks/useEdit"
 
 export default function statsScreen() {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const { speed } = useSpeed();
   const [totalBooksCount, setTotalBooksCount] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);

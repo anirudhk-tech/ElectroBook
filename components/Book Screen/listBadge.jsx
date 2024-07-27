@@ -12,7 +12,7 @@ import { useColor } from '../../hooks/useTheme';
 
 
 export const ElectroListBadge = (props) => {
-    const {primaryColor, secondaryColor} = useColor();
+    const { primaryColor, secondaryColor } = useColor();
     return (
         <Animatable.View
         animation={"fadeIn"} 

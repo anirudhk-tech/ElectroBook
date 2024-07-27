@@ -1,6 +1,5 @@
 // React
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
-import { useEffect } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -18,15 +17,35 @@ import { useBookUpdate } from "../../hooks/useBookUpdate";
 import { useBookName } from "../../hooks/useBookName";
 
 export const ElectroEditDropBar = (props) => {
-  const {primaryColor} = useColor();
-  const {data, setData} = useEditData();
-  const {setEditRefresh} = useEditRefresh();
+  const { primaryColor } = useColor();
+  const { data, setData } = useEditData();
+  const { 
+    setEditRefreshLibrary,
+    setEditRefreshGenres,
+    setEditRefreshTropes,
+    setEditRefreshAuthor,
+    setEditRefreshSeries,
+  } = useEditRefresh();
   const {type, setType} = useEditType();
   const { bookName } = useBookName();
 
   const windowHeight = Dimensions.get("window").height;
   const multi = ["genre", "trope"];
   
+  const refresh = () => {
+    if (type == "library") {
+      setEditRefreshLibrary();
+    } else if (type == "genre") {
+      setEditRefreshGenres();
+    } else if (type == "trope") {
+      setEditRefreshTropes();
+    } else if (type == "series") {
+      setEditRefreshSeries();
+    } else if (type == "author") {
+      setEditRefreshAuthor();
+    };
+  };
+
   const handlePress = () => {
     if (multi.includes(type)) {
       if (data.includes(props.option)) {
@@ -36,7 +55,7 @@ export const ElectroEditDropBar = (props) => {
       };
     } else {
       useBookUpdate(type, bookName, props.option)
-      setEditRefresh();
+      refresh();
       setType(null);
       router.dismiss();
     };
@@ -70,7 +89,7 @@ export const ElectroEditDropBar = (props) => {
           {props.option}
         </Text>
         <View
-          style={[styles.dropDownBarColorCode, { backgroundColor: props.color, borderColor: primaryColor, display: props.color != undefined ? "flex" : "none" }]}
+          style={[styles.dropDownBarColorCode, { backgroundColor: props.color, borderColor: primaryColor, display: props.color == undefined || props.color == "" ? "none" : "flex" }]}
         ></View>
       </Animatable.View>
     </TouchableOpacity>

@@ -12,7 +12,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroTitleInput = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const { value, setValue } = useFileFunctions("title");
 
   const handleBlur = () => {
@@ -34,7 +34,7 @@ export const ElectroTitleInput = (props) => {
         <ElectroIcon
           name={props.icon}
           size={props.iconSize}
-          color={primaryColor}
+          color={ primaryColor }
           handlePress={() => {}}
         />
         <Text style={[styles.uploadScreenTitle, { color: primaryColor }]}>
@@ -47,7 +47,7 @@ export const ElectroTitleInput = (props) => {
           { borderColor: primaryColor, color: primaryColor },
         ]}
         placeholder={props.placeholder ? props.placeholder : ""}
-        placeholderTextColor={primaryColor}
+        placeholderTextColor={ primaryColor }
         onChangeText={(e) => setValue(e.trim())}
         defaultValue={value}
         ref={input => {textInputField = input}}

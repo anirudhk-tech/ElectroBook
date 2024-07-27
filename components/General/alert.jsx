@@ -12,7 +12,7 @@ import { useColor } from "../../hooks/useTheme";
 import { Octicons } from "@expo/vector-icons";
 
 export const ElectroAlert = (props) => {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
 
   if (props.message) {
     return (
@@ -34,7 +34,7 @@ export const ElectroAlert = (props) => {
           </Text>
           <Octicons
             name="zap"
-            color={primaryColor}
+            color={ primaryColor }
             size={40}
             style={styles.alertIcon}/>
         </View>

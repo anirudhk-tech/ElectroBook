@@ -17,7 +17,7 @@ import { ElectroNotesPost } from "../../components/Notes Screen/notesPost";
 import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar";
 
 export default function notesDropDown() {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const {notes, addNote} = useFileFunctions("note");
   const [flatListData, setFlatListData] = useState([]);
   const windowHeight = Dimensions.get("window").height;

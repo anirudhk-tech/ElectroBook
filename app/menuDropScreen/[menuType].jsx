@@ -22,12 +22,14 @@ import { useDelete } from '../../hooks/useDelete';
 import { useMenuColor } from "../../hooks/useMenuColor";
 import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 import { useMenuType } from "../../hooks/useMenuType";
+import { useEditData } from "../../hooks/useEdit";
 
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
   const headerTitle = useHeader(menuType);
-  const {primaryColor, secondaryColor} = useColor();
-  const {menuColor} = useMenuColor();
+  const { primaryColor, secondaryColor } = useColor();
+  const { menuColor } = useMenuColor();
+  const { data, setData } = useEditData();
   const {refresh, setRefresh} = useRefreshOptions();
   const windowHeight = Dimensions.get("window").height;
   const setMenuType = useMenuType().setType;
@@ -43,6 +45,7 @@ export default function menuDropDownScreen() {
   const handleDeletePress = (option) => {
     useDelete(menuType, option);
     setRawData(rawData.filter((x) => x.option != option));
+    setData(data.filter((x) => x != option));
   };
 
   const handleTextPress = (option) => {
@@ -66,7 +69,7 @@ export default function menuDropDownScreen() {
     };
   };
 
-  const backIcon = useCallback(() => {
+  const backIcon = () => {
     return (
       <ElectroIcon 
         name="arrow-back"
@@ -75,7 +78,7 @@ export default function menuDropDownScreen() {
         handlePress={handleBackPress}
       />
     )
-  });
+  };
 
   const dataCreation = (data) => {
       const dataOrganize = [];
@@ -153,7 +156,7 @@ export default function menuDropDownScreen() {
         contentContainerStyle={[styles.dropDownScreenFlatList, { height: 50 + flatListData.length * 100 }]}
         style={{ height: windowHeight }}
         renderItem={({ item }) => item.item}
-        getItemLayout={(index) => (
+        getItemLayout={(data, index) => (
           {length: windowHeight/10, offset: windowHeight/10 * index, index}
         )}
         keyExtractor={(item) => item.key}

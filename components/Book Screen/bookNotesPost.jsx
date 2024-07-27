@@ -23,8 +23,8 @@ import { useColor } from "../../hooks/useTheme";
 import { useEditRefresh } from "../../hooks/useEdit";
 
 export const ElectroBookNotesPost = (props) => {
-  const {primaryColor, secondaryColor} = useColor();
-  const {setEditRefresh} = useEditRefresh();
+  const { primaryColor, secondaryColor } = useColor();
+  const { setEditRefreshNotes } = useEditRefresh();
 
   const [editing, setEditing] = useState(false);
   const [editNoteText, setEditNoteText] = useState("");
@@ -38,14 +38,14 @@ export const ElectroBookNotesPost = (props) => {
 
   const handleDeletePress = () => {
     props.handleDeletePress(props.note);
-    setEditRefresh();
+    setEditRefreshNotes();
   };
 
   const handleEditPress = () => {
     const editedEditNoteText = editNoteText.replaceAll('"', "'").replaceAll(",", ";");
     if (editedEditNoteText != "") {
       props.handleEditPress(props.note, editedEditNoteText);
-      setEditRefresh();
+      setEditRefreshNotes();
     };
     setEditing(!editing);
   };

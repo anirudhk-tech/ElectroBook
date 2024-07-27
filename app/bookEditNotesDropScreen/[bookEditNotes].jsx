@@ -14,14 +14,13 @@ import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar"
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useEditNotes, useEditRefresh } from "../../hooks/useEdit";
+import { useEditNotes } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
 
 export default function notesDropDown() {
   const { bookEditNotes } = useLocalSearchParams();  
-  const {primaryColor, secondaryColor} = useColor();
-  const {setEditRefresh} = useEditRefresh();
+  const { primaryColor, secondaryColor } = useColor();
 
   const [flatListData, setFlatListData] = useState([]);
   const [bookInfo, setBookInfo] = useState([]);

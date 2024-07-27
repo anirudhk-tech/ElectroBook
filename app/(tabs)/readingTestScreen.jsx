@@ -1,6 +1,6 @@
 // React
 import { View } from "react-native";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -21,7 +21,7 @@ import { useSpeed } from "../../hooks/useSpeed";
 import { useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function readingTestScreen() {
-  const { primaryColor } = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const { setSpeed } = useSpeed();
   const { setSettingsCheck } = useCheckSetters();
   const time = useRef(0);
@@ -38,10 +38,10 @@ export default function readingTestScreen() {
     setSettingsCheck(true);
   };
 
-  const handleCancelPress = () => {
+  const handleCancelPress = useCallback(() => {
     router.push("./libraryScreen");
     setSettingsCheck(true);
-  };
+  }, []);
 
   const handleSinglePress = () => {
     clearInterval(interval.current);
@@ -60,7 +60,7 @@ export default function readingTestScreen() {
   } else {
     return (
       <View
-        style={styles.readingTestScreenMainView}
+        style={[styles.readingTestScreenMainView, {backgroundColor: secondaryColor}]}
       >
         <View style={styles.readingTestScreenTextView}>
           <Animatable.Text 

@@ -1,6 +1,6 @@
 // React
 import { View } from "react-native";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 // Expo
 import { Stack, router } from "expo-router";
@@ -20,9 +20,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function settingsScreen() {
-  const {primaryColor, secondaryColor} = useColor();
-  const [displayAlert, setDisplayAlert] = useState("none");
-  const {setSettingsCheck} = useCheckSetters();
+  const { primaryColor, secondaryColor } = useColor();
 
   const handlePrimaryColorPress = useCallback(() => {
     router.navigate("../colorPickerScreen/settingsPrimary");
@@ -46,7 +44,6 @@ export default function settingsScreen() {
       <View
         style={[
           styles.settingsScreenMainView,
-          { opacity: displayAlert == "none" ? 100 : 0 },
         ]}
       >
         <Stack.Screen

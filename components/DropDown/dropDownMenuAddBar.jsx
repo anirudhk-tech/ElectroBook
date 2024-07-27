@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroAddMenuBar = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
 
@@ -56,7 +56,7 @@ export const ElectroAddMenuBar = (props) => {
         <ElectroIcon
           name="add"
           size={50}
-          color={primaryColor}
+          color={ primaryColor }
           handlePress={handleAddPress}
         />
       </TouchableOpacity>

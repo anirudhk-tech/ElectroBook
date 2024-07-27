@@ -20,8 +20,9 @@ export const getInfo = async () => {
 
 export const create_user = async () => {
   const uuid = Crypto.randomUUID();
-  const db = await SQLite.openDatabaseAsync(`${uuid}.db`, {useNewConnection: true, });
-  await db.execAsync('PRAGMA journal_mode = WAL');
+  const db = await SQLite.openDatabaseAsync(`${uuid}.db`, { useNewConnection: true, });
+
+  db.execAsync("PRAGMA journal_mode = WAL");
 
   db.execAsync(
     `CREATE TABLE IF NOT EXISTS books_database (option TEXT PRIMARY KEY, author TEXT, color TEXT, library TEXT, series TEXT, notes LIST, genres LIST, tropes LIST, completed TEXT, imageUri TEXT, page INT, pageCount INT)`
@@ -145,18 +146,24 @@ export const delete_lib = async (library) => {
 };
 
 export const delete_genre = async (genre) => {
-  db.execAsync(`DELETE FROM genres_database WHERE option = "${genre}"`);
+  await db.execAsync(`DELETE FROM genres_database WHERE option = "${genre}"`);
   const genresToCheck = await db.getAllAsync(
     `SELECT * FROM books_database WHERE genres LIKE "%${genre}%"`
   );
-
   for (let x in genresToCheck) {
     const bookName = genresToCheck[x].option;
     const genres = genresToCheck[x].genres.replace('"', '').split(",");
     const newGenres = genres.filter(x => x != genre);
+
     await db.execAsync(
       `UPDATE books_database SET genres = "${newGenres}" WHERE option = "${bookName}"`
     );
+    
+    // export const update_bookGenres = async (bookName, newGenres) => {
+    //   await db.execAsync (
+    //     `UPDATE books_database SET genres = "${newGenres}" WHERE option = "${bookName}"`
+    //   );
+    // };
   };
 };
 
@@ -384,11 +391,15 @@ export const update_bookPage = async (bookName, newPage) => {
 };
 
 export const update_bookPageCount = async (bookName, newPageCount) => {
-  console.log(bookName)
-  console.log(newPageCount)
   await db.execAsync(
     `UPDATE books_database SET pageCount = ${newPageCount} WHERE option = "${bookName}"`
   );
+};
+
+export const update_bookImage = async (bookName, newImage) => {
+  await db.execAsync(
+    `UPDATE books_database SET imageUri = "${newImage}" WHERE option = "${bookName}"`
+  ); 
 };
 
 // DATA FETCHING FUNCTIONS
@@ -396,7 +407,7 @@ export const update_bookPageCount = async (bookName, newPageCount) => {
 export const check_duplicate = async (bookName) => {
   const check = await db.getFirstAsync(`SELECT * FROM books_database WHERE option = "${bookName}"`);
 
-  if (check != null) {
+  if (check != null) { 
     return "duplicate"
   } else {
     return "safe"
@@ -497,7 +508,6 @@ export const fetch_book = async (bookName) => {
   ).then(
     data => bookData = data
   );
-  
   return bookData;
 };
 

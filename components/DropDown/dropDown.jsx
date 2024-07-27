@@ -17,7 +17,7 @@ import { ElectroSelectedBadge } from "../Upload Screen/selectedBadge";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroDrop = (props) => {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const options = props.options;
   let {value} = useFileFunctions(options);
 
@@ -48,7 +48,7 @@ export const ElectroDrop = (props) => {
             <ElectroSelectedBadge
               key={value.indexOf(text)}
               text={text}
-              bgColor={primaryColor}
+              bgColor={ primaryColor }
             />
           );
         }

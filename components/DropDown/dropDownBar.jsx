@@ -13,7 +13,7 @@ import { useDropDownType } from "../../hooks/useDropDownType";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroDropBar = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const windowHeight = Dimensions.get("window").height;
   const {value} = useFileFunctions(props.optionType);
   const multiType = useDropDownType(props.optionType);

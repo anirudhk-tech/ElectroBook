@@ -1,6 +1,6 @@
 // React
-import { View, Text } from "react-native";
-import { useEffect, useState } from "react";
+import { View } from "react-native";
+import { useEffect, useState, useMemo } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -14,27 +14,33 @@ import { useEditRefresh } from "../../hooks/useEdit";
 import { useBookName } from "../../hooks/useBookName";
 
 
-export const ElectroTropesList = (props) => {
+export const ElectroTropesList = () => {
     const [bookInfo, setBookInfo] = useState([]);
     const [tropes, setTropes] = useState([]);
-    const {editRefresh} = useEditRefresh();
+    const { editRefreshTropes, setEditRefreshTropes } = useEditRefresh();
     const { bookName } = useBookName();
 
     const tropesSplit = () => {
-        const tropes = bookInfo.tropes.split(",");
-        setTropes(tropes);
+        if (bookInfo != null && bookInfo.tropes != undefined) {
+            const tropes = bookInfo.tropes.split(",");
+            return tropes
+        } else {
+            return []
+        };
     };
+
+    const tropesData = useMemo(() => tropesSplit(), [bookInfo != null ? bookInfo.tropes : {}])
 
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
-    }, [editRefresh]);
+    }, [editRefreshTropes]);
 
     useEffect(() => {
         if (bookInfo != null) {
-            if (bookInfo.tropes != undefined) {
-                tropesSplit();
-            };
-        };
+            setTropes(tropesData);    
+        } else {
+            setEditRefreshTropes();
+        }
     }, [bookInfo]);
 
     return (

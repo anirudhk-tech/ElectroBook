@@ -9,8 +9,23 @@ const useEditMain = create ((set) => ({
     setData: (value) => set(() => ({ data: value })),
     notesData: [null],
     setNotesData: (value) => set(() => ({ notesData: value })),
-    editRefresh: false,
-    setEditRefresh: () => set((state) => ({ editRefresh: !state.editRefresh }))
+    editRefreshGenres: false,
+    setEditRefreshGenres: () => set((state) => ({ editRefreshGenres: !state.editRefreshGenres })),
+    editRefreshTropes: false,
+    setEditRefreshTropes: () => set((state) => ({ editRefreshTropes: !state.editRefreshTropes })),
+    editRefreshSeries: false,
+    setEditRefreshSeries: () => set((state) => ({ editRefreshSeries: !state.editRefreshSeries })),
+    editRefreshAuthor: false,
+    setEditRefreshAuthor: () => set((state) => ({ editRefreshAuthor: !state.editRefreshAuthor })),
+    editRefreshLibrary: false,
+    setEditRefreshLibrary: () => set((state) => ({ editRefreshLibrary: !state.editRefreshLibrary })),
+    editRefreshPage: false,
+    setEditRefreshPage: () => set((state) => ({ editRefreshPage: !state.editRefreshPage })),
+    editRefreshNotes: false,
+    setEditRefreshNotes: () => set((state) => ({ editRefreshNotes: !state.editRefreshNotes })),
+    editRefreshCompleted: false,
+    setEditRefreshCompleted: () => set((state) => ({ editRefreshCompleted: !state.editRefreshCompleted })),
+
 }));
 
 export const useEditType = () => {
@@ -41,11 +56,59 @@ export const useEditNotes = () => {
 }
 
 export const useEditRefresh = () => {
-    const { editRefresh, setEditRefresh } = useEditMain((state) => ({
-        editRefresh: state.editRefresh,
-        setEditRefresh: state.setEditRefresh,
+    const { 
+        editRefreshGenres, 
+        setEditRefreshGenres,
+        editRefreshTropes,
+        setEditRefreshTropes,
+        editRefreshAuthor,
+        setEditRefreshAuthor,
+        editRefreshLibrary,
+        setEditRefreshLibrary,
+        editRefreshSeries,
+        setEditRefreshSeries,
+        editRefreshPage,
+        setEditRefreshPage,
+        editRefreshNotes,
+        setEditRefreshNotes,
+        editRefreshCompleted,
+        setEditRefreshCompleted,
+    } = useEditMain((state) => ({
+        editRefreshGenres: state.editRefreshGenres,
+        setEditRefreshGenres: state.setEditRefreshGenres,
+        editRefreshTropes: state.editRefreshTropes,
+        setEditRefreshTropes: state.setEditRefreshTropes,
+        editRefreshSeries: state.editRefreshSeries,
+        setEditRefreshSeries: state.setEditRefreshSeries,
+        editRefreshAuthor: state.editRefreshAuthor,
+        setEditRefreshAuthor: state.setEditRefreshAuthor,
+        editRefreshLibrary: state.editRefreshLibrary,
+        setEditRefreshLibrary: state.setEditRefreshLibrary,
+        editRefreshPage: state.editRefreshPage,
+        setEditRefreshPage: state.setEditRefreshPage,
+        editRefreshNotes: state.editRefreshNotes,
+        setEditRefreshNotes: state.setEditRefreshNotes,
+        editRefreshCompleted: state.editRefreshCompleted,
+        setEditRefreshCompleted: state.setEditRefreshCompleted,
     }));
 
-    return {editRefresh: editRefresh, setEditRefresh: setEditRefresh};
+    return {
+        editRefreshGenres: editRefreshGenres,
+        setEditRefreshGenres: setEditRefreshGenres,
+        editRefreshTropes: editRefreshTropes,
+        setEditRefreshTropes: setEditRefreshTropes,
+        editRefreshSeries: editRefreshSeries,
+        setEditRefreshSeries: setEditRefreshSeries,
+        editRefreshAuthor: editRefreshAuthor,
+        setEditRefreshAuthor: setEditRefreshAuthor,
+        editRefreshLibrary: editRefreshLibrary,
+        setEditRefreshLibrary: setEditRefreshLibrary,
+        editRefreshPage: editRefreshPage,
+        setEditRefreshPage: setEditRefreshPage,
+        editRefreshNotes: editRefreshNotes,
+        setEditRefreshNotes: setEditRefreshNotes,
+        editRefreshCompleted: editRefreshCompleted,
+        setEditRefreshCompleted: setEditRefreshCompleted,
+    };
 };
 

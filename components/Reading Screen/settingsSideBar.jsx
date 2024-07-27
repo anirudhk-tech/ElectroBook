@@ -17,7 +17,7 @@ import { useColor } from "../../hooks/useTheme";
 import { usePdf } from "../../hooks/usePdf";
 
 export const ElectroSettingsSideBar = (props) => {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const { setHeadToPage, setSinglePage } = usePdf();
 
   const handleSettingsClose = () => {
@@ -47,7 +47,7 @@ export const ElectroSettingsSideBar = (props) => {
               <ElectroIcon 
               name="close"
               size={30}
-              color={primaryColor}
+              color={ primaryColor }
               handlePress={handleSettingsClose}
               />
             </View>

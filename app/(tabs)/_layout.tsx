@@ -14,9 +14,10 @@ import { useColor } from "../../hooks/useTheme";
 import { useChecks } from "../../hooks/useCheckUser";
 
 export default function TabLayout() {
-  const {primaryColor, secondaryColor} = useColor();
-  const {settingsCheck} = useChecks();
+  const { primaryColor, secondaryColor } = useColor();
+  const { settingsCheck } = useChecks();
   LogBox.ignoreAllLogs()
+
   return (
     <Tabs
       screenOptions={{

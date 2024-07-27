@@ -23,7 +23,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroNotesPost = (props) => {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const {notes, removeNote, editNote} = useFileFunctions("note");
   const [editing, setEditing] = useState(false);
   const [editNoteText, setEditNoteText] = useState("");

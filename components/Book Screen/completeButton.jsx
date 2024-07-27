@@ -22,14 +22,9 @@ import { useProgressBarAnimation } from "../../hooks/useAnimation";
 export const ElectroCompleteButton = () => {
     const [completed, setCompleted] = useState(false);
     const [info, setInfo] = useState("");
-    const {primaryColor, secondaryColor} = useColor();
+    const { primaryColor, secondaryColor } = useColor();
     const { bookName } = useBookName();
-    const { editRefresh } = useEditRefresh();
-    const { progressBarComplete, setProgressBarComplete } = useProgressBarAnimation();
-
-    const handleAnimationEnd = () => {
-        setProgressBarComplete(false);
-    };
+    const { editRefreshCompleted, editRefreshPage } = useEditRefresh();
 
     const handleCompletedTrue = () => {
         setCompleted(true);
@@ -41,7 +36,7 @@ export const ElectroCompleteButton = () => {
 
     useEffect(() => {
         useBookInfo(bookName).then(data => setInfo(data));
-    }, [editRefresh]);
+    }, [editRefreshCompleted, editRefreshPage]);
 
     useEffect(() => {
         if (info != null) {

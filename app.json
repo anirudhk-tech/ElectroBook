@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ElectroBook",
-    "slug": "ElectroBook-Latest",
+    "slug": "ElectroBook_Latest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/EB_Logo.png",

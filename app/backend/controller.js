@@ -112,6 +112,10 @@ export const delete_user = async () => {
   await MMKV.deleteAll();
 };
 
+export const delete_image = async (bookName) => {
+  await FS.delete_image(bookName);
+};
+
 
 
 // UPDATE FUNCTIONS
@@ -206,6 +210,14 @@ export const update_page = async (bookName, newPage) => {
 
 export const update_pageCount = async (bookName, newPageCount) => {
   await SQL.update_bookPageCount(bookName, newPageCount);
+};
+
+export const update_bookImage = async (bookName, newImageUri) => {
+  await SQL.update_bookImage(bookName, newImageUri);
+};
+
+export const update_bookFile = async (bookName, handleImageSubmit) => {
+  await FS.change_image(bookName, handleImageSubmit);
 };
 
 

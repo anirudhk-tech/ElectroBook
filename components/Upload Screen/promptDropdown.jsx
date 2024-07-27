@@ -18,7 +18,7 @@ import { useHeader } from "../../hooks/useHeader";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroPromptDropdown = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const prompt = useHeader(props.options);
 
   const handlePress = () => {
@@ -31,7 +31,7 @@ export const ElectroPromptDropdown = (props) => {
         <ElectroIcon
           name={props.icon}
           size={40}
-          color={primaryColor}
+          color={ primaryColor }
           handlePress={handlePress}
         />
         <Text style={[styles.uploadScreenTitle, { color: primaryColor }]}>

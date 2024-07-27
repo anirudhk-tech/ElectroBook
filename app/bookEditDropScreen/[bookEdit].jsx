@@ -5,7 +5,7 @@ import { useLocalSearchParams, Stack, router } from "expo-router";
 import { styles } from "../../constants/stylers";
 
 // React
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FlatList, Dimensions, View } from "react-native";
 
 // Components
@@ -27,22 +27,49 @@ export default function bookEditScreen () {
     const { bookEdit } = useLocalSearchParams();
     const {type, setType} = useEditType();
     const {data, setData} = useEditData();
-    const {setEditRefresh} = useEditRefresh();
+    const {
+      setEditRefreshAuthor,
+      setEditRefreshGenres,
+      setEditRefreshLibrary,
+      setEditRefreshSeries,
+      setEditRefreshTropes,
+    } = useEditRefresh();
     const refreshOptions = useRefreshOptions().refresh; 
-    const {primaryColor, secondaryColor} = useColor();
+    const { primaryColor, secondaryColor } = useColor();
     const headerTitle = "Edit "+useHeader(type);
     const [rawData, setRawData] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
 
     const windowHeight = Dimensions.get("window").height;
 
+    const refresh = () => {
+      if (type == "library") {
+        setEditRefreshLibrary();
+      } else if (type == "genre") {
+        setEditRefreshGenres();
+      } else if (type == "trope") {
+        setEditRefreshTropes();
+      } else if (type == "series") {
+        setEditRefreshSeries();
+      } else if (type == "author") {
+        setEditRefreshAuthor();
+      }
+    };
+
     const handleBackIconPress = () => {
-      useBookUpdate(type, bookEdit, data);
-      setEditRefresh();
+      if (type == "library") {
+        if (data.includes(null) != true) {
+          useBookUpdate(type, bookEdit, data);
+        };
+      } else {
+        useBookUpdate(type, bookEdit, data);
+      };
+
+      refresh();
       setData([null]);
       setType(null);
       router.dismiss();
-    };
+  };
 
     const backIcon = () => {
         return(
@@ -58,7 +85,7 @@ export default function bookEditScreen () {
       router.push(`../menuDropScreen/${type}`);
     };
 
-    const addIcon = useCallback(() => {
+    const addIcon = () => {
       return(
         <ElectroIcon 
           name="construct"
@@ -66,7 +93,8 @@ export default function bookEditScreen () {
           size={30}
           handlePress={handleAddIconPress}
         />
-    )}, []);
+      );
+    };
 
     const dataOrganize = (data) => {
         if (data == undefined) {
@@ -125,7 +153,7 @@ export default function bookEditScreen () {
 
 
     return (
-        <View>
+        <View style={{backgroundColor: secondaryColor}}>
             <Stack.Screen
             options={{
             headerStyle: { backgroundColor: primaryColor },

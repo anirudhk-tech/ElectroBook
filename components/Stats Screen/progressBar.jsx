@@ -10,7 +10,7 @@ import * as Animatable from "react-native-animatable";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroProgressBar = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const barPercentage = props.bookRatio * 100;
 
   const slideIntoFill = {

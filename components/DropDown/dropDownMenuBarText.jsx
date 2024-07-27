@@ -11,13 +11,22 @@ import { ElectroIcon } from "../General/icon";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useUpdate } from "../../hooks/useUpdate";
+import { useEditData } from "../../hooks/useEdit";
 
 
 export const ElectroMenuText = (props) => {
     const [editing, setEditing] = useState(false);
     const [inputOption, setInputOption] = useState(null);
     const [oldInputOption, setOldInputOption] = useState("");
-    const {primaryColor, secondaryColor} = useColor();
+    const { data, setData } = useEditData();
+    const { primaryColor, secondaryColor } = useColor();
+
+    const replaceEditText = (editedInputOption) => {
+        const editableData = data;
+        const index = editableData.indexOf(props.option);
+        editableData[index] = editedInputOption;
+        setData(editableData);
+    };
 
     const handleTextPress = () => {
         props.handleTextPress(props.option);
@@ -33,6 +42,9 @@ export const ElectroMenuText = (props) => {
         if (oldInputOption == "") { 
             const editedInputOption = inputOption.replaceAll('"', "'").replaceAll(",", ";");
             const result = await useUpdate(props.type, props.option, editedInputOption);
+
+            replaceEditText(editedInputOption);
+
             if (result == "duplicate") {
                 setInputOption(props.option);
                 setOldInputOption(props.option);
@@ -44,14 +56,16 @@ export const ElectroMenuText = (props) => {
         } else {
             const editedInputOption = inputOption.replaceAll('"', "'").replaceAll(",", ";");
             const editedOldInputOption = oldInputOption.replaceAll('"', "'").replaceAll(",", ";");
+
             const result = await useUpdate(props.type, editedOldInputOption, editedInputOption);
+
             if (result == "duplicate") {
                 setInputOption(editedOldInputOption);
                 setEditing(false);
             } else {
                 setOldInputOption(editedInputOption);
                 setEditing(false);
-            }
+            };
         };
     };
 

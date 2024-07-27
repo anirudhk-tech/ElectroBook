@@ -13,11 +13,13 @@ import { useEffect, useState } from "react";
 import { useColor } from "../../hooks/useTheme";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookCardPress } from "../../hooks/useLibraryCardPress";
+import { useImageKey } from "../../hooks/useImageKey";
 
 
 // Same styles as library card rows
 export const ElectroBookRowCard = (props) => {
-    const {primaryColor, secondaryColor} = useColor();
+    const { primaryColor, secondaryColor } = useColor();
+    const { imageKey } = useImageKey();
     const [bookInfo, setBookInfo] = useState([]);
     const windowHeight = Dimensions.get("window").height;
     const handleCardPress = useBookCardPress().press;
@@ -41,8 +43,9 @@ export const ElectroBookRowCard = (props) => {
             </View>
             <View style={{flex: 6}}>
                 <Image 
+                    key={imageKey}
                     style={{display: bookInfo.imageUri == "" || bookInfo.imageUri == undefined ? "none" : "flex"}} 
-                    source={{uri: bookInfo.imageUri, height: '100%', width: '100%'}}
+                    source={{uri: bookInfo.imageUri + '?' + Date.now(), height: '100%', width: '100%'}}
                     />
             </View>
             <Text style={[styles.bookCardRowText, {color: primaryColor, backgroundColor: secondaryColor}]} numberOfLines={3}>{props.bookName}</Text>

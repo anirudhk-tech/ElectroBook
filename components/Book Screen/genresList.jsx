@@ -1,6 +1,6 @@
 // React
 import { View } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -14,26 +14,32 @@ import { useEditRefresh } from "../../hooks/useEdit";
 import { useBookName } from "../../hooks/useBookName";
 
 
-export const ElectroGenresList = (props) => {
-    const {editRefresh} = useEditRefresh();
+export const ElectroGenresList = () => {
+    const { editRefreshGenres, setEditRefreshGenres } = useEditRefresh();
     const { bookName } = useBookName();
-    const [bookInfo, setBookInfo] = useState([]);
-    const [genres, setGenres] = useState([]);
+    const [ bookInfo, setBookInfo ] = useState([]);
+    const [ genres, setGenres ] = useState([]);
 
     const genresSplit = () => {
-        const genres = bookInfo.genres.split(",");
-        setGenres(genres);
+        if (bookInfo != null && bookInfo.genres != undefined) {
+            const genres = bookInfo.genres.split(",");
+            return genres
+        } else {
+            return []
+        };
     };
+
+    const genresData = useMemo(() => genresSplit(), [bookInfo != null ? bookInfo.genres : {}])
 
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
-    }, [editRefresh]);
+    }, [editRefreshGenres]);
 
     useEffect(() => {
         if (bookInfo != null) {
-            if (bookInfo.genres != undefined || bookInfo.genres != null) {
-                genresSplit();
-            };
+            setGenres(genresData);
+        } else {
+            setEditRefreshGenres();
         };
     }, [bookInfo]);
 

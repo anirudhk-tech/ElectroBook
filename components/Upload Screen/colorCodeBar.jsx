@@ -13,7 +13,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroColorCodeBar = memo((props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const color = useFileFunctions("fileColor").value;
   const colorCircleFill = color == "" ? primaryColor : color;
 
@@ -26,7 +26,7 @@ export const ElectroColorCodeBar = memo((props) => {
         <ElectroIcon
           name="color-palette-outline"
           size={40}
-          color={primaryColor}
+          color={ primaryColor }
         />
         <Text style={[styles.uploadScreenTitle, { color: primaryColor }]}>
           Color Code

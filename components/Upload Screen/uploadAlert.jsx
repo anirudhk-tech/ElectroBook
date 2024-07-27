@@ -12,7 +12,7 @@ import { useColor } from '../../hooks/useTheme';
 
 
 export const ElectroUploadAlert = (props) => {
-    const {primaryColor} = useColor();
+    const { primaryColor } = useColor();
     
     return (
         <Animatable.Text 

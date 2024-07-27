@@ -22,7 +22,7 @@ import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons"
 
 export default function libraryBooksScreen () {
     const { libraryName } = useLocalSearchParams();
-    const {primaryColor, secondaryColor} = useColor();
+    const { primaryColor, secondaryColor } = useColor();
     const setBookCardPress = useBookCardPress().setPress;
 
     const handleCreateIconPress = useCallback (() => {

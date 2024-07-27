@@ -31,7 +31,7 @@ import { useUploadAlert } from "../../hooks/useUploadAlert";
 
 export default function uploadFileScreen() {
   const setImageUri = useFileFunctions("image").setValue;
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const {uploadAlertText} = useUploadAlert();
   const [advancedVisible, setAdvancedVisible] = useState("none");
   const [uploadAlertDisplay, setUploadAlertDisplay] = useState("none");

@@ -12,7 +12,7 @@ import * as Animatable from "react-native-animatable";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroMenuTab = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const windowWidth = Dimensions.get("window").width;
 
   const handlePress = useCallback(() => {

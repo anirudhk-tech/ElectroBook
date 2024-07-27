@@ -22,7 +22,7 @@ import { useLibraryCardPress, useLibraryIconPress } from "../../hooks/useLibrary
 
 export default function libraryScreen() {
   const [libName, setLibName] = useState("");
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const setLibraryCardPress = useLibraryCardPress().setPress;
   const setLibraryIconPress = useLibraryIconPress().setPress;
 

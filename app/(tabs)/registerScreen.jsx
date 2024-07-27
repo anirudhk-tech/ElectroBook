@@ -18,7 +18,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useChecks, useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function registerScreen() {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const {check} = useChecks();
   const {setCheck} = useCheckSetters();
 

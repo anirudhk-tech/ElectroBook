@@ -1,6 +1,6 @@
 // React
 import { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 // Node Modules
 import * as Animatable from "react-native-animatable";
@@ -15,7 +15,6 @@ import { useBookName } from '../../hooks/useBookName';
 import { useEditRefresh } from '../../hooks/useEdit';
 import { useBookUpdate } from '../../hooks/useBookUpdate';
 import { useSpeed } from "../../hooks/useSpeed";
-import { useProgressBarAnimation } from '../../hooks/useAnimation';
 
 
 
@@ -23,13 +22,33 @@ export const ElectroReadingProgressBar = () => {
     const { primaryColor } = useColor();
     const { bookName } = useBookName();
     const { speed } = useSpeed();
-    const { editRefresh, setEditRefresh } = useEditRefresh();
-    const { setProgressBarComplete } = useProgressBarAnimation();
+    const { 
+      editRefreshCompleted, 
+      setEditRefreshCompleted, 
+      editRefreshPage 
+    } = useEditRefresh();
     const [bookInfo, setBookInfo] = useState([]);
     const [pageCount, setPageCount] = useState(1);
     const [pageRead, setPageRead] = useState(0);
     const [readTime, setReadTime] = useState(0);
-    const barPercentage = (pageRead/pageCount) * 100;
+    const [barPercentage, setBarPercentage] = useState(0);
+
+    const setUpBar = () => {
+      const readTime = speed == undefined ? "Not Available" : Math.round(((pageCount - pageRead) * 300)/speed);
+      const barPercentage = pageCount == null ? 0 : (pageRead/pageCount) * 100;
+      setReadTime(readTime);
+      setBarPercentage(barPercentage);
+
+      if (barPercentage == 100) {
+        useBookUpdate("completed", bookName, "true");
+        console.log("True: "+bookName)
+        setEditRefreshCompleted();
+      } else {
+        useBookUpdate("completed", bookName, "false");
+        console.log("False: "+bookName)
+        setEditRefreshCompleted();
+      };
+    };
 
     const slideIntoFill = {
         0: {
@@ -52,48 +71,39 @@ export const ElectroReadingProgressBar = () => {
         },
     };
 
-    const handleAnimationEnd = () => {
-      setProgressBarComplete(true);
-    };
-
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
-    }, [editRefresh]);
+    }, [editRefreshCompleted, editRefreshPage]);
 
     useEffect(() => {
-        if (bookInfo.imageUri != undefined && bookInfo.library != null) {
+        if (bookInfo != null && bookInfo.length != 0) {
             setPageCount(bookInfo.pageCount);
             setPageRead(bookInfo.page);
         };
     }, [bookInfo]);
 
     useEffect(() => {
-      const readTime = Math.round(((pageCount - pageRead) * 300)/speed);
-      setReadTime(readTime)
-      if (barPercentage == 100) {
-        useBookUpdate("completed", bookName, "true");
-        setEditRefresh();
-      } else {
-        useBookUpdate("completed", bookName, "false");
-        setEditRefresh();
-      }
-    }, [pageRead]);
-  
+      try {
+        setUpBar()
+      } catch {
+        setUpBar()
+      };
+    }, [pageRead, pageCount]);
+    
+
     return (
       <View style={styles.readingProgressBarMainView}>
         <Animatable.Text
         animation={"fadeIn"}
-        easing={"easeIn"}
         useNativeDriver={true}
         style={[styles.readingProgressBarText, {color: primaryColor}]}
-          >Read Time: {readTime} min</Animatable.Text>
+          >{readTime == "Not Available" ? "Reading Time Unknown" : pageCount == undefined ? "Open PDF to calculate read time" : `Read Time: ${readTime} min`}</Animatable.Text>
         <View 
           style={[styles.readingProgressBarView, { borderColor: primaryColor }]}>
           <Animatable.View
             animation={slideIntoFill}
-            easing={"ease-in"}
+            easing={"easeIn"}
             delay={500}
-            onAnimationEnd={handleAnimationEnd}
             style={[
               styles.progressBarView,
               { width: `${barPercentage}%`, backgroundColor: primaryColor },

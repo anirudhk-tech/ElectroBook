@@ -12,7 +12,7 @@ import { ElectroIcon } from "../General/icon";
 import { useColor } from "../../hooks/useTheme";
 
 export const ElectroNotesBar = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
 
   const handleNotesPress = useCallback(() => {
     props.handlePress();
@@ -26,7 +26,7 @@ export const ElectroNotesBar = (props) => {
       <ElectroIcon
         name="bookmarks-outline"
         size={40}
-        color={primaryColor}
+        color={ primaryColor }
         handlePress={handleNotesPress}
         style={styles.notesIcon}
       />

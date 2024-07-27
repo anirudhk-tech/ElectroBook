@@ -533,19 +533,19 @@ export const styles = StyleSheet.create({
         flexDirection: 'row', 
         gap: 5, 
         alignItems: 'center',
+        width: '100%',
     },
 
     authorLibraryPageBoxPrompt: {
         fontWeight: 'bold',
         fontSize: 20,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
 
     authorLibraryPageBoxText: {
         fontWeight: 'bold',
         fontSize: 20,
         borderRadius: 4,
-        width: 'auto',
         padding: 5,
         textAlignVertical: 'center',
     },
@@ -630,6 +630,23 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    booksScreenSeriesHeaderImageText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        borderRadius: 10,
+        borderWidth: 2,
+        padding: 10,
+        textAlign: 'center',
+        textAlignVertical: 'center'
+    },
+
+    booksScreenSeriesHeaderImageTouchable: {
+        height: 'auto', 
+        width: 'auto', 
+        marginLeft: '20%'
+    },
+
+
     // Components - Complete Button
     booksScreenCompleteTouchable: {
         height: 50,
@@ -640,7 +657,7 @@ export const styles = StyleSheet.create({
     },
 
     booksScreenCompleteText: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold',
     },
 
@@ -660,7 +677,7 @@ export const styles = StyleSheet.create({
 
     // Components - Reading Test Screen Text Box
     readingTestScreenTextMainView: {
-        flex: 1, 
+        flex: 2, 
         justifyContent: 'flex-start',
         padding: 20,
         gap: 10,
@@ -671,10 +688,8 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
         textAlign: 'center',
-        flex: 1,
+        flex: 2,
         width: '100%',
-        borderColor: 'blue',
-        borderWidth: 1,
     },
 
     readingTestScreenTexts: {
@@ -683,7 +698,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         textAlign: 'left',
         height: '100%',
-        flex: 1,
+        flex: 2,
         borderColor: 'blue',
         borderWidth: 1,
     },
@@ -725,10 +740,18 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
+    libraryBooksScreenListTouchable: {
+        height: 'auto',
+        width: '100%',
+        alignSelf: 'flex-start',
+        alignItems: 'flex-start',
+    },
+
     libraryBooksScreenListMainView: {
         gap: 10,
         height: 'auto',
-        alignItems: 'center',
+        width: '100%',
+        alignItems: 'flex-start',
     },
 
     libraryBooksScreenBackgroundView: {
@@ -745,6 +768,7 @@ export const styles = StyleSheet.create({
     libraryBooksScreenTitle: {
         fontSize: 30,
         fontWeight: 'bold',
+        marginLeft: '10%',
     },
 
     libraryBooksScreenTitleView: {

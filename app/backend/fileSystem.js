@@ -63,7 +63,7 @@ export const create_image = async (imageUri, imageDestinationUri) => {
   };
 };
 
-export const pickImage = async (handleImageSubmit) => {
+export const pickImage = async (handleImageSubmit, bookName) => {
 
   const getImageAfterPerms = async (perms) => {
     if (
@@ -71,11 +71,20 @@ export const pickImage = async (handleImageSubmit) => {
       perms.accessPrivileges == "limited"
     ) {
       const imageData = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
       });
       if (imageData.canceled != true) {
         const imageUri = imageData.assets[0].uri;
         handleImageSubmit(imageUri);
+
+        if (bookName != undefined) {
+          try {
+            await FileSystem.deleteAsync(`${imagePath}/${bookName}`);
+          } catch {}
+          create_image(imageUri, `${imagePath}/${bookName}`);
+        };
+        
         return imageUri;
       }
     } else {
@@ -87,6 +96,10 @@ export const pickImage = async (handleImageSubmit) => {
   };
   const perms = await ImagePicker.getMediaLibraryPermissionsAsync();
   getImageAfterPerms(perms);
+};
+
+export const change_image = async (bookName, handleImageSubmit) =>  {
+  await pickImage(handleImageSubmit, bookName);
 };
 
 export const delete_book = async (bookName) => {
@@ -106,4 +119,8 @@ export const update_book = async (oldName, newName) => {
 export const delete_user = async () => {
   await FileSystem.deleteAsync(allPath);
   await FileSystem.deleteAsync(imagePath);
+};
+
+export const delete_image = async (bookName) => {
+  await FileSystem.deleteAsync(imagePath+"/"+bookName);
 };

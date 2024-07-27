@@ -28,7 +28,7 @@ import { useMenuType } from "../../hooks/useMenuType";
 import { usePdf } from "../../hooks/usePdf";
 
 export default function colorPicker() {
-  const {primaryColor, secondaryColor} = useColor();
+  const { primaryColor, secondaryColor } = useColor();
   const {setPrimary, setSecondary} = changeTheme();
   const setColor = useFileFunctions("fileColor").setValue;
   const {setMenuColor} = useMenuColor();

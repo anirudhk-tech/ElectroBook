@@ -15,7 +15,7 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 // Styles are the same as notes bar
 
 export const ElectroImageBar = (props) => {
-  const {primaryColor} = useColor();
+  const { primaryColor } = useColor();
   const imageUrl = useFileFunctions("image").value;
   const handleImagePress = useCallback(() => {
     props.handlePress();
@@ -29,7 +29,7 @@ export const ElectroImageBar = (props) => {
         <ElectroIcon
           name="image"
           size={40}
-          color={primaryColor}
+          color={ primaryColor }
           handlePress={handleImagePress}
           style={styles.notesIcon}
         />
@@ -37,7 +37,7 @@ export const ElectroImageBar = (props) => {
         <ElectroIcon 
           name="checkmark-done-circle"
           size={30}
-          color={primaryColor}
+          color={ primaryColor }
           handlePress={() => {}}
           style={[styles.notesIcon, {display: imageUrl == "" ? "none" : "flex"}]}
         />
