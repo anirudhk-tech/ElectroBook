@@ -51,11 +51,21 @@ export default function pdfScreen () {
     };
 
     const handleNotesPress = () => {
-        setNotesVisible(!notesVisible);
+        if (notesVisible == false && settingsVisible == true) {
+            setSettingsVisible(!settingsVisible);
+            setNotesVisible(!notesVisible);
+        } else {
+            setNotesVisible(!notesVisible);
+        };
     };
 
     const handleSettingsPress = () => {
-        setSettingsVisible(!settingsVisible);
+        if (notesVisible == true && settingsVisible == false) {
+            setSettingsVisible(!settingsVisible);
+            setNotesVisible(!notesVisible);
+        } else {
+            setSettingsVisible(!settingsVisible);
+        };
     };
 
     const handlePageChange = (pageNumber) => {
@@ -122,7 +132,7 @@ export default function pdfScreen () {
                         headerTitleAlign: 'center',
                         headerStyle: [styles.headerStyle, {backgroundColor: primaryColor}],
                         headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                        headerTitle: bookName,
+                        headerTitle: bookName.length > 20 ? bookName.slice(0, 20)+"..." : bookName,
                         headerShown: headerVisible,
                         headerRight: headerRightIcons,
                         headerLeft: backIcon,

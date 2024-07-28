@@ -1,6 +1,5 @@
 // React
 import { View, Text } from "react-native";
-import { useCallback } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -13,13 +12,21 @@ import { ElectroIcon } from "../General/icon";
 import { ElectroNotesSideBarNotes } from "./notesSideBarNotes";
 
 // Hooks
+import { useBookUpdate } from "../../hooks/useBookUpdate";
 import { useColor } from "../../hooks/useTheme";
+import { useBookName } from "../../hooks/useBookName";
+import { useEditNotes, useEditRefresh } from "../../hooks/useEdit";
 
 export const ElectroNotesSideBar = (props) => {
   const { primaryColor, secondaryColor } = useColor();
+  const { setEditRefreshNotes } = useEditRefresh();
+  const { bookName } = useBookName();
+  const { data } = useEditNotes();
 
   const handleNotesClose = () => {
     props.handleNotesClose();
+    useBookUpdate("note", bookName, data);
+    setEditRefreshNotes();
   };
 
     if (props.visible == true) {

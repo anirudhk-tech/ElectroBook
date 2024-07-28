@@ -4,19 +4,21 @@ import { TouchableOpacity, View, Text, Dimensions } from "react-native";
 // Components
 import { ElectroIcon } from "../General/icon";
 
+// Backend
+import { styles } from "../../constants/stylers";
+import { useEffect, useState } from "react";
+
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useBooksInLibrary } from "../../hooks/useBookInLibrary";
 import { useLibraryCardPress } from "../../hooks/useLibraryCardPress";
-
-// Backend
-import { styles } from "../../constants/stylers";
-import { useEffect, useState } from "react";
+import { useSearchActive } from "../../hooks/useSearch";
 
 
 
 export const ElectroLibraryRowCard = (props) => {
     const { primaryColor, secondaryColor } = useColor();
+    const { searchActive } = useSearchActive();
     const [bookCount, setBookCount] = useState(0);
     const cardPress = useLibraryCardPress().press;
     const windowHeight = Dimensions.get("window").height;
@@ -29,7 +31,7 @@ export const ElectroLibraryRowCard = (props) => {
 
     return (
             <TouchableOpacity 
-                style={[styles.libraryCardRowMainTouchable, {borderColor: primaryColor, backgroundColor: primaryColor, height: windowHeight/2}]}
+                style={[styles.libraryCardRowMainTouchable, {borderColor: primaryColor, backgroundColor: primaryColor, height: windowHeight/2, display: searchActive ? "none" : "flex"}]}
                 onPress={() => cardPress(props.libraryName)}>
                 <View style={[styles.libraryCardRowHeaderView, {backgroundColor: secondaryColor}]}>
                     <Text style={[styles.libraryCardBookCountText, {color: primaryColor}]}>{bookCount}</Text>

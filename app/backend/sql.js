@@ -517,12 +517,22 @@ export const fetch_book = async (bookName) => {
 // SEARCH FUNCTIONS
 
 export const get_search_books = async (entry) => {
+  if (entry == "") {
+    return "No results"
+  };
+  
   const books = await db.getAllAsync(
     `SELECT * FROM books_database WHERE option LIKE "%${entry}%"`
   );
 
-  if (books.length != 0) {
-    return books
+  const libraries = await db.getAllAsync(
+    `SELECT * FROM libraries_database WHERE option LIKE "%${entry}%"`
+  );
+
+  const data = [...books, ...libraries]
+
+  if (data.length != 0) {
+    return data
   } else {
     return "No results"
   };

@@ -1,6 +1,6 @@
 // React
 import { FlatList, Dimensions } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Components
 import { ElectroLibraryRowCard } from "./libraryRowCard";
@@ -22,6 +22,29 @@ export const ElectroLibraryScroll = (props) => {
     const { searchActive } = useSearchActive();
     const windowHeight = Dimensions.get("window").height;
 
+    const librariesDataCreation = () => {
+        const flatListData = []
+        if (libraries != null) {
+            for (let x = 0; x < libraries.length; x++) {
+                flatListData.push({
+                    item: <ElectroLibraryRowCard 
+                            libraryName={libraries[x].option} 
+                            libraryColor={libraries[x].color} 
+                            onPress={props.handleCardPress}
+                        />,
+                    key: x,
+                });
+            };
+        };
+
+        return flatListData;
+    };
+
+    const librariesDataOrganize = useMemo(
+        () => librariesDataCreation(), 
+        [libraries]
+    );
+    
     useEffect(() => {
         useData("library").then(data => setLibraries(data));
     }, []);
@@ -45,6 +68,7 @@ export const ElectroLibraryScroll = (props) => {
                         item: <ElectroSearchLibraryBar 
                                 option={searchData[x].option}
                                 color={searchData[x].color}
+                                library={searchData[x].genres == undefined ? true : false}
                             />,
                         key: x,
                     })
@@ -57,27 +81,14 @@ export const ElectroLibraryScroll = (props) => {
 
     useEffect(() => {
         if (searchActive == false) {
-            const flatListData = [];
-            if (libraries != null) {
-                for (let x = 0; x < libraries.length; x++) {
-                    flatListData.push({
-                        item: <ElectroLibraryRowCard 
-                                libraryName={libraries[x].option} 
-                                libraryColor={libraries[x].color} 
-                                onPress={props.handleCardPress}
-                            />,
-                        key: x,
-                    });
-                };
-                setFlatListData(flatListData);
-            };
+            setFlatListData(librariesDataOrganize);            
         };
-    }, [libraries, searchValue, searchActive]);
+    }, [libraries, searchActive]);
 
     if (searchActive == false) {
         return (
             <FlatList
-                contentContainerStyle={[styles.libraryScrollFlatListMainView, { height: windowHeight-100, marginTop: searchActive ? '20%' : ''}]}
+                contentContainerStyle={[styles.libraryScrollFlatListMainView, { height: windowHeight-100, marginTop: searchActive ? '20%' : '', display: searchActive ? "none" : "flex"}]}
                 data={flatListData}
                 renderItem={({item}) => item.item}
                 keyExtractor={(item) => item.key}
@@ -88,10 +99,14 @@ export const ElectroLibraryScroll = (props) => {
     } else {
         return (
             <FlatList
-            contentContainerStyle={[styles.searchBarFlatList, { height: windowHeight }]}
+            contentContainerStyle={[styles.searchBarFlatList, { height: windowHeight + searchData.length * 141, display: searchActive ? "flex" : "none" }]}
+            style={{ height: windowHeight }}
             data={flatListData}
             renderItem={({item}) => item.item}
             keyExtractor={(item) => item.key}
+            getItemLayout={(data, index) => (
+                {length: windowHeight/10, offset: windowHeight/10 * index, index}
+            )}
             showsHorizontalScrollIndicator={false}
             />
         );

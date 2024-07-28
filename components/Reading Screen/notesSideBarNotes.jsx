@@ -7,13 +7,12 @@ import { ElectroAddNotesBar } from "./notesAddBar";
 import { ElectroBookNotesPost } from "../Book Screen/bookNotesPost";
 
 // Hooks
-import { useBookUpdate } from "../../hooks/useBookUpdate";
 import { useEditNotes } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookName } from "../../hooks/useBookName";
 
-export const ElectroNotesSideBarNotes = (props) => {
-    const {data, setData} = useEditNotes();
+export const ElectroNotesSideBarNotes = () => {
+    const { data, setData } = useEditNotes();
     const [flatListData, setFlatListData] = useState([]);
     const { bookName } = useBookName();
 
@@ -48,6 +47,7 @@ export const ElectroNotesSideBarNotes = (props) => {
 
     const dataCreation = (data) => {
         const dataOrganize = [];
+
         if (data.includes(null) != true) {
             for (let x in data) {
                 if (data[x] != "") {
@@ -74,7 +74,6 @@ export const ElectroNotesSideBarNotes = (props) => {
     useEffect(() => {
         if (data.includes(null) != true) {
             setFlatListData(dataOrganize);
-            useBookUpdate("note", bookName, data);
         };
       }, [data]);
 

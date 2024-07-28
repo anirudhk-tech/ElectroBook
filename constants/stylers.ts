@@ -443,7 +443,7 @@ export const styles = StyleSheet.create({
         height: 50,
         alignSelf: 'flex-end',
         marginTop: '5%',
-        marginRight: '15%',
+        marginRight: '20%',
         gap: 10,
     },
 
@@ -645,7 +645,7 @@ export const styles = StyleSheet.create({
     booksScreenSeriesHeaderImageTouchable: {
         height: 'auto', 
         width: 'auto', 
-        marginLeft: '20%'
+        marginLeft: '10%'
     },
 
 
@@ -764,8 +764,8 @@ export const styles = StyleSheet.create({
     searchBarFlatList: {
         width: '100%',
         marginTop: '5%',
-        gap: 30,
         padding: 10,
+        gap: 30
     },
 
     searchBarColorCode: {
@@ -779,6 +779,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         borderWidth: 2,
+        alignItems: 'center',
     },
 
     searchBarText: {
@@ -786,6 +787,7 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         padding: 10,
         textAlignVertical: 'center',
+        width: '65%'
     },
 
     // Componenets - Settings Library Name Button
@@ -1002,7 +1004,7 @@ export const styles = StyleSheet.create({
     },
 
     readingTestScreenTextView: {
-        flex: 1,
+        flex: 2,
     },
 
     readingTestScreenTitle: {

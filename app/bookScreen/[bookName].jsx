@@ -103,7 +103,7 @@ export default function bookScreen () {
             />
             <Image 
                 key={imageKey}
-                style={{height: screenHeight + 200, width: screenWidth, opacity: 0.2}}
+                style={{height: '100%', width: screenWidth, opacity: 0.2}}
                 source={{uri: imageUri + '?' + Date.now()}}
             />
             <View 

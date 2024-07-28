@@ -38,7 +38,6 @@ export const ElectroBookNotesPost = (props) => {
 
   const handleDeletePress = () => {
     props.handleDeletePress(props.note);
-    setEditRefreshNotes();
   };
 
   const handleEditPress = () => {
@@ -68,7 +67,6 @@ export const ElectroBookNotesPost = (props) => {
       <Animatable.View
         animation={"flipInX"}
         useNativeDriver={true}
-        delay={1000}
         style={[
           styles.notesPostMainView,
           { borderColor: primaryColor, width: windowWidth/1.5, height: 'auto' },

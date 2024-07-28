@@ -12,7 +12,7 @@ import { useColor } from "../../hooks/useTheme";
 import { useSearchActive } from "../../hooks/useSearch";
 
 export const ElectroLibraryHeader = (props) => {
-  const {secondaryColor} = useColor();
+  const { secondaryColor } = useColor();
   const { setSearchActive } = useSearchActive();
 
   return (
@@ -20,6 +20,7 @@ export const ElectroLibraryHeader = (props) => {
       <ElectroIcon 
       name="search"
       size={30}
+      color={secondaryColor}
       style={styles.libraryMenuIcon}
       handlePress={setSearchActive}
       />

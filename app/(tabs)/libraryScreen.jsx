@@ -40,8 +40,12 @@ export default function libraryScreen() {
     router.navigate(`./libraryScreen`);
   }, []);
 
-  const handleSearchBarPress = (bookName) => {
-      router.push(`../bookScreen/${bookName}`);
+  const handleSearchBarPress = (name, library) => {
+      if (library) {
+        router.push(`./${name}`)
+      } else {
+        router.push(`../bookScreen/${name}`);
+      };
   };
 
   const handleLibraryActions = () => {

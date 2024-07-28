@@ -72,7 +72,7 @@ export const ElectroSeriesImageHeader = () => {
                 style={{marginLeft: "40%", display: imageUri == "" ? "flex" : "none"}}
             />
             <TouchableOpacity 
-            style={styles.booksScreenSeriesHeaderImageTouchable}
+            style={[styles.booksScreenSeriesHeaderImageTouchable, {display: imageUri == "" ? "none" : "flex"}]}
             onPress={handleImageClear}    
             >
                 <Text style={[styles.booksScreenSeriesHeaderImageText, {color: primaryColor, borderColor: primaryColor}]}>Clear Image</Text>
