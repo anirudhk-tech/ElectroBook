@@ -4,7 +4,6 @@ export const storeData = async (key, value) => {
   try {
     storage.set(key, value);
   } catch (error) {
-
   }
 };
 

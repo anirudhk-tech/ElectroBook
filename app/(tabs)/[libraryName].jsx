@@ -25,9 +25,9 @@ export default function libraryBooksScreen () {
     const { primaryColor, secondaryColor } = useColor();
     const setBookCardPress = useBookCardPress().setPress;
 
-    const handleCreateIconPress = useCallback (() => {
-        router.push("../menuDropScreen/book");
-    }, []);
+    const handleCreateIconPress = () => {
+        router.push(`../menuDropScreen/booksInLibrary+${libraryName}`);
+    };
 
     const handleLibraryPress = useCallback (() => {
         router.navigate("./libraryScreen")

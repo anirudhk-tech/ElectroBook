@@ -41,11 +41,9 @@ export const ElectroReadingProgressBar = () => {
 
       if (barPercentage == 100) {
         useBookUpdate("completed", bookName, "true");
-        console.log("True: "+bookName)
         setEditRefreshCompleted();
       } else {
         useBookUpdate("completed", bookName, "false");
-        console.log("False: "+bookName)
         setEditRefreshCompleted();
       };
     };

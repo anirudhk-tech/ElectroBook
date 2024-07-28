@@ -10,14 +10,13 @@ import { styles } from "../../constants/stylers";
 
 // Components
 import { ElectroButton } from "../../components/General/button";
-import { ElectroAlert } from "../../components/General/alert";
+import { ElectroChangeLibraryNameButton } from "../../components/Settings Screen/settingsLibraryNameButton";
 
 // Node Modules
 import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function settingsScreen() {
   const { primaryColor, secondaryColor } = useColor();
@@ -33,6 +32,7 @@ export default function settingsScreen() {
   const handleReadingTestPress = useCallback(() => {
     router.push("./readingTestScreen");
   }, []);
+
 
   return (
     <View
@@ -99,6 +99,7 @@ export default function settingsScreen() {
             action={handleReadingTestPress}
           />
         </Animatable.View>
+        <ElectroChangeLibraryNameButton/>
       </View>
     </View>
   );

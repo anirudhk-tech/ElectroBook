@@ -9,7 +9,6 @@ import { ElectroBookRowCard } from "./bookRowCard";
 import { styles } from "../../constants/stylers";
 
 // Hooks
-import { useLibraryScrollType } from "../../hooks/useLibraryScroll";
 import { useBooksInLibrary } from "../../hooks/useBookInLibrary";
 import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 
@@ -18,8 +17,7 @@ import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 export const ElectroBookScroll = (props) => {
     const [books, setBooks] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
-    const {type} = useLibraryScrollType();
-    const {refresh} = useRefreshOptions();
+    const { refresh } = useRefreshOptions();
     const windowHeight = Dimensions.get("window").height;
 
     useEffect(() => {
@@ -37,18 +35,16 @@ export const ElectroBookScroll = (props) => {
         setFlatListData(flatListData);
     }, [books]);
 
+    return (
+        <FlatList
+            contentContainerStyle={[styles.libraryScrollFlatListMainView, {height: windowHeight-100}]}
+            data={flatListData}
+            renderItem={({item}) => item.item}
+            keyExtractor={(item) => item.key}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+        />
+    )
 
-    if (type == "row") {
-        return (
-            <FlatList
-                contentContainerStyle={[styles.libraryScrollFlatListMainView, {height: windowHeight-100}]}
-                data={flatListData}
-                renderItem={({item}) => item.item}
-                keyExtractor={(item) => item.key}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-            />
-        )
-    }
     
 };

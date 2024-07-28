@@ -12,17 +12,19 @@ import { Stack, router } from "expo-router";
 // Components
 import { ElectroLibraryHeader } from "../../components/Main Library Screen/libraryHeader";
 import { ElectroLibraryScroll } from "../../components/Library Scroll/libraryScroll";
+import { ElectroSearchFilterBar } from "../../components/Main Library Screen/searchFilterBar";
 
 // Node Modules
 import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useLibraryCardPress, useLibraryIconPress } from "../../hooks/useLibraryCardPress";
+import { useLibraryCardPress, useLibraryIconPress, useSearchBarPress } from "../../hooks/useLibraryCardPress";
 
 export default function libraryScreen() {
   const [libName, setLibName] = useState("");
   const { primaryColor, secondaryColor } = useColor();
+  const setSearchBarPress = useSearchBarPress().setPress;
   const setLibraryCardPress = useLibraryCardPress().setPress;
   const setLibraryIconPress = useLibraryIconPress().setPress;
 
@@ -38,10 +40,15 @@ export default function libraryScreen() {
     router.navigate(`./libraryScreen`);
   }, []);
 
-  const handleLibraryCardActions = useCallback(() => {
+  const handleSearchBarPress = (bookName) => {
+      router.push(`../bookScreen/${bookName}`);
+  };
+
+  const handleLibraryActions = () => {
     setLibraryCardPress(handleLibraryCardPress);
     setLibraryIconPress(handleLibraryIconPress);
-  });
+    setSearchBarPress(handleSearchBarPress);
+  };
 
   useEffect(() => {
     const fetchLibName = async () => {
@@ -50,7 +57,7 @@ export default function libraryScreen() {
     };
 
     fetchLibName();
-    handleLibraryCardActions();
+    handleLibraryActions();
   }, []);
 
   return (
@@ -80,6 +87,7 @@ export default function libraryScreen() {
         animation={"bounceIn"}
         useNativeDriver={true}
       >
+        <ElectroSearchFilterBar/>
         <ElectroLibraryScroll/>
       </Animatable.View>
     </View>

@@ -23,6 +23,7 @@ import { useMenuColor } from "../../hooks/useMenuColor";
 import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 import { useMenuType } from "../../hooks/useMenuType";
 import { useEditData } from "../../hooks/useEdit";
+import { useBooksInLibrary} from "../../hooks/useBookInLibrary";
 
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
@@ -36,6 +37,9 @@ export default function menuDropDownScreen() {
 
   const [rawData, setRawData] = useState([]);
   const [flatListData, setFlatListData] = useState([]);
+
+  const split = menuType.split("+");
+  const library = split[1];
 
   const handleBackPress = () => {
     setRefresh(!refresh);
@@ -115,7 +119,11 @@ export default function menuDropDownScreen() {
   );
 
   useEffect(() => {
-    useData(menuType).then(rawData => setRawData(rawData));
+    if (menuType.includes("booksInLibrary")) {
+      useBooksInLibrary(library).then(rawData => setRawData(rawData));
+    } else {
+      useData(menuType).then(rawData => setRawData(rawData));
+    }
   }, [menuColor]);
  
   useEffect(() => {
@@ -143,7 +151,7 @@ export default function menuDropDownScreen() {
             styles.headerTitleStyle,
             { color: secondaryColor },
           ],
-          headerTitle: headerTitle,
+          headerTitle: menuType.includes("booksInLibrary") ? library : headerTitle,
           headerBackVisible: false,
           headerLeft: backIcon,
           headerShown: true,

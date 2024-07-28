@@ -443,13 +443,15 @@ export const styles = StyleSheet.create({
         height: 50,
         alignSelf: 'flex-end',
         marginTop: '5%',
-        marginLeft: '2%'
+        marginRight: '15%',
+        gap: 10,
     },
 
     // Components - Library Scroll
         // Library Scroll
             libraryScrollFlatListMainView: {
                 alignItems: 'center',
+                alignSelf: 'center', 
                 paddingHorizontal: 30,
                 gap: 40
             },
@@ -735,6 +737,77 @@ export const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
 
+
+    // Component - Search Filter Bar
+    searchFilterBarMainView: {
+        
+    },
+
+    searchFilterBarTextSearchView: {
+        padding: 10,
+    },
+
+    searchFilterBarTextInput: {
+        borderRadius: 10,
+        borderWidth: 2,
+        width: '90%',
+        height: '100%',
+        alignSelf: 'center',
+        padding: 20,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+
+    // Component - Search Bar and Search FlatList
+    searchBarFlatList: {
+        width: '100%',
+        marginTop: '5%',
+        gap: 30,
+        padding: 10,
+    },
+
+    searchBarColorCode: {
+        height: '100%',
+        width: '20%',
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+    },
+
+    searchBarMainView: {
+        flexDirection: 'row',
+        width: '100%',
+        borderWidth: 2,
+    },
+
+    searchBarText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 10,
+        textAlignVertical: 'center',
+    },
+
+    // Componenets - Settings Library Name Button
+
+    settingsLibraryNameInput: {
+        borderRadius: 50,
+        borderWidth: 3,
+        width: '70%',
+        height: '50%',
+        fontSize: 20, 
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+
+// Components End
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+// Screens Begin
+
+
     // Book Screen 
     libraryBooksScreenMainScrollView: {
         alignItems: 'center',
@@ -887,7 +960,7 @@ export const styles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 3,
         width: '70%',
-        height: '30%',
+        height: '50%',
         justifyContent: 'center',
     },
 

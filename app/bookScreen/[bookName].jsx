@@ -94,7 +94,7 @@ export default function bookScreen () {
                 options={{
                     headerStyle: { backgroundColor: primaryColor },
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                    headerTitle: bookName.length > 23 ? bookName.slice(0, 23)+"..." : bookName,
+                    headerTitle: bookName.length > 21 ? bookName.slice(0, 21)+"..." : bookName,
                     headerLeft: backIcon,
                     headerRight: readButton,
                     headerShown: true,

@@ -4,11 +4,13 @@ export const useLibraryCardPressMain = create((set) => ({
   press: "",
   libraryPress: "",
   folderPress: "",
-  bookCardPress: "Hello",
-  setPress: (value) => set(() => ({press: value})),
-  setLibraryPress: (value) => set(() => ({libraryPress: value})),
-  setFolderPress: (value) => set(() => ({folderPress: value})),
-  setBookCardPress: (value) => set(() => ({bookCardPress: value})),
+  bookCardPress: "",
+  searchBarPress: "",
+  setPress: (value) => set(() => ({ press: value })),
+  setLibraryPress: (value) => set(() => ({ libraryPress: value })),
+  setFolderPress: (value) => set(() => ({ folderPress: value })),
+  setBookCardPress: (value) => set(() => ({ bookCardPress: value })),
+  setSearchBarPress: (value) => set(() => ({ searchBarPress: value })),
 }));
 
 export const useLibraryCardPress = () => {
@@ -44,5 +46,14 @@ export const useBookCardPress = () => {
     setPress: state.setBookCardPress,
   }));
 
-  return {press: press, setPress: setPress}
+  return {press: press, setPress: setPress};
 };
+
+export const useSearchBarPress = () => {
+  const { press, setPress } = useLibraryCardPressMain((state) => ({
+    press: state.searchBarPress,
+    setPress: state.setSearchBarPress,
+  }));
+
+  return { press: press, setPress: setPress };
+}

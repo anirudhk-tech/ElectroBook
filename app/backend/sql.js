@@ -516,42 +516,14 @@ export const fetch_book = async (bookName) => {
 
 // SEARCH FUNCTIONS
 
-export const get_search_genres = async (entry) => {
-  const db = await getInfo();
-  const genres = await db.execAsync(
-    `SELECT * FROM genres_database WHERE ${entry} IN genre`
-  );
-  return genres;
-};
-
-export const get_search_tropes = async (entry) => {
-  const db = await getInfo();
-  const tropes = await db.execAsync(
-    `SELECT * FROM tropes_database WHERE ${entry} IN trope`
-  );
-  return tropes;
-};
-
-export const get_search_authors = async (entry) => {
-  const db = await getInfo();
-  const authors = await db.execAsync(
-    `SELECT * FROM authors_database WHERE ${entry} IN author`
-  );
-  return authors;
-};
-
-export const get_search_libs = async (entry) => {
-  const db = await getInfo();
-  const libs = await db.execAsync(
-    `SELECT * FROM libraries_database WHERE ${entry} IN lib`
-  );
-  return libs;
-};
-
 export const get_search_books = async (entry) => {
-  const db = await getInfo();
-  const books = await db.execAsync(
-    `SELECT * FROM books_database WHERE ${entry} IN bookName`
+  const books = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE option LIKE "%${entry}%"`
   );
-  return books;
+
+  if (books.length != 0) {
+    return books
+  } else {
+    return "No results"
+  };
 };

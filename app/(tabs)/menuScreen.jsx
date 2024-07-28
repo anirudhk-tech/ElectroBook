@@ -41,7 +41,7 @@ export default function menuScreen() {
           headerTitle: "Index",
           headerRight: () => (
             <ElectroIcon
-              name="library-outline"
+              name="library"
               size={30}
               style={styles.libraryMenuIcon}
               color={secondaryColor}
