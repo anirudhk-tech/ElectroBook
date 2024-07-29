@@ -70,7 +70,7 @@ export default function readingTestScreen() {
           <Animatable.Text 
             animation={"fadeIn"}
             useNativeDriver={true}
-            style={[styles.readingTestScreenText, {color: primaryColor}]}>You will be prompted to read a short paragraph in the next page</Animatable.Text>
+            style={[styles.readingTestScreenText, {color: primaryColor}]}>You will be prompted to read a full screen worth of words in the next page</Animatable.Text>
           <Animatable.Text 
             animation={"fadeIn"}
             useNativeDriver={true}
@@ -78,7 +78,7 @@ export default function readingTestScreen() {
           <Animatable.Text 
             animation={"fadeIn"}
             useNativeDriver={true}
-            style={[styles.readingTestScreenText, {color: primaryColor}]}>Tap the pdf once to end the test</Animatable.Text>
+            style={[styles.readingTestScreenText, {color: primaryColor}]}>Tap the doc once to end the test</Animatable.Text>
         </View>
         <Animatable.View
           animation={"bounceIn"}

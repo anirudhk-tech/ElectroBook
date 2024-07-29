@@ -314,7 +314,7 @@ export const get_search_libs = async (entry) => {
 // USER DATA FETCHING FUNCTIONS
 
 export const get_library_name = async () => {
-  const libraryName = await MMKV.getItemFor("library");
+  const libraryName = await MMKV.getItemFor("libraryName");
   return libraryName;
 };
 

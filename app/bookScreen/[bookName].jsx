@@ -77,7 +77,7 @@ export default function bookScreen () {
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
         setBookName(bookName);
-    }, []);
+    }, [imageKey]);
 
     useEffect(() => {
         if (bookInfo != null && bookInfo.length != 0) {

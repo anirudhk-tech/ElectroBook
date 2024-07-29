@@ -26,7 +26,7 @@ export const ElectroBookRowCard = (props) => {
 
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
-    }, []);
+    }, [imageKey]);
 
     return (
         <TouchableOpacity 

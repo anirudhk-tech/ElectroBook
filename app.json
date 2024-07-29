@@ -4,7 +4,7 @@
     "slug": "ElectroBook_Latest",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/EB_Logo.png",
+    "icon": "./assets/images/appLogo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/EB_Logo.png",
+        "foregroundImage": "./assets/images/appLogo.png",
         "backgroundColor": "#000000"
       },
       "package": "com.anirudh_k.ElectroBook_Latest"

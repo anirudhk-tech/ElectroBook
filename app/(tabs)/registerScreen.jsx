@@ -26,9 +26,6 @@ export default function registerScreen() {
     if (check == false) {
       await create_user(libName);
       setCheck(true);
-    } else {
-      await delete_user();
-      await create_user(libName);
     };
   };
 

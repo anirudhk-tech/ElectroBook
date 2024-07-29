@@ -69,10 +69,10 @@ export const ElectroSeriesImageHeader = () => {
                 size={40}
                 color={ primaryColor }
                 handlePress={handleImagePress}
-                style={{display: imageUri == "" ? "flex" : "none"}}
+                style={{display: imageUri == undefined ? "none" : imageUri == "" ? "flex" : "none"}}
             />
             <TouchableOpacity 
-            style={[styles.booksScreenSeriesHeaderImageTouchable, {display: imageUri == "" ? "none" : "flex"}]}
+            style={[styles.booksScreenSeriesHeaderImageTouchable, {display: imageUri == undefined ? "none" : imageUri == "" ? "none" : "flex"}]}
             onPress={handleImageClear}    
             >
                 <Text style={[styles.booksScreenSeriesHeaderImageText, {color: primaryColor, borderColor: primaryColor}]}>Clear Image</Text>

@@ -158,7 +158,7 @@ export const styles = StyleSheet.create({
     },
     
     readingProgressBarText: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold',
     },
 
@@ -209,6 +209,7 @@ export const styles = StyleSheet.create({
             borderWidth: 2,
             flex: 9,
             flexDirection: 'row',
+            paddingHorizontal: 10
         }, 
 
         dropDownBarColorCode: {
