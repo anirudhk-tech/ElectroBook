@@ -7,7 +7,7 @@ import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar"
 import { ElectroIcon } from "../../components/General/icon";
 
 // Backend
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { styles } from "../../constants/stylers";
 
 // Expo
@@ -101,7 +101,7 @@ export default function menuDropDownScreen() {
           key: x,
         });
       }
-      if (menuType != "book") {
+      if (menuType != "book" && menuType.includes("booksIn") != true) {
         if (menuType != "completed") {
           dataOrganize.push({
             item: <ElectroAddMenuBar onSubmit={handleAddPress} />,

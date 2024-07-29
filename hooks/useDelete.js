@@ -26,7 +26,7 @@ if (type == "author") {
 } else if (type == "genre") {
       delete_genre(option);
 
-} else if (type == "book") {
+} else if (type == "book" || type.includes("booksIn")) {
       delete_book(option);
 } else if (type == "image") {
       delete_image(option)

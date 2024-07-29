@@ -343,7 +343,7 @@ export const styles = StyleSheet.create({
     imageBarText: {
         fontSize: 30,
         fontWeight: 'bold',
-        width: '80%',
+        width: 'auto',
         height: '100%',
         textAlignVertical: 'center',
         textAlign: 'left',
@@ -645,7 +645,6 @@ export const styles = StyleSheet.create({
     booksScreenSeriesHeaderImageTouchable: {
         height: 'auto', 
         width: 'auto', 
-        marginLeft: '10%'
     },
 
 

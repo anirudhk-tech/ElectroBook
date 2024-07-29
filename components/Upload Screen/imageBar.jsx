@@ -39,7 +39,7 @@ export const ElectroImageBar = (props) => {
           size={30}
           color={ primaryColor }
           handlePress={() => {}}
-          style={[styles.notesIcon, {display: imageUrl == "" ? "none" : "flex"}]}
+          style={[{display: imageUrl == "" ? "none" : "flex", marginLeft: "20%"}]}
         />
     </TouchableOpacity>
   );

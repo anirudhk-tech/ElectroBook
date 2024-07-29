@@ -113,10 +113,10 @@ export const create_book = async (info) => {
     const author = info.author;
     const library = info.library;
     const fileColor = info.fileColor;
-    const notes = info.notes;
+    const notes = info.notes == "" ? info.notes : ["", ...info.notes];
     const genres = info.genres;
     const tropes = info.tropes;
-    const imageUri = `${FileSystem.documentDirectory}Images/${info.name}`;
+    const imageUri = info.imageUri == "" ? "" : `${FileSystem.documentDirectory}Images/${info.name}`;
     const series = info.series;
 
   try {
@@ -222,7 +222,7 @@ export const update_color = async (type, name, color) => {
     await db.execAsync(
       `UPDATE libraries_database SET color = "${color}" WHERE option = "${name}"`
     )
-  } else if (type == "book") {
+  } else if (type == "book" || type.includes("booksIn")) {
     await db.execAsync(
       `UPDATE books_database SET color = "${color}" WHERE option = "${name}"`
     )
@@ -525,11 +525,27 @@ export const get_search_books = async (entry) => {
     `SELECT * FROM books_database WHERE option LIKE "%${entry}%"`
   );
 
+  const booksGenres = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE genres LIKE "%${entry}%"`
+  );
+
+  const booksTropes = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE tropes LIKE "%${entry}%"`
+  );
+
+  const booksAuthor = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE author LIKE "%${entry}%"`
+  );
+
+  const booksSeries = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE series LIKE "%${entry}%"`
+  )
+
   const libraries = await db.getAllAsync(
     `SELECT * FROM libraries_database WHERE option LIKE "%${entry}%"`
   );
 
-  const data = [...books, ...libraries]
+  const data = [...books, ...booksGenres, ...libraries, ...booksTropes, ...booksAuthor, ...booksSeries]
 
   if (data.length != 0) {
     return data

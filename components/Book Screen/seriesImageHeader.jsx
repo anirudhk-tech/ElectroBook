@@ -21,7 +21,7 @@ import { useDelete } from "../../hooks/useDelete";
 
 export const ElectroSeriesImageHeader = () => {
     const [series, setSeries] = useState([]);
-    const [imageUri, setImageUri] = useState("");
+    const [imageUri, setImageUri] = useState(null);
     const [bookInfo, setBookInfo] = useState([]);
     const { editRefreshSeries, setEditRefreshSeries } = useEditRefresh();
     const { imageKey, setImageKey } = useImageKey();
@@ -59,7 +59,7 @@ export const ElectroSeriesImageHeader = () => {
     }, [bookInfo]);
 
     return (
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', gap: 20}}>
             <Text 
                 style={[styles.booksScreenSeriesHeaderText, {color: primaryColor}]}
                 numberOfLines={2}
@@ -69,7 +69,7 @@ export const ElectroSeriesImageHeader = () => {
                 size={40}
                 color={ primaryColor }
                 handlePress={handleImagePress}
-                style={{marginLeft: "40%", display: imageUri == "" ? "flex" : "none"}}
+                style={{display: imageUri == "" ? "flex" : "none"}}
             />
             <TouchableOpacity 
             style={[styles.booksScreenSeriesHeaderImageTouchable, {display: imageUri == "" ? "none" : "flex"}]}

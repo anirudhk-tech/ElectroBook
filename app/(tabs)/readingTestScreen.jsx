@@ -45,7 +45,7 @@ export default function readingTestScreen() {
 
   const handleSinglePress = () => {
     clearInterval(interval.current);
-    setSpeed((305/time.current) * 60);
+    setSpeed((337/time.current) * 60);
     router.push("./libraryScreen");
   };
 

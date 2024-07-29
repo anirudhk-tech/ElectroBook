@@ -37,7 +37,7 @@ export const ElectroMenuBar = (props) => {
         <TouchableOpacity
           style={[
             styles.dropDownMenuBarColorCode,
-            { backgroundColor: props.color, borderColor: primaryColor},
+            { backgroundColor: props.color == "" ? undefined : props.color, borderColor: primaryColor},
           ]}
           onPress={handleColorPress}
         ></TouchableOpacity>
