@@ -38,6 +38,10 @@ export const ElectroChangeLibraryNameButton = () => {
         setInputActive(false);
     };
 
+    const handleNoSubmit = () => {
+        setInputActive(false);
+    };
+
     if (!inputActive) {
         return (
             <Animatable.View 
@@ -71,7 +75,7 @@ export const ElectroChangeLibraryNameButton = () => {
                 style={ [styles.settingsLibraryNameInput, { borderColor: primaryColor, color: primaryColor }]}
                 autoFocus={true}
                 onChangeText={(e) => setInputText(e)}
-                onBlur={handleSubmit}
+                onBlur={inputText.trim() == "" ? handleNoSubmit : handleSubmit}
                 ref={input => {textInputField = input}}
                 />
             </Animatable.View>
