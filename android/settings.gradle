@@ -1,4 +1,4 @@
-rootProject.name = 'ElectroBook_Latest'
+rootProject.name = 'ElectroBook'
 
 dependencyResolutionManagement {
   versionCatalogs {

@@ -217,7 +217,7 @@ export const styles = StyleSheet.create({
             height: '100%',
             width: 30,
             borderLeftWidth: 2,
-            borderRightWidth: 0,
+            borderRightWidth: 2,
             borderTopWidth: 0,
             borderBottomWidth: 0,
         },
