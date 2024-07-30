@@ -18,6 +18,7 @@ export const ElectroAddNotesBar = (props) => {
 
   const [inputActive, setInputActive] = useState(false);
   const [value, setValue] = useState("");
+  const [add, setAdd] = useState(0);
 
   const handleAddPress = () => {
     setInputActive(true);
@@ -30,6 +31,10 @@ export const ElectroAddNotesBar = (props) => {
   const handleSubmit = () => {
     props.onSubmit(value);
     setInputActive(false);
+  };
+
+  const handleAdd = () => {
+    setAdd(prev => prev + 30);
   };
 
   const handleBlur = () => {
@@ -73,7 +78,7 @@ export const ElectroAddNotesBar = (props) => {
           styles.dropDownAddBarTouchable,
           {
             borderColor: primaryColor,
-            height: windowHeight / 9,
+            height: windowHeight / 9 + add,
             width: windowWidth/1.5,
             color: primaryColor,
             flexShrink: 1,
@@ -83,6 +88,7 @@ export const ElectroAddNotesBar = (props) => {
         onBlur={value == "" ? handleNoSubmit : handleSubmit}
         onChangeText={(e) => setValue(e.trim())}
         multiline={true}
+        onContentSizeChange={handleAdd}
         onPressOut={handleSubmit}
         ref={input => {textInputField = input}}
       />

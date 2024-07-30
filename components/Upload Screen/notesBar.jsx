@@ -10,13 +10,16 @@ import { ElectroIcon } from "../General/icon";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useMenuType } from "../../hooks/useMenuType";
 
 export const ElectroNotesBar = (props) => {
   const { primaryColor } = useColor();
+  const { setType } = useMenuType();
 
-  const handleNotesPress = useCallback(() => {
+  const handleNotesPress = () => {
     props.handlePress();
-  }, []);
+    setType("notes");
+  };
 
   return (
     <TouchableOpacity

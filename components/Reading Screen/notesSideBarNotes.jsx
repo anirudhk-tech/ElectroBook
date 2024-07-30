@@ -97,6 +97,7 @@ export const ElectroNotesSideBarNotes = () => {
         ListFooterComponent={
             <ElectroAddNotesBar
                 onSubmit={handleAddNote}
+                notes={true}
             />
         }
         />

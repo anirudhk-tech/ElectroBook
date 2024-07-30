@@ -96,7 +96,7 @@ export const ElectroNotesPost = (props) => {
     );
   } else {
 
-    const keyboardHideListener = Keyboard.addListener(
+    Keyboard.addListener(
       'keyboardDidHide', 
       handleBlur
     );

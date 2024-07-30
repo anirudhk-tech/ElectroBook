@@ -15,9 +15,9 @@ export const ElectroMenuTab = (props) => {
   const { primaryColor } = useColor();
   const windowWidth = Dimensions.get("window").width;
 
-  const handlePress = useCallback(() => {
-    props.handlePress(props.type)
-  }, [props.type]);
+  const handlePress = () => {
+    props.handlePress(props.type);
+  };
 
   return (
     <Animatable.View 

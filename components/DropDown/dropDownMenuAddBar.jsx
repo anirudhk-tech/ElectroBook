@@ -18,6 +18,7 @@ export const ElectroAddMenuBar = (props) => {
 
   const [inputActive, setInputActive] = useState(false);
   const [value, setValue] = useState("");
+  const [add, setAdd] = useState(0);
 
   const handleAddPress = () => {
     setInputActive(true);
@@ -30,6 +31,10 @@ export const ElectroAddMenuBar = (props) => {
   const handleSubmit = () => {
     props.onSubmit(value);
     setInputActive(false);
+  };
+
+  const handleAdd = () => {
+    setAdd(prev => prev + 30);
   };
 
   const handleBlur = () => {
@@ -62,7 +67,7 @@ export const ElectroAddMenuBar = (props) => {
       </TouchableOpacity>
     );
   } else {
-    const keyboardHideListener = Keyboard.addListener(
+    Keyboard.addListener(
       'keyboardDidHide', 
       handleBlur
     );
@@ -73,7 +78,7 @@ export const ElectroAddMenuBar = (props) => {
           styles.dropDownAddBarTouchable,
           {
             borderColor: primaryColor,
-            height: windowHeight / 9,
+            height: (windowHeight / 9) + add,
             width: windowWidth - 40,
             color: primaryColor,
             flexShrink: 1,
@@ -82,6 +87,8 @@ export const ElectroAddMenuBar = (props) => {
         autoFocus={true}
         onBlur={value == "" ? handleNoSubmit : handleSubmit}
         onChangeText={(e) => setValue(e.trim())}
+        onContentSizeChange={handleAdd}
+        multiline={props.notes == undefined ? false : true}
         ref={input => {textInputField = input}}
       />
     );

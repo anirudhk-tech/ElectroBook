@@ -404,6 +404,7 @@ export const styles = StyleSheet.create({
         borderRadius: 5,
         flexDirection: 'row',
         alignSelf: 'center',
+        minHeight: 30,
     },
     
     notesPostTextTouchable: {

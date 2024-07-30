@@ -29,7 +29,7 @@ export default function notesDropDown() {
 
   const insertAddBar = (array) => {
     array.push({
-      item: <ElectroAddMenuBar onSubmit={handleAddNote} />,
+      item: <ElectroAddMenuBar onSubmit={handleAddNote} notes={true}/>,
       key: array.length + 1,
     });
   };
