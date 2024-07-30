@@ -209,16 +209,13 @@ export const styles = StyleSheet.create({
             borderWidth: 2,
             flex: 9,
             flexDirection: 'row',
-            paddingHorizontal: 10
+            paddingHorizontal: 10,
+            justifyContent: 'flex-end'
         }, 
 
         dropDownBarColorCode: {
             height: '100%',
             width: 30,
-            borderTopLeftRadius: 4,
-            borderBottomLeftRadius: 4,
-            borderTopRightRadius: 7,
-            borderBottomRightRadius: 7,
             borderLeftWidth: 2,
             borderRightWidth: 0,
             borderTopWidth: 0,
