@@ -37,7 +37,7 @@ export default function colorPicker() {
   const menuType = useMenuType().type;
   const { setBgColor } = usePdf();
 
-  const [hex, setHex] = useState("");
+  const [hex, setHex] = useState("#ffffff");
 
   // Implement where inital color is already selected color - Get from Async Store
 
