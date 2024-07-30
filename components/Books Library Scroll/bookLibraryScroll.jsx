@@ -39,6 +39,7 @@ export const ElectroBookScroll = (props) => {
         <FlatList
             contentContainerStyle={[styles.libraryScrollFlatListMainView, {height: windowHeight-100}]}
             data={flatListData}
+            maxToRenderPerBatch={5}
             renderItem={({item}) => item.item}
             keyExtractor={(item) => item.key}
             horizontal={true}

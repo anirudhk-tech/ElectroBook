@@ -28,7 +28,7 @@ export const ElectroReadingTestPDF = (props) => {
                 To Page: Go to a specific page in the PDF
                 </Text>
                 <Text style={{flex: 0.8}}>
-                Once out of the reading screen, you will also see the edit icon, which serves as the control center of your app. Here, you can edit all your data and information, as well as color code your genres, tropes, etc.
+                Once out of the reading screen, you will also see the hammer icon, which serves as the control center of your app. Here, you can edit all your data and information, as well as color code your genres, tropes, etc.
                 </Text>
                 <Text style={{flex: 0.7}}>
                 The library icon when pressed, will take you back to your parent library. When uploading files, it is required that you have a library selected. All other information is optional.

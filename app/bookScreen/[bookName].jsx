@@ -77,11 +77,12 @@ export default function bookScreen () {
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
         setBookName(bookName);
+        console.log("imageKey")
     }, [imageKey]);
 
     useEffect(() => {
         if (bookInfo != null && bookInfo.length != 0) {
-            setImageUri(bookInfo.imageUri);
+            setImageUri(bookInfo.imageUri + '?' + Date.now());
         };
     }, [bookInfo]);
 
@@ -94,7 +95,8 @@ export default function bookScreen () {
                 options={{
                     headerStyle: { backgroundColor: primaryColor },
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                    headerTitle: bookName.length > 21 ? bookName.slice(0, 21)+"..." : bookName,
+                    headerTitle: bookName.length > 24 ? bookName.slice(0, 24)+"..." : bookName,
+                    headerTitleAlign: bookName.length > 24 ? 'left' : 'center',
                     headerLeft: backIcon,
                     headerRight: readButton,
                     headerShown: true,
@@ -104,7 +106,7 @@ export default function bookScreen () {
             <Image 
                 key={imageKey}
                 style={{height: '100%', width: screenWidth, opacity: 0.2}}
-                source={{uri: imageUri + '?' + Date.now()}}
+                source={{uri: imageUri}}
             />
             <View 
                 style={[styles.libraryBooksScreenBackgroundView, {height: screenHeight + 200, width: screenWidth, position: 'absolute', paddingBottom: screenHeight/15, gap: 50}]}>

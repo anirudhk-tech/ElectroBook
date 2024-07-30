@@ -102,6 +102,7 @@ export const ElectroLibraryScroll = (props) => {
             contentContainerStyle={[styles.searchBarFlatList, { height: windowHeight + searchData.length * 141, display: searchActive ? "flex" : "none" }]}
             style={{ height: windowHeight }}
             data={flatListData}
+            maxToRenderPerBatch={5}
             renderItem={({item}) => item.item}
             keyExtractor={(item) => item.key}
             getItemLayout={(data, index) => (

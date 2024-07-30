@@ -1,9 +1,10 @@
 // Node Modules
 import ColorPicker, {
-  Panel1,
+  Panel5,
   Preview,
   OpacitySlider,
   HueSlider,
+  Swatches,
 } from "reanimated-color-picker";
 
 // Backend
@@ -94,13 +95,10 @@ export default function colorPicker() {
 
       <ColorPicker
         style={styles.colorPicker}
-        value="red"
         onComplete={onCompleteColor}
       >
         <Preview hideInitialColor={true} />
-        <Panel1 />
-        <HueSlider />
-        <OpacitySlider />
+        <Panel5 />
       </ColorPicker>
 
       <ElectroButton
