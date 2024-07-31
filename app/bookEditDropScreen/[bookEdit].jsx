@@ -88,7 +88,7 @@ export default function bookEditScreen () {
     const addIcon = () => {
       return(
         <ElectroIcon 
-          name="construct"
+          name="add"
           color={secondaryColor}
           size={30}
           handlePress={handleAddIconPress}

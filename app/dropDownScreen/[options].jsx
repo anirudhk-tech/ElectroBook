@@ -71,7 +71,7 @@ export default function dropDownScreen() {
       <ElectroMultiIcons
         icons={[
           { name: "close-circle", handlePress: handleRemovePress },
-          { name: "construct", handlePress: handleAddPress },
+          { name: "add", handlePress: handleAddPress },
         ]}
       />
     );
@@ -80,7 +80,7 @@ export default function dropDownScreen() {
   const addIcon = useCallback(() => {
     return (
       <ElectroIcon 
-      name="construct"
+      name="add"
       size={30}
       color={secondaryColor}
       handlePress={handleAddPress}/>
