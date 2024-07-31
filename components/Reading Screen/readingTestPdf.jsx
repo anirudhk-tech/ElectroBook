@@ -31,7 +31,7 @@ export const ElectroReadingTestPDF = (props) => {
                 Once out of the reading screen, you will also see the hammer icon, which serves as the control center of your app. Here, you can edit all your data and information.
                 </Text>
                 <Text style={{flex: 0.7}}>
-                When uploading files, it is required that you have a library selected. All other information is optional.
+                If you delete a library, all files in the library will be deleted as well. Be careful!
                 </Text>
                 <Text style={{flex: 1}}>
                 To upload multiple files to a library, long press a file until a tick mark appears next to it. You can then select all your files. All the information you entered, except the title--to prevent duplicates, will be applied to every one of the files. 

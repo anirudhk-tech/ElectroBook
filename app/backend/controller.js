@@ -86,8 +86,12 @@ export const delete_book = async (bookName) => {
   await FS.delete_book(bookName);
 };
 
-export const delete_library = async (lib, newLib) => {
-  await SQL.delete_lib(lib);
+export const delete_library = async (lib) => {
+  const books = await SQL.delete_library(lib);
+  for (let x in books) {
+    const bookName = books[x].option;
+    await FS.delete_book(bookName);
+  };
 };
 
 export const delete_genre = async (genre) => {

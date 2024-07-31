@@ -138,11 +138,17 @@ export const delete_book = async (bookName) => {
   );
 };
 
-export const delete_lib = async (library) => {
+export const delete_library = async (library) => {
+  const books = await db.getAllAsync(
+    `SELECT * FROM books_database WHERE library = "${library}"`
+  );
+
   db.execAsync(
     `DELETE FROM libraries_database WHERE option = "${library}";
     DELETE FROM books_database WHERE library = "${library}";
     `);
+
+  return books
 };
 
 export const delete_genre = async (genre) => {
