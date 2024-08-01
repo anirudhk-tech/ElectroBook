@@ -438,11 +438,10 @@ export const styles = StyleSheet.create({
     // Components - Library Header
     libraryHeaderMainView: {
         flexDirection: 'row',
-        width: 40,
-        height: 50,
+        width: '25%',
+        height: '50%',
         alignSelf: 'flex-end',
-        marginTop: '5%',
-        marginRight: '20%',
+        justifyContent: 'center',
         gap: 10,
     },
 
@@ -974,10 +973,6 @@ export const styles = StyleSheet.create({
     // Main Libraries Screen
     libraryScreenMainView: {
         flex: 1,
-    },
-
-    libraryMenuIcon: {
-        marginRight: '5%',
     },
 
     // Reading Test Screen

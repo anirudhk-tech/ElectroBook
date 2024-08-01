@@ -18,20 +18,14 @@ import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar"
 
 export default function notesDropDown() {
   const { primaryColor, secondaryColor } = useColor();
-  const {notes, addNote} = useFileFunctions("note");
+  const { notes, addNote } = useFileFunctions("note");
   const [flatListData, setFlatListData] = useState([]);
-  const windowHeight = Dimensions.get("window").height;
   
   const handleAddNote = (note) => {
     const editedNote = note.replaceAll('"', "'").replaceAll(",", ";");
-    addNote(editedNote);
-  };
-
-  const insertAddBar = (array) => {
-    array.push({
-      item: <ElectroAddMenuBar onSubmit={handleAddNote} notes={true}/>,
-      key: array.length + 1,
-    });
+    if (notes.includes(editedNote) != true) {
+      addNote(editedNote);
+    };
   };
 
   useEffect(() => {
@@ -42,7 +36,6 @@ export default function notesDropDown() {
         key: x,
       });
     }
-    insertAddBar(rawData);
     setFlatListData(rawData);
   }, [notes]);
 
@@ -65,14 +58,17 @@ export default function notesDropDown() {
       />
       <FlatList
         data={flatListData}
-        style={{ height: windowHeight, width: "100%" }}
         contentContainerStyle={[
           styles.notesScreenFlatList,
-          { height: windowHeight },
+          { paddingBottom: 20 }
         ]}
         renderItem={({ item }) => item.item}
         keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
+        removeClippedSubviews={false}
+        ListFooterComponent={
+          <ElectroAddMenuBar onSubmit={handleAddNote} notes={true}/>
+        }
       />
     </View>
   );

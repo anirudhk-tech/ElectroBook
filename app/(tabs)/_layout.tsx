@@ -16,7 +16,6 @@ import { useChecks } from "../../hooks/useCheckUser";
 export default function TabLayout() {
   const { primaryColor, secondaryColor } = useColor();
   const { settingsCheck } = useChecks();
-  LogBox.ignoreAllLogs()
 
   return (
     <Tabs

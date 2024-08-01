@@ -120,10 +120,9 @@ export default function notesDropDown() {
       />
       <FlatList
         data={flatListData}
-        style={{ height: windowHeight, width: "100%" }}
         contentContainerStyle={[
           styles.notesScreenFlatList,
-          { height: flatListData.length * 500 },
+          { paddingBottom: 20 }
         ]}
         renderItem={({ item }) => item.item}
         keyExtractor={(item) => item.key}

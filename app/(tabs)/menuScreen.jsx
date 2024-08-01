@@ -43,7 +43,7 @@ export default function menuScreen() {
             <ElectroIcon
               name="library"
               size={30}
-              style={styles.libraryMenuIcon}
+              style={{marginRight: "5%"}}
               color={secondaryColor}
               handlePress={handleLibraryPress}
             />

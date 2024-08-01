@@ -66,9 +66,7 @@ export default function menuDropDownScreen() {
   const handleAddPress = async (value) => {
     const editedValue = value.replaceAll('"', "'").replaceAll(",", ";")
     const result = await useAdd(menuType, editedValue, secondaryColor);
-    if (result == "duplicate") {
-      return
-    } else {
+    if (result != "duplicate") {
       setRawData([...rawData, {option: editedValue}]);
     };
   };
@@ -161,8 +159,10 @@ export default function menuDropDownScreen() {
       />
       <FlatList
         data={flatListData}
-        contentContainerStyle={[styles.dropDownScreenFlatList, { height: 50 + flatListData.length * 100 }]}
-        style={{ height: windowHeight }}
+        contentContainerStyle={[
+          styles.dropDownScreenFlatList,
+          {paddingBottom: 20}
+        ]}
         renderItem={({ item }) => item.item}
         getItemLayout={(data, index) => (
           {length: windowHeight/10, offset: windowHeight/10 * index, index}

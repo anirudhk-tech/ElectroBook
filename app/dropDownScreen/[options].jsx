@@ -33,6 +33,8 @@ export default function dropDownScreen() {
   const [rawData, setRawData] = useState([]);
   const [flatListData, setFlatListData] = useState([]);
 
+  console.log(flatListData)
+  
   const handleAddPress = () => {
     router.navigate(`../menuDropScreen/${options}`);
   };
@@ -130,6 +132,8 @@ export default function dropDownScreen() {
   useEffect(() => {
     if (rawData != undefined)
     setFlatListData(dataOrganize);
+
+    console.log(flatListData)
   }, [value, rawData]);
   
 
@@ -159,9 +163,8 @@ export default function dropDownScreen() {
       <FlatList
         contentContainerStyle={[
           styles.dropDownScreenFlatList,
-          { height: flatListData.length * 100 },
         ]}
-        getItemLayout={(index) => (
+        getItemLayout={(data, index) => (
           {length: windowHeight/10, offset: windowHeight/10 * index, index}
         )}
         data={flatListData}

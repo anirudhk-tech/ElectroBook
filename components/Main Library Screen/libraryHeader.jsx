@@ -21,13 +21,11 @@ export const ElectroLibraryHeader = (props) => {
       name="search"
       size={30}
       color={secondaryColor}
-      style={styles.libraryMenuIcon}
       handlePress={setSearchActive}
       />
       <ElectroIcon
         name="construct"
         size={30}
-        style={styles.libraryMenuIcon}
         color={secondaryColor}
         handlePress={props.editPress}
       />

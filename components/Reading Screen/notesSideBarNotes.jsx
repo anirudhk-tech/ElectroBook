@@ -85,8 +85,6 @@ export const ElectroNotesSideBarNotes = () => {
         <FlatList
         data={flatListData}
         contentContainerStyle={{
-            maxHeight: 100000,
-            flexGrow: 1,
             gap: 20,
             paddingBottom: 20
         }}

@@ -30,7 +30,9 @@ export const ElectroAddNotesBar = (props) => {
 
   const handleSubmit = () => {
     props.onSubmit(value);
+    setValue("");
     setInputActive(false);
+    setAdd(0);
   };
 
   const handleAdd = () => {
@@ -67,7 +69,7 @@ export const ElectroAddNotesBar = (props) => {
       </TouchableOpacity>
     );
   } else {
-    const keyboardHideListener = Keyboard.addListener(
+    Keyboard.addListener(
       'keyboardDidHide', 
       handleBlur
     );
@@ -89,7 +91,6 @@ export const ElectroAddNotesBar = (props) => {
         onChangeText={(e) => setValue(e.trim())}
         multiline={true}
         onContentSizeChange={handleAdd}
-        onPressOut={handleSubmit}
         ref={input => {textInputField = input}}
       />
     );

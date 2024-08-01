@@ -30,7 +30,9 @@ export const ElectroAddMenuBar = (props) => {
 
   const handleSubmit = () => {
     props.onSubmit(value);
+    setValue("");
     setInputActive(false);
+    setAdd(0)
   };
 
   const handleAdd = () => {

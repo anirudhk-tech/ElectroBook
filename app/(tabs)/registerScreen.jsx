@@ -19,20 +19,16 @@ import { useChecks, useCheckSetters } from "../../hooks/useCheckUser";
 
 export default function registerScreen() {
   const { primaryColor, secondaryColor } = useColor();
-  const {check} = useChecks();
-  const {setCheck} = useCheckSetters();
+  const { setCheck } = useCheckSetters();
 
   const changeLibName = async (libName) => {
-    if (check == false) {
-      await create_user(libName);
-      setCheck(true);
-    };
+    await create_user(libName);
+    setCheck(true);
+    
   };
 
   const handlePress = () => {
-    if (check == true) {
-      router.navigate("./settingsScreen");
-    }
+    router.navigate("./settingsScreen");
   };
 
   return (

@@ -24,10 +24,15 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 
 export const ElectroNotesPost = (props) => {
   const { primaryColor, secondaryColor } = useColor();
-  const {notes, removeNote, editNote} = useFileFunctions("note");
+  const { notes, removeNote, editNote } = useFileFunctions("note");
   const [editing, setEditing] = useState(false);
+  const [add, setAdd] = useState(0);
   const [editNoteText, setEditNoteText] = useState("");
   const windowHeight = Dimensions.get("window").height;
+
+  const handleAdd = () => {
+    setAdd(prev => prev + 20);
+  };
 
   const handleNotePress = () => {
     setEditing(!editing);
@@ -111,13 +116,16 @@ export const ElectroNotesPost = (props) => {
         <TextInput
           style={[
             styles.notesPostTextTouchable,
-            { color: primaryColor, padding: windowHeight * 0.01 },
+            { color: primaryColor, 
+              padding: windowHeight * 0.01,
+              height: windowHeight / 9 + add},
           ]}
           onChangeText={(e) => setEditNoteText(e)}
           autoFocus={true}
           onBlur={() => handleEditFinish(editNoteText)}
           defaultValue={props.note}
           multiline={true}
+          onContentSizeChange={handleAdd}
           ref={input => {textInputField = input}}
         />
         <TouchableOpacity

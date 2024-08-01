@@ -21,6 +21,31 @@ export const getInfo = async () => {
 export const create_user = async () => {
   const uuid = Crypto.randomUUID();
   const db = await SQLite.openDatabaseAsync(`${uuid}.db`, { useNewConnection: true, });
+  const genres = [
+    "Action", 
+    "Romance", 
+    "Thriller", 
+    "Horror", 
+    "History", 
+    "Fantasy", 
+    "Mystery", 
+    "Science Fiction", 
+    "Non-Fiction", 
+    "Adventure"
+  ];
+  const tropes = [
+    "The Chosen",
+    "Enemies to Lovers",
+    "Friends to Lovers",
+    "Forced Proximity",
+    "Second Chance",
+    "Anti-Hero",
+    "Amnesia",
+    "Billionaire",
+    "Secrets",
+    "Coming-of-Age",
+    "Side Quests",
+  ];
 
   db.execAsync("PRAGMA journal_mode = WAL");
 
@@ -48,7 +73,17 @@ export const create_user = async () => {
     `CREATE TABLE IF NOT EXISTS series_database (option TEXT PRIMARY KEY, color TEXT, books LIST)`
   );
 
-  // ADD STARTER TROPES AND GENRES
+  for (let x in genres) {
+    await db.execAsync (
+      `INSERT INTO genres_database (option, color) VALUES ("${genres[x]}", "")`
+    );
+  };
+
+  for (let x in tropes) {
+    await db.execAsync (
+      `INSERT INTO tropes_database (option, color) VALUES ("${tropes[x]}", "")`
+    );
+  };
 
   return uuid;
 };
