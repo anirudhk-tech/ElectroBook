@@ -33,7 +33,7 @@ export const ElectroMenuText = (props) => {
     };
 
     const handleSubmit = async () => {
-        if (inputOption == "") {
+        if (inputOption == "" || inputOption == null) {
             setInputOption(null);
             setEditing(false);
             return
@@ -107,7 +107,7 @@ export const ElectroMenuText = (props) => {
         </View>
         );
       } else {
-            const keyboardHideListener = Keyboard.addListener(
+            Keyboard.addListener(
                 'keyboardDidHide', 
                 handleBlur
             );

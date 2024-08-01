@@ -10,12 +10,11 @@ import * as Animatable from "react-native-animatable";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useSearchActive, useSearchValue } from "../../hooks/useSearch";
-import { useEffect } from "react";
 
 export const ElectroSearchFilterBar = () => {
     const windowHeight = Dimensions.get("window").height;
     const { primaryColor } = useColor();
-    const { searchActive } = useSearchActive();
+    const { searchActive, setSearchActive } = useSearchActive();
     const { searchValue, setSearchValue } = useSearchValue();
 
     const handleBlur = () => {
@@ -23,7 +22,7 @@ export const ElectroSearchFilterBar = () => {
           textInputField.blur()
         } catch {
           return
-        }
+        };
       };
 
     Keyboard.addListener(
@@ -43,6 +42,12 @@ export const ElectroSearchFilterBar = () => {
                   onChangeText={(e) => setSearchValue(e)}
                   autoFocus={searchActive}
                   autoCorrect={true}
+                  onBlur={() => {
+                    handleBlur
+                    if (searchValue == "") {
+                      setSearchActive();
+                    };
+                  }}
                   defaultValue={searchValue}
                   ref={input => {textInputField = input}}
                   />

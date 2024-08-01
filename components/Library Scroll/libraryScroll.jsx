@@ -19,7 +19,7 @@ export const ElectroLibraryScroll = (props) => {
     const [flatListData, setFlatListData] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const { searchValue } = useSearchValue();
-    const { searchActive } = useSearchActive();
+    const { searchActive, setSearchActive } = useSearchActive();
     const windowHeight = Dimensions.get("window").height;
 
     const librariesDataCreation = () => {
@@ -99,10 +99,12 @@ export const ElectroLibraryScroll = (props) => {
     } else {
         return (
             <FlatList
-            contentContainerStyle={[styles.searchBarFlatList, { height: windowHeight + searchData.length * 141, display: searchActive ? "flex" : "none" }]}
-            style={{ height: windowHeight }}
+            contentContainerStyle={[styles.searchBarFlatList, { 
+                gap: 20,
+                paddingVertical: 20,
+             }]}
+            style= {{ display: searchActive ? "flex" : "none" }}
             data={flatListData}
-            maxToRenderPerBatch={5}
             renderItem={({item}) => item.item}
             keyExtractor={(item) => item.key}
             getItemLayout={(data, index) => (

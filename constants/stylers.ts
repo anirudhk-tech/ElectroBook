@@ -759,10 +759,8 @@ export const styles = StyleSheet.create({
 
     // Component - Search Bar and Search FlatList
     searchBarFlatList: {
-        width: '100%',
-        marginTop: '5%',
-        padding: 10,
-        gap: 30
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
 
     searchBarColorCode: {
@@ -777,6 +775,8 @@ export const styles = StyleSheet.create({
         width: '100%',
         borderWidth: 2,
         alignItems: 'center',
+        paddingRight: 10,
+        padding: 5
     },
 
     searchBarText: {
@@ -972,7 +972,7 @@ export const styles = StyleSheet.create({
 
     // Main Libraries Screen
     libraryScreenMainView: {
-        flex: 1,
+        height: '100%',
     },
 
     // Reading Test Screen

@@ -14,9 +14,6 @@ import { ElectroLibraryHeader } from "../../components/Main Library Screen/libra
 import { ElectroLibraryScroll } from "../../components/Library Scroll/libraryScroll";
 import { ElectroSearchFilterBar } from "../../components/Main Library Screen/searchFilterBar";
 
-// Node Modules
-import * as Animatable from "react-native-animatable";
-
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useLibraryCardPress, useLibraryIconPress, useSearchBarPress } from "../../hooks/useLibraryCardPress";
@@ -87,13 +84,8 @@ export default function libraryScreen() {
           headerShown: true,
         }}
       />
-      <Animatable.View
-        animation={"bounceIn"}
-        useNativeDriver={true}
-      >
         <ElectroSearchFilterBar/>
         <ElectroLibraryScroll/>
-      </Animatable.View>
     </View>
   );
 }
