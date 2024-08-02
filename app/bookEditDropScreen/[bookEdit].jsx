@@ -172,10 +172,12 @@ export default function bookEditScreen () {
       />
         <FlatList
         data={flatListData}
-        style={{ height: windowHeight }}
         contentContainerStyle={[
-          { height: flatListData.length == 0 || flatListData == undefined ? 100 : flatListData.length * 500 },
+          { paddingBottom: 20 },
         ]}
+        getItemLayout={(data, index) => (
+          {length: windowHeight/6, offset: windowHeight/6 * index, index}
+        )}
         renderItem={({ item }) => item.item}
         keyExtractor={(item) => item.key}
       />

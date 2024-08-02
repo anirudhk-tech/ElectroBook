@@ -165,7 +165,7 @@ export default function menuDropDownScreen() {
         ]}
         renderItem={({ item }) => item.item}
         getItemLayout={(data, index) => (
-          {length: windowHeight/10, offset: windowHeight/10 * index, index}
+          {length: windowHeight/6, offset: windowHeight/6 * index, index}
         )}
         keyExtractor={(item) => item.key}
         removeClippedSubviews={false}

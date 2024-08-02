@@ -161,7 +161,7 @@ export default function dropDownScreen() {
           styles.dropDownScreenFlatList,
         ]}
         getItemLayout={(data, index) => (
-          {length: windowHeight/10, offset: windowHeight/10 * index, index}
+          {length: windowHeight/6, offset: windowHeight/6 * index, index}
         )}
         data={flatListData}
         renderItem={({ item }) => item.item}

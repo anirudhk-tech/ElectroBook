@@ -63,7 +63,7 @@ export const ElectroEditDropBar = (props) => {
 
   return (
     <TouchableOpacity
-      style={[styles.dropDownBarMainView, { height: windowHeight / 10 }]}
+      style={[styles.dropDownBarMainView, { height: windowHeight / 6 }]}
       onPress={() => {
         handlePress();
       }}

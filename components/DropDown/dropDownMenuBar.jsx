@@ -28,7 +28,7 @@ export const ElectroMenuBar = (props) => {
   };
 
   return (
-    <View style={[styles.dropDownBarMainView, { height: windowHeight / 10, marginLeft: '3%' }]}>
+    <View style={[styles.dropDownBarMainView, { height: windowHeight / 6, marginLeft: '3%' }]}>
       <Animatable.View
         animation={"bounceIn"}
         useNativeDriver={true}
