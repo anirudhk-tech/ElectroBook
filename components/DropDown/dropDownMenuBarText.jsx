@@ -84,7 +84,7 @@ export const ElectroMenuText = (props) => {
                 style={{flex: 9}}
                 onPress={handleTextPress}>
                 <Text
-                    style={[styles.dropDownBarText, { color: primaryColor, paddingLeft: 60 }]}
+                    style={[styles.dropDownBarText, { color: primaryColor, paddingLeft: 15, textAlign: 'left'}]}
                     numberOfLines={1}
                 >
                     {inputOption == null ? props.option : inputOption}

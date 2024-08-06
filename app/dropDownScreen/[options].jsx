@@ -9,6 +9,7 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import { ElectroDropBar } from "../../components/DropDown/dropDownBar";
 import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons";
 import { ElectroIcon } from "../../components/General/icon";
+import { ElectroDropDownEmptyText } from "../../components/DropDown/dropDownEmpty";
 
 // Hooks
 import { useData } from "../../hooks/useData";
@@ -20,6 +21,7 @@ import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 
 // Backend
 import { styles } from "../../constants/stylers";
+
 
 export default function dropDownScreen() {
   const { options } = useLocalSearchParams();
@@ -155,6 +157,9 @@ export default function dropDownScreen() {
           headerShown: true,
           headerTintColor: secondaryColor,
         }}
+      />
+      <ElectroDropDownEmptyText 
+        visible={flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none"}
       />
       <FlatList
         contentContainerStyle={[

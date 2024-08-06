@@ -154,6 +154,10 @@ export const create_book = async (info) => {
     const imageUri = info.imageUri == "" ? "" : `${FileSystem.documentDirectory}Images/${info.name}`;
     const series = info.series;
 
+  if (info.library == "") {
+    return
+  };
+
   try {
     await db.execAsync(
       `INSERT INTO books_database (option, author, library, color, series, notes, genres, tropes, completed, imageUri, page) VALUES ("${name}", "${author}", "${library}", "${fileColor}", "${series}", "${notes}", "${genres}", "${tropes}", "false", "${imageUri}", 0)`

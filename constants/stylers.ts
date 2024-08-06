@@ -227,7 +227,6 @@ export const styles = StyleSheet.create({
             fontSize: 20,
             fontWeight: 'bold',
             textAlignVertical: 'center',
-            textAlign: 'center',
             paddingHorizontal: 10
         },
 
@@ -867,6 +866,13 @@ export const styles = StyleSheet.create({
     dropDownScreenFlatList: {
         justifyContent: 'flex-start',
         alignItems: 'center',
+    },
+
+    dropDownScreenNoOptionsText: {
+        alignSelf: 'center',
+        marginTop: '10%',
+        fontWeight: 'bold',
+        fontSize: 30,
     },
 
 

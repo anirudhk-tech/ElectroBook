@@ -11,6 +11,7 @@ import { FlatList, Dimensions, View } from "react-native";
 // Components
 import { ElectroIcon } from "../../components/General/icon";
 import { ElectroEditDropBar } from "../../components/DropDown/dropDownEditBar";
+import { ElectroDropDownEmptyText } from "../../components/DropDown/dropDownEmpty";
 
 // Hooks
 import { useEditType, useEditData, useEditRefresh } from "../../hooks/useEdit";
@@ -153,7 +154,7 @@ export default function bookEditScreen () {
 
 
     return (
-        <View style={{backgroundColor: secondaryColor}}>
+        <View style={{backgroundColor: secondaryColor, flex: 1}}>
             <Stack.Screen
             options={{
             headerStyle: { backgroundColor: primaryColor },
@@ -170,6 +171,9 @@ export default function bookEditScreen () {
             headerTitleAlign: 'center'
         }}
       />
+        <ElectroDropDownEmptyText
+          visible={flatListData == null || flatListData == undefined ? "none" : flatListData.length == 0 ? "flex" : "none"}
+        />
         <FlatList
         data={flatListData}
         contentContainerStyle={[

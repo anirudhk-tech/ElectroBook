@@ -83,7 +83,7 @@ export const ElectroEditDropBar = (props) => {
         useNativeDriver={true}
         style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
         <Text 
-          style={[styles.dropDownBarText, { color: primaryColor, paddingLeft: props.color == undefined || props.color == "" ? 0 : 30 }]}
+          style={[styles.dropDownBarText, { color: primaryColor, textAlign: 'center', paddingLeft: props.color == undefined || props.color == "" ? 0 : 30 }]}
           numberOfLines={1}
         >
           {props.option}

@@ -40,7 +40,7 @@ export const ElectroDropBar = (props) => {
            useNativeDriver={true}
             style={[styles.dropDownBarView, { borderColor: primaryColor }]}>
           <Text 
-          style={[styles.dropDownBarText, { color: primaryColor, paddingLeft: props.colorCode != undefined && props.colorCode != "" ? 30 : 0 }]}
+          style={[styles.dropDownBarText, { color: primaryColor, textAlign: 'center', paddingLeft: props.colorCode != undefined && props.colorCode != "" ? 30 : 0 }]}
           numberOfLines={1}
           >
             {props.option}

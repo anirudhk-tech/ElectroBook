@@ -1,10 +1,11 @@
 // React
-import { View, FlatList, Dimensions } from "react-native";
+import { View, FlatList, Dimensions, Text } from "react-native";
 
 // Components
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
 import { ElectroAddMenuBar } from "../../components/DropDown/dropDownMenuAddBar";
 import { ElectroIcon } from "../../components/General/icon";
+import { ElectroDropDownEmptyText } from "../../components/DropDown/dropDownEmpty";
 
 // Backend
 import { useEffect, useMemo, useState } from "react";
@@ -156,6 +157,9 @@ export default function menuDropDownScreen() {
           headerTintColor: secondaryColor,
           headerTitleAlign: 'center'
         }}
+      />
+      <ElectroDropDownEmptyText 
+        visible={menuType.includes("booksIn") ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
       />
       <FlatList
         data={flatListData}

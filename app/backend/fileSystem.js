@@ -103,8 +103,10 @@ export const change_image = async (bookName, handleImageSubmit) =>  {
 export const delete_book = async (bookName) => {
   const deletePath = `${FileSystem.documentDirectory}All/${bookName}`;
   const imageDeletePath = `${FileSystem.documentDirectory}Images/${bookName}`;
-  await FileSystem.deleteAsync(deletePath);
-  await FileSystem.deleteAsync(imageDeletePath);
+  try {
+    await FileSystem.deleteAsync(deletePath);
+    await FileSystem.deleteAsync(imageDeletePath);
+  } catch {}
 };
 
 export const update_book = async (oldName, newName) => {
