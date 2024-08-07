@@ -15,13 +15,15 @@ export const useInfo = (type) => {
         setTitle: state.setTitle,
     }));
     
-    const { genres, clearGenres } = useFile.useGenres((state) => ({
+    const { genres, removeGenre, clearGenres } = useFile.useGenres((state) => ({
         genres: state.genres,
+        removeGenre: state.removeGenres, 
         clearGenres: state.clearGenres,
     }));
 
-    const { tropes, clearTropes } = useFile.useTropes((state) => ({
+    const { tropes, removeTrope, clearTropes } = useFile.useTropes((state) => ({
         tropes: state.tropes,
+        removeTrope: state.removeTropes,
         clearTropes: state.clearTropes,
     }));
 
@@ -81,13 +83,43 @@ export const useInfo = (type) => {
             setAuthor("");
             setFileColor("");
             setImageUri("");
-            setLibrary("");
             setSeries("");
             clearGenres();
             clearTropes();
             clearNotes();
-        }
+        };
 
-        return clearValues;
+        const clearLibrary = (option) => {
+            if (option == library) {
+                setLibrary("");
+            };
+        };
+
+        const clearAuthor = (option) => {
+            if (option == author) {
+                setAuthor("")
+            };
+        };
+
+        const clearSeries = () => {
+            setSeries("");
+        };
+
+        const removeGenres = (option) => {
+            removeGenre(option);
+        } 
+
+        const removeTropes = (option) => {
+            removeTrope(option);
+        };
+
+        return {
+            clearValues: clearValues,
+            clearLibrary: clearLibrary,
+            clearAuthor: clearAuthor,
+            clearSeries: clearSeries,
+            removeGenre: removeGenres,
+            removeTrope: removeTropes,
+        };
     }
 };

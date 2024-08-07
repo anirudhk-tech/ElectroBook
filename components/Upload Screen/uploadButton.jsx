@@ -20,7 +20,7 @@ export const ElectroUploadButton = () => {
     const {secondaryColor} = useColor();
     const {setUploadAlertText} = useUploadAlert();
     const info = useInfo("info");
-    const clearValues = useInfo("infoClear");
+    const { clearValues } = useInfo("infoClear");
     const [uploadText, setUploadText] = useState("Upload");
     const [uploadPressed, setUploadPressed] = useState(false);
     const [clear, setClear] = useState(false);

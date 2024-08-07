@@ -51,11 +51,9 @@ export default function readingTestScreen() {
 
   if (testBegin == true) {
     return (
-      <View style={{flex: 1}}>
-        <ElectroReadingTestPDF
-          handleSinglePress={handleSinglePress}
-        />
-      </View>
+      <ElectroReadingTestPDF
+        handleSinglePress={handleSinglePress}
+      />
     );
   } else {
     return (

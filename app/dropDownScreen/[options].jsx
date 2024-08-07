@@ -29,8 +29,8 @@ export default function dropDownScreen() {
   const { primaryColor, secondaryColor } = useColor();
   const headerTitle = useHeader(options);
   const multiType = useDropDownType(options);
-  const {value, setValue, removeValue, clearValue} = useFileFunctions(options);
-  const {refresh} = useRefreshOptions(); 
+  const { value, setValue, removeValue, clearValue } = useFileFunctions(options);
+  const { refresh } = useRefreshOptions(); 
 
   const [rawData, setRawData] = useState([]);
   const [flatListData, setFlatListData] = useState([]);
@@ -126,8 +126,10 @@ export default function dropDownScreen() {
   );
 
   useEffect(() => {
-    useData(options).then(data => setRawData(data));
-  }, [refresh])
+    useData(options).then(data => {
+      setRawData(data);
+  });
+  }, [refresh]);
 
   useEffect(() => {
     if (rawData != undefined)

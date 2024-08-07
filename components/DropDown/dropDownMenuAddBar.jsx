@@ -6,7 +6,7 @@ import { ElectroIcon } from "../General/icon";
 
 // React
 import { TouchableOpacity, Dimensions, TextInput, Keyboard } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
@@ -46,6 +46,12 @@ export const ElectroAddMenuBar = (props) => {
       return
     };
   };
+
+  useEffect(() => {
+    if (props.tab == undefined) {
+      setInputActive(true);
+    };
+  }, []);
 
   if (inputActive == false) {
     return (

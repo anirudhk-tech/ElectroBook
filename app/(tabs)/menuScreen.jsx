@@ -24,7 +24,7 @@ export default function menuScreen() {
   }, []);
 
   const handleMenuTabPress = (screen) => {
-    router.push(`../menuDropScreen/${screen}`);
+    router.push(`../menuDropScreen/${screen}+menuTab`);
   };
 
   return (
@@ -52,10 +52,7 @@ export default function menuScreen() {
         }}
       />
       <ScrollView
-        contentContainerStyle={[
-          styles.menuScreenTabView,
-          { height: windowHeight },
-        ]}
+        contentContainerStyle={styles.menuScreenTabView}
         showsVerticalScrollIndicator={false}
       >
         <ElectroMenuTab text="Books" type="book" handlePress={handleMenuTabPress} />

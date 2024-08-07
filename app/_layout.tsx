@@ -4,11 +4,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 
 // React
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { NavigationContainer } from '@react-navigation/native';
 
-// Backed
-import { ThemeContext } from '@/constants/context';
 
 SplashScreen.preventAutoHideAsync();
 

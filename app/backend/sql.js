@@ -182,7 +182,7 @@ export const delete_library = async (library) => {
     `SELECT * FROM books_database WHERE library = "${library}"`
   );
 
-  db.execAsync(
+  await db.execAsync(
     `DELETE FROM libraries_database WHERE option = "${library}";
     DELETE FROM books_database WHERE library = "${library}";
     `);
@@ -513,7 +513,6 @@ export const get_tropes = async () => {
 export const get_libraries = async () => {
   const libs = [];
   const data = await db.getAllAsync(`SELECT * FROM libraries_database ORDER BY option`);
-
   for (let x = 0; x < data.length; x++) {
     libs.push(data[x]);
   }

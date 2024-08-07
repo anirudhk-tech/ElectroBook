@@ -14,17 +14,16 @@ import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useMenuColorPress, useMenuDelete, useMenuBack } from "../../hooks/useMenuBarActions";
 
 export const ElectroMenuBar = (props) => {
   const { primaryColor, secondaryColor } = useColor();
+  const handleColorPress = useMenuColorPress().action;
+  const handleDeletePress = useMenuDelete().action;
   const windowHeight = Dimensions.get("window").height;
 
-  const handleColorPress = () => {
-    props.handleColorPress(props.option);
-  };
-
-  const handleDeletePress = () => {
-    props.handleDeletePress(props.option);
+  const handleDelete = () => {
+    handleDeletePress(props.option);
   };
 
   return (
@@ -42,21 +41,21 @@ export const ElectroMenuBar = (props) => {
           onPress={handleColorPress}
         ></TouchableOpacity>
         <ElectroMenuText
-          handleTextPress={props.handleTextPress} 
           option={props.option} 
-          type={props.type}/>
+          type={props.type}
+          tab={props.tab}/>
         <TouchableOpacity
           style={[
             styles.dropDownMenuBarDeleteTouchable,
             { backgroundColor: primaryColor, borderColor: primaryColor },
           ]}
-          onPress={handleDeletePress}
+          onPress={handleDelete}
         >
           <ElectroIcon
             name="close"
             size={20}
             color={secondaryColor}
-            handlePress={handleDeletePress}
+            handlePress={handleDelete}
           />
         </TouchableOpacity>
       </Animatable.View>

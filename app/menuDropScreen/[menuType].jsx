@@ -1,5 +1,5 @@
 // React
-import { View, FlatList, Dimensions, Text } from "react-native";
+import { View, FlatList, Dimensions } from "react-native";
 
 // Components
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
@@ -25,22 +25,52 @@ import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 import { useMenuType } from "../../hooks/useMenuType";
 import { useEditData } from "../../hooks/useEdit";
 import { useBooksInLibrary} from "../../hooks/useBookInLibrary";
+import { useInfo } from "../../hooks/useInfoFunctions";
+import { useMenuColorPress, useMenuDelete, useMenuBack, useMenuText } from "../../hooks/useMenuBarActions";
 
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
-  const headerTitle = useHeader(menuType);
   const { primaryColor, secondaryColor } = useColor();
   const { menuColor } = useMenuColor();
   const { data, setData } = useEditData();
+  const deleteInfo = useInfo("clearValues");
   const {refresh, setRefresh} = useRefreshOptions();
-  const windowHeight = Dimensions.get("window").height;
   const setMenuType = useMenuType().setType;
+  const setDelete = useMenuDelete().setAction;
+  const setColor = useMenuColorPress().setAction;
+  const setText = useMenuText().setAction;
+  const setBack = useMenuBack().setAction;
 
   const [rawData, setRawData] = useState([]);
   const [flatListData, setFlatListData] = useState([]);
 
   const split = menuType.split("+");
-  const library = split[1];
+  const secondArg = split[1];
+  const type = split[0];
+  const headerTitle = useHeader(type);
+  const windowHeight = Dimensions.get("window").height;
+
+  const clearInfo = (type, option) => {
+    if (type == "author") {
+      deleteInfo.clearAuthor(option);
+    };
+
+    if (type == "library") {
+      deleteInfo.clearLibrary(option);
+    };
+
+    if (type == "genre") {
+      deleteInfo.removeGenre(option);
+    };
+
+    if (type == "trope") {
+      deleteInfo.removeTrope(option);
+    };
+
+    if (type == "series") {
+      deleteInfo.clearSeries(option);
+    };
+  };
 
   const handleBackPress = () => {
     setRefresh(!refresh);
@@ -48,13 +78,14 @@ export default function menuDropDownScreen() {
   };
 
   const handleDeletePress = (option) => {
-    useDelete(menuType, option);
-    setRawData(rawData.filter((x) => x.option != option));
-    setData(data.filter((x) => x != option));
+    useDelete(type, option);
+    setRawData(prev => prev.filter(x => x.option != option));
+    setData(data.filter(x => x != option));
+    clearInfo(type, option);
   };
 
   const handleTextPress = (option) => {
-    if (menuType == "book") {
+    if (type == "book") {
       router.dismiss();
       router.push(`../bookScreen/${option}`);
     };
@@ -66,10 +97,14 @@ export default function menuDropDownScreen() {
 
   const handleAddPress = async (value) => {
     const editedValue = value.replaceAll('"', "'").replaceAll(",", ";")
-    const result = await useAdd(menuType, editedValue, secondaryColor);
+    const result = await useAdd(type, editedValue, secondaryColor);
+
     if (result != "duplicate") {
       setRawData([...rawData, {option: editedValue}]);
     };
+    if (secondArg == undefined) {
+      handleBackPress();
+    }
   };
 
   const backIcon = () => {
@@ -91,23 +126,13 @@ export default function menuDropDownScreen() {
             <ElectroMenuBar
               option={data[x].option}
               color={data[x].color}
-              type={menuType}
-              handleTextPress={handleTextPress}
-              handleDeletePress={handleDeletePress}
-              handleColorPress={handleColorPress}
+              type={type}
+              tab={secondArg}
             />
           ),
           key: x,
         });
-      }
-      if (menuType != "book" && menuType.includes("booksIn") != true) {
-        if (menuType != "completed") {
-          dataOrganize.push({
-            item: <ElectroAddMenuBar onSubmit={handleAddPress} />,
-            key: dataOrganize.length + 1,
-          });
-        }
-      }
+      };
 
       return dataOrganize
     };
@@ -117,23 +142,30 @@ export default function menuDropDownScreen() {
     [rawData]
   );
 
-  useEffect(() => {
-    if (menuType.includes("booksInLibrary")) {
-      useBooksInLibrary(library).then(rawData => setRawData(rawData));
+  const fetchRawData = async () => {
+    if (type.includes("booksInLibrary")) {
+      await useBooksInLibrary(secondArg).then(rawData => setRawData(rawData));
     } else {
-      useData(menuType).then(rawData => setRawData(rawData));
-    }
+      await useData(type).then(rawData => setRawData(rawData));
+    };
+  };
+
+  useEffect(() => {
+    fetchRawData();
   }, [menuColor]);
  
   useEffect(() => {
     if (rawData != undefined) {
       setFlatListData(dataOrganize);
     };
-  }, [rawData]
-);
+  }, [rawData]);
 
   useEffect(() => {
-    setMenuType(menuType);
+    setMenuType(type);
+    setDelete(handleDeletePress);
+    setColor(handleColorPress);
+    setText(handleTextPress);
+    setBack(handleBackPress);
   }, []);
 
   return (
@@ -150,7 +182,7 @@ export default function menuDropDownScreen() {
             styles.headerTitleStyle,
             { color: secondaryColor },
           ],
-          headerTitle: menuType.includes("booksInLibrary") ? library : headerTitle,
+          headerTitle: type.includes("booksInLibrary") ? secondArg : headerTitle,
           headerBackVisible: false,
           headerLeft: backIcon,
           headerShown: true,
@@ -159,7 +191,7 @@ export default function menuDropDownScreen() {
         }}
       />
       <ElectroDropDownEmptyText 
-        visible={menuType.includes("booksIn") ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
+        visible={type.includes("booksIn") || type == "book" || type == "completed" ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
       />
       <FlatList
         data={flatListData}
@@ -173,6 +205,7 @@ export default function menuDropDownScreen() {
         )}
         keyExtractor={(item) => item.key}
         removeClippedSubviews={false}
+        ListFooterComponent={type == "book" || type.includes("booksIn") || type == "completed" ? <View></View> : <ElectroAddMenuBar onSubmit={handleAddPress} tab={secondArg}/>}
       />
     </View>
   );

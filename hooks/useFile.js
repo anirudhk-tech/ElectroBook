@@ -1,14 +1,24 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const useTitle = create((set) => ({
   title: "",
   setTitle: (value) => set(() => ({ title: value })),
 }));
 
-export const useLibrary = create((set) => ({
-  library: "",
-  setLibrary: (value) => set(() => ({ library: value })),
-}));
+export const useLibrary = create(
+  persist (
+    (set) => ({
+      library: "",
+      setLibrary: (value) => set(() => ({ library: value })),
+    }),
+    {
+      name: "Default Library",
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  ),
+);
 
 export const useAuthor = create((set) => ({
   author: "",

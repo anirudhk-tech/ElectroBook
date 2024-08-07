@@ -14,7 +14,7 @@ import { useColor } from "../../hooks/useTheme";
 
 
 export const ElectroClearUploadButton = () => {
-    const clearValues = useInfo("clearInfo");
+    const { clearValues } = useInfo("clearInfo");
     const {secondaryColor} = useColor();
     const [pressed, setPressed] = useState(false);
 

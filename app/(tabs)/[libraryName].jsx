@@ -35,7 +35,7 @@ export default function libraryBooksScreen () {
 
     const libraryIcon = useCallback(() => {
         return (
-            <View style={{marginBottom: '1.5%', marginRight: '2%'}}>
+            <View style={{marginBottom: '1.5%', marginRight: '5%'}}>
                 <ElectroMultiIcons
                     icons={[
                         { name: "library", handlePress: handleLibraryPress },

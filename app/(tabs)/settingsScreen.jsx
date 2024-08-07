@@ -62,7 +62,7 @@ export default function settingsScreen() {
         useNativeDriver={true}
         style={[styles.settingsScreenButtonContainer]}>
           <ElectroButton
-            text="Pick Primary Color"
+            text="Pick Hint Color"
             touchableStyles={[
               styles.settingsScreenTouchable,
               { borderColor: primaryColor },
@@ -76,7 +76,7 @@ export default function settingsScreen() {
         useNativeDriver={true}
         style={styles.settingsScreenButtonContainer}>
           <ElectroButton
-            text="Pick Secondary Color"
+            text="Pick Background Color"
             touchableStyles={[
               styles.settingsScreenTouchable,
               { borderColor: primaryColor },

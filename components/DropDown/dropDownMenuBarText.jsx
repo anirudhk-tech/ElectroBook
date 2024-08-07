@@ -12,6 +12,7 @@ import { ElectroIcon } from "../General/icon";
 import { useColor } from "../../hooks/useTheme";
 import { useUpdate } from "../../hooks/useUpdate";
 import { useEditData } from "../../hooks/useEdit";
+import { useMenuBack, useMenuText } from "../../hooks/useMenuBarActions";
 
 
 export const ElectroMenuText = (props) => {
@@ -19,27 +20,32 @@ export const ElectroMenuText = (props) => {
     const [inputOption, setInputOption] = useState(null);
     const [oldInputOption, setOldInputOption] = useState("");
     const { data, setData } = useEditData();
+    const handleTextPress = useMenuText().action;
+    const handleBackPress = useMenuBack().action;
     const { primaryColor, secondaryColor } = useColor();
 
     const replaceEditText = (editedInputOption) => {
-        const editableData = data;
-        const index = editableData.indexOf(props.option);
-        editableData[index] = editedInputOption;
-        setData(editableData);
-    };
-
-    const handleTextPress = () => {
-        props.handleTextPress(props.option);
+            const newData = data.map((x) => {
+                if (x == props.option) {
+                    return editedInputOption;
+                } else {
+                    return x
+                };
+            });
+        
+        setData(newData);
     };
 
     const handleSubmit = async () => {
+        if (props.tab == undefined) {
+            handleBackPress();
+        };
+        
         if (inputOption == "" || inputOption == null) {
             setInputOption(null);
             setEditing(false);
-            return
-        };
-        
-        if (oldInputOption == "") { 
+
+        } else if (oldInputOption == "") { 
             const editedInputOption = inputOption.replaceAll('"', "'").replaceAll(",", ";");
             const result = await useUpdate(props.type, props.option, editedInputOption);
 
@@ -69,6 +75,10 @@ export const ElectroMenuText = (props) => {
         };
     };
 
+    const handleText = () => {
+        handleTextPress(inputOption == null ? props.option : inputOption)
+    };
+
     const handleBlur = () => {
         try {
           textInputField.blur()
@@ -82,7 +92,7 @@ export const ElectroMenuText = (props) => {
         <View style={styles.dropDownBarMenuTextTouchable}>
             <TouchableOpacity 
                 style={{flex: 9}}
-                onPress={handleTextPress}>
+                onPress={handleText}>
                 <Text
                     style={[styles.dropDownBarText, { color: primaryColor, paddingLeft: 15, textAlign: 'left'}]}
                     numberOfLines={1}

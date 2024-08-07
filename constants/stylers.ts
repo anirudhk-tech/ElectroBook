@@ -254,7 +254,7 @@ export const styles = StyleSheet.create({
         dropDownMultiIconsMainView: {
             flexDirection: 'row',
             alignSelf: 'flex-end',
-            gap: 20
+            gap: 20,
         },
 
         // Drop Down Menu Bar
@@ -440,8 +440,9 @@ export const styles = StyleSheet.create({
         width: '25%',
         height: '50%',
         alignSelf: 'flex-end',
+        marginRight: '5%',
         justifyContent: 'center',
-        gap: 10,
+        gap: 20,
     },
 
     // Components - Library Scroll
@@ -673,7 +674,7 @@ export const styles = StyleSheet.create({
         borderWidth: 5
     },
 
-    // Components - Reading Test Screen Text Box
+    // Components - Reading Test Screen Text Box and Button
     readingTestScreenTextMainView: {
         flex: 2, 
         justifyContent: 'flex-start',
@@ -691,19 +692,25 @@ export const styles = StyleSheet.create({
     },
 
     readingTestScreenTexts: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        alignSelf: 'flex-start',
-        textAlign: 'left',
-        height: '100%',
-        flex: 2,
-        borderColor: 'blue',
-        borderWidth: 1,
+        textAlignVertical: 'center',
+        lineHeight: 20
     },
 
     readingTestScreenIconSentenceView: {
         flexDirection: 'row',
         flex: 1,
+    },
+
+    readingTestScreenTouchable: {
+        width: '25%',
+        borderRadius: 10,
+        alignSelf: 'center',
+    },
+
+    readingTestScreenTouchableText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 
     // Components - Settings Side Bar
@@ -985,6 +992,11 @@ export const styles = StyleSheet.create({
     readingTestScreenMainView: {
         flex: 1,
         padding: 50,
+    },
+
+    readingTestScreenMainScrollView: {
+        padding: 5, 
+        gap: 20
     },
 
     readingTestScreenButton: {
