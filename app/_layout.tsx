@@ -6,8 +6,6 @@ import * as SplashScreen from 'expo-splash-screen';
 // React
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { NavigationContainer } from '@react-navigation/native';
-
 
 SplashScreen.preventAutoHideAsync();
 
