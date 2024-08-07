@@ -18,7 +18,7 @@ export const getInfo = async () => {
   db = await SQLite.openDatabaseAsync(`${uuid}.db`);
 };
 
-export const create_user = async () => {
+export const create_user = async (library) => {
   const uuid = Crypto.randomUUID();
   const db = await SQLite.openDatabaseAsync(`${uuid}.db`, { useNewConnection: true, });
   const genres = [
@@ -84,6 +84,10 @@ export const create_user = async () => {
       `INSERT INTO tropes_database (option, color) VALUES ("${tropes[x]}", "")`
     );
   };
+
+  await db.execAsync (
+    `INSERT INTO libraries_database (option, color) VALUES ("${library}", "")`
+  );
 
   return uuid;
 };
@@ -203,12 +207,6 @@ export const delete_genre = async (genre) => {
     await db.execAsync(
       `UPDATE books_database SET genres = "${newGenres}" WHERE option = "${bookName}"`
     );
-    
-    // export const update_bookGenres = async (bookName, newGenres) => {
-    //   await db.execAsync (
-    //     `UPDATE books_database SET genres = "${newGenres}" WHERE option = "${bookName}"`
-    //   );
-    // };
   };
 };
 
@@ -264,7 +262,7 @@ export const update_color = async (type, name, color) => {
       `UPDATE series_database SET color = "${color}" WHERE option = "${name}"`
     )
   } else if (type == "library") {
-    await db.execAsync(
+    await db.runAsync(
       `UPDATE libraries_database SET color = "${color}" WHERE option = "${name}"`
     )
   } else if (type == "book" || type.includes("booksIn")) {

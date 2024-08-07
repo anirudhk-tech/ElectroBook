@@ -10,9 +10,9 @@ export const establish_userDb = async () => {
 };
 
 export const create_user = async (libraryName) => {
-  const uuid = await SQL.create_user();
+  const uuid = await SQL.create_user(libraryName);
   await MMKV.storeData("uuid", uuid);
-  await MMKV.storeData("libraryName", libraryName);
+  await MMKV.storeData("library", libraryName);
 };
 
 
@@ -111,7 +111,6 @@ export const delete_series = async (series) => {
 };
 
 export const delete_user = async () => {
-  //await FS.delete_user();
   await MMKV.deleteAll();
 };
 
@@ -318,7 +317,7 @@ export const get_search_libs = async (entry) => {
 // USER DATA FETCHING FUNCTIONS
 
 export const get_library_name = async () => {
-  const libraryName = await MMKV.getItemFor("libraryName");
+  const libraryName = await MMKV.getItemFor("library");
   return libraryName;
 };
 

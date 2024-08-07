@@ -10,7 +10,7 @@ export const storeData = async (key, value) => {
 
 export const getItemFor = async (key) => {
   try {
-    const value = storage.getString(key)
+    const value = storage.getString(key);
   
     if (value !== null) {
       return value;

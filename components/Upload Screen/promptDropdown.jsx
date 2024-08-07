@@ -1,10 +1,8 @@
 // Backend
 import { styles } from "../../constants/stylers";
-import { ThemeContext } from "../../constants/context";
 
 // React
 import { View, Text } from "react-native";
-import { useContext } from "react";
 
 // Components
 import { ElectroDrop } from "../DropDown/dropDown";

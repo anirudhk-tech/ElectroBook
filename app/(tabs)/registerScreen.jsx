@@ -6,7 +6,7 @@ import { View } from "react-native";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { create_user, delete_user, establish_userDb } from "../backend/controller";
+import { create_user, establish_userDb } from "../backend/controller";
 
 // Components
 import { ElectroLogo } from "../../components/General/logo";
@@ -15,7 +15,8 @@ import { ElectroButton } from "../../components/General/button";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useChecks, useCheckSetters } from "../../hooks/useCheckUser";
+import { useCheckSetters } from "../../hooks/useCheckUser";
+import { useAdd } from "../../hooks/useAdd";
 
 export default function registerScreen() {
   const { primaryColor, secondaryColor } = useColor();
@@ -23,11 +24,10 @@ export default function registerScreen() {
 
   const changeLibName = async (libName) => {
     await create_user(libName);
-    setCheck(true);
-    
+    setCheck(true);    
   };
 
-  const handlePress = () => {
+  const handlePress = async () => {
     router.navigate("./settingsScreen");
   };
 

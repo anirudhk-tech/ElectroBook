@@ -139,7 +139,7 @@ export default function menuDropDownScreen() {
 
   const dataOrganize = useMemo(
     () => dataCreation(rawData), 
-    [rawData]
+    [rawData, menuColor]
   );
 
   const fetchRawData = async () => {

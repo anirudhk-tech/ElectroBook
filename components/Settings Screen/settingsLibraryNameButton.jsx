@@ -2,18 +2,19 @@
 import * as Animatable from "react-native-animatable";
 
 // React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextInput, Keyboard } from "react-native";
 
 // Backend
 import { styles } from "../../constants/stylers";
-import { update_mainLibraryName} from "../../app/backend/controller";
+import { update_mainLibraryName, get_library_name} from "../../app/backend/controller";
 
 // Components
 import { ElectroButton } from "../General/button";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useUpdate } from "../../hooks/useUpdate";
 
 
 export const ElectroChangeLibraryNameButton = () => {
@@ -34,12 +35,18 @@ export const ElectroChangeLibraryNameButton = () => {
       };
 
     const handleSubmit = () => {
-        update_mainLibraryName(inputText);
         setInputActive(false);
+        updateLibName();
+        update_mainLibraryName(inputText);  
     };
 
     const handleNoSubmit = () => {
         setInputActive(false);
+    };
+
+    const updateLibName = async () => {
+        const asyncLibName = await get_library_name();
+        useUpdate("library", asyncLibName, inputText);
     };
 
     if (!inputActive) {

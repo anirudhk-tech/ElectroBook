@@ -17,6 +17,8 @@ export const useCheckUser = create(
     )   
 );
 
+setTimeout(() => useCheckUser.persist.clearStorage(), 10000)
+
 export const useChecks = () => {
     const {check, settingsCheck} = useCheckUser(
         (state) => ({

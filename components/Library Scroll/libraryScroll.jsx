@@ -1,9 +1,11 @@
 // React
-import { FlatList, Dimensions } from "react-native";
+import { FlatList, Dimensions, View } from "react-native";
 import { useEffect, useMemo, useState } from "react";
 
 // Components
 import { ElectroLibraryRowCard } from "./libraryRowCard";
+import { ElectroSearchLibraryBar } from "./searchLibraryBar";
+import { ElectroDropDownEmptyText } from "../DropDown/dropDownEmpty";
 
 // Hooks
 import { useData } from "../../hooks/useData";
@@ -11,7 +13,6 @@ import { useData } from "../../hooks/useData";
 // Backend
 import { styles } from "../../constants/stylers";
 import { useSearchValue, useSearchData, useSearchActive } from "../../hooks/useSearch";
-import { ElectroSearchLibraryBar } from "./searchLibraryBar";
 
 
 export const ElectroLibraryScroll = (props) => {
@@ -19,7 +20,7 @@ export const ElectroLibraryScroll = (props) => {
     const [flatListData, setFlatListData] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const { searchValue } = useSearchValue();
-    const { searchActive, setSearchActive } = useSearchActive();
+    const { searchActive } = useSearchActive();
     const windowHeight = Dimensions.get("window").height;
 
     const librariesDataCreation = () => {
@@ -87,31 +88,39 @@ export const ElectroLibraryScroll = (props) => {
 
     if (searchActive == false) {
         return (
-            <FlatList
-                contentContainerStyle={[styles.libraryScrollFlatListMainView, { height: windowHeight-100, marginTop: searchActive ? '20%' : '', display: searchActive ? "none" : "flex"}]}
-                data={flatListData}
-                renderItem={({item}) => item.item}
-                keyExtractor={(item) => item.key}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-            />
+            <View>
+                <FlatList
+                    contentContainerStyle={[styles.libraryScrollFlatListMainView, { height: windowHeight-100, marginTop: searchActive ? '20%' : '', display: searchActive ? "none" : "flex"}]}
+                    data={flatListData}
+                    renderItem={({item}) => item.item}
+                    keyExtractor={(item) => item.key}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                />
+            </View>
         )
     } else {
         return (
-            <FlatList
-            contentContainerStyle={[styles.searchBarFlatList, { 
-                gap: 20,
-                paddingVertical: 20,
-             }]}
-            style= {{ display: searchActive ? "flex" : "none" }}
-            data={flatListData}
-            renderItem={({item}) => item.item}
-            keyExtractor={(item) => item.key}
-            getItemLayout={(data, index) => (
-                {length: windowHeight/10, offset: windowHeight/10 * index, index}
-            )}
-            showsHorizontalScrollIndicator={false}
-            />
+            <View>
+                <ElectroDropDownEmptyText 
+                    search = {true} 
+                    visible={searchValue.trim() != "" ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
+                />
+                <FlatList
+                contentContainerStyle={[styles.searchBarFlatList, { 
+                    gap: 20,
+                    paddingVertical: 20,
+                }]}
+                style= {{ display: searchActive ? "flex" : "none" }}
+                data={flatListData}
+                renderItem={({item}) => item.item}
+                keyExtractor={(item) => item.key}
+                getItemLayout={(data, index) => (
+                    {length: windowHeight/10, offset: windowHeight/10 * index, index}
+                )}
+                showsHorizontalScrollIndicator={false}
+                />
+            </View>
         );
     };
 };

@@ -1,5 +1,5 @@
 // React
-import { FlatList, Dimensions } from "react-native";
+import { FlatList, Dimensions, View } from "react-native";
 import { useEffect, useState } from "react";
 
 // Components
@@ -11,6 +11,7 @@ import { styles } from "../../constants/stylers";
 // Hooks
 import { useBooksInLibrary } from "../../hooks/useBookInLibrary";
 import { useRefreshOptions } from "../../hooks/useRefreshOptions";
+import { ElectroDropDownEmptyText } from "../DropDown/dropDownEmpty";
 
 // Same styles as Library Scroll
 
@@ -36,15 +37,18 @@ export const ElectroBookScroll = (props) => {
     }, [books]);
 
     return (
-        <FlatList
-            contentContainerStyle={[styles.libraryScrollFlatListMainView, {height: windowHeight-100}]}
-            data={flatListData}
-            maxToRenderPerBatch={5}
-            renderItem={({item}) => item.item}
-            keyExtractor={(item) => item.key}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-        />
+        <View>
+            <ElectroDropDownEmptyText visible={flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none"}/>
+            <FlatList
+                contentContainerStyle={[styles.libraryScrollFlatListMainView, {height: windowHeight-100}]}
+                data={flatListData}
+                maxToRenderPerBatch={5}
+                renderItem={({item}) => item.item}
+                keyExtractor={(item) => item.key}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+            />
+        </View>
     )
 
     

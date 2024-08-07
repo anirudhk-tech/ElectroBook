@@ -933,15 +933,17 @@ export const styles = StyleSheet.create({
     },
 
     registerScreenInputPrompt: {
-        fontSize: 25,
+        fontSize: 35,
         fontWeight: 'bold',
     },
 
     registerScreenInput: {
         borderRadius: 10,
         borderWidth: 3,
+        fontSize: 25,
+        fontWeight: 'bold',
         width: '70%',
-        height: '35%',
+        height: '50%',
         textAlign: 'center',
     },
 

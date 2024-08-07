@@ -7,7 +7,7 @@ import { View } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 
 // Expo
-import { Stack, router, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 
 // Components
 import { ElectroLibraryHeader } from "../../components/Main Library Screen/libraryHeader";

@@ -26,6 +26,10 @@ export const ElectroMenuBar = (props) => {
     handleDeletePress(props.option);
   };
 
+  const handleColor = () => {
+    handleColorPress(props.option);
+  };
+
   return (
     <View style={[styles.dropDownBarMainView, { height: windowHeight / 6, marginLeft: '3%' }]}>
       <Animatable.View
@@ -38,7 +42,7 @@ export const ElectroMenuBar = (props) => {
             styles.dropDownMenuBarColorCode,
             { backgroundColor: props.color == "" ? undefined : props.color, borderColor: primaryColor},
           ]}
-          onPress={handleColorPress}
+          onPress={handleColor}
         ></TouchableOpacity>
         <ElectroMenuText
           option={props.option} 
