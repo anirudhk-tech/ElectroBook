@@ -2,14 +2,11 @@
 import { ElectroPdf } from "../../components/Reading Screen/pdf"
 
 // React
-import { View } from "react-native";
+import { View, Dimensions } from "react-native";
 import { useState, useCallback, useRef, useEffect } from "react";
 
 // Expo
 import { useLocalSearchParams, Stack, router } from "expo-router";
-
-// Node Modules
-import * as FileSystem from "expo-file-system";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -40,6 +37,8 @@ export default function pdfScreen () {
     const [settingsVisible, setSettingsVisible] = useState(false);
     const [pdfPg, setPdfPg] = useState(0);
     const page = useRef();
+
+    const screenWidth = Dimensions.get("screen").width;
 
     const handleSinglePress = () => {
         if (notesVisible || settingsVisible) {
@@ -132,7 +131,7 @@ export default function pdfScreen () {
                         headerTitleAlign: 'center',
                         headerStyle: [styles.headerStyle, {backgroundColor: primaryColor}],
                         headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                        headerTitle: bookName.length > 20 ? bookName.slice(0, 20)+"..." : bookName,
+                        headerTitle: bookName.length > screenWidth/18 ? bookName.slice(0, screenWidth/18)+"..." : bookName,
                         headerShown: headerVisible,
                         headerRight: headerRightIcons,
                         headerLeft: backIcon,

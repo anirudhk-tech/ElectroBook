@@ -94,7 +94,7 @@ export default function bookScreen () {
                 options={{
                     headerStyle: { backgroundColor: primaryColor },
                     headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                    headerTitle: bookName.length > 24 ? bookName.slice(0, 24)+"..." : bookName,
+                    headerTitle: bookName.length > screenWidth/16 ? bookName.slice(0, screenWidth/16)+"..." : bookName,
                     headerTitleAlign: bookName.length > 24 ? 'left' : 'center',
                     headerLeft: backIcon,
                     headerRight: readButton,
