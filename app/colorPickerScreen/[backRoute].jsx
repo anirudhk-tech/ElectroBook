@@ -51,11 +51,11 @@ export default function colorPicker() {
   const handlePress = () => {
     if (backRoute.includes("Primary")) {
       if (hex != "") {
-        setPrimary(hex);
+        hex == secondaryColor ? {} : setPrimary(hex);
       }
     } else if (backRoute.includes("Secondary")) {
       if (hex != "") {
-        setSecondary(hex);
+        hex == primaryColor ? {} : setSecondary(hex);
       }
     } else if (backRoute.includes("of")) {
       if (hex != "") {
