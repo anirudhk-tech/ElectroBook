@@ -437,10 +437,9 @@ export const styles = StyleSheet.create({
     // Components - Library Header
     libraryHeaderMainView: {
         flexDirection: 'row',
-        width: '25%',
+        width: '50%',
         height: '50%',
         alignSelf: 'flex-end',
-        marginRight: '5%',
         justifyContent: 'center',
         gap: 20,
     },
