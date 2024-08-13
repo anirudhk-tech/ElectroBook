@@ -2,7 +2,7 @@
   "expo": {
     "name": "ElectroBook",
     "slug": "ElectroBook_Latest",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/appLogo.png",
     "scheme": "myapp",
@@ -21,7 +21,7 @@
         "backgroundColor": "#000000"
       },
       "package": "com.anirudh_k.ElectroBook_Latest",
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "bundler": "metro",
