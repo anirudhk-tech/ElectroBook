@@ -2,7 +2,7 @@
 import { Stack, router } from "expo-router";
 
 // React
-import { View } from "react-native";
+import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
 import { useState } from "react";
 
 // Backend
@@ -23,59 +23,59 @@ export default function registerScreen() {
   const { setCheck } = useCheckSetters();
   const [lib, setLib] = useState("");
 
-  const changeLibName = async (libName) => {
-    setLib(libName);
-    setCheck(true);    
-  };
-
   const handlePress = async () => {
+    if (lib.trim() == "") {
+      return
+    };
+
     await create_user(lib);
+    setCheck(true);
+    setTimeout(establish_userDb, 1000);    
     router.navigate("./settingsScreen");
   };
 
   return (
-    <View
-      style={[
-        styles.registerScreenMainView,
-        { backgroundColor: secondaryColor },
-      ]}
-    >
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: primaryColor },
-          headerTitleStyle: [
-            styles.headerTitleStyle,
-            { color: secondaryColor },
-          ],
-          headerTitle: "Open Library",
-          headerShown: true,
-        }}
-      />
-      <ElectroLogo styles={[styles.registerScreenLogo, {tintColor: primaryColor}]} />
-      <ElectroPromptInput
-        viewStyles={styles.registerScreenInputView}
-        textStyles={[styles.registerScreenInputPrompt, { color: primaryColor }]}
-        inputStyles={[
-          styles.registerScreenInput,
-          { borderColor: primaryColor, color: primaryColor },
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View
+        style={[
+          styles.registerScreenMainView,
+          { backgroundColor: secondaryColor },
         ]}
-        prompt="Library Name"
-        onSubmit={changeLibName}
-      />
-      <View style={styles.registerScreenButtonContainer}>
-        <ElectroButton
-          text="Open"
-          touchableStyles={[
-            styles.registerScreenTouchable,
-            { borderColor: primaryColor },
-          ]}
-          textStyles={[styles.buttonText, { color: primaryColor }]}
-          action={() => {
-            handlePress();
-            establish_userDb();
+      >
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: primaryColor },
+            headerTitleStyle: [
+              styles.headerTitleStyle,
+              { color: secondaryColor },
+            ],
+            headerTitle: "Open Library",
+            headerShown: true,
           }}
         />
+        <ElectroLogo styles={[styles.registerScreenLogo, {tintColor: primaryColor}]} />
+        <ElectroPromptInput
+          viewStyles={styles.registerScreenInputView}
+          textStyles={[styles.registerScreenInputPrompt, { color: primaryColor }]}
+          inputStyles={[
+            styles.registerScreenInput,
+            { borderColor: primaryColor, color: primaryColor },
+          ]}
+          prompt="Library Name"
+          onChange={setLib}
+        />
+        <View style={styles.registerScreenButtonContainer}>
+          <ElectroButton
+            text="Open"
+            touchableStyles={[
+              styles.registerScreenTouchable,
+              { borderColor: primaryColor },
+            ]}
+            textStyles={[styles.buttonText, { color: primaryColor }]}
+            action={handlePress}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }

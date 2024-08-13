@@ -2,7 +2,7 @@
 import { useLocalSearchParams, Stack, router } from "expo-router";
 
 // React
-import { FlatList, View, Dimensions } from "react-native";
+import { FlatList, View, Dimensions, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useState, useCallback, useEffect, useMemo } from "react";
 
 // Components
@@ -138,43 +138,45 @@ export default function dropDownScreen() {
   
 
   return (
-    <View
-      style={[
-        styles.dropDownScreenMainView,
-        { backgroundColor: secondaryColor },
-      ]}
-    >
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: primaryColor },
-          headerTitleStyle: [
-            styles.headerTitleStyle,
-            { color: secondaryColor },
-          ],
-          headerTitle: headerTitle,
-          headerTitleAlign: "center",
-          headerBackVisible: multiType ? false : true,
-          headerLeft: multiType ? multiDeleteAndCheckIcons : () => <></>,
-          headerRight: multiType ? addIcon : multiCloseandAddIcons,
-          headerShown: true,
-          headerTintColor: secondaryColor,
-        }}
-      />
-      <ElectroDropDownEmptyText 
-        visible={flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none"}
-      />
-      <FlatList
-        contentContainerStyle={[
-          styles.dropDownScreenFlatList,
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View
+        style={[
+          styles.dropDownScreenMainView,
+          { backgroundColor: secondaryColor },
         ]}
-        getItemLayout={(data, index) => (
-          {length: windowHeight/6, offset: windowHeight/6 * index, index}
-        )}
-        data={flatListData}
-        renderItem={({ item }) => item.item}
-        keyExtractor={(item) => item.key}
-        removeClippedSubviews={false}
-      />
-    </View>
+      >
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: primaryColor },
+            headerTitleStyle: [
+              styles.headerTitleStyle,
+              { color: secondaryColor },
+            ],
+            headerTitle: headerTitle,
+            headerTitleAlign: "center",
+            headerBackVisible: multiType ? false : true,
+            headerLeft: multiType ? multiDeleteAndCheckIcons : () => <></>,
+            headerRight: multiType ? addIcon : multiCloseandAddIcons,
+            headerShown: true,
+            headerTintColor: secondaryColor,
+          }}
+        />
+        <ElectroDropDownEmptyText 
+          visible={flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none"}
+        />
+        <FlatList
+          contentContainerStyle={[
+            styles.dropDownScreenFlatList,
+          ]}
+          getItemLayout={(data, index) => (
+            {length: windowHeight/6, offset: windowHeight/6 * index, index}
+          )}
+          data={flatListData}
+          renderItem={({ item }) => item.item}
+          keyExtractor={(item) => item.key}
+          removeClippedSubviews={false}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }

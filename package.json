@@ -18,6 +18,7 @@
     "@expo/config-plugins": "~8.0.0",
     "@expo/vector-icons": "^14.0.2",
     "@react-native-async-storage/async-storage": "^1.23.1",
+    "@sentry/react-native": "^5.28.0",
     "base64-arraybuffer": "^1.0.2",
     "eas-cli": "^10.2.1",
     "expo": "~51.0.20",

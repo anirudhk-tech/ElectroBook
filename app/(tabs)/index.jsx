@@ -19,6 +19,7 @@ import { useColor } from "@/hooks/useTheme";
 import { useChecks } from "@/hooks/useCheckUser";
 
 export default function startingScreen() {
+
   const { check } = useChecks();
   const { primaryColor, secondaryColor } = useColor();
   const startingRouter = useCallback(() => {

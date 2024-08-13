@@ -6,6 +6,14 @@ import * as SplashScreen from 'expo-splash-screen';
 // React
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://04319c4944ba4d760abf804c4e3dad5b@o4507770620674048.ingest.us.sentry.io/4507770624147456',
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // enableSpotlight: __DEV__,
+});
 
 SplashScreen.preventAutoHideAsync();
 

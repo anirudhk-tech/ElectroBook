@@ -1,5 +1,5 @@
 // React
-import { View, FlatList, Dimensions } from "react-native";
+import { View, FlatList, Dimensions, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 // Components
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
@@ -169,44 +169,46 @@ export default function menuDropDownScreen() {
   }, []);
 
   return (
-    <View
-      style={[
-        styles.dropDownScreenMainView,
-        { backgroundColor: secondaryColor },
-      ]}
-    >
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: primaryColor },
-          headerTitleStyle: [
-            styles.headerTitleStyle,
-            { color: secondaryColor },
-          ],
-          headerTitle: type.includes("booksInLibrary") ? secondArg : headerTitle,
-          headerBackVisible: false,
-          headerLeft: backIcon,
-          headerShown: true,
-          headerTintColor: secondaryColor,
-          headerTitleAlign: 'center'
-        }}
-      />
-      <ElectroDropDownEmptyText 
-        visible={type.includes("booksIn") || type == "book" || type == "completed" ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
-      />
-      <FlatList
-        data={flatListData}
-        contentContainerStyle={[
-          styles.dropDownScreenFlatList,
-          {paddingBottom: 20}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View
+        style={[
+          styles.dropDownScreenMainView,
+          { backgroundColor: secondaryColor },
         ]}
-        renderItem={({ item }) => item.item}
-        getItemLayout={(data, index) => (
-          {length: windowHeight/6, offset: windowHeight/6 * index, index}
-        )}
-        keyExtractor={(item) => item.key}
-        removeClippedSubviews={false}
-        ListFooterComponent={type == "book" || type.includes("booksIn") || type == "completed" ? <View></View> : <ElectroAddMenuBar onSubmit={handleAddPress} tab={secondArg}/>}
-      />
-    </View>
+      >
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: primaryColor },
+            headerTitleStyle: [
+              styles.headerTitleStyle,
+              { color: secondaryColor },
+            ],
+            headerTitle: type.includes("booksInLibrary") ? secondArg : headerTitle,
+            headerBackVisible: false,
+            headerLeft: backIcon,
+            headerShown: true,
+            headerTintColor: secondaryColor,
+            headerTitleAlign: 'center'
+          }}
+        />
+        <ElectroDropDownEmptyText 
+          visible={type.includes("booksIn") || type == "book" || type == "completed" ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
+        />
+        <FlatList
+          data={flatListData}
+          contentContainerStyle={[
+            styles.dropDownScreenFlatList,
+            {paddingBottom: 20}
+          ]}
+          renderItem={({ item }) => item.item}
+          getItemLayout={(data, index) => (
+            {length: windowHeight/6, offset: windowHeight/6 * index, index}
+          )}
+          keyExtractor={(item) => item.key}
+          removeClippedSubviews={false}
+          ListFooterComponent={type == "book" || type.includes("booksIn") || type == "completed" ? <View></View> : <ElectroAddMenuBar onSubmit={handleAddPress} tab={secondArg}/>}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }

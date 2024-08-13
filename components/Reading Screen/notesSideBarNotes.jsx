@@ -18,7 +18,7 @@ export const ElectroNotesSideBarNotes = () => {
 
     const splitNotes = (notes) => {
         if (notes != undefined) {
-          const splitNotes = notes.split(",");
+          const splitNotes = notes.notes.split(",");
           setData(splitNotes);
         };
       };

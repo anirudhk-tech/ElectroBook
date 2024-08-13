@@ -1,5 +1,5 @@
 // React
-import { View } from "react-native";
+import { TouchableWithoutFeedback, View, Keyboard } from "react-native";
 import { useCallback } from "react";
 
 // Expo
@@ -35,72 +35,74 @@ export default function settingsScreen() {
 
 
   return (
-    <View
-      style={[
-        styles.settingsScreenMainView,
-        { backgroundColor: secondaryColor },
-      ]}
-    >
+    <TouchableWithoutFeedback onPress={(() => Keyboard.dismiss())}>
       <View
         style={[
           styles.settingsScreenMainView,
+          { backgroundColor: secondaryColor },
         ]}
       >
-        <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: primaryColor },
-            headerTitleStyle: [
-              styles.headerTitleStyle,
-              { color: secondaryColor },
-            ],
-            headerTitle: "Configure",
-            headerShown: true,
-          }}
-        />
-        <Animatable.View 
-        animation={"bounceIn"}
-        useNativeDriver={true}
-        style={[styles.settingsScreenButtonContainer]}>
-          <ElectroButton
-            text="Pick Hint Color"
-            touchableStyles={[
-              styles.settingsScreenTouchable,
-              { borderColor: primaryColor },
-            ]}
-            textStyles={[styles.buttonText, { color: primaryColor }]}
-            action={handlePrimaryColorPress}
+        <View
+          style={[
+            styles.settingsScreenMainView,
+          ]}
+        >
+          <Stack.Screen
+            options={{
+              headerStyle: { backgroundColor: primaryColor },
+              headerTitleStyle: [
+                styles.headerTitleStyle,
+                { color: secondaryColor },
+              ],
+              headerTitle: "Configure",
+              headerShown: true,
+            }}
           />
-        </Animatable.View>
-        <Animatable.View 
-        animation={"bounceIn"}
-        useNativeDriver={true}
-        style={styles.settingsScreenButtonContainer}>
-          <ElectroButton
-            text="Pick Background Color"
-            touchableStyles={[
-              styles.settingsScreenTouchable,
-              { borderColor: primaryColor },
-            ]}
-            textStyles={[styles.buttonText, { color: primaryColor }]}
-            action={handleSecondaryColorPress}
-          />
-        </Animatable.View>
-        <Animatable.View 
-        animation={"bounceIn"}
-        useNativeDriver={true}
-        style={styles.settingsScreenButtonContainer}>
-          <ElectroButton
-            text="Take Reading Test"
-            touchableStyles={[
-              styles.settingsScreenTouchable,
-              { borderColor: primaryColor },
-            ]}
-            textStyles={[styles.buttonText, { color: primaryColor }]}
-            action={handleReadingTestPress}
-          />
-        </Animatable.View>
-        <ElectroChangeLibraryNameButton/>
+          <Animatable.View 
+          animation={"bounceIn"}
+          useNativeDriver={true}
+          style={[styles.settingsScreenButtonContainer]}>
+            <ElectroButton
+              text="Pick Hint Color"
+              touchableStyles={[
+                styles.settingsScreenTouchable,
+                { borderColor: primaryColor },
+              ]}
+              textStyles={[styles.buttonText, { color: primaryColor }]}
+              action={handlePrimaryColorPress}
+            />
+          </Animatable.View>
+          <Animatable.View 
+          animation={"bounceIn"}
+          useNativeDriver={true}
+          style={styles.settingsScreenButtonContainer}>
+            <ElectroButton
+              text="Pick Background Color"
+              touchableStyles={[
+                styles.settingsScreenTouchable,
+                { borderColor: primaryColor },
+              ]}
+              textStyles={[styles.buttonText, { color: primaryColor }]}
+              action={handleSecondaryColorPress}
+            />
+          </Animatable.View>
+          <Animatable.View 
+          animation={"bounceIn"}
+          useNativeDriver={true}
+          style={styles.settingsScreenButtonContainer}>
+            <ElectroButton
+              text="Take Reading Test"
+              touchableStyles={[
+                styles.settingsScreenTouchable,
+                { borderColor: primaryColor },
+              ]}
+              textStyles={[styles.buttonText, { color: primaryColor }]}
+              action={handleReadingTestPress}
+            />
+          </Animatable.View>
+          <ElectroChangeLibraryNameButton/>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
