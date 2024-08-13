@@ -3,6 +3,7 @@ import { Stack, router } from "expo-router";
 
 // React
 import { View } from "react-native";
+import { useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -16,18 +17,19 @@ import { ElectroButton } from "../../components/General/button";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useCheckSetters } from "../../hooks/useCheckUser";
-import { useAdd } from "../../hooks/useAdd";
 
 export default function registerScreen() {
   const { primaryColor, secondaryColor } = useColor();
   const { setCheck } = useCheckSetters();
+  const [lib, setLib] = useState("");
 
   const changeLibName = async (libName) => {
-    await create_user(libName);
+    setLib(libName);
     setCheck(true);    
   };
 
   const handlePress = async () => {
+    await create_user(lib);
     router.navigate("./settingsScreen");
   };
 
