@@ -1,5 +1,6 @@
 // React
-import { View, Text, Dimensions, TouchableOpacity } from "react-native";
+import { View, Dimensions, TouchableOpacity } from "react-native";
+import { useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -17,14 +18,22 @@ export const ElectroSearchLibraryBar = (props) => {
     const { primaryColor } = useColor();
     const { searchActive } = useSearchActive(); 
     const searchBarPress = useSearchBarPress().press;
+    const [pressed, setPressed] = useState(false);
     
     const windowHeight = Dimensions.get("window").height;
 
 
     return (
         <TouchableOpacity 
+        disabled={pressed}
         style={[styles.searchBarMainView, { height: windowHeight / 10, borderColor: primaryColor, display: searchActive ? "flex" : "none" }]}
-        onPress={() => searchBarPress(props.option, props.library)}
+        onPress={() => {
+            searchBarPress(props.option, props.library);
+            setPressed(true);
+            setTimeout(() => {
+                setPressed(false);
+            }, 1000);
+        }}
         >
             <View style={[styles.searchBarColorCode, { backgroundColor: props.color == "" || props.color == undefined ? primaryColor : props.color }]}></View>
             <Animatable.Text 

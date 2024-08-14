@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useBookInfo } from "../../hooks/useBookInfo";
-import { useBookCardPress } from "../../hooks/useLibraryCardPress";
+import { useBookCardPress, useSelectedLibrary } from "../../hooks/useLibraryCardPress";
 import { useImageKey } from "../../hooks/useImageKey";
 
 
@@ -20,9 +20,11 @@ import { useImageKey } from "../../hooks/useImageKey";
 export const ElectroBookRowCard = (props) => {
     const { primaryColor, secondaryColor } = useColor();
     const { imageKey } = useImageKey();
-    const [bookInfo, setBookInfo] = useState([]);
-    const windowHeight = Dimensions.get("window").height;
     const handleCardPress = useBookCardPress().press;
+    const [pressed, setPressed] = useState(false);
+    const [bookInfo, setBookInfo] = useState([]);
+
+    const windowHeight = Dimensions.get("window").height;
 
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
@@ -30,8 +32,15 @@ export const ElectroBookRowCard = (props) => {
 
     return (
         <TouchableOpacity 
+            disabled={pressed}
             style={[styles.libraryCardRowMainTouchable, {borderColor: primaryColor, backgroundColor: primaryColor, height: windowHeight/2}]}
-            onPress={() => handleCardPress(props.bookName)}>
+            onPress={() => {
+                handleCardPress(props.bookName);
+                setPressed(true);
+                setTimeout(() => {
+                    setPressed(false);
+                }, 1000);
+            }}>
             <View style={[styles.bookCardRowHeaderView, {backgroundColor: secondaryColor}]}>
                 <Text style={[styles.bookCardRowPageText, {color: primaryColor}]}>On Pg. {bookInfo.page}</Text>
                 <ElectroIcon 

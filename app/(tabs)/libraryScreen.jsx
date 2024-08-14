@@ -3,20 +3,22 @@ import { styles } from "../../constants/stylers";
 import { get_library_name } from "../backend/controller";
 
 // React
-import { View } from "react-native";
+import { View, TouchableWithoutFeedback, Keyboard, Dimensions } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 
 // Expo
-import { Stack, useRouter } from "expo-router";
+import { Stack, router } from "expo-router";
 
 // Components
 import { ElectroLibraryHeader } from "../../components/Main Library Screen/libraryHeader";
 import { ElectroLibraryScroll } from "../../components/Library Scroll/libraryScroll";
 import { ElectroSearchFilterBar } from "../../components/Main Library Screen/searchFilterBar";
+import { ElectroIcon } from "../../components/General/icon";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useLibraryCardPress, useLibraryIconPress, useSearchBarPress } from "../../hooks/useLibraryCardPress";
+import { useSearchActive, useSearchValue } from "../../hooks/useSearch";
 
 export default function libraryScreen() {
   const [libName, setLibName] = useState("");
@@ -24,8 +26,9 @@ export default function libraryScreen() {
   const setSearchBarPress = useSearchBarPress().setPress;
   const setLibraryCardPress = useLibraryCardPress().setPress;
   const setLibraryIconPress = useLibraryIconPress().setPress;
-
-  const router = useRouter();
+  const { searchActive, setSearchActive } = useSearchActive();
+  const { setSearchValue } = useSearchValue();
+  const windowHeight = Dimensions.get("window").height;
 
   const handleMenuPress = useCallback(() => {
     router.push("./menuScreen");
@@ -63,31 +66,51 @@ export default function libraryScreen() {
     handleLibraryActions();
   }, []);
 
+  const handleSearchCancel = () => {
+    setSearchActive(false);
+    setSearchValue("");
+  };
+
   return (
-    <View
-      style={[
-        styles.libraryScreenMainView,
-        { backgroundColor: secondaryColor },
-      ]}
-    >
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: primaryColor },
-          headerTitleStyle: [
-            styles.headerTitleStyle,
-            { color: secondaryColor },
-          ],
-          headerTitle: libName,
-          headerRight: () => (
-            <ElectroLibraryHeader
-              editPress={handleMenuPress}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View
+        style={[
+          styles.libraryScreenMainView,
+          { backgroundColor: secondaryColor },
+        ]}
+      >
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: primaryColor },
+            headerTitleStyle: [
+              styles.headerTitleStyle,
+              { color: secondaryColor },
+            ],
+            headerTitle: libName,
+            headerRight: () => (
+              <ElectroLibraryHeader
+                editPress={handleMenuPress}
+              />
+            ),
+            headerShown: true,
+          }}
+        />
+          <View style={[styles.libraryScreenSearchScrollView, { height: windowHeight / 10, display: searchActive ? "flex" : "none"}]}>
+            <ElectroSearchFilterBar/>
+            <ElectroIcon 
+            size={40}
+            color={primaryColor}
+            name={"close-circle"}
+            style={{
+              flex: 1, 
+              justifyContent: 'center', 
+              padding: '4%'
+            }}
+            handlePress={handleSearchCancel}
             />
-          ),
-          headerShown: true,
-        }}
-      />
-        <ElectroSearchFilterBar/>
-        <ElectroLibraryScroll/>
-    </View>
+          </View>
+          <ElectroLibraryScroll/>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }

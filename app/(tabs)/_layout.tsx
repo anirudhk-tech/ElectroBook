@@ -1,8 +1,8 @@
 // Expo
-import { Tabs } from "expo-router";
+import { router, Tabs, useSegments } from "expo-router";
 
 // React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BackHandler } from "react-native";
 
 // Backend
@@ -12,19 +12,28 @@ import { styles } from "@/constants/stylers";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useChecks } from "../../hooks/useCheckUser";
+import { useSelectedLibrary } from "../../hooks/useLibraryCardPress";
 
 export default function TabLayout() {
   let anyType: any = "default"
   const { primaryColor, secondaryColor } = useColor();
   const { settingsCheck } = useChecks();
+  const { selectedLibrary } = useSelectedLibrary();
   const [ blurScreen, setBlurScreen ] = useState(anyType);
   const [ focusScreen, setFocusScreen ] = useState(anyType);
 
   useEffect(() => {
+    const screenName = blurScreen.split("-")[0];
+
     const checkBack = () => {
       if (blurScreen == focusScreen) {
         return false;
       } else {
+        if (screenName === "[libraryName]") {
+          router.navigate(`/${selectedLibrary}`);
+        } else {
+          router.navigate(`/${screenName}`);
+        };
         return true;
       };
     };
@@ -86,7 +95,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="uploadFileScreen"
         options={{
-          title: "Upload",
+          title: "Add",
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               name={"add"}

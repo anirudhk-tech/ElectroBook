@@ -125,7 +125,7 @@ export const styles = StyleSheet.create({
     },
 
     notesSideBarTitleView: {
-        gap: 180,
+        gap: 150,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -437,7 +437,7 @@ export const styles = StyleSheet.create({
     // Components - Library Header
     libraryHeaderMainView: {
         flexDirection: 'row',
-        width: '50%',
+        width: '35%',
         height: '50%',
         alignSelf: 'flex-end',
         justifyContent: 'center',
@@ -519,6 +519,7 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-start',
         alignSelf: 'flex-start',
         marginLeft: '10%',
+        marginBottom: '10%',
     },
 
     authorLibraryPageBoxSubView: {
@@ -742,11 +743,14 @@ export const styles = StyleSheet.create({
 
     // Component - Search Filter Bar
     searchFilterBarMainView: {
-        
+        height: "100%", 
+        flex: 1, 
     },
 
     searchFilterBarTextSearchView: {
         padding: 10,
+        width: '100%', 
+        height: '100%',
     },
 
     searchFilterBarTextInput: {
@@ -989,6 +993,11 @@ export const styles = StyleSheet.create({
         height: '100%',
     },
 
+    libraryScreenSearchScrollView: {
+        flexDirection: 'row', 
+        alignItems: 'center',
+    },
+
     // Reading Test Screen
     readingTestScreenMainView: {
         flex: 1,
@@ -1149,7 +1158,6 @@ export const styles = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 10,
         width: '30%',
-        flex: 1,
         justifyContent: 'center',
         alignSelf: 'flex-end',
         marginRight: '5%',

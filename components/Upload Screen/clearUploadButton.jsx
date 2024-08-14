@@ -31,7 +31,7 @@ export const ElectroClearUploadButton = () => {
 
     return (
         <TouchableOpacity
-        style={[styles.uploadScreenButtonTouchable, {borderColor: secondaryColor}]}
+        style={[styles.uploadScreenButtonTouchable, { borderColor: secondaryColor, flex: 1 }]}
         onPress={handlePress}
         >
             <Animatable.Text 

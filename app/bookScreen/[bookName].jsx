@@ -24,6 +24,7 @@ import { useEditNotes, useEditType } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookName } from "../../hooks/useBookName";
 import { useImageKey } from "../../hooks/useImageKey";
+import { useRefreshOptions } from "../../hooks/useRefreshOptions";
 
 export default function bookScreen () {
     const { bookName } = useLocalSearchParams();
@@ -31,14 +32,16 @@ export default function bookScreen () {
     const { setBookName } = useBookName();
     const { imageKey } = useImageKey();
     const { setData } = useEditNotes();
+    const { refresh, setRefresh } = useRefreshOptions();
     const { primaryColor, secondaryColor } = useColor();
+    const [bookInfo, setBookInfo] = useState([]);
+    const [imageUri, setImageUri] = useState("/?123");
     const screenHeight = Dimensions.get("screen").height;
     const screenWidth = Dimensions.get("screen").width;
-    const [bookInfo, setBookInfo] = useState([]);
-    const [imageUri, setImageUri] = useState("");
 
     const handleBackPress = useCallback(() => {
         setBookName(null);
+        setRefresh(!refresh);
         setData([null]);
         router.dismiss();
     }, []);
@@ -81,14 +84,14 @@ export default function bookScreen () {
 
     useEffect(() => {
         if (bookInfo != null && bookInfo.length != 0) {
-            setImageUri(bookInfo.imageUri + '?' + Date.now());
+            setImageUri((bookInfo.imageUri + '?' + Date.now()).toString());
         };
     }, [bookInfo]);
 
     return (
         <ScrollView 
             style={{backgroundColor: secondaryColor}}
-            contentContainerStyle={[styles.libraryBooksScreenMainScrollView, {height: screenHeight+350}]}
+            contentContainerStyle={[styles.libraryBooksScreenMainScrollView, {height: screenHeight * 2}]}
             showsVerticalScrollIndicator={false}>
             <Stack.Screen
                 options={{
@@ -104,7 +107,11 @@ export default function bookScreen () {
             />
             <Image 
                 key={imageKey}
-                style={{height: '100%', width: screenWidth, opacity: 0.2}}
+                style={{
+                    height: '100%', 
+                    width: screenWidth, 
+                    opacity: 0.2,
+                }}
                 source={{uri: imageUri}}
             />
             <View 

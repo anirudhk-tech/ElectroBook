@@ -1,5 +1,5 @@
 // React
-import { Dimensions, TextInput, View, Keyboard } from "react-native";
+import { TextInput, View, Keyboard } from "react-native";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -12,7 +12,6 @@ import { useColor } from "../../hooks/useTheme";
 import { useSearchActive, useSearchValue } from "../../hooks/useSearch";
 
 export const ElectroSearchFilterBar = () => {
-    const windowHeight = Dimensions.get("window").height;
     const { primaryColor } = useColor();
     const { searchActive, setSearchActive } = useSearchActive();
     const { searchValue, setSearchValue } = useSearchValue();
@@ -32,11 +31,11 @@ export const ElectroSearchFilterBar = () => {
 
     if (searchActive) {
       return (
-          <View style={[styles.searchFilterBarMainView, { height: windowHeight / 10 }]}>
+          <View style={styles.searchFilterBarMainView}>
               <Animatable.View 
               animation={"bounceIn"}
               useNativeDriver={true}
-              style={[styles.searchFilterBarTextSearchView, { width: '100%', height: '100%'}]}>
+              style={styles.searchFilterBarTextSearchView}>
                   <TextInput
                   style={[styles.searchFilterBarTextInput, { borderColor: primaryColor, color: primaryColor }]}
                   onChangeText={(e) => setSearchValue(e)}

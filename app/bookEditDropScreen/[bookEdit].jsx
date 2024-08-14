@@ -75,7 +75,7 @@ export default function bookEditScreen () {
     const backIcon = () => {
         return(
             <ElectroIcon 
-            name="arrow-back"
+            name="checkmark"
             color={secondaryColor}
             size={30}
             handlePress={handleBackIconPress}/>
@@ -89,7 +89,7 @@ export default function bookEditScreen () {
     const addIcon = () => {
       return(
         <ElectroIcon 
-          name="add"
+          name="create"
           color={secondaryColor}
           size={30}
           handlePress={handleAddIconPress}

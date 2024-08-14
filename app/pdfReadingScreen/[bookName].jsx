@@ -2,7 +2,7 @@
 import { ElectroPdf } from "../../components/Reading Screen/pdf"
 
 // React
-import { View, Dimensions, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, Dimensions } from "react-native";
 import { useState, useCallback, useRef, useEffect } from "react";
 
 // Expo
@@ -125,7 +125,6 @@ export default function pdfScreen () {
     }, []);
 
     return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{flex: 1}}>
             <Stack.Screen
                     options={{
@@ -155,6 +154,5 @@ export default function pdfScreen () {
                 handleSinglePage={handleSinglePage}
             />
         </View>
-        </TouchableWithoutFeedback>
     );
 };
