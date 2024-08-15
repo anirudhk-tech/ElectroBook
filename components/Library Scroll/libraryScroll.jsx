@@ -81,12 +81,12 @@ export const ElectroLibraryScroll = (props) => {
     }, [searchData, searchActive]);
 
     useEffect(() => {
-        if (searchActive == false) {
+        if (!searchActive) {
             setFlatListData(librariesDataOrganize);            
         };
     }, [libraries, searchActive]);
 
-    if (searchActive == false) {
+    if (!searchActive) {
         return (
             <View>
                 <FlatList

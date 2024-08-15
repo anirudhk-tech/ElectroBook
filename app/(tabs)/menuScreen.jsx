@@ -1,6 +1,6 @@
 // React
-import { View, ScrollView, Dimensions } from "react-native";
-import { useCallback } from "react";
+import { View, ScrollView, BackHandler } from "react-native";
+import { useCallback, useEffect } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -17,7 +17,6 @@ import { useColor } from "../../hooks/useTheme";
 
 export default function menuScreen() {
   const { primaryColor, secondaryColor } = useColor();
-  const windowHeight = Dimensions.get("window").height;
 
   const handleLibraryPress = useCallback(() => {
     router.navigate("./libraryScreen");

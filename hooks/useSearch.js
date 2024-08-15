@@ -3,9 +3,13 @@ import { get_search_books } from "../app/backend/controller";
 
 const useSearchMain = create((set) => ({
   searchActive: false,
-  setSearchActive: () => set((state) => ({ searchActive: !state.searchActive })),
+  bookSearchActive: false,
+  setBookSearchActive: (value) => set((state) => ({ bookSearchActive: value != undefined ? value : !state.bookSearchActive })),
+  setSearchActive: (value) => set((state) => ({ searchActive: value != undefined ? value : !state.searchActive })),
   searchValue: "",
-  setSearchValue: (value) => set(() => ({ searchValue: value }))
+  bookSearchValue: "",
+  setSearchValue: (value) => set(() => ({ searchValue: value })),
+  setBookSearchValue: (value) => set(() => ({ bookSearchValue: value})),
 }));
 
 export const useSearchActive = () => {
@@ -18,17 +22,37 @@ export const useSearchActive = () => {
 };
 
 export const useSearchValue = () => {
-    const { searchValue, setSearchValue } = useSearchMain ((state) => ({
+    const { searchValue, setSearchValue, bookSearchValue, setBookSearchValue } = useSearchMain ((state) => ({
         searchValue: state.searchValue,
         setSearchValue: state.setSearchValue,
+        bookSearchValue: state.bookSearchValue,
+        setBookSearchValue: state.setBookSearchValue
     }));
 
-    return { searchValue: searchValue, setSearchValue: setSearchValue};
+    return { 
+        searchValue: searchValue, 
+        setSearchValue: setSearchValue,
+        bookSearchValue: bookSearchValue,
+        setBookSearchValue: setBookSearchValue,
+    };
 };
 
-export const useSearchData = async (searchValue) => {
+export const useSearchData = async (searchValue, library) => {
     let searchData = [];
-    await get_search_books(searchValue).then(data => searchData = data);
+    if (library) {
+        await get_search_books(searchValue, library).then(data => searchData = data);
+    } else {
+        await get_search_books(searchValue).then(data => searchData = data);
+    };
 
     return searchData;
+};
+
+export const useBookSearchActive = () => {
+    const { searchActive, setSearchActive } = useSearchMain ((state) => ({
+        searchActive: state.bookSearchActive,
+        setSearchActive: state.setBookSearchActive,
+    }));
+
+    return { searchActive: searchActive, setSearchActive: setSearchActive};
 };

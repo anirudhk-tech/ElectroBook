@@ -2,7 +2,7 @@
 import { ElectroPdf } from "../../components/Reading Screen/pdf"
 
 // React
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, BackHandler } from "react-native";
 import { useState, useCallback, useRef, useEffect } from "react";
 
 // Expo
@@ -122,6 +122,17 @@ export default function pdfScreen () {
             setPdfPg(data.page);
         });
         setBookName(bookName);
+    }, []);
+
+    useEffect(() => {
+        const backAction = () => {
+            updatePage();
+            return true
+        };
+
+        const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+        return () => handler.remove();
     }, []);
 
     return (

@@ -2,7 +2,7 @@
 import { useLocalSearchParams, Stack, router } from "expo-router"
 
 // React
-import { Dimensions, ScrollView, View, Image, Text, TouchableOpacity } from "react-native";
+import { Dimensions, ScrollView, View, Image, Text, TouchableOpacity, BackHandler } from "react-native";
 import { useCallback, useEffect, useState } from "react";
 
 // Backend
@@ -36,15 +36,16 @@ export default function bookScreen () {
     const { primaryColor, secondaryColor } = useColor();
     const [bookInfo, setBookInfo] = useState([]);
     const [imageUri, setImageUri] = useState("/?123");
+    const [pressed, setPressed] = useState(false);
     const screenHeight = Dimensions.get("screen").height;
     const screenWidth = Dimensions.get("screen").width;
 
-    const handleBackPress = useCallback(() => {
+    const handleBackPress = () => {
         setBookName(null);
         setRefresh(!refresh);
         setData([null]);
         router.dismiss();
-    }, []);
+    };
 
     const backIcon = () => {
         return (
@@ -88,6 +89,17 @@ export default function bookScreen () {
         };
     }, [bookInfo]);
 
+    useEffect(() => {
+        const backAction = () => {
+            handleBackPress();
+            return true
+        };
+        
+        const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  
+        return () => handler.remove();
+    }, []);
+
     return (
         <ScrollView 
             style={{backgroundColor: secondaryColor}}
@@ -105,15 +117,18 @@ export default function bookScreen () {
                     headerBackVisible: false,
                 }}
             />
-            <Image 
-                key={imageKey}
-                style={{
-                    height: '100%', 
-                    width: screenWidth, 
-                    opacity: 0.2,
-                }}
-                source={{uri: imageUri}}
-            />
+            { 
+                imageUri.split('/').at(-1)[0] != "?" ? (
+                    <Image 
+                        key={imageKey}
+                        style={{
+                            height: '100%', 
+                            width: screenWidth, 
+                            opacity: 0.2,
+                        }}
+                        source={{uri: imageUri}}
+                    /> ) : null
+            }
             <View 
                 style={[styles.libraryBooksScreenBackgroundView, {height: screenHeight + 200, width: screenWidth, position: 'absolute', paddingBottom: screenHeight/15, gap: 50}]}>
                 <ElectroReadingProgressBar/>
@@ -122,9 +137,15 @@ export default function bookScreen () {
                 <TouchableOpacity 
                 style={styles.libraryBooksScreenTouchable}
                 onPress={() => {
+                    setPressed(true);
                     handleIconPress();
                     setType("genre");
-                }}>
+                    setTimeout(() => {
+                        setPressed(false);
+                    }, 1000);
+                }}
+                disabled={pressed}
+                >
                 <View style={styles.libraryBooksScreenListMainView}>
                     <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Genres</Text>
                     <ElectroGenresList/>
@@ -133,9 +154,15 @@ export default function bookScreen () {
                 <TouchableOpacity 
                 style={styles.libraryBooksScreenTouchable}
                 onPress={() => {
+                    setPressed(true);
                     handleIconPress();
                     setType("trope");
-                }}>
+                    setTimeout(() => {
+                        setPressed(false);
+                    }, 1000)
+                }}
+                disabled={pressed}
+                >
                 <View style={styles.libraryBooksScreenListMainView}>
                     <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Tropes</Text>
                     <ElectroTropesList/>
@@ -144,8 +171,14 @@ export default function bookScreen () {
                 <TouchableOpacity 
                 style={styles.libraryBooksScreenTouchable}
                 onPress={() => {
+                    setPressed(true);
                     handleNotesPress();
-                }}>
+                    setTimeout(() => {
+                        setPressed(false);
+                    }, 1000);
+                }}
+                disabled={pressed}
+                >
                 <View style={styles.libraryBooksScreenListMainView}>
                     <Text style={[styles.libraryBooksScreenTitle, {color: primaryColor}]}>Notes</Text>
                     <ElectroNotesList bookScreen={true}/>

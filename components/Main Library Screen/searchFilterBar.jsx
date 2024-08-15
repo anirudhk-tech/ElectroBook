@@ -9,12 +9,14 @@ import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useSearchActive, useSearchValue } from "../../hooks/useSearch";
+import { useSearchActive, useSearchValue, useBookSearchActive } from "../../hooks/useSearch";
 
-export const ElectroSearchFilterBar = () => {
+export const ElectroSearchFilterBar = (props) => {
     const { primaryColor } = useColor();
     const { searchActive, setSearchActive } = useSearchActive();
-    const { searchValue, setSearchValue } = useSearchValue();
+    const { searchValue, setSearchValue, bookSearchValue, setBookSearchValue } = useSearchValue();
+    const bookSearchActive = useBookSearchActive().searchActive;
+    const setBookSearchActive = useBookSearchActive().setSearchActive;
 
     const handleBlur = () => {
         try {
@@ -29,7 +31,17 @@ export const ElectroSearchFilterBar = () => {
     handleBlur
     );
 
-    if (searchActive) {
+    const handleChange = (e) => {
+      if (props.books) {
+        setBookSearchValue(e);
+      } else {
+        setSearchValue(e);
+      };
+    };
+
+
+    if (searchActive || bookSearchActive) {
+
       return (
           <View style={styles.searchFilterBarMainView}>
               <Animatable.View 
@@ -38,16 +50,19 @@ export const ElectroSearchFilterBar = () => {
               style={styles.searchFilterBarTextSearchView}>
                   <TextInput
                   style={[styles.searchFilterBarTextInput, { borderColor: primaryColor, color: primaryColor }]}
-                  onChangeText={(e) => setSearchValue(e)}
-                  autoFocus={searchActive}
+                  onChangeText={handleChange}
+                  autoFocus={searchActive || bookSearchActive}
                   autoCorrect={true}
                   onBlur={() => {
-                    handleBlur
+                    handleBlur();
                     if (searchValue == "") {
-                      setSearchActive();
+                      setSearchActive(false);
+                    };
+                    if (bookSearchValue == "") {
+                      setBookSearchActive(false);
                     };
                   }}
-                  defaultValue={searchValue}
+                  defaultValue={searchActive ? searchValue : bookSearchValue}
                   ref={input => {textInputField = input}}
                   />
               </Animatable.View>

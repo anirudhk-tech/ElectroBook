@@ -29,10 +29,17 @@ export const ElectroNotesList = (props) => {
         setData(notes);
     };
 
+    const fetchNotes = async () => {
+        await useBookInfo(bookName).then(response => {
+            if (response) {
+                notesSplit(response.notes)
+            };
+        });
+    };
 
-    const updateNotes = useCallback(() => {
+    const updateNotes = () => {
         useBookUpdate("note", bookName, data);
-    }, [data]);
+    };
 
     const handleDeletePress = (note) => {
         setData(data.filter(x => x != note));
@@ -50,7 +57,7 @@ export const ElectroNotesList = (props) => {
       };
 
     useEffect(() => {
-        useBookInfo(bookName).then(data => notesSplit(data.notes))
+        fetchNotes();
     }, [editRefreshNotes]);
 
     useEffect(() => {

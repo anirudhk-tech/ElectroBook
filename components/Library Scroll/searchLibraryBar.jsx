@@ -10,15 +10,17 @@ import * as Animatable from "react-native-animatable";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useSearchBarPress } from "../../hooks/useLibraryCardPress";
+import { useSearchBarPress, useSelectedLibrary } from "../../hooks/useLibraryCardPress";
 import { ElectroIcon } from "../General/icon";
-import { useSearchActive } from "../../hooks/useSearch";
+import { useSearchActive, useBookSearchActive } from "../../hooks/useSearch";
 
 export const ElectroSearchLibraryBar = (props) => {
     const { primaryColor } = useColor();
-    const { searchActive } = useSearchActive(); 
     const searchBarPress = useSearchBarPress().press;
     const [pressed, setPressed] = useState(false);
+    const { setSearchActive } = useSearchActive();
+    const { setSelectedLibrary } = useSelectedLibrary();
+    const setBookSearchActive = useBookSearchActive().setSearchActive;
     
     const windowHeight = Dimensions.get("window").height;
 
@@ -26,8 +28,13 @@ export const ElectroSearchLibraryBar = (props) => {
     return (
         <TouchableOpacity 
         disabled={pressed}
-        style={[styles.searchBarMainView, { height: windowHeight / 10, borderColor: primaryColor, display: searchActive ? "flex" : "none" }]}
+        style={[styles.searchBarMainView, { height: windowHeight / 10, borderColor: primaryColor }]}
         onPress={() => {
+            setSearchActive(false);
+            setBookSearchActive(false);
+            if (props.library) {
+                setSelectedLibrary(props.option);
+            }; 
             searchBarPress(props.option, props.library);
             setPressed(true);
             setTimeout(() => {

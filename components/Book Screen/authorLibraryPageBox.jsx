@@ -23,6 +23,7 @@ import { useBookName } from "../../hooks/useBookName";
 
 export const ElectroAuthorLibraryPageBox = () => {
     const [bookInfo, setBookInfo] = useState([]);
+    const [pressed, setPressed] = useState(false);
     const [author, setAuthor] = useState("");
     const [page, setPage] = useState(0);
     const [library, setLibrary] = useState("");
@@ -95,11 +96,27 @@ export const ElectroAuthorLibraryPageBox = () => {
         animation={"fadeIn"}
         useNativeDriver={true}
         style={[styles.authorLibraryPageBoxMainView, {height: windowHeight / 6}]}>
-            <TouchableOpacity onPress={handleSeriesPress}>
+            <TouchableOpacity onPress={() => {
+                handleSeriesPress()
+                setPressed(true);
+                setTimeout(() => {
+                    setPressed(false);
+                }, 1000);
+            }}>
                 <ElectroSeriesImageHeader/>
             </TouchableOpacity>
             <View style={styles.authorLibraryPageBoxSubView}>
-                <TouchableOpacity style={styles.libraryBooksScreenTouchable} onPress={handleLibraryPress}>
+                <TouchableOpacity 
+                    style={styles.libraryBooksScreenTouchable} 
+                    onPress={() => {
+                        handleLibraryPress();
+                        setPressed(true);
+                        setTimeout(() => {
+                            setPressed(false);
+                        }, 1000);    
+                    }}
+                    disabled={pressed}
+                >
                     <ElectroIcon
                     name="library"
                     size={20}
@@ -112,7 +129,17 @@ export const ElectroAuthorLibraryPageBox = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.authorLibraryPageBoxSubView}>
-                <TouchableOpacity style={styles.libraryBooksScreenTouchable} onPress={handleAuthorPress}>
+                <TouchableOpacity 
+                    style={styles.libraryBooksScreenTouchable} 
+                    onPress={() => {
+                        handleAuthorPress()
+                        setPressed(true);
+                        setTimeout(() => {
+                            setPressed(false);
+                        }, 1000);  
+                    }}
+                    disabled={pressed}
+                >
                     <ElectroIcon
                     name="person"
                     size={20}

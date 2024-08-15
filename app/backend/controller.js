@@ -280,6 +280,7 @@ export const get_series = async () => {
 export const fetch_book = async (bookName) => {
   let bookData = [];
   await SQL.fetch_book(bookName).then(data => bookData = data);
+
   return bookData;
 };
 
@@ -303,8 +304,8 @@ export const get_search_authors = async (entry) => {
   return authors;
 };
 
-export const get_search_books = async (entry) => {
-  const books = await SQL.get_search_books(entry);
+export const get_search_books = async (entry, library) => {
+  const books = library ? await SQL.get_search_books(entry, library) : await SQL.get_search_books(entry);
   return books;
 };
 

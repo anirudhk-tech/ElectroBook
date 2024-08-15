@@ -2,7 +2,7 @@
 import { router, Tabs, useSegments } from "expo-router";
 
 // React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BackHandler } from "react-native";
 
 // Backend
@@ -18,7 +18,7 @@ export default function TabLayout() {
   const { primaryColor, secondaryColor } = useColor();
   const { settingsCheck } = useChecks();
   const [ blurScreen, setBlurScreen ] = useState(anyType);
-  
+
   useEffect(() => {
     const screenName = blurScreen.split("-")[0];
 
@@ -26,6 +26,10 @@ export default function TabLayout() {
       if (router.canDismiss()) {
         router.dismiss();
       } else {
+        if (screenName == "menuScreen") {
+          router.navigate('/libraryScreen');
+          return true
+        };
         router.navigate(`/${screenName}`);
       };
       return true;

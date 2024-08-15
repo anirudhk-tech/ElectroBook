@@ -1,9 +1,9 @@
 // React
-import { Dimensions, View, FlatList } from "react-native";
+import { BackHandler, View, FlatList } from "react-native";
 import { useState, useEffect, useMemo } from "react";
 
 // Expo
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, router } from "expo-router";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -25,7 +25,6 @@ export default function notesDropDown() {
   const [flatListData, setFlatListData] = useState([]);
   const [bookInfo, setBookInfo] = useState([]);
   const {data, setData} = useEditNotes();
-  const windowHeight = Dimensions.get("window").height;
 
   const notesSplit = () => {
     const notes = bookInfo.notes.split(",");
@@ -52,13 +51,6 @@ export default function notesDropDown() {
     };
   };
 
-  const insertAddBar = (array) => {
-    array.push({
-      item: <ElectroAddMenuBar onSubmit={handleAddNote} />,
-      key: array.length + 1,
-    });
-  };
-
   const dataCreation = (data) => {
     if (data != null) {
       const dataOrganize = [];
@@ -74,7 +66,6 @@ export default function notesDropDown() {
         };
       };
   
-      insertAddBar(dataOrganize);
       return dataOrganize; 
     };
   };
@@ -85,7 +76,7 @@ export default function notesDropDown() {
   );
 
   useEffect(() => {
-    if (data != undefined) {
+    if (!!data) {
       setFlatListData(dataOrganize);
       useBookUpdate("note", bookEditNotes, data);
     };
@@ -100,6 +91,18 @@ export default function notesDropDown() {
         notesSplit();
     };
   }, [bookInfo]);
+
+  
+  useEffect(() => {
+    const backAction = () => {
+        router.dismiss();
+        return true
+    };
+    
+    const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => handler.remove();
+  }, [data]);
 
   return (
     <View
@@ -128,6 +131,7 @@ export default function notesDropDown() {
         keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews={false}
+        ListFooterComponent={<ElectroAddMenuBar onSubmit={handleAddNote}/>}
       />
     </View>
   );

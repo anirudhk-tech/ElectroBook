@@ -1,5 +1,5 @@
 // React
-import { View, FlatList, Dimensions, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, FlatList, Dimensions, TouchableWithoutFeedback, Keyboard, BackHandler } from "react-native";
 
 // Components
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
@@ -167,6 +167,17 @@ export default function menuDropDownScreen() {
     setText(handleTextPress);
     setBack(handleBackPress);
   }, []);
+
+  useEffect(() => {
+    const backAction = () => {
+        handleBackPress();
+        return true
+    };
+
+    const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => handler.remove();
+}, []);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

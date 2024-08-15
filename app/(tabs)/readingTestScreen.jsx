@@ -73,10 +73,6 @@ export default function readingTestScreen() {
             animation={"fadeIn"}
             useNativeDriver={true}
             style={[styles.readingTestScreenText, {color: primaryColor}]}>Once you're done, your score will appear in the "Stats" screen.</Animatable.Text>
-          <Animatable.Text 
-            animation={"fadeIn"}
-            useNativeDriver={true}
-            style={[styles.readingTestScreenText, {color: primaryColor}]}>Tap the doc once to end the test</Animatable.Text>
         </View>
         <Animatable.View
           animation={"bounceIn"}

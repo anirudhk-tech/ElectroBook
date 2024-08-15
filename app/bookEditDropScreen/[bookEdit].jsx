@@ -6,7 +6,7 @@ import { styles } from "../../constants/stylers";
 
 // React
 import { useState, useEffect, useMemo } from "react";
-import { FlatList, Dimensions, View } from "react-native";
+import { FlatList, Dimensions, View, BackHandler } from "react-native";
 
 // Components
 import { ElectroIcon } from "../../components/General/icon";
@@ -67,9 +67,9 @@ export default function bookEditScreen () {
       };
 
       refresh();
+      router.dismiss();
       setData([null]);
       setType(null);
-      router.dismiss();
   };
 
     const backIcon = () => {
@@ -151,6 +151,17 @@ export default function bookEditScreen () {
     useEffect(() => {
       useData(type).then(rawData => setRawData(rawData));
     }, [refreshOptions]);
+
+    useEffect(() => {
+      const backAction = () => {
+          handleBackIconPress();
+          return true
+      };
+      
+      const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+      return () => handler.remove();
+  }, [data]);
 
 
     return (

@@ -550,6 +550,7 @@ export const fetch_book = async (bookName) => {
   ).then(
     data => bookData = data
   );
+
   return bookData;
 };
 
@@ -558,36 +559,67 @@ export const fetch_book = async (bookName) => {
 
 // SEARCH FUNCTIONS
 
-export const get_search_books = async (entry) => {
+const filterSearch = (data) => {
+  const filtered = new Set();
+  const filteredData = [];
+  for (let x = 0; x < data.length; x++) {
+    if (data[x].genres == undefined) {
+      filteredData.push(data[x]);
+      continue;
+    };
+    filtered.add(data[x].option);
+  };
+
+  data.map((x) => {
+    if (filtered.has(x.option)) {
+      filteredData.push(x);
+      filtered.delete(x.option);
+    };
+  });
+  
+  return filteredData;
+};
+
+export const get_search_books = async (entry, library) => {
   if (entry == "") {
     return "No results"
   };
   
-  const books = await db.getAllAsync(
+  const books = !library ? await db.getAllAsync(
     `SELECT * FROM books_database WHERE option LIKE "%${entry}%"`
+  ) : await db.getAllAsync (
+    `SELECT * FROM books_database WHERE library = "${library}" AND option LIKE "%${entry}%"`
   );
 
-  const booksGenres = await db.getAllAsync(
+  const booksGenres = !library ? await db.getAllAsync(
     `SELECT * FROM books_database WHERE genres LIKE "%${entry}%"`
+  ) : await db.getAllAsync (
+    `SELECT * FROM books_database WHERE library = "${library}" AND genres LIKE "%${entry}%"`
   );
 
-  const booksTropes = await db.getAllAsync(
+  const booksTropes = !library ? await db.getAllAsync(
     `SELECT * FROM books_database WHERE tropes LIKE "%${entry}%"`
+  ) : await db.getAllAsync (
+    `SELECT * FROM books_database WHERE library = "${library}" AND tropes LIKE "%${entry}%"`
   );
 
-  const booksAuthor = await db.getAllAsync(
+  const booksAuthor = !library ? await db.getAllAsync(
     `SELECT * FROM books_database WHERE author LIKE "%${entry}%"`
+  ) : await db.getAllAsync (
+    `SELECT * FROM books_database WHERE library = "${library}" AND author LIKE "%${entry}%"`
   );
 
-  const booksSeries = await db.getAllAsync(
+  const booksSeries = !library ? await db.getAllAsync(
     `SELECT * FROM books_database WHERE series LIKE "%${entry}%"`
-  )
-
-  const libraries = await db.getAllAsync(
-    `SELECT * FROM libraries_database WHERE option LIKE "%${entry}%"`
+  ) : await db.getAllAsync (
+    `SELECT * FROM books_database WHERE library = "${library}" AND series LIKE "%${entry}%"`
   );
 
-  const data = [...books, ...booksGenres, ...libraries, ...booksTropes, ...booksAuthor, ...booksSeries]
+  const libraries = !library ? await db.getAllAsync(
+    `SELECT * FROM libraries_database WHERE option LIKE "%${entry}%"`
+  ) : [];
+
+  const data = filterSearch([...books, ...booksGenres, ...libraries, ...booksTropes, ...booksAuthor, ...booksSeries]);
 
   if (data.length != 0) {
     return data

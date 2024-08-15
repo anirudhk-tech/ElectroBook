@@ -51,7 +51,10 @@ export const ElectroLibraryRowCard = (props) => {
                             handlePress={() => {}}
                         />
                     </View>
-                    <Text style={[styles.libraryCardRowText, {color: secondaryColor, paddingBottom: windowHeight/10}]}>{props.libraryName}</Text>
+                    <Text 
+                    style={[styles.libraryCardRowText, {color: secondaryColor, paddingBottom: windowHeight/10}]}
+                    numberOfLines={4}
+                    >{props.libraryName}</Text>
                 </TouchableOpacity>
             </Animatable.View>
     );

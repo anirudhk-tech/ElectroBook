@@ -437,11 +437,11 @@ export const styles = StyleSheet.create({
     // Components - Library Header
     libraryHeaderMainView: {
         flexDirection: 'row',
-        width: '35%',
+        width: '45%',
         height: '50%',
         alignSelf: 'flex-end',
         justifyContent: 'center',
-        gap: 20,
+        gap: 15,
     },
 
     // Components - Library Scroll
@@ -465,6 +465,7 @@ export const styles = StyleSheet.create({
                 textAlignVertical: 'center',
                 fontSize: 40,
                 fontWeight: 'bold',
+                paddingHorizontal: 5
             },
 
             libraryCardRowHeaderView: {
