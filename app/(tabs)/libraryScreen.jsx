@@ -35,7 +35,7 @@ export default function libraryScreen() {
   }, []);
 
   const handleLibraryCardPress = (libraryName) => {
-    router.navigate(`./${libraryName}`);
+    router.navigate(`../namedLibraryScreen/${libraryName}`);
   };
 
   const handleLibraryIconPress = useCallback(() => {
@@ -44,7 +44,7 @@ export default function libraryScreen() {
 
   const handleSearchBarPress = (name, library) => {
       if (library) {
-        router.push(`./${name}`)
+        router.push(`../namedLibraryScreen/${name}`)
       } else {
         router.push(`../bookScreen/${name}`);
       };

@@ -2,7 +2,7 @@
 import { router, Tabs, useSegments } from "expo-router";
 
 // React
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { BackHandler } from "react-native";
 
 // Backend
@@ -12,36 +12,29 @@ import { styles } from "@/constants/stylers";
 // Hooks
 import { useColor } from "../../hooks/useTheme";
 import { useChecks } from "../../hooks/useCheckUser";
-import { useSelectedLibrary } from "../../hooks/useLibraryCardPress";
 
 export default function TabLayout() {
   let anyType: any = "default"
   const { primaryColor, secondaryColor } = useColor();
   const { settingsCheck } = useChecks();
-  const { selectedLibrary } = useSelectedLibrary();
   const [ blurScreen, setBlurScreen ] = useState(anyType);
-  const [ focusScreen, setFocusScreen ] = useState(anyType);
-
+  
   useEffect(() => {
     const screenName = blurScreen.split("-")[0];
 
     const checkBack = () => {
-      if (blurScreen == focusScreen) {
-        return false;
+      if (router.canDismiss()) {
+        router.dismiss();
       } else {
-        if (screenName === "[libraryName]") {
-          router.navigate(`/${selectedLibrary}`);
-        } else {
-          router.navigate(`/${screenName}`);
-        };
-        return true;
+        router.navigate(`/${screenName}`);
       };
+      return true;
     };
     
     const handler = BackHandler.addEventListener('hardwareBackPress', checkBack);
 
     return () => handler.remove();
-  }, [blurScreen, focusScreen]);
+  }, [blurScreen]);
 
   return (
     <Tabs
@@ -56,7 +49,6 @@ export default function TabLayout() {
       }}
       screenListeners={{
         blur: (e) => setBlurScreen(e.target),
-        focus: (e) => setFocusScreen(e.target)
       }}
     >
       <Tabs.Screen
@@ -84,13 +76,6 @@ export default function TabLayout() {
             />
           ),
         }}
-      />
-      <Tabs.Screen 
-      name="[libraryName]"
-      options={{
-        title: "Library Books",
-        tabBarButton: () => null,
-      }}
       />
       <Tabs.Screen
         name="uploadFileScreen"
