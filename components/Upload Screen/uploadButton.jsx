@@ -21,7 +21,6 @@ export const ElectroUploadButton = () => {
     const {setUploadAlertText} = useUploadAlert();
     const info = useInfo("info");
     const { clearValues } = useInfo("infoClear");
-    const [uploadText, setUploadText] = useState("Pick PDF");
     const [uploadPressed, setUploadPressed] = useState(false);
     const [clear, setClear] = useState(false);
         
@@ -52,12 +51,12 @@ export const ElectroUploadButton = () => {
 
                             setTimeout(() => {
                                 setClear(false)
-                                setUploadText("Done");
+                                setUploadAlertText("PDF Uploaded!");
                             }, 1000);
 
                             setTimeout(() => {
-                                setUploadText("Pick PDF");
-                            }, 4000);
+                                setUploadAlertText("");
+                            }, 3000);
                         };
                     }, 2000);
                 } else {
@@ -76,13 +75,13 @@ export const ElectroUploadButton = () => {
 
     return (
         <TouchableOpacity
-        style={[styles.uploadScreenButtonTouchable, {borderColor: secondaryColor, flex: 2 }]}
+        style={[styles.uploadScreenButtonTouchable, {borderColor: secondaryColor, flex: 1 }]}
         onPress={handleUploadPress}
         >
             <Animatable.Text 
-            animation={ uploadText == "Pick PDF" ? "bounceIn" : "tada"}
+            animation={"bounceIn"}
             useNativeDriver={true}
-            style={[styles.uploadScreenButtonText, {color: secondaryColor, fontSize: uploadText == "Pick PDF" ? 20 : 30}]}>{uploadText}</Animatable.Text>
+            style={[styles.uploadScreenButtonText, {color: secondaryColor, fontSize: 20}]}>Pick PDF</Animatable.Text>
         </TouchableOpacity>
     );
 };

@@ -16,12 +16,14 @@ import { useColor } from "../../hooks/useTheme";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookCardPress } from "../../hooks/useLibraryCardPress";
 import { useImageKey } from "../../hooks/useImageKey";
+import { useEditRefresh } from "../../hooks/useEdit";
 
 
 // Same styles as library card rows
 export const ElectroBookRowCard = (props) => {
     const { primaryColor, secondaryColor } = useColor();
     const { imageKey } = useImageKey();
+    const { editRefreshPage } = useEditRefresh();
     const handleCardPress = useBookCardPress().press;
     const [pressed, setPressed] = useState(false);
     const [bookInfo, setBookInfo] = useState([]);
@@ -30,7 +32,7 @@ export const ElectroBookRowCard = (props) => {
 
     useEffect(() => {
         useBookInfo(props.bookName).then(data => setBookInfo(data));
-    }, [imageKey]);
+    }, [imageKey, editRefreshPage]);
 
     return (
         <Animatable.View
@@ -53,7 +55,6 @@ export const ElectroBookRowCard = (props) => {
                         name="book"
                         color={props.bookColor == "" || props.bookColor == "undefined" ? secondaryColor : props.bookColor}
                         size={40}
-                        handlePress={() => {}}
                     />
                 </View>
                 <View style={{flex: 6}}>

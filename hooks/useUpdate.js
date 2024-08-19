@@ -1,7 +1,7 @@
 import { update_bookName, update_library, update_author, update_genre, update_trope, update_series, update_completed, update_bookGenres } from "../app/backend/controller";
 
 export const useUpdate = async (type, oldValue, newValue) => {
-    if (type == "book") {
+    if (type == "book" || type.includes("booksInLibrary")) {
         const result = await update_bookName(oldValue, newValue);
         if (result == "duplicate") {
             return "duplicate";

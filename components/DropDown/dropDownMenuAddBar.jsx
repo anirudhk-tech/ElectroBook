@@ -10,9 +10,11 @@ import { useState, useEffect } from "react";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
+import { useSelectedLibrary } from "../../hooks/useLibraryCardPress";
 
 export const ElectroAddMenuBar = (props) => {
   const { primaryColor } = useColor();
+  const { selectedLibrary } = useSelectedLibrary();
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
 
@@ -48,7 +50,7 @@ export const ElectroAddMenuBar = (props) => {
   };
 
   useEffect(() => {
-    if (props.tab == undefined) {
+    if (props.tab == undefined || props.tab == selectedLibrary) {
       setInputActive(true);
     };
   }, []);

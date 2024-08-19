@@ -8,7 +8,7 @@ import { ElectroMultiIcons } from "../../components/DropDown/dropDownMultiIcons"
 import { ElectroIcon } from "../../components/General/icon";
 
 // React
-import { Dimensions, View, BackHandler } from "react-native";
+import { Dimensions, View, Text, BackHandler } from "react-native";
 import { useCallback, useEffect } from "react";
 
 // Backend
@@ -51,7 +51,7 @@ export default function libraryBooksScreen () {
 
     const searchAndCreate = useCallback(() => {
         return (
-            <View style={{alignSelf: 'flex-end'}}>
+            <View style={styles.libraryBooksScreenHeader}>
                 <ElectroMultiIcons
                     icons={[
                         { name: "search", handlePress: handleSearchPress },
@@ -95,11 +95,22 @@ export default function libraryBooksScreen () {
             <Stack.Screen 
                 options={{
                     headerStyle: { backgroundColor: primaryColor },
-                    headerTitleStyle: [styles.headerTitleStyle, { color: secondaryColor }],
-                    headerTitle: libraryName.length > screenWidth/20 ? libraryName.slice(0, screenWidth/20)+"..." : libraryName,
+                    headerTitleAlign: 'left',
+                    headerTitle: () => (
+                        <Text 
+                        style={{
+                            color: secondaryColor,
+                            fontSize: 20,
+                            fontWeight: 'bold',
+                            width: '67%',
+                            }}
+                        numberOfLines={1}
+                        >{libraryName}</Text>
+                    ),
                     headerRight: searchAndCreate,
                     headerLeft: backIcon,
                     headerShown: true,
+                    headerBackVisible: false,
                 }}
             />
             <View style={[styles.libraryScreenSearchScrollView, { height: windowHeight / 10, display: searchActive ? "flex" : "none"}]}>

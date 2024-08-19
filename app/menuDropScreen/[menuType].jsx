@@ -1,5 +1,5 @@
 // React
-import { View, FlatList, Dimensions, TouchableWithoutFeedback, Keyboard, BackHandler } from "react-native";
+import { View, FlatList, Dimensions, BackHandler } from "react-native";
 
 // Components
 import { ElectroMenuBar } from "../../components/DropDown/dropDownMenuBar";
@@ -27,12 +27,17 @@ import { useEditData } from "../../hooks/useEdit";
 import { useBooksInLibrary} from "../../hooks/useBookInLibrary";
 import { useInfo } from "../../hooks/useInfoFunctions";
 import { useMenuColorPress, useMenuDelete, useMenuBack, useMenuText } from "../../hooks/useMenuBarActions";
+import { useFileFunctions } from "../../hooks/useFileFunctions";
+import { useSelectedLibrary } from "../../hooks/useLibraryCardPress";
 
 export default function menuDropDownScreen() {
   const { menuType } = useLocalSearchParams();
   const { primaryColor, secondaryColor } = useColor();
   const { menuColor } = useMenuColor();
   const { data, setData } = useEditData();
+  const setTitle = useFileFunctions("title").setValue;
+  const setLibrary = useFileFunctions("library").setValue;
+  const { selectedLibrary } = useSelectedLibrary();
   const deleteInfo = useInfo("clearValues");
   const {refresh, setRefresh} = useRefreshOptions();
   const setMenuType = useMenuType().setType;
@@ -96,6 +101,15 @@ export default function menuDropDownScreen() {
   };
 
   const handleAddPress = async (value) => {
+    if (type == "book" || type.includes("booksIn")) {
+      setTitle(value);
+      if (type.includes("booksIn")) {
+        setLibrary(selectedLibrary);
+      };
+      router.navigate("../(tabs)/uploadFileScreen");
+      return
+    };
+
     const editedValue = value.replaceAll('"', "'").replaceAll(",", ";")
     const result = await useAdd(type, editedValue, secondaryColor);
 
@@ -177,10 +191,9 @@ export default function menuDropDownScreen() {
     const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
 
     return () => handler.remove();
-}, []);
+  }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View
         style={[
           styles.dropDownScreenMainView,
@@ -203,7 +216,7 @@ export default function menuDropDownScreen() {
           }}
         />
         <ElectroDropDownEmptyText 
-          visible={type.includes("booksIn") || type == "book" || type == "completed" ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
+          visible={type == "completed" ? flatListData == undefined || flatListData == null ? "none" : flatListData.length == 0 ? "flex" : "none" : "none"}
         />
         <FlatList
           data={flatListData}
@@ -217,9 +230,8 @@ export default function menuDropDownScreen() {
           )}
           keyExtractor={(item) => item.key}
           removeClippedSubviews={false}
-          ListFooterComponent={type == "book" || type.includes("booksIn") || type == "completed" ? <View></View> : <ElectroAddMenuBar onSubmit={handleAddPress} tab={secondArg}/>}
+          ListFooterComponent={type == "completed" ? null : <ElectroAddMenuBar onSubmit={handleAddPress} tab={secondArg}/>}
         />
       </View>
-    </TouchableWithoutFeedback>
   );
 }

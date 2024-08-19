@@ -108,9 +108,17 @@ export default function bookScreen () {
             <Stack.Screen
                 options={{
                     headerStyle: { backgroundColor: primaryColor },
-                    headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                    headerTitle: bookName.length > screenWidth/16 ? bookName.slice(0, screenWidth/16)+"..." : bookName,
-                    headerTitleAlign: bookName.length > 24 ? 'left' : 'center',
+                    headerTitle: () => (
+                        <Text 
+                        style={{
+                            color: secondaryColor,
+                            fontSize: 20,
+                            fontWeight: 'bold',
+                            width: '67%',
+                            }}
+                        numberOfLines={1}
+                        >{bookName}</Text>),
+                    headerTitleAlign: "left",
                     headerLeft: backIcon,
                     headerRight: readButton,
                     headerShown: true,

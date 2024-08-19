@@ -36,6 +36,5 @@ export const useAdd = async (type, option, color) => {
         if (result == "duplicate") {
             return "duplicate"
         };
-
   }
 };

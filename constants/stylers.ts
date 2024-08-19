@@ -810,6 +810,19 @@ export const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
 
+    // Component - Books Library Add Button
+    libraryBooksScrollAddButton: {
+        alignItems: 'center',
+        alignSelf: 'flex-end',
+        justifyContent: 'center',
+        width: '40%',
+        height: '7%',
+        marginTop: '5%',
+        marginRight: '2%',
+        borderWidth: 2,
+        borderRadius: 5,
+    },
+
 // Components End
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -867,6 +880,12 @@ export const styles = StyleSheet.create({
     // Library Screen
     libraryBooksScreenMainView: {
         flex: 1,
+    },
+
+    libraryBooksScreenHeader: {
+        alignSelf: 'flex-end', 
+        flexDirection: 'row', 
+        width: '30%',
     },
 
     // DropDown Screen
@@ -1175,7 +1194,7 @@ export const styles = StyleSheet.create({
     uploadScreenButtonView: {
         flexDirection: 'row', 
         flex: 1, 
-        width: '70%', 
+        width: '80%', 
         marginBottom: '3%', 
         height: '100%'
     },

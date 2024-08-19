@@ -2,7 +2,7 @@
 import { ElectroPdf } from "../../components/Reading Screen/pdf"
 
 // React
-import { View, Dimensions, BackHandler } from "react-native";
+import { View, Text, Dimensions, BackHandler } from "react-native";
 import { useState, useCallback, useRef, useEffect } from "react";
 
 // Expo
@@ -99,7 +99,7 @@ export default function pdfScreen () {
 
     const headerRightIcons = useCallback(() => {
         return (
-            <View style={{flexDirection: 'row', gap: 10}}>
+            <View style={{flexDirection: 'row', gap: 10, width: '30%'}}>
                 <ElectroIcon 
                 name="bookmarks"
                 size={30}
@@ -139,10 +139,20 @@ export default function pdfScreen () {
         <View style={{flex: 1}}>
             <Stack.Screen
                     options={{
-                        headerTitleAlign: 'center',
+                        headerTitleAlign: 'left',
                         headerStyle: [styles.headerStyle, {backgroundColor: primaryColor}],
-                        headerTitleStyle: [styles.headerTitleStyle, {color: secondaryColor}],
-                        headerTitle: bookName.length > screenWidth/18 ? bookName.slice(0, screenWidth/18)+"..." : bookName,
+                        headerTitle: () => (
+                            <Text 
+                            style={{
+                                color: secondaryColor,
+                                fontSize: 20,
+                                fontWeight: 'bold',
+                                width: '70%',
+                                marginLeft: '7%'
+                                }}
+                            numberOfLines={1}
+                            >{bookName}</Text>
+                        ),                        
                         headerShown: headerVisible,
                         headerRight: headerRightIcons,
                         headerLeft: backIcon,

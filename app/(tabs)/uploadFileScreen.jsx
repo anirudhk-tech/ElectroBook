@@ -1,5 +1,5 @@
 // React
-import { View, ScrollView, Dimensions } from "react-native";
+import { View, ScrollView, Dimensions, BackHandler } from "react-native";
 import { useCallback, useEffect, useState } from "react";
 
 // Backend
@@ -32,7 +32,7 @@ import { useUploadAlert } from "../../hooks/useUploadAlert";
 export default function uploadFileScreen() {
   const setImageUri = useFileFunctions("image").setValue;
   const { primaryColor, secondaryColor } = useColor();
-  const {uploadAlertText} = useUploadAlert();
+  const { uploadAlertText } = useUploadAlert();
   const [advancedVisible, setAdvancedVisible] = useState("none");
   const [uploadAlertDisplay, setUploadAlertDisplay] = useState("none");
   const screenHeight = Dimensions.get("screen").height;
