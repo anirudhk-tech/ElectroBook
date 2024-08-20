@@ -1,9 +1,10 @@
 // Expo
 import { useLocalSearchParams, Stack, router } from "expo-router"
+import * as ScreenOrientation from "expo-screen-orientation";
 
 // React
 import { Dimensions, ScrollView, View, Image, Text, TouchableOpacity, BackHandler } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -25,6 +26,7 @@ import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookName } from "../../hooks/useBookName";
 import { useImageKey } from "../../hooks/useImageKey";
 import { useRefreshOptions } from "../../hooks/useRefreshOptions";
+import { useOrientationSignal } from "../../hooks/useOrientation";
 
 export default function bookScreen () {
     const { bookName } = useLocalSearchParams();
@@ -34,9 +36,11 @@ export default function bookScreen () {
     const { setData } = useEditNotes();
     const { refresh, setRefresh } = useRefreshOptions();
     const { primaryColor, secondaryColor } = useColor();
+    const { orientSignal } = useOrientationSignal();
     const [bookInfo, setBookInfo] = useState([]);
     const [imageUri, setImageUri] = useState("/?123");
     const [pressed, setPressed] = useState(false);
+    const [refreshOrientation, setRefreshOrientation] = useState(false);
     const screenHeight = Dimensions.get("screen").height;
     const screenWidth = Dimensions.get("screen").width;
 
@@ -77,6 +81,10 @@ export default function bookScreen () {
         );
     };
 
+    const setOrientation = async () => {
+        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    };
+
     
     useEffect(() => {
         useBookInfo(bookName).then(data => setBookInfo(data));
@@ -99,6 +107,11 @@ export default function bookScreen () {
   
         return () => handler.remove();
     }, []);
+
+    useEffect(() => {
+        setOrientation();
+        setTimeout(() => setRefreshOrientation(!refreshOrientation), 1000);
+    }, [orientSignal]);
 
     return (
         <ScrollView 

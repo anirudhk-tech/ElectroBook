@@ -55,7 +55,7 @@ export default function libraryBooksScreen () {
                 <ElectroMultiIcons
                     icons={[
                         { name: "search", handlePress: handleSearchPress },
-                        { name: "construct", handlePress: handleCreateIconPress },
+                        { name: "add", handlePress: handleCreateIconPress },
                       ]}
                 />
             </View>

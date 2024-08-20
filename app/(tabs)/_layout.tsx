@@ -1,9 +1,10 @@
 // Expo
-import { router, Tabs, useSegments } from "expo-router";
+import { router, Tabs } from "expo-router";
 
 // React
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { BackHandler } from "react-native";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 // Backend
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
@@ -25,6 +26,7 @@ export default function TabLayout() {
     const checkBack = () => {
       if (router.canDismiss()) {
         router.dismiss();
+        return true
       } else {
         if (screenName == "menuScreen") {
           router.navigate('/libraryScreen');
@@ -32,13 +34,21 @@ export default function TabLayout() {
         };
         router.navigate(`/${screenName}`);
       };
-      return true;
+      return true
     };
     
     const handler = BackHandler.addEventListener('hardwareBackPress', checkBack);
 
     return () => handler.remove();
   }, [blurScreen]);
+
+  useEffect(() => {
+    const lockPotrait = async () => {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+    };
+
+    lockPotrait();
+  }, []);
 
   return (
     <Tabs

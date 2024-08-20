@@ -2,12 +2,12 @@
 import { ElectroPdf } from "../../components/Reading Screen/pdf"
 
 // React
-import { View, Text, Dimensions, BackHandler } from "react-native";
+import { View, Text, BackHandler } from "react-native";
 import { useState, useCallback, useRef, useEffect } from "react";
 
 // Expo
 import { useLocalSearchParams, Stack, router } from "expo-router";
-
+import * as ScreenOrientation from 'expo-screen-orientation';
 // Backend
 import { styles } from "../../constants/stylers";
 
@@ -24,6 +24,7 @@ import { useEditRefresh } from "../../hooks/useEdit";
 import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookName } from "../../hooks/useBookName";
 import { usePdf } from "../../hooks/usePdf";
+import { useOrientation, useOrientationSignal } from "../../hooks/useOrientation";
 
 
 export default function pdfScreen () {
@@ -32,13 +33,13 @@ export default function pdfScreen () {
     const { setHeadToPage } = usePdf();
     const { primaryColor, secondaryColor } = useColor();
     const { setEditRefreshPage } = useEditRefresh();
+    const { orient, setOrient } = useOrientation();
+    const { setOrientSignal } = useOrientationSignal();
     const [headerVisible, setHeaderVisible] = useState(true);
     const [notesVisible, setNotesVisible] = useState(false);
     const [settingsVisible, setSettingsVisible] = useState(false);
     const [pdfPg, setPdfPg] = useState(0);
     const page = useRef();
-
-    const screenWidth = Dimensions.get("screen").width;
 
     const handleSinglePress = () => {
         if (notesVisible || settingsVisible) {
@@ -79,11 +80,25 @@ export default function pdfScreen () {
         setSettingsVisible(false);
     }, []);
 
+    const handleRotatePress = () => {
+        if (orient == "potraitUp") {
+            setOrient("landscapeRight");
+        } else {
+            setOrient("potraitUp");
+        };
+    };
+
     const updatePage = () => {
         useBookUpdate("page", bookName, page.current);
         setEditRefreshPage();
         router.dismiss();
         setHeadToPage(null);
+    };
+
+    const backAction = async () => {
+        setOrientSignal();
+        updatePage();
+        return true 
     };
 
     const backIcon = () => {
@@ -92,14 +107,20 @@ export default function pdfScreen () {
             name="arrow-back"
             size={30}
             color={secondaryColor}
-            handlePress={updatePage}
+            handlePress={backAction}
             />
         );
     };
 
     const headerRightIcons = useCallback(() => {
         return (
-            <View style={{flexDirection: 'row', gap: 10, width: '30%'}}>
+            <View style={{flexDirection: 'row', gap: 10, width: '40%'}}>
+                <ElectroIcon
+                name="git-compare"
+                size={30}
+                color={secondaryColor}
+                handlePress={handleRotatePress}
+                />
                 <ElectroIcon 
                 name="bookmarks"
                 size={30}
@@ -116,6 +137,13 @@ export default function pdfScreen () {
         )
     });
 
+    const setOrientation = async () => {
+        if (orient == "potraitUp") {
+            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+        } else {
+            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
+        };
+    };
 
     useEffect(() => {
         useBookInfo(bookName).then(data => {
@@ -125,15 +153,14 @@ export default function pdfScreen () {
     }, []);
 
     useEffect(() => {
-        const backAction = () => {
-            updatePage();
-            return true
-        };
-
         const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
 
         return () => handler.remove();
     }, []);
+
+    useEffect(() => {
+        setOrientation();
+    }, [orient]); 
 
     return (
         <View style={{flex: 1}}>

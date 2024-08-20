@@ -12,11 +12,13 @@ import { styles } from "../../constants/stylers";
 import { usePdf } from "../../hooks/usePdf";
 import { useBookUpdate } from "../../hooks/useBookUpdate";
 import { useBookName } from "../../hooks/useBookName";
+import { useOrientation } from "../../hooks/useOrientation";
 
 
 export const ElectroPdf = (props) => {
   const { bgColor, singlePage, headToPage } = usePdf();
   const { bookName } = useBookName();
+  const { orient } = useOrientation();
   const source = `${FileSystem.documentDirectory}All/${bookName}`
   const handleSingleTap = () => {
     props.onSingleTap();
@@ -35,7 +37,7 @@ export const ElectroPdf = (props) => {
           trustAllCerts={false}
           enableDoubleTapZoom={false}
           minScale={1.0}
-          scale={1.0}
+          scale={orient == "potraitUp" ? 1.0 : 2.0}
           maxScale={10.0}
           onPageChanged={(e) => props.onPageChange(e)}
           source={{ uri: source }}
