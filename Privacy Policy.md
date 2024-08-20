@@ -25,7 +25,7 @@ Collecting and Using Your Personal Data
 
 Types of Data Collected
 
-No data is collected by the app.
+No data is collected by the app. Your Personal Data is stored in your own phone.
 
 Contact Us
 
