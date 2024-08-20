@@ -1,5 +1,7 @@
 ElectroBook
+
 Privacy Policy
+
 Our Privacy Policy was last updated on 20 August 2024.
 This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your
 information when You use the Service and tells You about Your privacy rights and how the law protects You.
