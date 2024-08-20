@@ -19,7 +19,7 @@ Definitions
 
 For the purposes of this Privacy Policy:
 
-● "Personal Data" refers to the documents you upload onto the app for reading purposes
+● "Personal Data" refers to the documents and photos you upload onto the app for reading purposes
 
 Collecting and Using Your Personal Data
 
