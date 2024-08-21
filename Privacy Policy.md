@@ -1,6 +1,34 @@
-# Privacy Policy
+ElectroBook
 
-- All your data is stored on your device and does not travel through any network
+Privacy Policy
 
-- The PDFs you upload are transfered from your downloads and the app folder within your own device for the app's access. The photos you use as book covers will also be transferred in a similar fashion. Nothing else is accessed.
-- You give the permission to your data and upload all files yourself. The app doesn't automatically do anything. 
+Our Privacy Policy was last updated on 20 August 2024.
+
+This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your
+information when You use the Service and tells You about Your privacy rights and how the law protects You.
+
+Interpretation and Definitions
+
+Interpretation
+
+The words of which the initial letter is capitalized have meanings defined under the following conditions.
+The following definitions shall have the same meaning regardless of whether they appear in singular or in
+plural.
+
+Definitions
+
+For the purposes of this Privacy Policy:
+
+● "Personal Data" refers to the documents and photos you upload onto the app for reading purposes
+
+Collecting and Using Your Personal Data
+
+Types of Data Collected
+
+No data is collected by the app. Your Personal Data is stored in your own phone.
+
+Contact Us
+
+If you have any questions about this Privacy Policy, You can contact us:
+
+● By sending us an email: anirudhkuppili@gmail.com
