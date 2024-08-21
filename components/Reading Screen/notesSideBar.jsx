@@ -16,18 +16,26 @@ import { useBookUpdate } from "../../hooks/useBookUpdate";
 import { useColor } from "../../hooks/useTheme";
 import { useBookName } from "../../hooks/useBookName";
 import { useEditNotes, useEditRefresh } from "../../hooks/useEdit";
+import { useOrientationSignal } from "../../hooks/useOrientation";
+import { useEffect, useState } from "react";
 
 export const ElectroNotesSideBar = (props) => {
   const { primaryColor, secondaryColor } = useColor();
   const { setEditRefreshNotes } = useEditRefresh();
+  const { orientSignal } = useOrientationSignal();
   const { bookName } = useBookName();
   const { data } = useEditNotes();
+  const [render, setRender] = useState(true);
 
   const handleNotesClose = () => {
     props.handleNotesClose();
     useBookUpdate("note", bookName, data);
     setEditRefreshNotes();
   };
+
+  useEffect(() => {
+    setTimeout(() => setRender(!render), 200);
+  }, [orientSignal]);
 
     if (props.visible == true) {
       return (
@@ -45,7 +53,7 @@ export const ElectroNotesSideBar = (props) => {
               handlePress={handleNotesClose}
               />
             </View>
-            <ElectroNotesSideBarNotes visible={props.visible}/>
+            <ElectroNotesSideBarNotes/>
           </Animatable.View>
       );
     };

@@ -83,8 +83,24 @@ export default function pdfScreen () {
     const handleRotatePress = () => {
         if (orient == "potraitUp") {
             setOrient("landscapeRight");
+            setOrientSignal();
         } else {
             setOrient("potraitUp");
+            setOrientSignal();
+        };
+
+        if (notesVisible) {
+            setNotesVisible(false);
+            setTimeout(() => {
+                setNotesVisible(true);
+            }, 250);
+        };
+
+        if (settingsVisible) {
+            setSettingsVisible(false);
+            setTimeout(() => {
+                setSettingsVisible(true);
+            }, 250);
         };
     };
 
@@ -112,7 +128,7 @@ export default function pdfScreen () {
         );
     };
 
-    const headerRightIcons = useCallback(() => {
+    const headerRightIcons = () => {
         return (
             <View style={{flexDirection: 'row', gap: 10, width: '40%'}}>
                 <ElectroIcon
@@ -135,7 +151,7 @@ export default function pdfScreen () {
                 />
             </View>
         )
-    });
+    };
 
     const setOrientation = async () => {
         if (orient == "potraitUp") {

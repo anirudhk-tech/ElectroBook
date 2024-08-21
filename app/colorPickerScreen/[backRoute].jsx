@@ -2,10 +2,8 @@
 import ColorPicker, {
   Panel5,
   Preview,
-  OpacitySlider,
-  HueSlider,
-  Swatches,
 } from "reanimated-color-picker";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 // Backend
 import { styles } from "../../constants/stylers";
@@ -13,7 +11,7 @@ import { update_color } from "../backend/controller";
 
 // React
 import { View } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Expo
 import { Stack, useLocalSearchParams, router } from "expo-router";
@@ -27,6 +25,7 @@ import { useColor, changeTheme } from "../../hooks/useTheme";
 import { useMenuColor } from "../../hooks/useMenuColor";
 import { useMenuType } from "../../hooks/useMenuType";
 import { usePdf } from "../../hooks/usePdf";
+import { useOrientation } from "../../hooks/useOrientation";
 
 export default function colorPicker() {
   const { primaryColor, secondaryColor } = useColor();
@@ -36,6 +35,7 @@ export default function colorPicker() {
   const { backRoute } = useLocalSearchParams();
   const menuType = useMenuType().type;
   const { setBgColor } = usePdf();
+  const { orient } = useOrientation();
 
   const [hex, setHex] = useState("#ffffff");
 
@@ -48,7 +48,7 @@ export default function colorPicker() {
     };
   };
 
-  const handlePress = () => {
+  const handlePress = async () => {
     if (backRoute.includes("Primary")) {
       if (hex != "") {
         hex == secondaryColor ? {} : setPrimary(hex);
@@ -67,10 +67,21 @@ export default function colorPicker() {
       };
     } else if (backRoute == "pdf-BG-COLOR") {
       setBgColor(hex);
+      if (orient == "landscapeRight") {
+        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
+      };
     };
 
     router.dismiss();
   };
+
+  const setOrientation = async () => {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+  };
+
+  useEffect(() => {
+    setOrientation();
+  }, []);
 
   return (
     <View

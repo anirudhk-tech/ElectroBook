@@ -54,8 +54,9 @@ export const ElectroAddNotesBar = (props) => {
           styles.dropDownAddBarTouchable,
           {
             borderColor: primaryColor,
-            height: windowHeight / 9,
+            height: windowHeight / 7,
             width: windowWidth/1.5,
+            justifyContent: 'center'
           },
         ]}
         onPress={handleAddPress}

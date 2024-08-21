@@ -54,7 +54,7 @@ export const ElectroSettingsSideBar = (props) => {
               </View>
               <Animatable.View 
                   animation={"bounceIn"}
-                  delay={500}
+                  delay={100}
                   useNativeDriver={true}
                   style={styles.settingsSideBarButtonView}
               >
