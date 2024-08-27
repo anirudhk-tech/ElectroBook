@@ -2,7 +2,7 @@
   "expo": {
     "name": "ElectroBook",
     "slug": "ElectroBook_Latest",
-    "version": "5.0.0",
+    "version": "8.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/appLogo.png",
     "scheme": "myapp",

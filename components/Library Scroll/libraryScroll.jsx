@@ -6,34 +6,85 @@ import { useEffect, useMemo, useState } from "react";
 import { ElectroLibraryRowCard } from "./libraryRowCard";
 import { ElectroSearchLibraryBar } from "./searchLibraryBar";
 import { ElectroDropDownEmptyText } from "../DropDown/dropDownEmpty";
-
-// Hooks
-import { useData } from "../../hooks/useData";
+import { ElectroBookRowCard } from "../Books Library Scroll/bookRowCard";
+import { ElectroIcon } from "../General/icon";
 
 // Backend
 import { styles } from "../../constants/stylers";
 import { useSearchValue, useSearchData, useSearchActive } from "../../hooks/useSearch";
+import { fetch_recents } from "../../app/backend/controller";
+
+// Hooks
+import { useData } from "../../hooks/useData";
+import { useColor } from "../../hooks/useTheme";
+import { useRecents } from "../../hooks/useRecents";
 
 
 export const ElectroLibraryScroll = (props) => {
     const [libraries, setLibraries] = useState([]);
     const [flatListData, setFlatListData] = useState([]);
     const [searchData, setSearchData] = useState([]);
+    const [recents, setRecents] = useState([]);
+    const [recentDisplay, setRecentDisplay] = useState("flex");
+    const [libraryDisplay, setLibraryDisplay] = useState("flex");
     const { searchValue } = useSearchValue();
     const { searchActive } = useSearchActive();
+    const { primaryColor } = useColor();
+    const { recentsRefresh } = useRecents();
     const windowHeight = Dimensions.get("window").height;
 
     const librariesDataCreation = () => {
-        const flatListData = []
+        const flatListData = [];
+
+        
+        if (recents.length != 0) {
+            flatListData.push({
+                item: <ElectroIcon 
+                        name="time"
+                        color={primaryColor}
+                        size={50}
+                        handlePress={() => setRecentDisplay(recentDisplay == "flex" ? "none" : "flex")}
+                        />,
+                key: 0,
+            });
+        };
+
+        if (recents != null) {
+            for (let x = 0; x < recents.length; x++) {
+                flatListData.push({
+                    item: 
+                        <View style={{display: recentDisplay}}>
+                            <ElectroBookRowCard bookName={recents[x]}/>
+                        </View>,
+                    key: x + 1,
+                });
+            };
+        };
+
+        if (recents.length != 0) {
+            flatListData.push({
+                item: <ElectroIcon 
+                        name="library"
+                        color={primaryColor}
+                        size={50}
+                        handlePress={() => setLibraryDisplay(libraryDisplay == "flex" ? "none" : "flex")}
+                        />,
+                key: recents.length + 1,
+            });
+        };
+
         if (libraries != null) {
             for (let x = 0; x < libraries.length; x++) {
                 flatListData.push({
-                    item: <ElectroLibraryRowCard 
-                            libraryName={libraries[x].option} 
-                            libraryColor={libraries[x].color} 
-                            onPress={props.handleCardPress}
-                        />,
-                    key: x,
+                    item: 
+                        <View style={{display: libraryDisplay}}>
+                            <ElectroLibraryRowCard 
+                                libraryName={libraries[x].option} 
+                                libraryColor={libraries[x].color} 
+                                onPress={props.handleCardPress}
+                            />
+                        </View>,
+                    key: (x + 2) + recents.length,
                 });
             };
         };
@@ -43,12 +94,16 @@ export const ElectroLibraryScroll = (props) => {
 
     const librariesDataOrganize = useMemo(
         () => librariesDataCreation(), 
-        [libraries]
+        [libraries, recents, libraryDisplay, recentDisplay]
     );
     
     useEffect(() => {
         useData("library").then(data => setLibraries(data));
     }, []);
+
+    useEffect(() => {
+        fetch_recents().then(data => setRecents(data));
+    }, [recentsRefresh]);
 
     useEffect(() => {
         useSearchData(searchValue).then(data => setSearchData(data));
@@ -84,7 +139,7 @@ export const ElectroLibraryScroll = (props) => {
         if (!searchActive) {
             setFlatListData(librariesDataOrganize);            
         };
-    }, [libraries, searchActive]);
+    }, [libraries, recents, searchActive, libraryDisplay, recentDisplay]);
 
     if (!searchActive) {
         return (

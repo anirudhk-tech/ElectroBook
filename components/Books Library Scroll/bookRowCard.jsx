@@ -27,6 +27,7 @@ export const ElectroBookRowCard = (props) => {
     const handleCardPress = useBookCardPress().press;
     const [pressed, setPressed] = useState(false);
     const [bookInfo, setBookInfo] = useState([]);
+    const [recents, setRecents] = useState([]);
     
     const windowHeight = Dimensions.get("window").height;
 
@@ -53,7 +54,7 @@ export const ElectroBookRowCard = (props) => {
                     <Text style={[styles.bookCardRowPageText, {color: primaryColor}]}>On Pg. {bookInfo.page}</Text>
                     <ElectroIcon 
                         name="book"
-                        color={props.bookColor == "" || props.bookColor == "undefined" ? secondaryColor : props.bookColor}
+                        color={bookInfo.color == "" || bookInfo.color == undefined ? secondaryColor : bookInfo.color}
                         size={40}
                     />
                 </View>

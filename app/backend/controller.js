@@ -284,6 +284,12 @@ export const fetch_book = async (bookName) => {
   return bookData;
 };
 
+export const fetch_recents = async (bookName) => {
+  let recents = [];
+  await MMKV.recent(bookName).then(data => recents = data);
+  return recents;
+};
+
 
 
 

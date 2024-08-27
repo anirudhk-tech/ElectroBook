@@ -8,8 +8,10 @@ import { useState, useCallback, useRef, useEffect } from "react";
 // Expo
 import { useLocalSearchParams, Stack, router } from "expo-router";
 import * as ScreenOrientation from 'expo-screen-orientation';
+
 // Backend
 import { styles } from "../../constants/stylers";
+import { fetch_recents } from "../backend/controller";
 
 // Components
 import { ElectroIcon } from "../../components/General/icon";
@@ -25,6 +27,7 @@ import { useBookInfo } from "../../hooks/useBookInfo";
 import { useBookName } from "../../hooks/useBookName";
 import { usePdf } from "../../hooks/usePdf";
 import { useOrientation, useOrientationSignal } from "../../hooks/useOrientation";
+import { useRecents } from "../../hooks/useRecents";
 
 
 export default function pdfScreen () {
@@ -35,6 +38,7 @@ export default function pdfScreen () {
     const { setEditRefreshPage } = useEditRefresh();
     const { orient, setOrient } = useOrientation();
     const { setOrientSignal } = useOrientationSignal();
+    const { setRecentsRefresh } = useRecents();
     const [headerVisible, setHeaderVisible] = useState(true);
     const [notesVisible, setNotesVisible] = useState(false);
     const [settingsVisible, setSettingsVisible] = useState(false);
@@ -166,6 +170,10 @@ export default function pdfScreen () {
             setPdfPg(data.page);
         });
         setBookName(bookName);
+        fetch_recents(bookName);
+        setTimeout(() => {
+            setRecentsRefresh();
+        }, 2000);
     }, []);
 
     useEffect(() => {
