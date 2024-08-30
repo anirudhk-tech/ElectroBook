@@ -51,21 +51,21 @@ export const ElectroBookRowCard = (props) => {
                     }, 1000);
                 }}>
                 <View style={[styles.bookCardRowHeaderView, {backgroundColor: secondaryColor}]}>
-                    <Text style={[styles.bookCardRowPageText, {color: primaryColor}]}>On Pg. {bookInfo.page}</Text>
+                    <Text style={[styles.bookCardRowPageText, {color: primaryColor}]}>On Pg. {bookInfo ? bookInfo.page : null}</Text>
                     <ElectroIcon 
                         name="book"
-                        color={bookInfo.color == "" || bookInfo.color == undefined ? secondaryColor : bookInfo.color}
+                        color={bookInfo ? bookInfo.color == "" || bookInfo.color == undefined ? secondaryColor : bookInfo.color : secondaryColor}
                         size={40}
                     />
                 </View>
                 <View style={{flex: 6}}>
                     {
-                        !!bookInfo.imageUri && bookInfo.imageUri != "" ? (
+                        bookInfo ? !!bookInfo.imageUri && bookInfo.imageUri != "" ? (
                         <Image 
                             key={imageKey}
                             style={{display: bookInfo.imageUri == "" || bookInfo.imageUri == undefined ? "none" : "flex"}} 
                             source={{uri: bookInfo.imageUri + '?' + Date.now(), height: '100%', width: '100%'}}
-                        />) : null
+                        />) : null : null
                     }
                 </View>
                 <Text style={[styles.bookCardRowText, {color: primaryColor, backgroundColor: secondaryColor}]} numberOfLines={3}>{props.bookName}</Text>

@@ -28,7 +28,6 @@ import { useFileFunctions } from "../../hooks/useFileFunctions";
 import { useColor } from "../../hooks/useTheme";
 import { useUploadAlert } from "../../hooks/useUploadAlert";
 
-
 export default function uploadFileScreen() {
   const setImageUri = useFileFunctions("image").setValue;
   const { primaryColor, secondaryColor } = useColor();
@@ -36,6 +35,7 @@ export default function uploadFileScreen() {
   const [advancedVisible, setAdvancedVisible] = useState("none");
   const [uploadAlertDisplay, setUploadAlertDisplay] = useState("none");
   const screenHeight = Dimensions.get("screen").height;
+
 
   const handleImagePress = useCallback(() => {
     create_image(setImageUri);

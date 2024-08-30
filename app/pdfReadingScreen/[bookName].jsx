@@ -167,7 +167,7 @@ export default function pdfScreen () {
 
     useEffect(() => {
         useBookInfo(bookName).then(data => {
-            setPdfPg(data.page);
+            setPdfPg(data ? data.page : 1);
         });
         setBookName(bookName);
         fetch_recents(bookName);

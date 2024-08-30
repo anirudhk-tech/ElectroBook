@@ -52,7 +52,7 @@ export const recent = async (bookName) => {
     return recents;
 
   } catch {
-    return "error";
+    return [];
 
   };
 };

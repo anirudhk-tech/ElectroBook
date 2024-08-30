@@ -22,13 +22,13 @@ export default function startingScreen() {
 
   const { check } = useChecks();
   const { primaryColor, secondaryColor } = useColor();
-  const startingRouter = useCallback(() => {
+  const startingRouter = () => {
     if (check == true) {
       router.push("./libraryScreen");
     } else {
       router.push("../(tabs)/registerScreen");
     };
-  }, [check]);
+  };
 
   return (
     <Animatable.View
