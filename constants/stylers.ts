@@ -694,7 +694,8 @@ export const styles = StyleSheet.create({
 
     readingTestScreenTexts: {
         textAlignVertical: 'center',
-        lineHeight: 20
+        lineHeight: 20,
+        textAlign: 'justify'
     },
 
     readingTestScreenIconSentenceView: {
@@ -1025,8 +1026,8 @@ export const styles = StyleSheet.create({
     },
 
     readingTestScreenMainScrollView: {
-        padding: 5, 
-        gap: 20
+        padding: 15, 
+        gap: 20,
     },
 
     readingTestScreenButton: {

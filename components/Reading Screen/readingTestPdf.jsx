@@ -22,34 +22,29 @@ export const ElectroReadingTestPDF = (props) => {
         <ScrollView 
             contentContainerStyle={[styles.readingTestScreenMainScrollView, { height: height * 1.5, paddingTop: height/15, backgroundColor: secondaryColor}]}>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            Please read through each word carefully and as quickly as you can while still maintaining comprehension. There are some features that are available at your disposal while you read. Unfortunately, they are disabled for now.
+            {`\t\t\t`}The mysterious, black box beckoned me towards it, promising unlimited wealth. My eyes traveled its length as I examined the golden plating on its edges, running my hand over its smooth surface. The words Trent Williams gleamed on it, reflecting the dim sunlight that filtered through the cracks in the hull. My father. 
+ 
             </Text>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            Usually while reading PDFs, you can tap the screen once to activate/deactivate the header, where all the features are located. These are the commands available:
+            {`\t\t\t`}I cracked it open, holding my breath. A rolled up paper stared back at me, its edges yellow with age. I cautiously unfurled it, my eyes scanning the message. 
             </Text>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            Single Page: Toggle whether or not you see only one page at a time
+            {`\t\t\t`}48.882768, -15.245560.
             </Text>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            Background Color: Set the background color of the screen behind the PDF
+            {`\t\t\t`}This could change our lives. 
             </Text>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            To Page: Go to a specific page in the PDF
+            {`\t\t\t`}I swiped the box off the table, making my way up to the deck. The English channel sparkled in the evening sun, and some lone boats floated around in the current. The breeze carried the smell of the river to my nostrils. I vaulted over the railing of the Pegasus, landing below softly. 
             </Text>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            Once out of the reading screen, you will also see the hammer icon. Here, you can edit all your data and information.
+            {`\t\t\t`}I took one last look at my father’s ship, assessing its withered form. Her white paint had started to peel a long time ago, revealing the damaged hull underneath. My father had just abandoned it, leaving it in our care while he went off on his journey.
             </Text>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            If you delete a library, all files in the library will be deleted as well. Be careful!
+            {`\t\t\t`}He never came back. 
             </Text>
             <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            To upload multiple files to a library, long press a file. All the information you entered, except the title--to prevent duplicates, will be applied to every one of the files. 
-            </Text>
-            <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            There is also a search functionality that also serves as a filter. Type a genre, trope, series, author, or title in there.
-            </Text>
-            <Text style={[styles.readingTestScreenTexts, {fontSize: height/55, color: primaryColor}]}>
-            After completing the reading, you will be directed to the library. You can view your reading test results in the “Stats” section. The test is now over.
+            {`\t\t\t`}I kicked up dust as I strode towards our house purposefully, clutching the box in my hand tightly. 
             </Text>
             <ElectroButton
                 action={handleSinglePress}

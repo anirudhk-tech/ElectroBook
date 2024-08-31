@@ -17,7 +17,7 @@ import { ElectroIcon } from "../../components/General/icon";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useLibraryCardPress, useLibraryIconPress, useSearchBarPress, useSelectedLibrary } from "../../hooks/useLibraryCardPress";
+import { useLibraryCardPress, useLibraryIconPress, useSearchBarPress } from "../../hooks/useLibraryCardPress";
 import { useSearchActive, useSearchValue } from "../../hooks/useSearch";
 
 export default function libraryScreen() {
