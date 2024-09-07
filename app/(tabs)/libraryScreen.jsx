@@ -17,7 +17,7 @@ import { ElectroIcon } from "../../components/General/icon";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useLibraryCardPress, useLibraryIconPress, useSearchBarPress } from "../../hooks/useLibraryCardPress";
+import { useBookCardPress, useLibraryCardPress, useLibraryIconPress, useSearchBarPress } from "../../hooks/useLibraryCardPress";
 import { useSearchActive, useSearchValue } from "../../hooks/useSearch";
 
 export default function libraryScreen() {
@@ -28,6 +28,7 @@ export default function libraryScreen() {
   const setLibraryIconPress = useLibraryIconPress().setPress;
   const { searchActive, setSearchActive } = useSearchActive();
   const { setSearchValue } = useSearchValue();
+  const setBookCardPress = useBookCardPress().setPress;
   const windowHeight = Dimensions.get("window").height;
 
   const handleMenuPress = useCallback(() => {
@@ -42,6 +43,10 @@ export default function libraryScreen() {
     router.navigate(`./libraryScreen`);
   }, []);
 
+  const handleBookCardPress = (bookName) => {
+    router.push(`../bookScreen/${bookName}`);
+  };
+
   const handleSearchBarPress = (name, library) => {
       if (library) {
         router.push(`../namedLibraryScreen/${name}`) 
@@ -54,6 +59,7 @@ export default function libraryScreen() {
     setLibraryCardPress(handleLibraryCardPress);
     setLibraryIconPress(handleLibraryIconPress);
     setSearchBarPress(handleSearchBarPress);
+    setBookCardPress(handleBookCardPress);
   };
 
   useEffect(() => {

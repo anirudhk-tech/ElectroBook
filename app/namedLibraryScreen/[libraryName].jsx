@@ -16,14 +16,12 @@ import { styles } from "../../constants/stylers";
 
 // Hooks
 import { useColor } from "../../hooks/useTheme";
-import { useBookCardPress } from "../../hooks/useLibraryCardPress";
 import { useBookSearchActive, useSearchActive, useSearchValue } from "../../hooks/useSearch";
 
 
 export default function libraryBooksScreen () {
     const { libraryName } = useLocalSearchParams();
     const { primaryColor, secondaryColor } = useColor();
-    const setBookCardPress = useBookCardPress().setPress;
     const { searchActive, setSearchActive } = useBookSearchActive();
     const setMainSearchActive = useSearchActive().setSearchActive
     const { setBookSearchValue } = useSearchValue();
@@ -75,9 +73,6 @@ export default function libraryBooksScreen () {
     }, []);
 
     useEffect(() => {
-        const handleCardPress = (bookName) => {
-            router.push(`../bookScreen/${bookName}`);
-        };
 
         const backAction = () => {
             handleBackPress();
@@ -85,7 +80,6 @@ export default function libraryBooksScreen () {
         };
         
         const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
-        setBookCardPress(handleCardPress);
 
         return () => handler.remove();
     }, []);
